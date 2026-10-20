@@ -1,0 +1,5 @@
+Lucide Icons, via the installed @iconify-json/lucide 1.2.142 package.
+Source: https://github.com/lucide-icons/lucide
+Icon set: https://icon-sets.iconify.design/lucide/
+License: ISC; Feather-derived icons retain the MIT notice. See LICENSE.txt.
+Only selected symbols are embedded in index.html. No runtime CDN or icon font.
