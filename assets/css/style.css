@@ -1285,7 +1285,6 @@ h1, h2, h3 { text-wrap: balance; }
 .download-card h4 { font-size: 21px; letter-spacing: -.02em; }
 .download-card p { margin: 8px 0 24px; font-size: 13px; color: var(--ink-3); }
 .download-card .btn { width: 100%; min-height: 44px; padding-inline: 12px; text-align: center; white-space: normal; }
-.download-pending { color: var(--ink-3); cursor: default; }
 .download-license { margin-top: 24px; }
 .download-license a { color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 760px) { .download-intro { grid-template-columns: 1fr; gap: 16px; } .download-grid { grid-template-columns: 1fr; } .download-card { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px 16px; } .download-card h4 { grid-column: 1; } .download-card p { grid-column: 1; margin: 0; } .download-card .btn { grid-column: 2; grid-row: 1 / 3; max-width: 190px; } }
