@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Primary SEO -->
-  <title>FlowCore — ombor, ishlab chiqarish, ish haqi, CRM va o‘quv markazi uchun yagona tizim</title>
-  <meta name="description" content="FlowCore biznes jarayonlarini bitta tizimga yig‘adi: ombor hisobi (WMS), ishlab chiqarish (ERP), davomat va ish haqi (HR), Telegram va Instagram mijozlari (CRM), o‘quv markazi (LMS). Bulutda yoki o‘z kompyuteringizda, to‘liq o‘zbek tilida.">
+  <title>FlowCore — ombor, ishlab chiqarish va CRM dasturi</title>
+  <meta name="description" content="Ombor hisobi, ishlab chiqarish, ish haqi, CRM va o‘quv markazi uchun o‘zbekcha dastur. FlowCore modullarini tanlang, Bulut yoki Desktopda ishlang. Bepul demo oling.">
   <meta name="keywords" content="FlowCore, ERP O‘zbekiston, ombor dasturi, ombor hisobi, WMS, ishlab chiqarish dasturi, tikuv sexi dasturi, ish haqi hisoblash, donabay ish haqi, HR dasturi, CRM, Telegram CRM, Instagram CRM, o‘quv markazi dasturi, LMS, biznes avtomatlashtirish">
   <meta name="author" content="FlowCore">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -22,7 +22,7 @@
   <meta property="og:site_name" content="FlowCore">
   <meta property="og:locale" content="uz_UZ">
   <meta property="og:url" content="https://flowcore.uz/">
-  <meta property="og:title" content="FlowCore — ombordan sinfxonagacha, hammasi bitta oqimda">
+  <meta property="og:title" content="FlowCore — ombor, ishlab chiqarish va CRM dasturi">
   <meta property="og:description" content="Ombor, ishlab chiqarish, ish haqi, mijozlar va o‘quv markazi bitta tizimda. O‘zbek tilida, bulutda yoki o‘z kompyuteringizda.">
   <meta property="og:image" content="https://flowcore.uz/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -31,9 +31,10 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="FlowCore — ombordan sinfxonagacha, hammasi bitta oqimda">
+  <meta name="twitter:title" content="FlowCore — ombor, ishlab chiqarish va CRM dasturi">
   <meta name="twitter:description" content="Ombor, ishlab chiqarish, ish haqi, mijozlar va o‘quv markazi bitta tizimda.">
   <meta name="twitter:image" content="https://flowcore.uz/og-image.png">
+  <meta name="twitter:image:alt" content="FlowCore: ombor, ishlab chiqarish, HR, CRM va LMS modullari">
 
   <!-- Icons & manifest -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -44,7 +45,6 @@
   <script>
     (function () {
       var d = document.documentElement;
-      d.classList.add('js');
       try { var t = localStorage.getItem('fc-theme'); if (t === 'light' || t === 'dark') d.dataset.theme = t; } catch (e) {}
     })();
   </script>
@@ -54,7 +54,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Caveat:wght@500;600&family=Inter:wght@700&family=JetBrains+Mono:wght@400;500;700&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=6ff79a55df">
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -79,6 +79,23 @@
       }
     },
     {
+      "@type": "WebPage",
+      "@id": "https://flowcore.uz/#webpage",
+      "url": "https://flowcore.uz/",
+      "name": "FlowCore — ombor, ishlab chiqarish va CRM dasturi",
+      "description": "Ombor hisobi, ishlab chiqarish, ish haqi, CRM va o‘quv markazi uchun o‘zbek tilidagi modulli biznes dasturi.",
+      "inLanguage": "uz",
+      "isPartOf": {
+        "@id": "https://flowcore.uz/#website"
+      },
+      "about": {
+        "@id": "https://flowcore.uz/#software"
+      },
+      "publisher": {
+        "@id": "https://flowcore.uz/#organization"
+      }
+    },
+    {
       "@type": "SoftwareApplication",
       "name": "FlowCore",
       "applicationCategory": "BusinessApplication",
@@ -96,7 +113,10 @@
       ],
       "publisher": {
         "@id": "https://flowcore.uz/#organization"
-      }
+      },
+      "@id": "https://flowcore.uz/#software",
+      "url": "https://flowcore.uz/",
+      "isAccessibleForFree": false
     },
     {
       "@type": "FAQPage",
@@ -341,7 +361,8 @@
               <p class="product-description" id="tour-description">Qaysi mahsulot qancha qoldi, nimani buyurtma qilish kerak — bir qarashda ko‘ring.</p>
               <div class="product-metrics" id="tour-metrics"></div>
               <div class="product-toolbar"><label class="product-search"><span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>search</title><use href="#icon-search"></use></svg></span><span class="sr-only">Namuna jadvalidan qidirish</span><input type="search" id="tour-search" placeholder="Mahsulot nomini qidiring" autocomplete="off" maxlength="80"></label><button type="button" class="btn btn-ink" id="tour-action"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>plus</title><use href="#icon-plus"></use></svg><span data-label>100 m mato kirim</span></button></div>
-              <div class="product-table-wrap" role="region" aria-label="Namuna jadvali" tabindex="0"><table class="product-table"><caption class="sr-only" id="tour-caption">Namunaviy ombor qoldiqlari</caption><thead id="tour-head"></thead><tbody id="tour-body"></tbody></table></div>
+              <p class="table-hint" id="tour-table-hint">Jadvalni to‘liq ko‘rish uchun yon tomonga suring.</p>
+              <div class="product-table-wrap" aria-describedby="tour-table-hint" role="region" aria-label="Namuna jadvali" tabindex="0"><table class="product-table"><caption class="sr-only" id="tour-caption">Namunaviy ombor qoldiqlari</caption><thead id="tour-head"></thead><tbody id="tour-body"></tbody></table></div>
               <p class="product-feedback" id="tour-feedback" role="status" aria-live="polite"></p>
               <div class="product-takeaway"><span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>corner-down-right</title><use href="#icon-corner-down-right"></use></svg></span><p id="tour-takeaway">Natija: xaridni qoldiqqa qarab rejalashtirasiz, xomashyo yetishmovchiligini oldindan ko‘rasiz.</p><a id="tour-more" href="#m-wms">Batafsil <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></a></div>
             </div>
@@ -978,7 +999,7 @@
             <label for="f-name"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>circle-user-round</title><use href="#icon-circle-user-round"></use></svg>Ismingiz</label>
           </div>
           <div class="field">
-            <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" required placeholder=" " aria-describedby="formMsg phoneHint">
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" enterkeyhint="next" inputmode="tel" maxlength="24" required placeholder=" " aria-describedby="formMsg phoneHint">
             <label for="f-phone"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>phone</title><use href="#icon-phone"></use></svg>Telefon raqam</label>
           </div>
           <div class="field">
@@ -1034,7 +1055,7 @@
     <span class="arr" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-right</title><use href="#icon-arrow-right"></use></svg></span>
   </a>
 
-  <script src="assets/js/main.js" defer></script>
-  <script src="assets/js/tour.js" defer></script>
+  <script src="assets/js/main.js?v=386b9d724c" defer></script>
+  <script src="assets/js/tour.js?v=494cddaba5" defer></script>
 </body>
 </html>

@@ -59,13 +59,17 @@
   /* ---------- Header, progress, active nav ---------- */
   const header = $('.site-header');
   const progress = $('.scroll-progress');
+  let scrollFrame = 0;
   const onScroll = () => {
+    scrollFrame = 0;
     header.classList.toggle('scrolled', scrollY > 8);
     const max = document.documentElement.scrollHeight - innerHeight;
     progress.style.setProperty('--sp', max > 0 ? (scrollY / max).toFixed(4) : 0);
   };
   onScroll();
-  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('scroll', () => {
+    if (!scrollFrame) scrollFrame = requestAnimationFrame(onScroll);
+  }, { passive: true });
 
   const navLinks = $$('.nav a[href^="#"]:not(.btn)');
   const navObserver = new IntersectionObserver((entries) => {
@@ -77,10 +81,16 @@
 
   const nav = $('#nav');
   const navToggle = $('#navToggle');
+  const mobileNavMq = window.matchMedia('(max-width: 860px)');
+  const syncNavAvailability = () => {
+    nav.inert = mobileNavMq.matches && !nav.classList.contains('open');
+  };
+  syncNavAvailability();
   const setNav = (open) => {
     nav.classList.toggle('open', open);
     navToggle.setAttribute('aria-expanded', String(open));
     navToggle.setAttribute('aria-label', open ? 'Menyuni yopish' : 'Menyuni ochish');
+    syncNavAvailability();
     syncFloat();
   };
   navToggle.addEventListener('click', () => setNav(!nav.classList.contains('open')));
@@ -89,7 +99,15 @@
     if (e.key === 'Escape' && nav.classList.contains('open')) { setNav(false); navToggle.focus(); }
   });
   document.addEventListener('click', (e) => { if (!header.contains(e.target)) setNav(false); });
-  window.matchMedia('(min-width: 861px)').addEventListener('change', (e) => { if (e.matches) setNav(false); });
+  mobileNavMq.addEventListener('change', () => { setNav(false); });
+  header.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab' || !mobileNavMq.matches || !nav.classList.contains('open')) return;
+    const controls = $$('a, button', header).filter(el => el.getClientRects().length && !el.disabled);
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 
   /* ---------- Clock ---------- */
   const clock = $('#clock');
@@ -139,6 +157,7 @@
       revealObserver.unobserve(entry.target);
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+  root.classList.add('js');
   $$('.reveal, .split').forEach((el) => revealObserver.observe(el));
 
   /* ---------- Split-flap boards ---------- */
@@ -276,7 +295,7 @@
   let heroVisible = false;
   new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; }).observe(heroBoard.el);
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(() => {
-    if (reduceMotion) return;
+    if (reduceMotion || !finePointer || !heroVisible || document.hidden) return;
     heroBoard.blank();
     heroBoard.set(heroInitial(), true);
   }, 300));

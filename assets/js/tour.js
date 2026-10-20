@@ -115,6 +115,11 @@
       const selected = tab.dataset.tour === current;
       tab.setAttribute('aria-selected', String(selected));
       tab.tabIndex = selected ? 0 : -1;
+      if (selected && tab.parentElement.scrollWidth > tab.parentElement.clientWidth) {
+        const strip = tab.parentElement;
+        const offset = tab.getBoundingClientRect().left - strip.getBoundingClientRect().left;
+        strip.scrollLeft += offset - (strip.clientWidth - tab.offsetWidth) / 2;
+      }
     });
     $('#tour-metrics').replaceChildren(...definition.metrics().map(([label, value, note]) => {
       const box = node('div', undefined, 'product-metric');

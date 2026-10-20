@@ -58,3 +58,27 @@ apply its recommendation, select an industry and change deployment type. Ensure
 ERP includes WMS. Validate an empty form and a valid request; confirm the selected
 bundle is present in the draft, and test copy, TXT and email/Telegram delivery.
 The static folder sends leads to `/api/public/leads`, implemented in the platform app/backend. Route this path to the app when serving this folder separately. Override `window.FLOWCORE_LEADS_ENDPOINT` before main.js for a separate app origin, and allow the landing origin in backend `ALLOWED_ORIGINS`. See `../docs/ADMIN-LEADS-2026-10-19.md` for setup. Social accounts require their own webhook configuration.
+
+## Mobile and SEO update (2026-10-20)
+
+- Responsive cards and timetable use shrinkable grid tracks; navigation tools stay
+  at the right edge on phones. The demo table keeps its own horizontal scroll.
+- Mobile navigation makes closed links inert, supports Escape and a keyboard focus
+  loop, and scrolls within the available viewport in landscape. Without JavaScript,
+  navigation and page content remain visible.
+- Touch controls have 44px targets. Payroll sliders keep a thin visible track with
+  a larger hit area; the comparison slider covers the whole comparison panel.
+- Mobile search uses 16px text to avoid focus zoom on iOS. The floating demo link
+  respects the bottom safe area; narrow demo metrics stack into readable rows.
+- The initial phone hero appears without an entrance delay, the decorative texture
+  is disabled on phones, and scroll progress updates at most once per frame.
+- Search metadata is more concise, WebPage and SoftwareApplication have linked
+  structured-data identifiers, and social images have text alternatives. Canonical
+  URLs remain `https://flowcore.uz/`. Sitemap modification date reflects this update.
+- CSS and JavaScript URLs include content hashes. Refresh these query hashes after
+  changing assets to avoid clients reusing old cached files.
+
+Local browser checks covered widths 320, 375, 390, 430, 640, 768, 860, 861, 900,
+960, 1000, 1024 and 1440px with no page-level horizontal overflow. Menu, demo search,
+LMS sample payment/reset and theme switching were exercised. Production delivery,
+Search Console indexing and real-device Safari still require deployment checks.
