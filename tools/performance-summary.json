@@ -1,0 +1,25 @@
+{
+  "scope": "Homepage CSS and JavaScript, excluding HTML and fonts",
+  "beforeBytes": 139482,
+  "afterBytes": 108866,
+  "reductionPercent": 21.9,
+  "gzipBytes": 30070,
+  "fonts": {
+    "externalFamiliesBefore": 5,
+    "externalRequestsAfter": 0,
+    "localFilesAfter": 2,
+    "localBytes": 113316
+  },
+  "verification": {
+    "publicPages": 6,
+    "productViewportWidths": [
+      320,
+      768,
+      1440
+    ],
+    "browserErrors": 0,
+    "productionDeployed": false,
+    "fieldCoreWebVitalsMeasured": false,
+    "note": "Byte sizes are measured from files. Gzip requires hosting configuration; no production speed score or ranking is claimed."
+  }
+}

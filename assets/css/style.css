@@ -1,3 +1,6 @@
+/* Locally hosted Latin fonts include Uzbek apostrophes and currency symbols. */
+@font-face { font-family: "Bricolage Grotesque"; font-style: normal; font-weight: 500 800; font-stretch: 82%; font-display: optional; src: url("../fonts/bricolage-latin-v9.woff2") format("woff2"); }
+@font-face { font-family: "Onest"; font-style: normal; font-weight: 400 700; font-display: optional; src: url("../fonts/onest-latin-v11.woff2") format("woff2"); }
 /* =====================================================================
    FlowCore landing
    Editorial / industrial direction: warm paper (light), ink (dark),
@@ -49,9 +52,9 @@
   --ease: cubic-bezier(.2, .8, .2, 1);
   --f-display: "Bricolage Grotesque", "Onest", system-ui, sans-serif;
   --f-body: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --f-hand: "Caveat", "Comic Sans MS", cursive;
-  --f-logo: "Inter", system-ui, sans-serif;
+  --f-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --f-hand: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  --f-logo: "Onest", system-ui, sans-serif;
   color-scheme: light;
 }
 
@@ -1248,3 +1251,26 @@ h1, h2, h3 { text-wrap: balance; }
 @media (max-width: 640px) {
   .hero-title .w > span, .hero .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* Section names and purposes stay readable without technical abbreviations. */
+.industry-choice { grid-template-columns: 44px minmax(0, 1.05fr) minmax(0, 1.5fr) 20px; }
+.industry-choice .industry-arrow { grid-column: -2; grid-row: 1; }
+.t-value, .quiz-bundle { overflow-wrap: anywhere; }
+.tog-txt small { white-space: normal; }
+@media (max-width: 1000px) {
+  .industry-choice { grid-template-columns: 30px minmax(0, 1fr) 20px; }
+}
+@media (max-width: 640px) {
+  .industry-choice { grid-template-columns: minmax(0, 1fr) 20px; }
+  .industry-choice .i-desc { grid-column: 1 / -1; }
+  .sb-card header { flex-wrap: wrap; }
+  .sb-from { white-space: normal; font-size: 11px; }
+}
+.tog-txt { flex-direction: column; align-items: flex-start; gap: 4px; }
+.tog-txt small { font-size: 12px; line-height: 1.4; text-align: left; }
+.module-shortcut small { font-size: 13px; }
+
+/* The primary message is painted immediately on every screen size. */
+.hero-title .w > span, .hero .reveal { opacity: 1; transform: none; transition: none; }
+.module-search-name { color: var(--accent-text); font-size: 13px; font-weight: 600; margin: 12px 0; }
+.module-details-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; color: var(--accent-text); text-decoration: underline; text-underline-offset: 4px; font-size: 14px; }

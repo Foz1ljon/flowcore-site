@@ -30,8 +30,9 @@
   /* ---------- Theme ---------- */
   const themeBtn = $('#themeToggle');
   const darkMq = window.matchMedia('(prefers-color-scheme: dark)');
-  const currentTheme = () => root.dataset.theme || (darkMq.matches ? 'dark' : 'light');
+  const currentTheme = () => root.dataset.theme || 'light';
   const syncThemeLabel = () => {
+    $('#themeColor').content = currentTheme() === 'dark' ? '#09090b' : '#fafafa';
     themeBtn.setAttribute('aria-label', currentTheme() === 'dark' ? 'Kunduzgi rejimga o‘tish' : 'Tungi rejimga o‘tish');
   };
   const applyTheme = (theme) => {
@@ -113,10 +114,10 @@
   const clock = $('#clock');
   const tickClock = () => { clock.textContent = tashkentTime(); };
   tickClock();
-  setInterval(tickClock, 15000);
+  setInterval(() => { if (!document.hidden) tickClock(); }, 15000);
 
   /* ---------- Split headings into words ---------- */
-  $$('.split').forEach((el) => {
+  $$('.split:not(.hero-title)').forEach((el) => {
     let i = 0;
     const wrap = (inner, free = false) => {
       const w = document.createElement('span');
@@ -257,7 +258,7 @@
   const EVENTS = [
     { m: 'WMS', t: '+500 M MATO KIRIM QILINDI', s: '+500 M MATO KIRIM', st: 'OK' },
     { m: 'ERP', t: '#1042 DAZMOL BOSQICHIDA', s: '#1042 DAZMOLDA', st: 'JARAYON' },
-    { m: 'CRM', t: 'TELEGRAM: YANGI LID', s: 'TELEGRAM: YANGI LID', st: 'YANGI' },
+    { m: 'CRM', t: 'TELEGRAM: YANGI SO‘ROV', s: 'TELEGRAM: YANGI SO‘ROV', st: 'YANGI' },
     { m: 'HR', t: 'MALIKA A.: 480 DONA', s: 'MALIKA: 480 DONA', st: 'OK' },
     { m: 'LMS', t: 'INGLIZ B1: DAVOMAT 24/26', s: 'B1 DAVOMAT 24/26', st: 'OK' },
     { m: 'WMS', t: 'IP QORA: QOLDIQ KAM', s: 'IP QORA: KAM', st: 'DIQQAT' },
@@ -274,13 +275,13 @@
     { m: 'WMS', t: 'TUGMA: 8 600 DONA', s: 'TUGMA: 8 600', st: 'OK' },
     { m: 'LMS', t: '203-XONA: TO‘QNASHUV', s: '203: TO‘QNASHUV', st: 'DIQQAT' },
     { m: 'CRM', t: 'ERTAGA 3 TA QO‘NG‘IROQ', s: '3 TA QO‘NG‘IROQ', st: 'JARAYON' },
-    { m: 'ERP', t: '#1043: BRAK 2 DONA', s: '#1043 BRAK 2', st: 'DIQQAT' },
+    { m: 'ERP', t: '#1043: YAROQSIZ 2 DONA', s: '#1043 YAROQSIZ 2', st: 'DIQQAT' },
   ];
   const HERO_ROWS = 5;
   const heroBoard = createBoard($('#board'), $('#boardRows'), {
     rows: HERO_ROWS,
-    wide: [['time', 5], ['m', 3], ['t', 24], ['st', 7]],
-    compact: [['m', 3], ['s', 18]],
+    wide: [['time', 5], ['t', 24], ['st', 7]],
+    compact: [['s', 20]],
   });
   let heroFilter = '';
   let heroCursor = 0;
@@ -315,11 +316,23 @@
   });
 
   /* ---------- §03 Sandbox: one core, cascading modules ---------- */
-  const sbBoard = createBoard($('#sbBoard'), $('#sbRows'), {
-    rows: 6,
-    wide: [['time', 5], ['m', 3], ['t', 22]],
-    compact: [['m', 3], ['s', 16]],
-  });
+  let sandboxBoard;
+  let sandboxFeed = [];
+  const initSandboxBoard = () => {
+    if (sandboxBoard) return;
+    sandboxBoard = createBoard($('#sbBoard'), $('#sbRows'), {
+      rows: 6, wide: [['time', 5], ['t', 22]], compact: [['s', 18]],
+    });
+    sandboxBoard.set(sandboxFeed, false);
+  };
+  const sbBoard = {
+    set(feed) { sandboxFeed = feed.slice(0, 6); if (sandboxBoard) sandboxBoard.set(sandboxFeed, false); },
+    push(event) { initSandboxBoard(); sandboxBoard.push(event); },
+  };
+  const sandboxObserver = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) { initSandboxBoard(); sandboxObserver.disconnect(); }
+  }, { rootMargin: '300px' });
+  sandboxObserver.observe($('#sbBoard'));
   const SB_START = () => ({ newL: 2, talk: 1, won: 0, order: { no: 1043, stage: 0 }, backlog: 0, nextNo: 1044, mato: 140, shirt: 312, pieces: 480 });
   const QTY = 50;
   const MATO_PER = 2.5;
@@ -340,7 +353,7 @@
   };
   const hit = (mod, from) => {
     const card = sbCards[mod];
-    card.querySelector('.sb-from').textContent = from ? `← ${from}` : '';
+    card.querySelector('.sb-from').textContent = from ? `← ${{ CRM: 'Mijozlar', ERP: 'Buyurtma', WMS: 'Ombor', HR: 'Ish haqi' }[from] || from}` : '';
     card.classList.remove('hit');
     void card.offsetWidth;
     card.classList.add('hit');
@@ -377,18 +390,18 @@
       stages.forEach((li, i) => { li.className = i < sb.order.stage ? 'done' : i === sb.order.stage ? 'now' : ''; });
       btn.disabled = false;
       setLabel(btn, sb.order.stage === 3 ? 'Yakunlash va omborga o‘tkazish' : `${STAGES[sb.order.stage]} tayyor`);
-      note.textContent = `${QTY} ta ko‘ylak · retsept bo‘yicha ${group(QTY * MATO_PER)} m mato${sb.backlog ? ` · navbatda ${sb.backlog}` : ''}`;
+      note.textContent = `${QTY} ta ko‘ylak · hisob bo‘yicha ${group(QTY * MATO_PER)} m mato${sb.backlog ? ` · navbatda ${sb.backlog}` : ''}`;
     } else {
       sbEl('sb-order').textContent = '—';
       stages.forEach((li) => { li.className = 'done'; });
       btn.disabled = true;
       setLabel(btn, 'Faol buyurtma yo‘q');
-      note.textContent = 'Yangi buyurtma CRM’da bitim yopilganda paydo bo‘ladi.';
+      note.textContent = 'Yangi buyurtma Mijozlar bo‘limida savdo yopilganda paydo bo‘ladi.';
     }
   };
   const nudge = () => {
     sbActions++;
-    if (sbActions === 2) $('#sbHint').innerHTML = 'Zo‘r! Endi ERP’da bosqichlarni o‘tkazing: <b>“Tikish”</b> tugaganda Malikaning ish haqi o‘zi oshadi.';
+    if (sbActions === 2) $('#sbHint').innerHTML = 'Zo‘r! Endi Buyurtma bo‘limida bosqichlarni o‘tkazing: <b>“Tikish”</b> tugaganda Malikaning ish haqi o‘zi oshadi.';
     if (sbActions === 5) $('#sbNudge').hidden = false;
   };
   const startOrder = () => {
@@ -399,12 +412,12 @@
   const SB_ACTIONS = {
     lead() {
       sb.newL++;
-      log('CRM', 'TELEGRAM: YANGI LID', 'TELEGRAM: LID', 'YANGI');
+      log('CRM', 'TELEGRAM: YANGI SO‘ROV', 'TELEGRAM: SO‘ROV', 'YANGI');
       hit('crm');
     },
     deal() {
       if (sb.talk + sb.newL === 0) {
-        log('CRM', 'LID YO‘Q: AVVAL XABAR', 'LID YO‘Q', 'DIQQAT');
+        log('CRM', 'AVVAL XABAR KERAK', 'SO‘ROV YO‘Q', 'DIQQAT');
         bad('crm');
         return;
       }
@@ -438,7 +451,7 @@
       if (sb.mato < need) {
         log('WMS', `MATO YETMAYDI: -${group(need - sb.mato)} M`, `MATO YETMAYDI`, 'DIQQAT');
         bad('wms');
-        $('#sbHint').innerHTML = 'Tizim chiqimni blokladi: omborda mato yetmaydi. WMS’da <b>“Mato kirim”</b> qiling va qayta urining.';
+        $('#sbHint').innerHTML = 'Tizim chiqimni blokladi: omborda mato yetmaydi. Ombor bo‘limida <b>“Mato kirim”</b> qiling va qayta urining.';
         return;
       }
       log('ERP', `#${o.no} YAKUNLANDI`, `#${o.no} YAKUNLANDI`, 'OK');
@@ -479,7 +492,7 @@
       card.classList.remove('hit', 'bad');
       card.querySelector('.sb-from').textContent = '';
     });
-    $('#sbHint').innerHTML = 'CRM’da <b>“Bitim yopish”</b>ni bosing va buyurtma qanday paydo bo‘lishini ko‘ring.';
+    $('#sbHint').innerHTML = 'Mijozlar bo‘limida <b>“Savdoni yakunlash”</b>ni bosing va buyurtma qanday paydo bo‘lishini ko‘ring.';
     sbBoard.set([], false);
     sbIdle();
     renderSb();
@@ -618,7 +631,9 @@
     pieceNote.textContent = `${val('c-pieces')}×${group(val('c-rate'))}`;
     const map = { 'c-fixed': lines.fixed, 'c-pieces': lines.piece, 'c-rate': lines.piece, 'c-bonus': lines.bonus };
     if (changedId && map[changedId]) flash(map[changedId]);
-    animateTotal(Math.max(fixed + piece + bonus, 0));
+    const total = Math.max(fixed + piece + bonus, 0);
+    if (changedId) animateTotal(total);
+    else { shownTotal = total; totalEl.textContent = group(total); }
   };
   calc.addEventListener('input', (e) => updateCalc(e.target.id));
   updateCalc();
@@ -633,10 +648,16 @@
     stepItems.forEach((li, i) => li.classList.toggle('on', p >= i / stepItems.length + 0.02 || p === 1));
   };
   updateSteps();
-  addEventListener('scroll', updateSteps, { passive: true });
+  let stepsFrame = 0;
+  addEventListener('scroll', () => {
+    if (!stepsFrame) stepsFrame = requestAnimationFrame(() => { stepsFrame = 0; updateSteps(); });
+  }, { passive: true });
   addEventListener('resize', updateSteps);
 
   /* ---------- §08 Configurator ---------- */
+  const moduleNames = { WMS: 'Ombor', ERP: 'Ishlab chiqarish', HR: 'Ish haqi', CRM: 'Mijozlar', LMS: 'Ta’lim' };
+  const deployNames = { Bulut: 'Internet orqali', Desktop: 'Kompyuterda' };
+  const moduleList = (codes) => codes.map(code => moduleNames[code]).join(' + ');
   const modBoxes = $$('input[name="mod"]');
   const deployRadios = $$('input[name="deploy"]');
   const wms = modBoxes.find((b) => b.value === 'WMS');
@@ -653,20 +674,20 @@
     if (erp.checked) wms.checked = true;
     const picked = modBoxes.filter((b) => b.checked).map((b) => b.value);
     const deploy = deployRadios.find((r) => r.checked).value;
-    bundleValue.textContent = picked.length ? picked.join(' + ') : 'Modul tanlanmagan';
-    bundleDeploy.textContent = `→ ${deploy}`;
+    bundleValue.textContent = picked.length ? moduleList(picked) : 'Bo‘lim tanlanmagan';
+    bundleDeploy.textContent = `→ ${deployNames[deploy]}`;
     bundleValue.classList.remove('bump');
     void bundleValue.offsetWidth;
     bundleValue.classList.add('bump');
     bundleNote.textContent = erp.checked
-      ? 'ERP ombor bilan ishlaydi, shuning uchun WMS avtomatik qo‘shildi.'
-      : picked.length === 5 ? 'To‘liq to‘plam: beshala modul bitta yadroda.'
-      : picked.length ? `${picked.length} ta modul. Keyin qo‘shish mumkin.` : 'Kamida bitta modulni yoqing.';
-    const summary = picked.length ? `${picked.join(' + ')} · ${deploy}` : '';
+      ? 'Ishlab chiqarishga ombor ham kerak. Ombor bo‘limi qo‘shildi.'
+      : picked.length === 5 ? 'Beshta bo‘limning hammasi tanlandi.'
+      : picked.length ? `${picked.length} ta bo‘lim. Keyin qo‘shish mumkin.` : 'Kamida bitta bo‘limni tanlang.';
+    const summary = picked.length ? `${moduleList(picked)} · ${deployNames[deploy]}` : '';
     bundleField.value = summary;
     formBundle.textContent = summary ? `Tanlangan to‘plam: ${summary}` : '';
     bundleButton.setAttribute('aria-disabled', String(!picked.length));
-    setLabel(bundleButton, picked.length ? 'Narx taklifini olish' : 'Avval modul tanlang');
+    setLabel(bundleButton, picked.length ? 'Narx taklifini olish' : 'Avval bo‘lim tanlang');
     // A changed selection invalidates an already prepared contact draft.
     if (!$('#leadDraft').hidden) {
       $('#formMsg').textContent = 'To‘plam o‘zgardi. Yangi tanlov bilan so‘rovni qayta tayyorlang.';
@@ -736,8 +757,8 @@
       edu: 'Guruhlar, jadval, davomat va to‘lovlar, o‘qituvchilar ish haqi ham shu yerda.',
       service: 'Mijozlar oqimi va xodimlar ish haqi bitta tizimda.',
     }[answers.type];
-    const extraWhy = answers.chan === 'social' ? ' Telegram va Instagram xabarlari CRM’da lidga aylanadi.' : '';
-    const dep = answers.deploy === 'Desktop' ? ' Desktopda asosiy hisoblar kompyuteringizda; aktivatsiya va onlayn xizmatlar uchun internet kerak.' : ' Bulutda internet orqali jamoangiz bilan umumiy ish muhitiga kirasiz.';
+    const extraWhy = answers.chan === 'social' ? ' Telegram va Instagramdan kelgan so‘rovlar Mijozlar bo‘limida ko‘rinadi.' : '';
+    const dep = answers.deploy === 'Desktop' ? ' Hisoblar kompyuteringizda saqlanadi. Dasturni ishga tushirish, Telegram va Instagram uchun internet kerak.' : ' Internet orqali jamoangiz bilan bir xil ma’lumotlarni ko‘rib ishlaysiz.';
     return { picked, deploy: answers.deploy, why: why + extraWhy + dep };
   };
   $$('.quiz-opts button', quiz).forEach((btn) => {
@@ -746,7 +767,7 @@
       const step = Number(btn.closest('.quiz-step').dataset.step);
       if (step + 1 < quizSteps.length) { showStep(step + 1); return; }
       const r = recommend();
-      $('#quizBundle').innerHTML = `${r.picked.join(' + ')}<small>→ ${r.deploy}</small>`;
+      $('#quizBundle').innerHTML = `${moduleList(r.picked)}<small>→ ${deployNames[r.deploy]}</small>`;
       $('#quizWhy').textContent = r.why;
       quizResult.dataset.mods = r.picked.join(',');
       quizResult.dataset.deploy = r.deploy;
@@ -784,7 +805,7 @@
   navToggle.addEventListener('click', syncFloat);
   const syncFloatText = () => {
     const v = bundleField.value;
-    floatText.textContent = v ? `Demo so‘rash · ${v.split(' · ')[0]}` : 'Bepul demo so‘rash';
+    floatText.textContent = v ? `Bog‘lanish · ${v.split(' · ')[0]}` : 'Bepul tanishish';
   };
   [...modBoxes, ...deployRadios].forEach((el) => el.addEventListener('change', syncFloatText));
   $('#quizApply').addEventListener('click', syncFloatText);
@@ -802,8 +823,8 @@
   let requestId = '';
   let lastPayload = '';
   if (CONTACT.endpoint) {
-    setLabel(submitButton, 'Demo so‘rovini yuborish');
-    $('#deliveryHint').textContent = 'So‘rov aloqa xizmatiga yuboriladi. Natija shu yerda ko‘rsatiladi.';
+    setLabel(submitButton, 'So‘rov yuborish');
+    $('#deliveryHint').textContent = 'Ism va telefoningizni yuboring. Siz bilan bog‘lanamiz.';
   }
   const prepareDraft = (text) => {
     draftText.value = text;
@@ -814,7 +835,7 @@
       sendLink.target = '_blank';
       sendLink.rel = 'noopener noreferrer';
     } else if (CONTACT.email) {
-      sendLink.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent('FlowCore demo so‘rovi')}&body=${encodeURIComponent(text)}`;
+      sendLink.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent('FlowCore tanishuv so‘rovi')}&body=${encodeURIComponent(text)}`;
       setLabel(sendLink, 'Email orqali yuborish');
       sendLink.querySelector('use').setAttribute('href', '#icon-mail');
       sendLink.removeAttribute('target');
@@ -843,7 +864,7 @@
     draft.hidden = true;
     if (!nameOk) { setMsg('Ismingizni kamida 2 ta belgi bilan kiriting.', 'err'); name.focus(); return; }
     if (!phoneOk) { setMsg('Telefon raqamni to‘liq kiriting, masalan +998 90 123 45 67.', 'err'); phone.focus(); return; }
-    if (!bundle.value) { setMsg('Tariflar bo‘limida kamida bitta modulni tanlang.', 'err'); focusConfig(); return; }
+    if (!bundle.value) { setMsg('Narxlar bo‘limida kamida bitta bo‘limni tanlang.', 'err'); focusConfig(); return; }
     const fields = { name: name.value.trim(), phone: phone.value.trim(), company: company.value.trim(), bundle: bundle.value };
     const payload = JSON.stringify(fields);
     if (payload !== lastPayload) {
@@ -852,7 +873,7 @@
     }
     const data = { ...fields, requestId };
     const text = [
-      'FlowCore demo so‘rovi', `Ism: ${data.name}`, `Telefon: ${data.phone}`,
+      'FlowCore tanishuv so‘rovi', `Ism: ${data.name}`, `Telefon: ${data.phone}`,
       data.company && `Kompaniya: ${data.company}`, `To‘plam: ${data.bundle}`,
     ].filter(Boolean).join('\n');
     if (!CONTACT.endpoint) {
@@ -868,7 +889,7 @@
     try {
       const response = await fetch(CONTACT.endpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(data), signal: AbortSignal.timeout(15000),
+        body: JSON.stringify(data), credentials: 'omit', signal: AbortSignal.timeout(15000),
       });
       if (!response.ok) throw new Error(String(response.status));
       const result = await response.json();
@@ -876,11 +897,11 @@
       setMsg('So‘rovingiz qabul qilindi. Aloqa uchun ko‘rsatgan raqamingizdan foydalanamiz.', 'ok');
     } catch {
       prepareDraft(text);
-      setMsg('Serverdan tasdiq olinmadi. So‘rovni email/Telegram orqali yuboring yoki qayta urinishdan oldin holatini tekshiring.', 'err');
+      setMsg('So‘rov yuborilganini tasdiqlay olmadik. Qayta urinib ko‘ring yoki quyidagi usul bilan yuboring.', 'err');
     } finally {
       sending = false;
       submitButton.disabled = false;
-      setLabel(submitButton, 'Demo so‘rovini yuborish');
+      setLabel(submitButton, 'So‘rov yuborish');
       form.removeAttribute('aria-busy');
     }
   });

@@ -12,18 +12,18 @@
   const count = (value) => new Intl.NumberFormat('uz-UZ').format(value);
   const modules = {
     wms: {
-      label: 'WMS / Ombor boshqaruvi', title: 'Qoldiqni taxmin qilmang.',
+      label: 'Ombor hisobi', title: 'Qoldiqni taxmin qilmang.',
       description: 'Qaysi mahsulot qancha qoldi, nimani buyurtma qilish kerak — bir qarashda ko‘ring.',
       search: 'Mahsulot nomini qidiring', caption: 'Namunaviy ombor qoldiqlari',
       headers: ['Mahsulot', 'Ombor', 'Qoldiq', 'Holat'],
-      metrics: () => [['Mahsulot turi', '4', 'Namuna katalogi'], ['Oq mato', `${count(state.cotton)} m`, 'Asosiy ombor'], ['Kam qoldiq', '1', 'Xarid kerak']],
+      metrics: () => [['Mahsulot turi', '4', 'Sinov ro‘yxati'], ['Oq mato', `${count(state.cotton)} m`, 'Asosiy ombor'], ['Kam qoldiq', '1', 'Xarid kerak']],
       rows: () => [['Paxta mato, oq', 'Asosiy ombor', `${count(state.cotton)} m`, 'Yetarli'], ['Tugma 12 mm', 'Asosiy ombor', '8 600 dona', 'Yetarli'], ['Ko‘ylak, M', 'Tayyor mahsulot', '312 dona', 'Yetarli'], ['Ip, qora', 'Asosiy ombor', '18 g‘altak', 'Kam qoldiq']],
       button: () => '100 m mato kirim',
       act() { state.cotton += 100; return `100 m oq mato kirim qilindi. Yangi qoldiq: ${count(state.cotton)} m.`; },
       takeaway: 'Natija: xaridni qoldiqqa qarab rejalashtirasiz, xomashyo yetishmovchiligini oldindan ko‘rasiz.',
     },
     erp: {
-      label: 'ERP / Ishlab chiqarish', title: 'Buyurtma qaysi bosqichda?',
+      label: 'Ishlab chiqarish', title: 'Buyurtma qaysi bosqichda?',
       description: 'Mas’ul, miqdor va ishlab chiqarish holati bir jadvalda. #1043 buyurtmani keyingi bosqichga o‘tkazib ko‘ring.',
       search: 'Buyurtma yoki mahsulotni qidiring', caption: 'Namunaviy ishlab chiqarish buyurtmalari',
       headers: ['Buyurtma', 'Mahsulot', 'Miqdor', 'Bosqich'],
@@ -35,7 +35,7 @@
       takeaway: 'Natija: buyurtma holatini telefon qilib so‘ramasdan, ishning qayergacha kelganini ko‘rasiz.',
     },
     hr: {
-      label: 'HR / Xodimlar va ish haqi', title: 'Har bir ish kuni hisobda.',
+      label: 'Xodimlar va ish haqi', title: 'Har bir ish kuni hisobda.',
       description: 'Davomat, ishlangan miqdor va ish haqi tarkibini kuzating. Dilshodning bugungi davomatini belgilang.',
       search: 'Xodim yoki lavozimni qidiring', caption: 'Namunaviy xodimlar davomati',
       headers: ['Xodim', 'Lavozim', 'Bugungi ish', 'Davomat'],
@@ -47,18 +47,18 @@
       takeaway: 'Natija: davomat va bajarilgan ishni bir joyda tekshirib, ish haqi hisobini asoslab berasiz.',
     },
     crm: {
-      label: 'CRM / Mijozlar bilan ishlash', title: 'Har bir murojaatning davomi bor.',
-      description: 'Mijoz qaysi kanaldan keldi, kim javobgar va keyingi qadam nima — bitta voronkada. Yangi lid qo‘shib ko‘ring.',
-      search: 'Mijoz yoki kanalni qidiring', caption: 'Namunaviy mijozlar voronkasi',
+      label: 'Mijozlar bilan ishlash', title: 'Har bir murojaatning davomi bor.',
+      description: 'Mijoz qaysi kanaldan keldi, kim javobgar va keyingi qadam nima — bir joyda. Yangi so‘rov qo‘shib ko‘ring.',
+      search: 'Mijoz yoki kanalni qidiring', caption: 'Namunaviy mijozlar ro‘yxati',
       headers: ['Mijoz', 'Kanal', 'Mas’ul', 'Holat'],
-      metrics: () => [['Murojaatlar', String(4 + state.leads), 'Namunaviy voronka'], ['Yangi lid', String(1 + state.leads), 'Birinchi suhbat kerak'], ['Yopilgan bitim', '1', 'Nur do‘koni']],
-      rows: () => [...Array.from({ length: state.leads }, (_, i) => [`Yangi mijoz ${state.leads - i}`, 'Telegram', 'Aziza', 'Yangi']), ['Nur do‘koni', 'Telefon', 'Sardor', 'Bitim yopildi'], ['Madina R.', 'Telegram', 'Aziza', 'Yangi'], ['Atlas', 'Instagram', 'Sardor', 'Taklif yuborildi'], ['Ziyo', 'Telefon', 'Aziza', 'Muzokara']],
-      button: () => state.leads >= 10 ? 'Namuna limiti: 10 ta lid' : 'Namunaviy lid', disabled: () => state.leads >= 10,
+      metrics: () => [['Murojaatlar', String(4 + state.leads), 'Mijozlar ro‘yxati'], ['Yangi so‘rov', String(1 + state.leads), 'Birinchi suhbat kerak'], ['Yopilgan savdo', '1', 'Nur do‘koni']],
+      rows: () => [...Array.from({ length: state.leads }, (_, i) => [`Yangi mijoz ${state.leads - i}`, 'Telegram', 'Aziza', 'Yangi']), ['Nur do‘koni', 'Telefon', 'Sardor', 'Savdo yopildi'], ['Madina R.', 'Telegram', 'Aziza', 'Yangi'], ['Atlas', 'Instagram', 'Sardor', 'Taklif yuborildi'], ['Ziyo', 'Telefon', 'Aziza', 'Muzokara']],
+      button: () => state.leads >= 10 ? 'Namuna limiti: 10 ta so‘rov' : 'Yangi so‘rov qo‘shish', disabled: () => state.leads >= 10,
       act() { state.leads++; return `Telegramdan “Yangi mijoz ${state.leads}” qo‘shildi va Azizaga biriktirildi.`; },
       takeaway: 'Natija: javobsiz qolgan murojaatni ko‘rasiz va mijoz bilan keyingi suhbatni unutmay qo‘yasiz.',
     },
     lms: {
-      label: 'LMS / O‘quv markazi', title: 'Dars ham, to‘lov ham nazoratda.',
+      label: 'O‘quv markazi', title: 'Dars ham, to‘lov ham nazoratda.',
       description: 'Guruh, davomat va qarzdorlikni tekshiring. Madinaning 450 000 so‘mlik to‘lovini namunada qayd eting.',
       search: 'O‘quvchi yoki guruhni qidiring', caption: 'Namunaviy o‘quvchilar va to‘lovlar',
       headers: ['O‘quvchi', 'Guruh', 'Qarz', 'Holat'],
@@ -149,7 +149,7 @@
     if (modules[current].disabled?.()) return;
     feedback.textContent = modules[current].act(); search.value = ''; render();
   });
-  $('#tourReset').addEventListener('click', () => { state = initial(); search.value = ''; render(); feedback.textContent = 'Barcha modullarning namuna ma’lumotlari tiklandi.'; });
+  $('#tourReset').addEventListener('click', () => { state = initial(); search.value = ''; render(); feedback.textContent = 'Barcha bo‘limlardagi sinov ma’lumotlari tiklandi.'; });
   document.querySelectorAll('[data-tour-link]').forEach(link => link.addEventListener('click', () => select(link.dataset.tourLink)));
   render();
 })();

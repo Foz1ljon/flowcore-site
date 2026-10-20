@@ -1,0 +1,12 @@
+{
+  "name": "flowcore-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "check": "python3 tools/check-site.py"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

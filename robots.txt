@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /tools/
+Disallow: /deploy/
+Disallow: /node_modules/
 
 Sitemap: https://flowcore.uz/sitemap.xml
