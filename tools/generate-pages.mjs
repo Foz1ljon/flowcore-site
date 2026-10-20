@@ -12,8 +12,8 @@ export function generatePages(assets) {
   for (const p of products) {
     const url = `${origin}/${p.slug}/`;
     const schema = { '@context':'https://schema.org', '@graph':[
-      { '@type':'WebPage', '@id':`${url}#webpage`, url, name:p.title, description:p.description, inLanguage:'uz', isPartOf:{'@id':`${origin}/#website`}, about:{'@id':`${url}#software`}, breadcrumb:{'@id':`${url}#breadcrumb`} },
-      { '@type':'SoftwareApplication', '@id':`${url}#software`, name:`FlowCore ${p.code}`, url, description:p.description, applicationCategory:'BusinessApplication', applicationSubCategory:p.code, operatingSystem:'Web, Windows, macOS, Linux', inLanguage:'uz', isPartOf:{'@id':`${origin}/#software`}, publisher:{'@id':`${origin}/#organization`}, featureList:p.cards.map(([title])=>title) },
+      { '@type':'WebPage', '@id':`${url}#webpage`, url, name:p.title, description:p.description, inLanguage:'uz', isPartOf:{'@id':`${origin}/#website`}, publisher:{'@id':`${origin}/#organization`}, primaryImageOfPage:{'@type':'ImageObject',url:`${origin}/og-image.png`,width:1200,height:630}, about:{'@id':`${url}#software`}, breadcrumb:{'@id':`${url}#breadcrumb`} },
+      { '@type':'SoftwareApplication', '@id':`${url}#software`, name:`FlowCore ${p.code}`, alternateName:`FlowCore ${p.name}`, url, image:`${origin}/og-image.png`, description:p.description, applicationCategory:'BusinessApplication', applicationSubCategory:p.code, operatingSystem:'Web, Windows, macOS, Linux', inLanguage:'uz', isPartOf:{'@id':`${origin}/#software`}, publisher:{'@id':`${origin}/#organization`}, featureList:p.cards.map(([title])=>title) },
       { '@type':'BreadcrumbList','@id':`${url}#breadcrumb`,itemListElement:[{'@type':'ListItem',position:1,name:'FlowCore',item:`${origin}/`},{'@type':'ListItem',position:2,name:`FlowCore ${p.code}`,item:url}] },
       { '@type':'FAQPage','@id':`${url}#faq`,mainEntity:p.faqs.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}})) }
     ]};
@@ -23,13 +23,14 @@ export function generatePages(assets) {
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(p.title)}</title>
 <meta name="description" content="${escape(p.description)}">
+<meta name="author" content="FlowCore">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="color-scheme" content="light dark"><meta name="theme-color" id="themeColor" content="#fafafa">
 <link rel="canonical" href="${url}"><link rel="alternate" hreflang="uz" href="${url}"><link rel="alternate" hreflang="x-default" href="${url}">
 <meta property="og:type" content="website"><meta property="og:locale" content="uz_UZ"><meta property="og:site_name" content="FlowCore"><meta property="og:url" content="${url}">
 <meta property="og:title" content="${escape(p.title)}"><meta property="og:description" content="${escape(p.description)}">
-<meta property="og:image" content="${origin}/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${escape(p.title)}">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escape(p.title)}"><meta name="twitter:description" content="${escape(p.description)}"><meta name="twitter:image" content="${origin}/og-image.png">
+<meta property="og:image" content="${origin}/og-image.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${escape(p.title)}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escape(p.title)}"><meta name="twitter:description" content="${escape(p.description)}"><meta name="twitter:image" content="${origin}/og-image.png"><meta name="twitter:image:alt" content="${escape(p.title)}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
 <script>${themeScript}</script>
 <link rel="preload" href="/assets/fonts/bricolage-latin-v9.woff2" as="font" type="font/woff2" crossorigin>
@@ -57,6 +58,6 @@ ${symbols}
     mkdirSync(p.slug, {recursive:true});
     const filename=`${p.slug}/index.html`;writeFileSync(filename,document);files.push(filename);
   }
-  writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['',...products.map(p=>`${p.slug}/`)].map(path=>`  <url><loc>${origin}/${path}</loc><lastmod>2026-10-20</lastmod></url>`).join('\n')}\n</urlset>\n`);
+  writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['',...products.map(p=>`${p.slug}/`)].map(path=>`  <url><loc>${origin}/${path}</loc><lastmod>${new Date().toISOString().slice(0,10)}</lastmod></url>`).join('\n')}\n</urlset>\n`);
   return files;
 }

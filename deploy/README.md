@@ -55,6 +55,14 @@ is a deployment example; it has not been applied to the production server.
 (such as Cloudflare Pages or Netlify). On other hosts, configure caching and gzip
 in the hosting settings. Keep API responses uncached.
 
+The config also returns 404 for `.git`, `tools/`, `deploy/`, `node_modules/`,
+`README.md` and package files, and redirects `/index.html` URLs to their
+directory URL. Serve `www.flowcore.uz` only as a 301 redirect to
+`https://flowcore.uz` (server block at the end of `nginx-static.conf`, or a
+Cloudflare redirect rule), so search engines index one host. Better still,
+deploy only the public files (HTML, `assets/`, icons, `robots.txt`,
+`sitemap.xml`, `site.webmanifest`) instead of the whole repository checkout.
+
 The sitemap includes `/`, `/erp/`, `/crm/`, `/ombor/`, `/ish-haqi/`, and `/talim/`.
 Submit `https://flowcore.uz/sitemap.xml` to Google Search Console and Yandex
 Webmaster after deployment and domain verification. Use URL inspection to request
