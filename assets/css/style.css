@@ -1210,10 +1210,10 @@ h1, h2, h3 { text-wrap: balance; }
 .calc-row input[type="range"] { height: 44px; margin: 0; background-size: 100% 3px; background-position: center; background-repeat: no-repeat; touch-action: pan-y; }
 .ba .ba-range { height: 100%; margin: 0; }
 @media (max-width: 860px) {
-  html:not(.js) .nav { position: static; transform: none; opacity: 1; visibility: visible; max-height: none; width: 100%; order: 3; }
-  html:not(.js) .header-inner { height: auto; min-height: 68px; flex-wrap: wrap; }
-  html:not(.js) .site-header { position: relative; }
-  html:not(.js) .header-tools { display: none; }
+  html:not(.has-js) .nav { position: static; transform: none; opacity: 1; visibility: visible; max-height: none; width: 100%; order: 3; }
+  html:not(.has-js) .header-inner { height: auto; min-height: 68px; flex-wrap: wrap; }
+  html:not(.has-js) .site-header { position: relative; }
+  html:not(.has-js) .header-tools { display: none; }
 }
 @media (max-width: 760px) {
   .product-tabs { scrollbar-width: thin; scroll-padding-inline: 10px; }

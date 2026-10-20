@@ -1,0 +1,103 @@
+{
+  "scope": "Production before fix versus local after fix. Different environments; not a controlled production before/after comparison. Mobile simulated throttling, Lighthouse defaults.",
+  "productionDeployed": false,
+  "productionBefore": {
+    "url": "https://flowcore.uz/",
+    "lighthouseVersion": "13.5.0",
+    "fetchTime": "2026-10-20T05:10:54.423Z",
+    "performance": 71,
+    "metrics": {
+      "first-contentful-paint": {
+        "value": 2129.8230000000003,
+        "unit": "millisecond"
+      },
+      "largest-contentful-paint": {
+        "value": 2463.6040000000003,
+        "unit": "millisecond"
+      },
+      "total-blocking-time": {
+        "value": 20,
+        "unit": "millisecond"
+      },
+      "cumulative-layout-shift": {
+        "value": 0.5299969623329283,
+        "unit": "unitless"
+      },
+      "speed-index": {
+        "value": 4743.440236117252,
+        "unit": "millisecond"
+      }
+    },
+    "warnings": []
+  },
+  "localAfter": [
+    {
+      "url": "http://localhost:8080/",
+      "lighthouseVersion": "13.5.0",
+      "fetchTime": "2026-10-20T05:11:52.327Z",
+      "performance": 97,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1513.2246999999998,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 2563.2246999999998,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 31,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 1513.2246999999998,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": []
+    },
+    {
+      "url": "http://localhost:8080/",
+      "lighthouseVersion": "13.5.0",
+      "fetchTime": "2026-10-20T05:12:56.830Z",
+      "performance": 94,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1802.5698000000002,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 2702.5698,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 142,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 1802.5698000000002,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": []
+    }
+  ],
+  "cause": "Mobile no-JavaScript header fallback changes from in-flow to fixed when deferred JavaScript initializes; production layout-shifts audit attributes CLS 0.53 to main#main.",
+  "verification": [
+    "npm run build",
+    "npm run check: all six pages",
+    "git diff --check",
+    "Chrome 390px: menu open and Escape close, no horizontal overflow",
+    "Chrome 390px: ERP page and shared early marker",
+    "Local-only form error: email fallback visible with populated mailto recipient and body"
+  ],
+  "cloudflare": "Static email recipient removed from hidden draft link; verify injected email decoder disappears after deployment. Analytics beacon and RUM settings unchanged."
+}

@@ -146,3 +146,30 @@ were exercised in Chrome without JavaScript errors. The previous recommendation
 rendering typo is fixed. Production Core Web Vitals and search ranking have not
 been measured. Configure caching/gzip with `deploy/nginx-static.conf` or `_headers`,
 then submit the deployed sitemap through the verified search-console account.
+
+## Lighthouse layout stability fix (2026-10-20)
+
+The production mobile audit reproduced a performance score of 71 with CLS 0.53.
+The no-JavaScript mobile navigation initially occupied page flow; deferred
+JavaScript then switched the header to fixed positioning and moved the entire
+main element. A small `has-js` marker now runs before the stylesheet. Navigation
+fallback styles use that marker, while scroll reveals still initialize with the
+separate `js` marker. The shared theme script propagates this fix to product pages.
+
+The hidden draft email link now starts with `mailto:`; the existing draft renderer
+sets the recipient, subject and body before showing it. This avoids presenting a
+static email address for Cloudflare to rewrite and inject its blocking email
+decoder. Confirm the resulting production HTML after deployment.
+
+Two post-fix local mobile Lighthouse runs scored 97 and 94, both with CLS 0.
+These are local lab measurements, not production improvements measured on the
+same network. The last run measured FCP 1.8s, LCP 2.7s and TBT 140ms. See
+`tools/lighthouse-summary.json` for scope and metrics. The build and six-page
+integrity checks passed; Chrome verified mobile menu open/Escape close, product
+layout and the local form's email fallback. No production lead was submitted.
+
+Cloudflare's analytics beacon and `/cdn-cgi/rum` are injected by hosting and are
+absent from this repository. They remain unchanged. The production audit points
+to layout shift as the main failure; a request appearing in the dependency tree
+does not by itself establish it as the cause. Deploy the generated HTML and new
+hashed CSS together, then rerun Lighthouse on `https://flowcore.uz/`.
