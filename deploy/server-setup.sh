@@ -5,7 +5,7 @@
 #   ssh root@204.168.251.7 bash /tmp/flowcore-landing-deploy/server-setup.sh
 #
 # 1. Hands /var/www/flowcore-site to the deploy user so CI can upload files, and
-#    removes development files left by the earlier manual upload.
+#    removes development files left by a manual upload (not from a git checkout).
 # 2. Replaces the static-only flowcore.uz vhost with deploy/nginx.conf, which
 #    proxies POST /api/public/leads to NestJS (127.0.0.1:4000).
 # 3. Adds the landing origin to backend ALLOWED_ORIGINS and reloads the backend.
@@ -23,9 +23,15 @@ STAMP="$(date +%Y%m%d%H%M%S)"
 
 echo "== Site directory"
 install -d "$SITE_DIR"
-# Development files from the earlier manual upload; CI uploads public files only.
-(cd "$SITE_DIR" && rm -rf tools deploy node_modules README.md package.json package-lock.json _headers)
+# Development files from an earlier manual upload; CI uploads public files only.
+# A git checkout keeps them (nginx-static.conf answers 404 for them instead).
+if [ ! -d "$SITE_DIR/.git" ]; then
+  (cd "$SITE_DIR" && rm -rf tools deploy node_modules README.md package.json package-lock.json _headers)
+fi
 chown -R "$DEPLOY_USER:$DEPLOY_USER" "$SITE_DIR"
+# Root may still run git pull in the deploy-owned checkout.
+git config --system --get-all safe.directory 2>/dev/null | grep -qx "$SITE_DIR" \
+  || git config --system --add safe.directory "$SITE_DIR"
 chmod -R a+rX "$SITE_DIR"
 
 echo "== nginx"
