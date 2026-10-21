@@ -173,3 +173,19 @@ absent from this repository. They remain unchanged. The production audit points
 to layout shift as the main failure; a request appearing in the dependency tree
 does not by itself establish it as the cause. Deploy the generated HTML and new
 hashed CSS together, then rerun Lighthouse on `https://flowcore.uz/`.
+
+## Application preview (2026-10-21)
+
+The `#ichkarida` preview follows the module sidebar labels in
+`frontend/playground/shared/module-navigation.ts` and the compact workspace layout
+in `frontend/playground/layouts/platform.vue`. Five module tabs expose three sample
+pages each. WMS uses product, warehouse and movement tables; CRM uses a pipeline
+board plus task and inbox tables; ERP, HRM and LMS expose representative lists.
+Search, module navigation, reset and the existing sample actions run in memory.
+No company data, authentication or API connection is used by the preview.
+
+`assets/images/faceid-terminal.svg` is an illustrative screen based on
+`faceid/src/views/TerminalView.vue` and its styles. It shows the company header,
+clock, face alignment frame, arrival/departure controls and connection status.
+It is labelled as a sample, uses a neutral silhouette and does not capture a face
+or access the camera. It is not a live application screenshot.

@@ -28,7 +28,12 @@
 .detail-faq details p { color: var(--ink-2); margin-top: 12px; }
 .detail-related { display: flex; flex-wrap: wrap; gap: 12px; }
 .detail-related a { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 16px; border: 1px solid var(--line-2); border-radius: 8px; }
-.detail-related a:hover { border-color: var(--accent); color: var(--accent-text); }
+@media (hover: hover) and (pointer: fine) {
+  .detail-related a:hover { border-color: var(--accent); color: var(--accent-text); }
+}
+@media (hover: none), (pointer: coarse) {
+  .detail-related a:active { border-color: var(--accent); color: var(--accent-text); }
+}
 .detail-footer { border-top: 1px solid var(--line); margin-top: 40px; padding-block: 32px; color: var(--ink-2); font-size: 14px; }
 @media (max-width: 640px) {
   .detail-grid { grid-template-columns: 1fr; }

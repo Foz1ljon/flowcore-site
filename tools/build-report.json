@@ -1,31 +1,31 @@
 {
   "style": {
     "source": "assets/css/style.css",
-    "output": "assets/dist/style.9ce81130deed.css",
-    "before": 89189,
-    "after": 75591,
-    "gzip": 16392
+    "output": "assets/dist/style.e04cd4bf14b3.css",
+    "before": 104003,
+    "after": 88183,
+    "gzip": 18180
   },
   "product": {
     "source": "assets/css/product.css",
-    "output": "assets/dist/product.8a67026427a3.css",
-    "before": 3153,
-    "after": 2750,
-    "gzip": 906
+    "output": "assets/dist/product.1bd7d495b1bf.css",
+    "before": 3332,
+    "after": 2903,
+    "gzip": 946
   },
   "main": {
     "source": "assets/js/main.js",
-    "output": "assets/dist/main.fea8df2bd5a3.js",
-    "before": 42774,
-    "after": 26265,
-    "gzip": 10559
+    "output": "assets/dist/main.6d7588089e4b.js",
+    "before": 45424,
+    "after": 27620,
+    "gzip": 11000
   },
   "tour": {
     "source": "assets/js/tour.js",
-    "output": "assets/dist/tour.f628ac21c4a0.js",
-    "before": 11081,
-    "after": 8523,
-    "gzip": 3379
+    "output": "assets/dist/tour.73b32f700a4f.js",
+    "before": 20379,
+    "after": 16180,
+    "gzip": 5824
   },
   "site": {
     "source": "assets/js/site.js",

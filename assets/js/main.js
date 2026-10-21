@@ -21,7 +21,7 @@
     (element.querySelector('[data-label]') || element).textContent = text;
   };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const group = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   const signed = (n) => (n < 0 ? `−${group(-n)}` : group(n));
   const tashkentTime = (offsetMin = 0) =>
@@ -813,6 +813,65 @@
 
   /* ---------- Lead form: delivered only after a real endpoint response ---------- */
   const form = $('#leadForm');
+  const phoneField = form.elements.namedItem('phone');
+  const phonePrefix = '+998';
+  const formatPhone = (value) => {
+    let digits = value.replace(/\D/g, '');
+    if (value.startsWith(phonePrefix) || (digits.length > 9 && digits.startsWith('998'))) {
+      digits = digits.slice(3);
+    }
+    digits = digits.slice(0, 9);
+    const groups = [digits.slice(0, 2), digits.slice(2, 5), digits.slice(5, 7), digits.slice(7, 9)];
+    return phonePrefix + groups.filter(Boolean).map(group => ` ${group}`).join('');
+  };
+  const syncPhone = () => {
+    const value = phoneField.value;
+    const cursor = phoneField.selectionStart ?? value.length;
+    const digitsBefore = value.slice(0, cursor).replace(/\D/g, '').length;
+    phoneField.value = formatPhone(value);
+    // Keep the cursor beside the same digit when editing in the middle.
+    let position = phonePrefix.length;
+    let count = 3;
+    while (position < phoneField.value.length && count < digitsBefore) {
+      if (/\d/.test(phoneField.value[position])) count++;
+      position++;
+    }
+    phoneField.setSelectionRange(position, position);
+  };
+  phoneField.value = formatPhone(phoneField.value);
+  phoneField.addEventListener('input', syncPhone);
+  phoneField.addEventListener('focus', () => {
+    if (phoneField.value === phonePrefix) phoneField.setSelectionRange(4, 4);
+  });
+  phoneField.addEventListener('beforeinput', (event) => {
+    const start = phoneField.selectionStart;
+    const end = phoneField.selectionEnd;
+    if (event.inputType.startsWith('delete') && end <= 4) {
+      event.preventDefault();
+      phoneField.setSelectionRange(4, 4);
+      return;
+    }
+    if (start < 4) phoneField.setSelectionRange(4, Math.max(4, end));
+    // Delete the adjacent digit as well as its formatting space.
+    if (start === end && event.inputType === 'deleteContentBackward' && phoneField.value[start - 1] === ' ') {
+      phoneField.setSelectionRange(Math.max(4, start - 2), start);
+    } else if (start === end && event.inputType === 'deleteContentForward' && phoneField.value[start] === ' ') {
+      phoneField.setSelectionRange(start, start + 2);
+    }
+  });
+  phoneField.addEventListener('paste', (event) => {
+    const pasted = event.clipboardData?.getData('text');
+    if (!pasted) return;
+    event.preventDefault();
+    const digits = pasted.replace(/\D/g, '');
+    if (digits.length >= 12 && digits.startsWith('998')) {
+      phoneField.value = formatPhone(pasted);
+      phoneField.setSelectionRange(phoneField.value.length, phoneField.value.length);
+    } else {
+      phoneField.setRangeText(pasted, Math.max(4, phoneField.selectionStart), Math.max(4, phoneField.selectionEnd), 'end');
+    }
+    phoneField.dispatchEvent(new Event('input', { bubbles: true }));
+  });
   const msg = $('#formMsg');
   const draft = $('#leadDraft');
   const draftText = $('#leadText');
@@ -856,9 +915,8 @@
     const phone = form.elements.namedItem('phone');
     const company = form.elements.namedItem('company');
     const bundle = form.elements.namedItem('bundle');
-    const digits = phone.value.replace(/\D/g, '');
     const nameOk = name.value.trim().length >= 2;
-    const phoneOk = /^\+?[\d\s()−-]+$/.test(phone.value.trim()) && (digits.length === 9 || (digits.startsWith('998') ? digits.length === 12 : digits.length >= 10 && digits.length <= 15));
+    const phoneOk = /^\+998 \d{2} \d{3} \d{2} \d{2}$/.test(phone.value.trim());
     name.setAttribute('aria-invalid', String(!nameOk));
     phone.setAttribute('aria-invalid', String(!phoneOk));
     draft.hidden = true;
@@ -928,6 +986,7 @@
   if (finePointer && !reduceMotion) {
     $$('.bento .cell').forEach((cell) => {
       cell.addEventListener('pointermove', (e) => {
+        if (e.pointerType !== 'mouse') return;
         const r = cell.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - 0.5;
         const y = (e.clientY - r.top) / r.height - 0.5;
