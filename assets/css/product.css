@@ -16,10 +16,10 @@
 .detail-section h2 { font-size: clamp(28px, 3.2vw, 46px); margin-bottom: 24px; max-width: 24ch; }
 .detail-section > p { max-width: 800px; color: var(--ink-2); margin-bottom: 24px; }
 .detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.detail-card { min-width: 0; padding: 28px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.detail-card { min-width: 0; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); }
 .detail-card h3 { font-size: 23px; line-height: 1.2; margin-bottom: 14px; }
 .detail-card p { color: var(--ink-2); }
-.detail-example { padding: 28px; border-left: 3px solid var(--accent); background: var(--bg-2); border-radius: 0 12px 12px 0; max-width: 900px; }
+.detail-example { padding: 28px; border-left: 3px solid var(--accent); background: var(--bg-2); border-radius: var(--radius-card); max-width: 900px; }
 .detail-example p + p { margin-top: 16px; }
 .detail-list { padding-left: 24px; max-width: 850px; color: var(--ink-2); }
 .detail-list li + li { margin-top: 12px; }
@@ -27,7 +27,7 @@
 .detail-faq summary { cursor: pointer; font-weight: 600; min-height: 44px; }
 .detail-faq details p { color: var(--ink-2); margin-top: 12px; }
 .detail-related { display: flex; flex-wrap: wrap; gap: 12px; }
-.detail-related a { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 16px; border: 1px solid var(--line-2); border-radius: 8px; }
+.detail-related a { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 16px; border: 1px solid var(--line-2); border-radius: var(--radius-control); }
 @media (hover: hover) and (pointer: fine) {
   .detail-related a:hover { border-color: var(--accent); color: var(--accent-text); }
 }

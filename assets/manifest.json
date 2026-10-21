@@ -1,10 +1,10 @@
 {
   "assets": {
-    "style": "assets/dist/style.4f812eaefbeb.css",
-    "product": "assets/dist/product.1bd7d495b1bf.css",
-    "main": "assets/dist/main.6d7588089e4b.js",
+    "style": "assets/dist/style.b6025e8aa17c.css",
+    "product": "assets/dist/product.374c3b18fddc.css",
+    "main": "assets/dist/main.6c4707f044be.js",
     "tour": "assets/dist/tour.73b32f700a4f.js",
-    "site": "assets/dist/site.ef12955180ff.js"
+    "site": "assets/dist/site.ffcdae04b450.js"
   },
   "pages": [
     "erp/index.html",

@@ -1,24 +1,24 @@
 {
   "style": {
     "source": "assets/css/style.css",
-    "output": "assets/dist/style.4f812eaefbeb.css",
-    "before": 104214,
-    "after": 88372,
-    "gzip": 18228
+    "output": "assets/dist/style.b6025e8aa17c.css",
+    "before": 104111,
+    "after": 88399,
+    "gzip": 18277
   },
   "product": {
     "source": "assets/css/product.css",
-    "output": "assets/dist/product.1bd7d495b1bf.css",
-    "before": 3332,
-    "after": 2903,
-    "gzip": 946
+    "output": "assets/dist/product.374c3b18fddc.css",
+    "before": 3369,
+    "after": 2940,
+    "gzip": 949
   },
   "main": {
     "source": "assets/js/main.js",
-    "output": "assets/dist/main.6d7588089e4b.js",
-    "before": 45424,
-    "after": 27620,
-    "gzip": 11000
+    "output": "assets/dist/main.6c4707f044be.js",
+    "before": 45214,
+    "after": 27488,
+    "gzip": 10943
   },
   "tour": {
     "source": "assets/js/tour.js",
@@ -29,9 +29,9 @@
   },
   "site": {
     "source": "assets/js/site.js",
-    "output": "assets/dist/site.ef12955180ff.js",
-    "before": 698,
-    "after": 463,
-    "gzip": 277
+    "output": "assets/dist/site.ffcdae04b450.js",
+    "before": 588,
+    "after": 403,
+    "gzip": 244
   }
 }

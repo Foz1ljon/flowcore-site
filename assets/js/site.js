@@ -9,7 +9,6 @@
   };
   button.addEventListener('click', () => {
     root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    try { localStorage.setItem('fc-theme', root.dataset.theme); } catch { /* Storage can be unavailable. */ }
     sync();
   });
   sync();

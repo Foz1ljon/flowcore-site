@@ -29,7 +29,6 @@
 
   /* ---------- Theme ---------- */
   const themeBtn = $('#themeToggle');
-  const darkMq = window.matchMedia('(prefers-color-scheme: dark)');
   const currentTheme = () => root.dataset.theme || 'light';
   const syncThemeLabel = () => {
     $('#themeColor').content = currentTheme() === 'dark' ? '#09090b' : '#fafafa';
@@ -37,7 +36,6 @@
   };
   const applyTheme = (theme) => {
     root.dataset.theme = theme;
-    try { localStorage.setItem('fc-theme', theme); } catch { /* storage unavailable */ }
     syncThemeLabel();
   };
   themeBtn.addEventListener('click', (e) => {
@@ -54,7 +52,6 @@
       );
     }).catch(() => { /* theme stays applied if the visual transition fails */ });
   });
-  darkMq.addEventListener('change', syncThemeLabel);
   syncThemeLabel();
 
   /* ---------- Header, progress, active nav ---------- */

@@ -29,7 +29,7 @@ python3 -m http.server 8080   # local preview → http://localhost:8080
 - `assets/css/style.css` — light/dark tokens at the top (`:root`, `[data-theme]`). Brand colours
   follow the app: emerald `#10b981` (`frontend/playground/shared/brand.ts`), logo `#064e3b` /
   `#6ee7b7`, zinc neutrals; logo SVG from `frontend/playground/public/brand/`. One colour per module (`--c-wms` … `--c-lms`); respects `prefers-reduced-motion`
-- `assets/js/main.js` — theme toggle (light by default; choice saved in `localStorage` as `fc-theme`), split-flap
+- `assets/js/main.js` — theme toggle (every page opens in light mode; dark mode can be selected for the current page), split-flap
   boards (`createBoard`; hero events in `EVENTS`, filter by module), before/after slider,
   module scroll story, §03 sandbox (`SB_ACTIONS`: CRM deal → ERP order → HR pieces → WMS
   stock; nothing is saved), payroll receipt, quiz → configurator, floating CTA,
@@ -92,7 +92,7 @@ Search Console indexing and real-device Safari still require deployment checks.
 The landing uses ordinary Uzbek section names with their purposes throughout
 navigation, descriptions, the section picker and the submitted request. Internal
 module codes and deployment values remain stable. A new visitor starts in light
-mode; a visitor's explicit saved theme choice is retained.
+mode on every page load; dark mode remains available through the theme toggle.
 
 The public endpoint already exists in `backend/src/leads`. Its website DTO now
 validates retry IDs and trims names before enforcing the minimum length.
@@ -189,3 +189,12 @@ No company data, authentication or API connection is used by the preview.
 clock, face alignment frame, arrival/departure controls and connection status.
 It is labelled as a sample, uses a neutral silhouette and does not capture a face
 or access the camera. It is not a live application screenshot.
+
+
+## Rounded cards and light default (2026-10-21)
+
+Shared radius tokens use 24px for large panels, 20px for cards, 14px for nested
+surfaces and 12px for controls. Product pages share these tokens. Each page opens
+in light mode before its first paint, ignoring previous saved theme preferences
+and the operating system appearance. The theme toggle still switches the current
+page; that choice is not persisted across navigation or reloads.
