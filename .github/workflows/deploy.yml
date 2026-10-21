@@ -1,0 +1,82 @@
+# Push to main → check the site, upload the public files to the server, verify it live.
+#
+# Repository secrets (same values as the frontend/backend repos):
+#   SSH_HOST, SSH_USER, SSH_PRIVATE_KEY, SSH_KNOWN_HOSTS.
+# Server: nginx serves /var/www/flowcore-site (owned by SSH_USER); one-time root setup
+# is deploy/server-setup.sh. Generated assets are committed, so the server needs no Node.js.
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-landing
+  cancel-in-progress: false
+
+env:
+  SITE_DIR: /var/www/flowcore-site
+  SITE_URL: https://flowcore.uz
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      # The build is committed; fail when it is stale instead of shipping old assets.
+      # sitemap.xml carries the build date as lastmod, so it differs on every run.
+      - name: Build and check
+        run: |
+          npm ci
+          npm run build
+          git diff --exit-code -- . ':!sitemap.xml' || { echo "::error::Run npm run build and commit the generated files."; exit 1; }
+          npm run check
+
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          printf 'Host server\n  HostName %s\n  User %s\n  IdentityFile ~/.ssh/id_deploy\n' "${{ secrets.SSH_HOST }}" "${{ secrets.SSH_USER }}" > ~/.ssh/config
+
+      - name: Check server directory
+        run: ssh server "test -w '$SITE_DIR'" || { echo "::error::$SITE_DIR is not writable by the deploy user; run deploy/server-setup.sh as root once."; exit 1; }
+
+      # Only public files are uploaded. Old hashed assets stay so open tabs keep loading
+      # the previous release; HTML goes last so it never points at missing files.
+      - name: Upload site
+        run: |
+          EXCLUDES=(--exclude .git --exclude .github --exclude node_modules --exclude tools --exclude deploy
+                    --exclude README.md --exclude package.json --exclude package-lock.json --exclude _headers --exclude .DS_Store --exclude .gitignore)
+          rsync -rlz --chmod=D755,F644 "${EXCLUDES[@]}" --exclude '*.html' ./ "server:$SITE_DIR/"
+          rsync -rlz --chmod=D755,F644 --delete --filter 'P assets/dist/***' "${EXCLUDES[@]}" ./ "server:$SITE_DIR/"
+
+      - name: Verify live site
+        run: |
+          sleep 3
+          for path in / /favicon.ico /favicon-48x48.png /site.webmanifest /sitemap.xml; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Cache-Control: no-cache' "$SITE_URL$path?v=$GITHUB_SHA")
+            echo "$path → $code"
+            [ "$code" = 200 ] || exit 1
+          done
+          # 400 = request reached NestJS and the origin is allowed (empty body is invalid).
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Origin: https://flowcore.uz' -H 'Content-Type: application/json' --data '{}' "$SITE_URL/api/public/leads")
+          echo "/api/public/leads → $code"
+          [ "$code" = 400 ] || { echo "::error::Lead form route returned $code (404: nginx proxy missing, 403: origin not allowed, 502: backend down)."; exit 1; }
+
+      - name: Remove SSH key
+        if: always()
+        run: rm -f ~/.ssh/id_deploy

@@ -31,7 +31,7 @@ export function generatePages(assets) {
 <meta property="og:title" content="${escape(p.title)}"><meta property="og:description" content="${escape(p.description)}">
 <meta property="og:image" content="${origin}/og-image.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${escape(p.title)}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escape(p.title)}"><meta name="twitter:description" content="${escape(p.description)}"><meta name="twitter:image" content="${origin}/og-image.png"><meta name="twitter:image:alt" content="${escape(p.title)}">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
+${home.match(/<!-- Icons & manifest -->([\s\S]*?)<!-- Theme before first paint/)[1].trim()}
 <script>${themeScript}</script>
 <link rel="preload" href="/assets/fonts/bricolage-latin-v9.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/onest-latin-v11.woff2" as="font" type="font/woff2" crossorigin>
