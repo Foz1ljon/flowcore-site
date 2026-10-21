@@ -1290,7 +1290,9 @@ h1, h2, h3 { text-wrap: balance; }
 .industry-choice { grid-template-columns: 44px 1.05fr 1.5fr auto 20px; }
 
 /* ---------- Plain-language module directory ---------- */
-.module-directory { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding-block: 28px 48px; gap: 12px; }
+.hero-overview { margin-top: 48px; padding: clamp(16px, 2.5vw, 28px); border: 1px solid var(--line); border-radius: var(--radius-panel); background: var(--bg-2); }
+.hero-overview .board-wrap { margin: 0; }
+.module-directory { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding-top: 24px; gap: 12px; }
 .module-shortcut { display: flex; flex-direction: column; gap: 16px; position: relative; padding: 22px 18px; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); transition: border-color .2s, transform .2s; }
 @media (hover: hover) and (pointer: fine) {
   .module-shortcut:hover { border-color: var(--module-color); transform: translateY(-4px); }
