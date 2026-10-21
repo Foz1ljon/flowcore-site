@@ -1579,27 +1579,31 @@ h1, h2, h3 { text-wrap: balance; }
 }
 
 /* Native themed scrollbars retain wheel, touch, keyboard and drag behavior. */
-:root { --scrollbar-thumb: var(--ink-3); --scrollbar-track: var(--bg-2); }
+:root {
+  --scrollbar-thumb: var(--accent-text);
+  --scrollbar-track: color-mix(in srgb, var(--accent) 7%, var(--bg));
+}
 @supports not selector(::-webkit-scrollbar) {
   * { scrollbar-width: thin; scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); }
 }
 @supports selector(::-webkit-scrollbar) {
   * { scrollbar-width: auto; scrollbar-color: auto; }
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
   ::-webkit-scrollbar-track { background: var(--scrollbar-track); border-radius: 999px; }
-  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border: 2px solid var(--scrollbar-track); border-radius: 999px; min-height: 40px; }
+  ::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--scrollbar-thumb), color-mix(in srgb, var(--scrollbar-thumb) 75%, var(--accent))); border: 2px solid var(--scrollbar-track); border-radius: 999px; min-height: 48px; min-width: 48px; }
   ::-webkit-scrollbar-corner { background: var(--scrollbar-track); }
   .product-table-wrap::-webkit-scrollbar,
   .tour-kanban::-webkit-scrollbar,
   .product-tabs::-webkit-scrollbar,
   #tour-sections::-webkit-scrollbar,
-  .story-index ol::-webkit-scrollbar { height: 8px; }
+  .story-index ol::-webkit-scrollbar { height: 10px; }
 }
 @media (hover: hover) and (pointer: fine) {
   html { scrollbar-gutter: stable; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--accent-text); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 }
-::-webkit-scrollbar-thumb:active { background: var(--accent-text); }
+::-webkit-scrollbar-thumb:active { background: var(--accent); }
 @media (forced-colors: active) {
   * { scrollbar-color: auto; }
   ::-webkit-scrollbar-thumb { background: ButtonText; border-color: Canvas; }

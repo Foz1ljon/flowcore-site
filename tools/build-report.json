@@ -1,10 +1,10 @@
 {
   "style": {
     "source": "assets/css/style.css",
-    "output": "assets/dist/style.e04cd4bf14b3.css",
-    "before": 104003,
-    "after": 88183,
-    "gzip": 18180
+    "output": "assets/dist/style.4f812eaefbeb.css",
+    "before": 104214,
+    "after": 88372,
+    "gzip": 18228
   },
   "product": {
     "source": "assets/css/product.css",
