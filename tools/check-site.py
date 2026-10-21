@@ -13,12 +13,22 @@ manifest = json.loads((ROOT / 'assets/manifest.json').read_text())
 files = ['index.html', *manifest['pages']]
 
 class Page(HTMLParser):
-    def __init__(self):
+    def __init__(self, allow_noindex=False):
         super().__init__()
         self.ids, self.links, self.canonicals, self.descriptions = [], [], [], []
         self.h1 = 0
+        self.lang = None
+        self.alternates = {}
+        self.allow_noindex = allow_noindex
+        self.robots = ''
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == 'html':
+            self.lang = attrs.get('lang')
+        if tag == 'link' and attrs.get('rel') == 'alternate' and attrs.get('hreflang'):
+            code = attrs['hreflang']
+            assert code not in self.alternates, ('Duplicate hreflang', code)
+            self.alternates[code] = attrs.get('href')
         if 'id' in attrs:
             self.ids.append(attrs['id'])
         if tag == 'h1':
@@ -28,7 +38,9 @@ class Page(HTMLParser):
         if tag == 'meta' and attrs.get('name') == 'description':
             self.descriptions.append(attrs.get('content'))
         if tag == 'meta' and attrs.get('name') == 'robots':
-            assert 'noindex' not in attrs.get('content', ''), 'Public page disallows indexing'
+            self.robots = attrs.get('content', '')
+            if not self.allow_noindex:
+                assert 'noindex' not in self.robots, 'Public page disallows indexing'
         for key in ['href', 'src']:
             if key in attrs:
                 self.links.append(attrs[key])
@@ -54,6 +66,27 @@ for filename in files:
     pages[filename] = page
 
 assert len(set(titles)) == len(titles), 'Duplicate search titles'
+by_canonical = {page.canonicals[0]: page for page in pages.values()}
+for filename, page in pages.items():
+    assert page.lang == 'uz', (filename, 'Public pages must remain Uzbek')
+    assert set(page.alternates) <= {'uz', 'x-default'}, (filename, 'Unexpected translated page alternate')
+    assert page.alternates.get(page.lang) == page.canonicals[0], (filename, 'Missing self hreflang')
+    for language, url in page.alternates.items():
+        assert url in by_canonical, (filename, 'Hreflang points to a missing page', url)
+        target = by_canonical[url]
+        if language != 'x-default':
+            assert target.lang == language, (filename, 'Hreflang points to the wrong language', language)
+            assert target.alternates.get(page.lang) == page.canonicals[0], (filename, 'Missing reciprocal hreflang', url)
+    for path in ['/privacy/', '/terms/']:
+        assert path in page.links, (filename, 'Missing legal page link', path)
+for filename in manifest.get('errorPages', []):
+    error = Page(allow_noindex=True)
+    error.feed((ROOT / filename).read_text())
+    assert error.h1 == 1 and error.lang == 'uz', (filename, 'Invalid error page structure')
+    assert 'noindex' in error.robots and not error.canonicals, (filename, 'Error page must not be indexed or canonicalised')
+    assert not [key for key, count in collections.Counter(error.ids).items() if count > 1], (filename, 'Duplicate IDs')
+    assert '/' in error.links and '/privacy/' in error.links and '/terms/' in error.links, (filename, 'Missing recovery links')
+    pages[filename] = error
 for filename, page in pages.items():
     for link in page.links:
         parsed = urlsplit(link)
@@ -88,4 +121,4 @@ ns = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
 sitemap = ET.parse(ROOT / 'sitemap.xml')
 assert sorted(node.text for node in sitemap.findall('s:url/s:loc', ns)) == sorted(canonicals), 'Sitemap differs from public pages'
 assert 'Sitemap: https://flowcore.uz/sitemap.xml' in (ROOT / 'robots.txt').read_text()
-print(f'PASS: {len(files)} crawlable pages, unique titles, canonical URLs, links, sitemap, JSON-LD, local fonts and asset hashes')
+print(f'PASS: {len(files)} crawlable pages, unique titles, canonicals, reciprocal hreflang, legal links, sitemap, JSON-LD, fonts and asset hashes')

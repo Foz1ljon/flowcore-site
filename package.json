@@ -3,8 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "python3 tools/dev-server.py",
     "build": "node tools/build.mjs",
-    "check": "python3 tools/check-site.py"
+    "check": "python3 tools/check-site.py",
+    "check:http": "python3 tools/check-http.py"
   },
   "devDependencies": {
     "esbuild": "0.28.2"

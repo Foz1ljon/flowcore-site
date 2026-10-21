@@ -6,7 +6,7 @@ product folders with nginx, Cloudflare Pages, Vercel or GitHub Pages; exclude
 `node_modules`, `.git`, and development tools from the upload.
 
 ```bash
-python3 -m http.server 8080   # local preview → http://localhost:8080
+npm run dev   # local preview → http://127.0.0.1:8080 (includes branded 404)
 ```
 
 ## Before going live
@@ -23,6 +23,36 @@ python3 -m http.server 8080   # local preview → http://localhost:8080
 3. Submit `sitemap.xml` to Google Search Console and Yandex Webmaster.
 
 ## Files
+
+- `404.html` — generated Uzbek error page with home, history-back and module
+  links. It is excluded from the sitemap and has `noindex`. The dev server and
+  nginx static snippet serve it with HTTP 404 while preserving the requested
+  URL; there is no redirect to a successful home-page response. Run
+  `npm run dev -- --port 8081` to choose a different local port. Production needs
+  the updated nginx snippet installed and nginx configuration reloaded.
+
+- Search metadata lives in `tools/seo.mjs`. The site remains Uzbek. Each page
+  has its own title, canonical, FAQ/software structured data and sitemap entry.
+  English and Russian module terminology appears in search metadata without a
+  language switcher or translated pages. FlowCore is the official name; CoreFlow
+  is addressed as a search spelling in a visible FAQ.
+  Publish the generated pages before requesting indexing in Search Console or
+  Yandex Webmaster. Metadata does not guarantee ranking or immediate indexing.
+- Contact anchors: same-page links and incoming `/#aloqa` links centre the contact
+  grid on desktop and the form on stacked layouts, accounting for the header.
+  The `#top` target belongs to the page body, so footer and logo links scroll to
+  the document start rather than a fixed header.
+
+- `/privacy/` and `/terms/` — Uzbek privacy and service terms, generated from
+  `tools/legal-content.mjs` by `tools/generate-legal.mjs`. Update the version/date
+  with substantive policy changes. Both pages are linked from every public page,
+  included in the sitemap and support light/dark themes and mobile navigation.
+  The inquiry form requires a separate unchecked contact-data consent choice.
+  This is a client-side gate; the existing leads API does not store a structured
+  consent/version receipt. Do not describe it as an audited consent registry.
+  Complete the legal operator's name, STIR/address, confirmed contact ownership,
+  hosting locations and agreed retention/service details before treating these
+  pages as the complete contractual disclosure for a live customer agreement.
 
 - `index.html` — page, meta/OG/Twitter tags, JSON-LD (Organization, WebSite,
   SoftwareApplication, FAQPage)

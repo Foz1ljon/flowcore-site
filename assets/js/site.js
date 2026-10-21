@@ -12,4 +12,12 @@
     sync();
   });
   sync();
+  const back = document.querySelector('#goBack');
+  if (back) {
+    back.hidden = false;
+    back.addEventListener('click', () => {
+      if (history.length > 1) history.back();
+      else location.assign('/');
+    });
+  }
 })();

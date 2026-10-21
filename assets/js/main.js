@@ -808,6 +808,40 @@
   $('#quizApply').addEventListener('click', syncFloatText);
   syncFloatText();
 
+  /* Center the actual contact content rather than the section's padded edge. */
+  const scrollToContact = (behavior = reduceMotion ? 'instant' : 'smooth') => {
+    const grid = $('.cta-grid', contactEl);
+    const target = window.matchMedia('(max-width: 900px)').matches ? $('#leadForm') : grid;
+    const bounds = target.getBoundingClientRect();
+    // Reveal animations move the form visually; centre its final layout position.
+    const transform = getComputedStyle(target).transform;
+    const revealOffset = transform === 'none' ? 0 : new DOMMatrixReadOnly(transform).m42;
+    const headerBottom = Math.max(0, header.getBoundingClientRect().bottom);
+    const available = innerHeight - headerBottom;
+    const inset = Math.max(16, (available - bounds.height) / 2);
+    window.scrollTo({ top: Math.max(0, scrollY + bounds.top - revealOffset - headerBottom - inset), behavior });
+  };
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest('a[href]');
+    if (!link || link.target || link.hasAttribute('download')) return;
+    const destination = new URL(link.href, location.href);
+    if (destination.origin !== location.origin || destination.pathname !== location.pathname || destination.search !== location.search || destination.hash !== '#aloqa') return;
+    event.preventDefault();
+    if (location.hash !== '#aloqa') history.pushState(null, '', destination.href);
+    scrollToContact();
+  });
+  window.addEventListener('hashchange', () => {
+    if (location.hash === '#aloqa') scrollToContact();
+  });
+  const alignInitialContact = () => {
+    if (location.hash === '#aloqa') document.fonts.ready.then(() => {
+      if (location.hash === '#aloqa') requestAnimationFrame(() => scrollToContact('instant'));
+    });
+  };
+  if (document.readyState === 'complete') alignInitialContact();
+  else window.addEventListener('load', alignInitialContact, { once: true });
+
   /* ---------- Lead form: delivered only after a real endpoint response ---------- */
   const form = $('#leadForm');
   const phoneField = form.elements.namedItem('phone');
@@ -912,13 +946,16 @@
     const phone = form.elements.namedItem('phone');
     const company = form.elements.namedItem('company');
     const bundle = form.elements.namedItem('bundle');
+    const consent = form.elements.namedItem('privacyConsent');
     const nameOk = name.value.trim().length >= 2;
     const phoneOk = /^\+998 \d{2} \d{3} \d{2} \d{2}$/.test(phone.value.trim());
     name.setAttribute('aria-invalid', String(!nameOk));
     phone.setAttribute('aria-invalid', String(!phoneOk));
+    consent.setAttribute('aria-invalid', String(!consent.checked));
     draft.hidden = true;
     if (!nameOk) { setMsg('Ismingizni kamida 2 ta belgi bilan kiriting.', 'err'); name.focus(); return; }
     if (!phoneOk) { setMsg('Telefon raqamni to‘liq kiriting, masalan +998 90 123 45 67.', 'err'); phone.focus(); return; }
+    if (!consent.checked) { setMsg('So‘rov yuborish uchun aloqa ma’lumotlaringizdan foydalanishga rozilik bering.', 'err'); consent.focus(); return; }
     if (!bundle.value) { setMsg('Narxlar bo‘limida kamida bitta bo‘limni tanlang.', 'err'); focusConfig(); return; }
     const fields = { name: name.value.trim(), phone: phone.value.trim(), company: company.value.trim(), bundle: bundle.value };
     const payload = JSON.stringify(fields);

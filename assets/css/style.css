@@ -798,6 +798,9 @@ input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius
 }
 .mega span { color: var(--accent); -webkit-text-stroke-color: var(--accent); }
 .foot-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--line); font: 500 12px var(--f-mono); color: var(--ink-3); }
+.foot-bottom { flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+.foot-legal { display: flex; flex-wrap: wrap; gap: 12px 24px; color: var(--ink-2); }
+.foot-legal a { min-height: 44px; align-items: center; }
 @media (hover: hover) and (pointer: fine) {
   .foot-bottom a:hover { color: var(--accent-text); }
 }
@@ -1177,6 +1180,13 @@ input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius
 .demo-agenda li { display: flex; gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
 .demo-agenda span { color: var(--accent-text); font: 500 11px/2 var(--f-mono); }
 .form-help { color: var(--ink-2); font-size: 12px; line-height: 1.6; }
+.form-consent { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; align-items: start; padding-block: 8px; font-size: 13px; line-height: 1.6; }
+.form-consent input { margin-top: 3px; width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
+.form-consent label { display: block; cursor: pointer; color: var(--ink); }
+.form-consent p { margin-top: 8px; color: var(--ink-2); font-size: 12px; }
+.form-consent a { text-decoration: underline; text-underline-offset: 3px; }
+.form-consent input:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.form-consent input[aria-invalid="true"] { outline: 2px solid var(--warn); outline-offset: 3px; }
 .lead-draft { border-top: 1px solid var(--line-2); padding-top: 20px; display: grid; gap: 14px; }
 .lead-draft > label { font-size: 13px; font-weight: 600; }
 .lead-draft textarea { font: 400 12px/1.8 var(--f-body); width: 100%; resize: vertical; min-height: 150px; border: 1px solid var(--line-2); border-radius: 7px; background: var(--bg); color: var(--ink); padding: 12px; }

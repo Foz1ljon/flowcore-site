@@ -1,16 +1,21 @@
 {
   "assets": {
-    "style": "assets/dist/style.b238d2b2c9b8.css",
-    "product": "assets/dist/product.374c3b18fddc.css",
-    "main": "assets/dist/main.6c4707f044be.js",
+    "style": "assets/dist/style.ffdc8412ba4b.css",
+    "product": "assets/dist/product.301f3a09f4bb.css",
+    "main": "assets/dist/main.fc15a4cab759.js",
     "tour": "assets/dist/tour.73b32f700a4f.js",
-    "site": "assets/dist/site.ffcdae04b450.js"
+    "site": "assets/dist/site.0187019323b4.js"
   },
   "pages": [
     "erp/index.html",
     "crm/index.html",
     "ombor/index.html",
     "ish-haqi/index.html",
-    "talim/index.html"
+    "talim/index.html",
+    "privacy/index.html",
+    "terms/index.html"
+  ],
+  "errorPages": [
+    "404.html"
   ]
 }
