@@ -1,102 +1,590 @@
 [
   {
-    "slug": "erp", "code": "ERP", "name": "Ishlab chiqarish", "section": "erp",
+    "slug": "erp",
+    "code": "ERP",
+    "name": "Ishlab chiqarish",
+    "section": "erp",
     "title": "FlowCore ERP — ishlab chiqarish va tikuv sexi dasturi",
     "heading": "Buyurtmadan tayyor mahsulotgacha — FlowCore ERP.",
     "description": "FlowCore ERP bilan ishlab chiqarish buyurtmalari, xomashyo, ish bosqichlari va tayyor mahsulotni hisobga oling. Tikuv sexi va ishlab chiqarish uchun o‘zbekcha dastur.",
     "intro": "FlowCore ERP — ishlab chiqarish ishlarini bir joyda kuzatish uchun dastur. Buyurtma nimadan tayyorlanadi, kim bajaradi va qaysi bosqichda turibdi — shularni ko‘rasiz. Tikuv sexi yoki boshqa ishlab chiqarish korxonasi o‘z ish tartibini belgilab oladi.",
     "cards": [
-      ["Buyurtmalarni yozib boring", "Mahsulot nomi, miqdori va ish bosqichlarini kiriting. Buyurtma bichish, tikish, dazmol yoki siz belgilagan boshqa ishlardan o‘tadi. Qaysi buyurtma tugagani va qaysi biri davom etayotganini ko‘ring."],
-      ["Xomashyo yetishini biling", "Bir mahsulotga qancha mato, tugma yoki boshqa xomashyo ketishini belgilang. Buyurtmani bajarishga ombordagi mahsulot yetishini oldindan tekshiring. Yetishmayotgan xomashyoni ro‘yxatdan ko‘ring."],
-      ["Ishni xodimlarga topshiring", "Har bir bosqichga xodim, rejadagi vaqt va ko‘rsatma belgilang. Bajarilgan ishni yozib boring. Ishlab chiqarish va xodimlarning ish haqi bo‘limlarini birga ishlatish mumkin."],
-      ["Tayyor mahsulotni hisobga oling", "Buyurtma yakunlanganda ishlatilgan xomashyo ombordan chiqadi va tayyor mahsulot kirim qilinadi. Yaroqsiz mahsulot va uning sababini ham qayd etish mumkin."]
+      [
+        "Buyurtmalarni yozib boring",
+        "Mahsulot nomi, miqdori va ish bosqichlarini kiriting. Buyurtma bichish, tikish, dazmol yoki siz belgilagan boshqa ishlardan o‘tadi. Qaysi buyurtma tugagani va qaysi biri davom etayotganini ko‘ring."
+      ],
+      [
+        "Xomashyo yetishini biling",
+        "Bir mahsulotga qancha mato, tugma yoki boshqa xomashyo ketishini belgilang. Buyurtmani bajarishga ombordagi mahsulot yetishini oldindan tekshiring. Yetishmayotgan xomashyoni ro‘yxatdan ko‘ring."
+      ],
+      [
+        "Ishni xodimlarga topshiring",
+        "Har bir bosqichga xodim, rejadagi vaqt va ko‘rsatma belgilang. Bajarilgan ishni yozib boring. Ishlab chiqarish va xodimlarning ish haqi bo‘limlarini birga ishlatish mumkin."
+      ],
+      [
+        "Tayyor mahsulotni hisobga oling",
+        "Buyurtma yakunlanganda ishlatilgan xomashyo ombordan chiqadi va tayyor mahsulot kirim qilinadi. Yaroqsiz mahsulot va uning sababini ham qayd etish mumkin."
+      ],
+      [
+        "Mahsulot tarkibini oldindan belgilang",
+        "Har bir mahsulot uchun xomashyo me’yorini yozib qo‘ying. Buyurtma miqdori bilan birga kerakli sarfni ko‘rib, ombordagi qoldiq bilan solishtirasiz. Masalan, ko‘ylak uchun mato, tugma va ip alohida hisobda turadi. Bu xarid va ishlab chiqarishni birga rejalashtirishga yordam beradi."
+      ],
+      [
+        "Rahbar va bajaruvchi bir hisobda ishlaydi",
+        "Rahbar buyurtmaning umumiy holatini, bajaruvchi esa o‘ziga topshirilgan bosqichni kuzatadi. Mas’ul xodim, muddat va ko‘rsatma bir ishga bog‘lanadi. Tugallanmagan bosqichlarni tekshirib, keyingi ishni kim bajarishini aniqlaysiz."
+      ]
     ],
-    "example": ["Masalan, 50 ta ko‘ylak buyurtma qilindi. Har biriga 2,5 metr mato kerak bo‘lsa, buyurtma uchun 125 metr mato talab qilinadi.", "Buyurtmani bichish, tikish, dazmol va qadoqlash bosqichlariga ajratasiz. Qaysi ish bitganini belgilab borasiz. Yakunda xomashyo va tayyor mahsulot hisobi omborda ham aks etadi."],
-    "audience": ["Tikuv sexlari: buyurtmalar, mato sarfi va donabay ish haqi bilan ishlash uchun.", "Mahsulot ishlab chiqaradigan korxonalar: o‘z bosqichlari va xomashyo hisobini yuritish uchun.", "Rahbarlar: buyurtma qayerda turganini xodimlardan alohida so‘ramasdan ko‘rish uchun."],
+    "example": [
+      "50 ta ko‘ylak buyurtmasini kiritasiz. Har biriga 2,5 metr mato ketsa, jami 125 metr kerak bo‘lishini tekshirasiz.",
+      "Bichish, tikish, dazmol va qadoqlash ishlariga mas’ullarni belgilaysiz. Bajarilgan ishlar qayd etilgach, buyurtma qayergacha yetganini ko‘rasiz.",
+      "Foydasi: mijoz buyurtmasini so‘raganda, javob topish uchun barcha xodimlardan alohida so‘rab chiqishingiz shart bo‘lmaydi."
+    ],
+    "audience": [
+      "Tikuv sexlari: buyurtmalar, mato sarfi va donabay ish haqi bilan ishlash uchun.",
+      "Mahsulot ishlab chiqaradigan korxonalar: o‘z bosqichlari va xomashyo hisobini yuritish uchun.",
+      "Rahbarlar: buyurtma qayerda turganini xodimlardan alohida so‘ramasdan ko‘rish uchun."
+    ],
     "faqs": [
-      ["ERP degani nima?", "ERP — korxonadagi ishlarni bir dasturda boshqarish nomi. FlowCore’da bu bo‘lim buyurtma, xomashyo va ishlab chiqarish bosqichlarini kuzatishga yordam beradi."],
-      ["FlowCore ERP omborsiz ishlaydimi?", "Ishlab chiqarishda xomashyo va tayyor mahsulot hisobi kerak. Shu sababli ishlab chiqarish bo‘limi ombor bo‘limi bilan birga tanlanadi."],
-      ["Faqat tikuv sexi uchunmi?", "Yo‘q. Ish bosqichlari va mahsulot tarkibini o‘zingiz belgilaysiz. Korxonangizdagi ish tartibi mos kelishini bepul tanishuvda ko‘rib chiqamiz."]
-    ]
+      [
+        "ERP degani nima?",
+        "ERP — korxonadagi ishlarni bir dasturda boshqarish nomi. FlowCore’da bu bo‘lim buyurtma, xomashyo va ishlab chiqarish bosqichlarini kuzatishga yordam beradi."
+      ],
+      [
+        "FlowCore ERP omborsiz ishlaydimi?",
+        "Ishlab chiqarishda xomashyo va tayyor mahsulot hisobi kerak. Shu sababli ishlab chiqarish bo‘limi ombor bo‘limi bilan birga tanlanadi."
+      ],
+      [
+        "Faqat tikuv sexi uchunmi?",
+        "Yo‘q. Ish bosqichlari va mahsulot tarkibini o‘zingiz belgilaysiz. Korxonangizdagi ish tartibi mos kelishini bepul tanishuvda ko‘rib chiqamiz."
+      ],
+      [
+        "Ish bosqichlarini korxonamizga moslasak bo‘ladimi?",
+        "Ha. Faqat bichish yoki tikish bilan cheklanmaydi: o‘zingizdagi ish bosqichlarini, ularga mas’ul xodimlarni va ko‘rsatmalarni belgilaysiz."
+      ],
+      [
+        "Buyurtmani boshlashdan oldin nimani tayyorlaymiz?",
+        "Mahsulotlar ro‘yxati, ularning tarkibi, ombordagi boshlang‘ich qoldiq va ish bosqichlarini tayyorlab oling. Tanishuvda bir buyurtmani shu ma’lumotlar asosida ko‘rib chiqish mumkin."
+      ],
+      [
+        "Bu bo‘lim buyurtmani vaqtida tugatishga qanday yordam beradi?",
+        "Ishlarni bosqichlarga bo‘lib, mas’ul va muddat belgilaysiz. Tugallanmagan bosqichni ko‘rib, sababini ertaroq aniqlaysiz. Dastur ishni kuzatishga yordam beradi; buyurtmaning bajarilishi jamoa va materiallar tayyorligiga ham bog‘liq."
+      ]
+    ],
+    "workflow": [
+      [
+        "Buyurtma va mahsulotni kiriting",
+        "Mahsulot nomi, buyurtma miqdori va tarkibini belgilang. Xomashyo ehtiyojini ombor qoldig‘i bilan solishtiring."
+      ],
+      [
+        "Bosqich va mas’ullarni belgilang",
+        "Korxonangizdagi ketma-ketlikni tuzing. Har bir ishga xodim, muddat va bajarish ko‘rsatmasini biriktiring."
+      ],
+      [
+        "Bajarilgan ishni qayd eting",
+        "Tugagan bosqichlar va tayyorlangan miqdorni yozib boring. Kechikayotgan ish yoki yaroqsiz mahsulot bo‘lsa, sababini ko‘rsating."
+      ],
+      [
+        "Buyurtmani yakunlang",
+        "Ishlatilgan xomashyo va tayyor mahsulot harakatini tekshiring. Donabay haqni yuritsangiz, bajarilgan ishni xodimning hisobida ham kuzating."
+      ]
+    ],
+    "connections": "ERP ombor bilan birga ishlaydi: mahsulot tarkibi, xomashyo sarfi va tayyor mahsulot kirimi umumiy hisobga bog‘lanadi. Xodimlar bo‘limi bilan ishlatilganda bajarilgan ish va donabay haqni bir jarayon doirasida yuritish mumkin.",
+    "plain": "Bu bo‘lim buyurtmani tayyorlash ishlarini tartibga soladi. Nima tayyorlanadi, qancha tayyorlanadi, kim qaysi ishni bajaradi va hozir ish qayergacha yetdi — barchasini shu yerda ko‘rasiz. Masalan, ko‘ylak bichildimi, tikildimi yoki hali dazmolga o‘tmadimi, bilib turasiz.",
+    "problems": [
+      "Buyurtma qaysi bosqichda ekanini bilish uchun sexni aylanib yoki xodimlarga qo‘ng‘iroq qilib chiqasiz.",
+      "Xomashyo yetishmasligi ish boshlanganidan keyin bilinib, buyurtma to‘xtab qoladi.",
+      "Kim qancha ish bajargani turli daftarlarda qolib, oy oxirida yig‘ish qiyin bo‘ladi."
+    ],
+    "benefits": [
+      [
+        "Kechikayotgan ishni oldinroq payqaysiz",
+        "Har bir buyurtmaning bosqichi, mas’uli va muddatini ko‘rasiz. Masalan, bichish tugagan, tikish esa hali tugamagan bo‘lsa, e’tiborni shu ishga qaratasiz. Qaysi joyda yordam kerakligini aniqlash osonlashadi."
+      ],
+      [
+        "Xomashyoni ish boshlanishidan oldin tekshirasiz",
+        "Mahsulot tarkibi va buyurtma soni bo‘yicha qancha xomashyo kerakligini bilasiz. Uni ombor qoldig‘i bilan solishtirasiz. Yetishmayotgan mato yoki boshqa materialni oldindan tayyorlash ishning to‘xtab qolishini kamaytirishga yordam beradi."
+      ],
+      [
+        "Har bir xodimning vazifasi aniq bo‘ladi",
+        "Ishga mas’ul xodim va ko‘rsatma biriktirasiz. Qaysi ish bajarilgani va qaysi biri navbatda ekanini tekshirasiz. Rahbar hamma ishni qaytadan og‘zaki tushuntirish o‘rniga yozilgan topshiriqqa tayana oladi."
+      ],
+      [
+        "Bajarilgan ishni ish haqi bilan solishtirasiz",
+        "Donabay to‘lov bo‘lsa, tayyorlangan miqdor xodimning haqini tushuntirishga asos bo‘ladi. Masalan, 100 dona mahsulot uchun har biriga 5 000 so‘mdan jami 500 000 so‘m haq chiqadi. Xodimlar bo‘limi bilan birga ishlaganda bu hisoblarni bir joyda yuritish mumkin."
+      ]
+    ],
+    "result": "Kun oxirida: qaysi buyurtma davom etyapti, qaysi bosqich tugadi, kim mas’ul va qanday material kerak — barchasini tekshirasiz."
   },
   {
-    "slug": "crm", "code": "CRM", "name": "Mijozlar va savdo", "section": "crm",
+    "slug": "crm",
+    "code": "CRM",
+    "name": "Mijozlar va savdo",
+    "section": "crm",
     "title": "FlowCore CRM — mijozlar, Telegram va Instagram xabarlari",
     "heading": "Har bir mijozning so‘rovi nazoratda — FlowCore CRM.",
     "description": "FlowCore CRM bilan mijozlar, savdo va keyingi qo‘ng‘iroqlarni kuzating. Telegram va Instagram xabarlarini bir joyda ko‘ring. O‘zbek tilidagi mijozlar dasturi.",
     "intro": "FlowCore CRM — mijozlar bilan ishlash va savdoni kuzatish bo‘limi. Kim nima so‘ragani, qaysi xodim javob berishi va keyin nima qilish kerakligini yozib borasiz. Telegram va Instagramdagi yozishmalarni tegishli hisoblarni ulab bir joyda ko‘rish mumkin.",
     "cards": [
-      ["Mijozlarni bir joyda saqlang", "Mijozning nomi, telefon raqami, so‘rovi va savdo summasini yozing. Mijoz qayerdan kelganini va kim unga javob berishini belgilang. Kerakli mijozni nomi bilan qidiring."],
-      ["Savdo qanday ketayotganini biling", "Yangi so‘rov, suhbat, taklif va kelishuv kabi ish bosqichlarini kuzating. Har bir mijoz bo‘yicha keyingi qadamni biling va javobsiz qolgan so‘rovlarni toping."],
-      ["Telegram va Instagramni ulang", "Telegram bot va mos Instagram hisobini alohida ulaysiz. Ruxsat berilgan hisoblarning xabarlari umumiy oynaga keladi. Xabar olish va yuborish uchun internet kerak."],
-      ["Qo‘ng‘iroq va uchrashuvni unutmang", "Mijoz bilan keyingi qo‘ng‘iroq, uchrashuv yoki boshqa vazifani belgilang. Har bir xodim o‘ziga tegishli bugungi ishlarni ko‘radi."]
+      [
+        "Mijozlarni bir joyda saqlang",
+        "Mijozning nomi, telefon raqami, so‘rovi va savdo summasini yozing. Mijoz qayerdan kelganini va kim unga javob berishini belgilang. Kerakli mijozni nomi bilan qidiring."
+      ],
+      [
+        "Savdo qanday ketayotganini biling",
+        "Yangi so‘rov, suhbat, taklif va kelishuv kabi ish bosqichlarini kuzating. Har bir mijoz bo‘yicha keyingi qadamni biling va javobsiz qolgan so‘rovlarni toping."
+      ],
+      [
+        "Telegram va Instagramni ulang",
+        "Telegram bot va mos Instagram hisobini alohida ulaysiz. Ruxsat berilgan hisoblarning xabarlari umumiy oynaga keladi. Xabar olish va yuborish uchun internet kerak."
+      ],
+      [
+        "Qo‘ng‘iroq va uchrashuvni unutmang",
+        "Mijoz bilan keyingi qo‘ng‘iroq, uchrashuv yoki boshqa vazifani belgilang. Har bir xodim o‘ziga tegishli bugungi ishlarni ko‘radi."
+      ],
+      [
+        "Har bir mijozga mas’ul belgilang",
+        "So‘rovning egasi kimligi aniq bo‘lsin. Mijoz kartochkasida javobgar xodim, kelgan manba va savdo holatini saqlang. Rahbar javobsiz so‘rovlar va davom ettirish kerak bo‘lgan suhbatlarni shu ma’lumotlar orqali tekshiradi."
+      ],
+      [
+        "Suhbatni keyingi ishga aylantiring",
+        "Narx so‘ralgandan keyin taklif yuborish, qayta qo‘ng‘iroq qilish yoki uchrashuv o‘tkazishni vazifa sifatida belgilang. Vazifani mijoz bilan bog‘lab yuritsangiz, xodim nima sababdan bog‘lanishi va qaysi ishni yakunlashi kerakligini biladi."
+      ]
     ],
-    "example": ["Mijoz Telegramdan 300 ta ko‘ylak narxini so‘radi. Xodim mijozning so‘rovini yozib, unga javob beradi va ertaga taklif yuborish vazifasini belgilaydi.", "Savdo holati o‘zgarganda ma’lumot shu mijozning yozuvida qoladi. Rahbar kim javobgar ekanini va qaysi ish hali bajarilmaganini ko‘radi."],
-    "audience": ["Do‘kon va savdo jamoalari: xaridorlar va takliflarni kuzatish uchun.", "Ishlab chiqaruvchilar: buyurtma so‘ragan mijozlar bilan suhbatni davom ettirish uchun.", "O‘quv markazlari va xizmat ko‘rsatuvchilar: yangi so‘rovlarni yig‘ish va mijozga qayta bog‘lanish uchun."],
+    "example": [
+      "Mijoz Telegramdan 300 ta ko‘ylak narxini so‘raydi. Siz uning ismi, so‘rovi va javobgar xodimni yozasiz.",
+      "Xodim narxni tayyorlab, ertaga taklif yuborishni vazifa qilib belgilaydi. Mijoz bilan gaplashgach, savdo holatini yangilaydi.",
+      "Foydasi: rahbar mijozning so‘rovi kimda ekanini va keyingi ish nima bo‘lishini ko‘radi. Mijozga qayta bog‘lanish faqat xodimning xotirasiga bog‘lanib qolmaydi."
+    ],
+    "audience": [
+      "Do‘kon va savdo jamoalari: xaridorlar va takliflarni kuzatish uchun.",
+      "Ishlab chiqaruvchilar: buyurtma so‘ragan mijozlar bilan suhbatni davom ettirish uchun.",
+      "O‘quv markazlari va xizmat ko‘rsatuvchilar: yangi so‘rovlarni yig‘ish va mijozga qayta bog‘lanish uchun."
+    ],
     "faqs": [
-      ["CRM nima qiladi?", "CRM — mijozlar bilan ishlash dasturi. Kim nima so‘ragani, kim javob berishi va savdo qanday ketayotganini bir joyda ko‘rsatadi."],
-      ["Telegram va Instagram darhol ishlaydimi?", "Avval tegishli hisoblar ulanadi va zarur ruxsatlar beriladi. Telegram uchun bot, Instagram uchun mos professional hisob kerak. Ulanishni suhbatda tushuntiramiz."],
-      ["FlowCore CRM’ni alohida tanlash mumkinmi?", "Ha. Mijozlar bo‘limini kerakli boshqa bo‘limlar bilan yoki alohida tanlaysiz. Narx jamoa va tanlangan imkoniyatlarga qarab kelishiladi."]
-    ]
+      [
+        "CRM nima qiladi?",
+        "CRM — mijozlar bilan ishlash dasturi. Kim nima so‘ragani, kim javob berishi va savdo qanday ketayotganini bir joyda ko‘rsatadi."
+      ],
+      [
+        "Telegram va Instagram darhol ishlaydimi?",
+        "Avval tegishli hisoblar ulanadi va zarur ruxsatlar beriladi. Telegram uchun bot, Instagram uchun mos professional hisob kerak. Ulanishni suhbatda tushuntiramiz."
+      ],
+      [
+        "FlowCore CRM’ni alohida tanlash mumkinmi?",
+        "Ha. Mijozlar bo‘limini kerakli boshqa bo‘limlar bilan yoki alohida tanlaysiz. Narx jamoa va tanlangan imkoniyatlarga qarab kelishiladi."
+      ],
+      [
+        "CRM’dan foydalanish uchun ijtimoiy tarmoq shartmi?",
+        "Yo‘q. Mijozlar, savdo holatlari va vazifalarni ijtimoiy tarmoq ulanmagan holda ham yuritasiz. Telegram va Instagram yozishmalari kerak bo‘lsa, ularni alohida ulaysiz."
+      ],
+      [
+        "Ishni boshlash uchun qanday ma’lumot kerak?",
+        "Mijozlar ro‘yxati, savdo bosqichlari va mas’ul xodimlarni tayyorlang. Mavjud jadvallaringiz bo‘lsa, ularning tuzilishini suhbatda ko‘rib chiqamiz."
+      ],
+      [
+        "Bu bo‘lim savdoni ko‘paytiradimi?",
+        "Mijoz so‘rovini yozib borish va vaqtida qayta bog‘lanishga yordam beradi. E’tiborsiz qolgan so‘rovlarni kamaytirish savdo uchun foydali. Xarid natijasi taklifingiz, narxingiz va xodimlarning ishlashiga ham bog‘liq."
+      ]
+    ],
+    "workflow": [
+      [
+        "Mijoz ma’lumotini yig‘ing",
+        "Ism, telefon, so‘rov va kelgan manbani kiriting. Telegram yoki Instagram bilan ishlash uchun tegishli hisoblarni ulang."
+      ],
+      [
+        "Savdo holatini belgilang",
+        "So‘rovni tegishli bosqichga joylang, taxminiy summani kiriting va javobgar xodimni belgilang."
+      ],
+      [
+        "Keyingi aloqani rejalashtiring",
+        "Qo‘ng‘iroq, taklif yoki uchrashuv vazifasini yozing. Har bir menejer o‘zining bugungi ishlarini tekshiradi."
+      ],
+      [
+        "Natijani qayd eting",
+        "Suhbat va kelishuv holatini yangilang. Rahbar qaysi mijoz bo‘yicha ish davom etayotganini kuzatadi."
+      ]
+    ],
+    "connections": "CRM mijoz bilan dastlabki suhbat va savdo holatini yuritadi. Ombor yoki ishlab chiqarish bo‘limlari bilan birga tanlanganda mijoz so‘rovi, mavjud mahsulot va buyurtmani bajarish jarayonini bir ish muhitida kuzatish mumkin. Kerakli ish ketma-ketligini tanishuvda belgilab olamiz.",
+    "plain": "Bu bo‘lim sizdan mahsulot yoki xizmat so‘ragan odamlar bilan ishlash uchun kerak. Kim qo‘ng‘iroq qildi, nima so‘radi, unga kim javob berdi va yana qachon bog‘lanish kerak — yozib borasiz. Mijoz hali xarid qilmagan bo‘lsa ham, uning so‘rovi va keyingi ishni hisobga olasiz.",
+    "problems": [
+      "Mijoz yozadi, lekin boshqa ishlar orasida unga qayta javob berish esdan chiqadi.",
+      "Bir nechta xodim ishlaganda kim qaysi mijozga javob berayotgani noaniq bo‘ladi.",
+      "Telefon, Telegram va Instagramdagi so‘rovlar tarqalib ketib, qaysi savdo davom etayotganini bilish qiyinlashadi."
+    ],
+    "benefits": [
+      [
+        "Qayta bog‘lanishni unutish kamayadi",
+        "Har bir mijoz uchun keyingi ishni belgilaysiz: qo‘ng‘iroq qilish, narx yuborish yoki uchrashish. Masalan, bugun maslahatlashgan xaridorga ertaga taklif yuborishni yozasiz. Xodim bugungi vazifalaridan shu ishni ko‘radi."
+      ],
+      [
+        "Mijozga kim javob berishi aniq bo‘ladi",
+        "Har bir so‘rovga mas’ul xodimni biriktirasiz. Rahbar kim nima bilan ishlayotganini tekshiradi. Yangi so‘rov e’tiborsiz qolgan bo‘lsa, kim davom ettirishi kerakligini belgilash osonlashadi."
+      ],
+      [
+        "Suhbatni boshidan qayta so‘rash kamayadi",
+        "Mijozning nomi, telefoni, so‘rovi, narxi va savdo holatini bir joyda saqlaysiz. Yana bog‘langanida, nima haqida gaplashilganini tekshirasiz. Bu mijozga javob tayyorlash va suhbatni davom ettirishni yengillashtiradi."
+      ],
+      [
+        "Qaysi savdoga e’tibor kerakligini bilasiz",
+        "Yangi so‘rov, suhbat, taklif va kelishuv holatlarini ajratib ko‘rasiz. Taklif berilgan, lekin hali javob kelmagan mijozlarni tekshirasiz. Shu asosda kimga qayta bog‘lanish kerakligini tanlaysiz."
+      ]
+    ],
+    "result": "Kun oxirida: kim yozdi, nima so‘radi, kim javobgar va keyin nima qilish kerak — shu ma’lumotlar bir joyda turadi."
   },
   {
-    "slug": "ombor", "code": "WMS", "name": "Ombor hisobi", "section": "wms",
+    "slug": "ombor",
+    "code": "WMS",
+    "name": "Ombor hisobi",
+    "section": "wms",
     "title": "FlowCore WMS — ombor hisobi, kirim va chiqim dasturi",
     "heading": "Omborda nima borligini aniq biling — FlowCore WMS.",
     "description": "FlowCore ombor dasturi bilan kirim, chiqim, qoldiq va mahsulot qiymatini hisobga oling. Bir nechta ombor, xomashyo va tayyor mahsulotni bir joyda boshqaring.",
     "intro": "FlowCore WMS — ombor hisobini yuritish dasturi. Nima keldi, nima chiqdi, qancha mahsulot qoldi va u qaysi omborda turibdi — barchasini ro‘yxatdan ko‘rasiz. Xomashyo va tayyor mahsulotni bir-biridan ajratib hisobga oling.",
     "cards": [
-      ["Kirim va chiqimni yozing", "Yangi kelgan mahsulotni omborga kiriting. Sotilgan, ishlatilgan yoki hisobdan chiqarilgan mahsulotni qayd eting. Har bir o‘zgarishdan keyin qoldiqni tekshiring."],
-      ["Bir nechta omborni yuriting", "Asosiy ombor, do‘kon va boshqa saqlash joylarini alohida belgilang. Mahsulotni bir ombordan boshqasiga o‘tkazing va qayerda qancha qolgani haqida ma’lumot oling."],
-      ["Mahsulotni o‘zingizga mos yozing", "Mahsulot uchun rang, o‘lcham, nav yoki boshqa kerakli maydonlarni qo‘shing. Bir mahsulotga qancha xomashyo sarflanishini ham belgilash mumkin."],
-      ["Yetishmayotgan mahsulotni biling", "Qoldiq yetmasa, mahsulotni chiqarish to‘xtatiladi. Ombordagi haqiqiy miqdorni sanab, hisobdagi yozuvlar bilan solishtiring va kerakli xaridni rejalashtiring."]
+      [
+        "Kirim va chiqimni yozing",
+        "Yangi kelgan mahsulotni omborga kiriting. Sotilgan, ishlatilgan yoki hisobdan chiqarilgan mahsulotni qayd eting. Har bir o‘zgarishdan keyin qoldiqni tekshiring."
+      ],
+      [
+        "Bir nechta omborni yuriting",
+        "Asosiy ombor, do‘kon va boshqa saqlash joylarini alohida belgilang. Mahsulotni bir ombordan boshqasiga o‘tkazing va qayerda qancha qolgani haqida ma’lumot oling."
+      ],
+      [
+        "Mahsulotni o‘zingizga mos yozing",
+        "Mahsulot uchun rang, o‘lcham, nav yoki boshqa kerakli maydonlarni qo‘shing. Bir mahsulotga qancha xomashyo sarflanishini ham belgilash mumkin."
+      ],
+      [
+        "Yetishmayotgan mahsulotni biling",
+        "Qoldiq yetmasa, mahsulotni chiqarish to‘xtatiladi. Ombordagi haqiqiy miqdorni sanab, hisobdagi yozuvlar bilan solishtiring va kerakli xaridni rejalashtiring."
+      ],
+      [
+        "Xomashyo va tayyor mahsulotni ajrating",
+        "Mato, tugma yoki ip kabi xomashyoni tayyor mahsulotdan alohida yuriting. Mahsulot xususiyatlari va o‘lchov birligini to‘g‘ri belgilash kirim, sarf va qoldiqni bir xil tartibda hisoblashga yordam beradi."
+      ],
+      [
+        "Qoldiq bilan birga qiymatni kuzating",
+        "Omborda faqat qancha mahsulot borligini emas, uning hisobdagi qiymatini ham ko‘ring. Kirim va chiqimni vaqtida qayd etib, xarid uchun zarur miqdorni rejalashtiring. Sanash natijasini hisob bilan solishtirib, farqni aniqlang."
+      ]
     ],
-    "example": ["Omborga 500 metr oq mato keldi. Uni asosiy omborga kirim qilasiz. Ishlab chiqarish uchun 125 metr berilganda hisobda 375 metr qoladi.", "Keyingi buyurtmaga mato yetishini qoldiqdan ko‘rasiz. Tayyor bo‘lgan ko‘ylaklarni esa boshqa ombor yoki tayyor mahsulot ro‘yxatiga kiritasiz."],
-    "audience": ["Do‘konlar: mahsulot kirimi, chiqimi va qoldig‘ini yuritish uchun.", "Tikuv sexlari va ishlab chiqaruvchilar: xomashyo va tayyor mahsulotni hisobga olish uchun.", "Bir nechta ombori bor korxonalar: mahsulot qayerda turganini ko‘rish uchun."],
+    "example": [
+      "Ertalab omborchi 500 metr mato qabul qilib, hisobga yozadi. Ishlab chiqarishga 125 metr berilgach, qoldiq 375 metr bo‘ladi.",
+      "Rahbar keyingi buyurtma uchun 400 metr kerakligini ko‘radi. Ish boshlanishidan oldin 25 metr yetishmasligini bilib, xaridni rejalashtiradi.",
+      "Foydasi: xomashyo yetishmasligi buyurtma o‘rtasida emas, oldindan ma’lum bo‘ladi."
+    ],
+    "audience": [
+      "Do‘konlar: mahsulot kirimi, chiqimi va qoldig‘ini yuritish uchun.",
+      "Tikuv sexlari va ishlab chiqaruvchilar: xomashyo va tayyor mahsulotni hisobga olish uchun.",
+      "Bir nechta ombori bor korxonalar: mahsulot qayerda turganini ko‘rish uchun."
+    ],
     "faqs": [
-      ["WMS nima degani?", "WMS — omborni boshqarish dasturining qisqa nomi. FlowCore’da kirim, chiqim, qoldiq va omborlar orasidagi ko‘chirishni yuritasiz."],
-      ["Mahsulotga rang va o‘lcham qo‘shish mumkinmi?", "Ha. Mahsulot kartochkasiga ishingiz uchun kerakli maydonlarni, masalan rang, o‘lcham yoki navni qo‘shishingiz mumkin."],
-      ["Ombor bo‘limini alohida olsam bo‘ladimi?", "Ha. Faqat ombor hisobi bilan boshlashingiz va boshqa bo‘limlarni keyin qo‘shishingiz mumkin."]
-    ]
+      [
+        "WMS nima degani?",
+        "WMS — omborni boshqarish dasturining qisqa nomi. FlowCore’da kirim, chiqim, qoldiq va omborlar orasidagi ko‘chirishni yuritasiz."
+      ],
+      [
+        "Mahsulotga rang va o‘lcham qo‘shish mumkinmi?",
+        "Ha. Mahsulot kartochkasiga ishingiz uchun kerakli maydonlarni, masalan rang, o‘lcham yoki navni qo‘shishingiz mumkin."
+      ],
+      [
+        "Ombor bo‘limini alohida olsam bo‘ladimi?",
+        "Ha. Faqat ombor hisobi bilan boshlashingiz va boshqa bo‘limlarni keyin qo‘shishingiz mumkin."
+      ],
+      [
+        "Bir mahsulot turli omborlarda tursa-chi?",
+        "Saqlash joylarini alohida belgilaysiz va har biridagi qoldiqni kuzatasiz. Mahsulot bir joydan boshqasiga o‘tsa, omborlar orasidagi ko‘chirishni qayd etasiz."
+      ],
+      [
+        "Boshlang‘ich qoldiqni qanday tayyorlaymiz?",
+        "Mahsulot nomi, o‘lchov birligi, miqdori va qaysi omborda turganini jamlang. Hisobni boshlashdan oldin bu ro‘yxatni haqiqiy sanash natijasi bilan solishtirish foydali."
+      ],
+      [
+        "Bu bo‘lim pulni tejashga qanday yordam beradi?",
+        "Avval mavjud qoldiqni tekshirib, keyin xarid qilasiz. Shu orqali bor mahsulotni yana olish yoki kerakli mahsulotni vaqtida olmaslik holatlarini kamaytirish mumkin. Aniq foyda ish hajmi va hisobni muntazam yuritishingizga bog‘liq."
+      ]
+    ],
+    "workflow": [
+      [
+        "Ombor va mahsulotlarni yarating",
+        "Saqlash joylarini ajrating. Mahsulot nomi, o‘lchov birligi va rang yoki o‘lcham kabi xususiyatlarini kiriting."
+      ],
+      [
+        "Boshlang‘ich qoldiqni kiriting",
+        "Ombordagi haqiqiy mahsulotni sanang. Ishni to‘g‘ri boshlash uchun miqdor va qiymatni hisobdagi yozuvlar bilan tekshiring."
+      ],
+      [
+        "Kundalik harakatni yozib boring",
+        "Yangi mahsulotni kirim qiling, sarflangan yoki sotilganini chiqim qiling. Omborlar o‘rtasidagi ko‘chirishni ham qayd eting."
+      ],
+      [
+        "Qoldiqni tekshirib xaridni rejalashtiring",
+        "Mahsulot qayerda va qancha qolganini ko‘ring. Navbatdagi buyurtma yoki savdoga kerakli mahsulotni shu hisobga qarab tayyorlang."
+      ]
+    ],
+    "connections": "WMS ishlab chiqarishning xomashyo va tayyor mahsulot hisobiga asos bo‘ladi. ERP bilan birga ishlatilganda buyurtmaga kerakli sarf ombor qoldig‘i bilan solishtiriladi, yakunlangan mahsulot esa kirimga bog‘lanadi. Faqat ombor hisobidan boshlab, keyin ishlab chiqarishni qo‘shish ham mumkin.",
+    "plain": "Bu bo‘lim ombordagi mahsulotlarning elektron daftari. Qaysi mahsulotdan qancha kelgani, qancha ishlatilgani yoki sotilgani va qancha qolgani shu yerda yoziladi. Do‘koningiz va omboringiz boshqa joyda bo‘lsa ham, mahsulot qayerda turganini alohida ko‘rasiz.",
+    "problems": [
+      "Mahsulot bor deb o‘ylaysiz, buyurtma kelganda esa yetmay qoladi.",
+      "Bir xil mahsulotning do‘konda va omborda qancha qolganini bilish uchun bir necha kishidan so‘rashga to‘g‘ri keladi.",
+      "Daftardagi son bilan haqiqiy mahsulot soni mos kelmaydi; farqni topish qiyinlashadi."
+    ],
+    "benefits": [
+      [
+        "Xaridni taxmin bilan qilmaysiz",
+        "Qoldiqni ko‘rib, qaysi mahsulot kerakligini aniqlaysiz. Masalan, navbatdagi ishga 200 metr mato kerak, omborda esa 150 metr bor. Yetishmayotgan 50 metrni oldindan olishni rejalashtirasiz. Bu ish boshlangandan keyin mahsulot qidirib qolishning oldini olishga yordam beradi."
+      ],
+      [
+        "Bor mahsulotni yana sotib olish kamayadi",
+        "Xarid qilishdan oldin barcha omborlardagi qoldiqni tekshirasiz. Bir joyda tugagan mahsulot boshqa omborda bo‘lsa, yangisini olish o‘rniga ko‘chirish mumkin. Pulni qaysi mahsulotga sarflash kerakligi aniqroq bo‘ladi."
+      ],
+      [
+        "Mahsulot qidirishga kamroq vaqt ketadi",
+        "Omborchi yoki sotuvchi mahsulotni nomi, rangi va o‘lchami bilan ajratib ko‘radi. Rahbar ham qaysi joyda qancha borligini hisobdan tekshiradi. Har safar omborga borib sanash yoki telefon qilib so‘rashga ehtiyoj kamayadi."
+      ],
+      [
+        "Hisobdagi farqni tekshirish osonlashadi",
+        "Kirim va chiqim yozuvlarini vaqtida kiritib borsangiz, qoldiq qanday hosil bo‘lganini tekshirish mumkin. Haqiqiy sanash bilan hisobni solishtirib, farq bor mahsulotlarga e’tibor qaratasiz. Hisobning to‘g‘riligi ma’lumotlarni to‘liq kiritishga bog‘liq."
+      ]
+    ],
+    "result": "Kun oxirida: nima keldi, nima chiqdi, qayerda qancha qoldi va keyingi ishga nima yetishmayapti — shu savollarga hisobdan javob topasiz."
   },
   {
-    "slug": "ish-haqi", "code": "HR", "name": "Xodimlar va ish haqi", "section": "hr",
-    "title": "FlowCore HR — davomat va ish haqi hisoblash dasturi",
-    "heading": "Kim ishladi va qancha haq oladi — FlowCore HR.",
-    "description": "FlowCore HR bilan xodimlar davomati, oylik, soatbay va donabay ish haqini hisoblang. Qo‘shimcha haq, jarima va savdodan foizni bir hisobda yuriting.",
-    "intro": "FlowCore HR — xodimlar va ish haqi hisobi uchun bo‘lim. Kim ishga kelgani, qancha vaqt ishlagani va nechta mahsulot tayyorlaganini yozib borasiz. Oylik, soatbay, kunbay, donabay va savdodan foiz kabi to‘lovlarni bir xodim uchun birga qo‘llash mumkin.",
+    "slug": "ish-haqi",
+    "code": "HRM",
+    "name": "Xodimlar va ish haqi",
+    "section": "hr",
+    "title": "FlowCore HRM — Face ID, davomat va ish haqi dasturi",
+    "heading": "Face ID’dan ish haqigacha — FlowCore HRM.",
+    "description": "FlowCore HRM: planshet uchun Face ID ilovasi, bir qadamda sozlash, xodimlar davomati va ish haqi. Oylik, soatbay va donabay hisobni bir joyda yuriting.",
+    "intro": "FlowCore HRM — xodimlar, davomat va ish haqi uchun yagona bo‘lim. Face ID ilovasini planshetga o‘rnatib, bir qadamda sozlaysiz va yuzni tanish orqali davomatni qayd etasiz. Kim kelgani, qancha vaqt ishlagani va nechta mahsulot tayyorlaganini kuzating. Oylik, soatbay, kunbay, donabay va savdodan foizni bir xodim uchun birga qo‘llash mumkin.",
     "cards": [
-      ["Davomatni belgilang", "Xodimning kelgan kuni va ishlagan vaqtini qayd eting. Kunduzgi yoki tungi ish vaqtini belgilang. Oy davomida kim qancha ishlaganini ko‘rib boring."],
-      ["To‘lov turini tanlang", "Oylik oladigan xodimga belgilangan haqni kiriting. Soatbay yoki kunbay ishlaydigan xodim uchun vaqtga qarab hisoblang. Donabay ishlaydiganlar uchun tayyorlangan mahsulot sonidan foydalaning."],
-      ["Qo‘shimcha haq va jarimani yozing", "Xodimga beriladigan qo‘shimcha haq, jarima yoki savdodan foizni kiriting. Yakuniy ish haqi nimadan yig‘ilganini alohida ko‘ring va xodimga tushuntiring."],
-      ["Oy hisobini saqlang", "Oy tugagach tayyor hisobni saqlang. Keyingi o‘zgarishlar oldingi yopilgan oy hisobini buzmaydi. Xodimlar, bo‘limlar va lavozimlarni korxonangizga moslab yuriting."]
+      [
+        "Davomatni belgilang",
+        "Xodimning kelgan kuni va ishlagan vaqtini qayd eting. Kunduzgi yoki tungi ish vaqtini belgilang. Oy davomida kim qancha ishlaganini ko‘rib boring."
+      ],
+      [
+        "To‘lov turini tanlang",
+        "Oylik oladigan xodimga belgilangan haqni kiriting. Soatbay yoki kunbay ishlaydigan xodim uchun vaqtga qarab hisoblang. Donabay ishlaydiganlar uchun tayyorlangan mahsulot sonidan foydalaning."
+      ],
+      [
+        "Qo‘shimcha haq va jarimani yozing",
+        "Xodimga beriladigan qo‘shimcha haq, jarima yoki savdodan foizni kiriting. Yakuniy ish haqi nimadan yig‘ilganini alohida ko‘ring va xodimga tushuntiring."
+      ],
+      [
+        "Oy hisobini saqlang",
+        "Oy tugagach tayyor hisobni saqlang. Keyingi o‘zgarishlar oldingi yopilgan oy hisobini buzmaydi. Xodimlar, bo‘limlar va lavozimlarni korxonangizga moslab yuriting."
+      ],
+      [
+        "Planshet uchun Face ID ilovasi",
+        "FlowCore HRM’da yuzni tanish orqali davomatni qayd etishga mo‘ljallangan Face ID ilovasi bor. Ilovani planshetga o‘rnatib, kirish joyida davomat qurilmasi sifatida ishlatasiz. Xodimning yuzini tanish ishga kelish va ketishni qayd etish jarayonini yengillashtiradi."
+      ],
+      [
+        "O‘rnatilgach bir qadamda sozlang",
+        "Planshetga o‘rnatilgan Face ID ilovasini bir qadamda sozlab, korxonangizning davomat jarayoniga ulaysiz. Xodimlar ma’lumotini tayyorlab olgach, kundalik foydalanishda planshet orqali davomatni qayd etasiz. Qurilmaga o‘rnatish va ulashni bepul tanishuvda ko‘rsatamiz."
+      ]
     ],
-    "example": ["Tikuvchi 2 000 000 so‘m oylik oladi. Ustiga tayyorlagan har bir mahsuloti uchun 5 000 so‘m beriladi. Oyda 480 ta mahsulot tayyorlasa, donabay haqi 2 400 000 so‘m bo‘ladi.", "Oylik bilan qo‘shilganda ish haqi 4 400 000 so‘m chiqadi. Qo‘shimcha haq yoki jarima bo‘lsa, ular ham hisobda alohida ko‘rinadi."],
-    "audience": ["Tikuv sexlari: oylik va donabay to‘lovni birga hisoblash uchun.", "Do‘konlar: sotuvchilar ish haqi va savdodan foizini yuritish uchun.", "O‘quv markazlari va boshqa korxonalar: davomat, ish vaqti va xodimlar hisobini saqlash uchun."],
+    "example": [
+      "Ish boshlanishidan oldin Face ID ilovasini planshetga o‘rnatib, bir qadamda sozlaysiz. Xodimlar haqidagi ma’lumot va ish tartibini tayyorlaysiz.",
+      "Oy davomida davomatni tekshirib, bajarilgan ish va qo‘shimcha to‘lovlarni kiritib borasiz. Masalan, tikuvchining 2 000 000 so‘m oyligiga 480 dona uchun 5 000 so‘mdan 2 400 000 so‘m qo‘shiladi.",
+      "Foydasi: jami 4 400 000 so‘m nimadan yig‘ilganini ko‘rasiz. Boshqa qo‘shimcha yoki ushlanmalar bo‘lsa, ularni ham alohida tekshirasiz."
+    ],
+    "audience": [
+      "Tikuv sexlari: oylik va donabay to‘lovni birga hisoblash uchun.",
+      "Do‘konlar: sotuvchilar ish haqi va savdodan foizini yuritish uchun.",
+      "O‘quv markazlari va boshqa korxonalar: davomat, ish vaqti va xodimlar hisobini saqlash uchun."
+    ],
     "faqs": [
-      ["Bir xodimga oylik va donabay haqni birga hisoblash mumkinmi?", "Ha. Bitta xodim uchun bir nechta to‘lov turini tanlash mumkin. Masalan, belgilangan oylik ustiga tayyorlangan har bir dona uchun haq qo‘shiladi."],
-      ["Tungi ish vaqtini ham hisobga oladimi?", "Ha. Kunduzgi va tungi ish vaqtini belgilash mumkin. Ish tartibingizni tanishuvda birga ko‘rib chiqamiz."],
-      ["HR nima degani?", "HR — xodimlar bilan ishlash bo‘limining qisqa nomi. FlowCore’da bu bo‘lim xodimlar, davomat va ish haqi hisobiga xizmat qiladi."]
-    ]
+      [
+        "Bir xodimga oylik va donabay haqni birga hisoblash mumkinmi?",
+        "Ha. Bitta xodim uchun bir nechta to‘lov turini tanlash mumkin. Masalan, belgilangan oylik ustiga tayyorlangan har bir dona uchun haq qo‘shiladi."
+      ],
+      [
+        "Tungi ish vaqtini ham hisobga oladimi?",
+        "Ha. Kunduzgi va tungi ish vaqtini belgilash mumkin. Ish tartibingizni tanishuvda birga ko‘rib chiqamiz."
+      ],
+      [
+        "HRM nima degani?",
+        "HRM — xodimlar hisobini boshqarish bo‘limining qisqa nomi. Bu yerda xodimlar ro‘yxati, ishga kelib-ketish va ish haqi yuritiladi."
+      ],
+      [
+        "HRM’da Face ID ilovasi bormi?",
+        "Ha. FlowCore HRM uchun Face ID ilovasi mavjud. Uni planshetga o‘rnatib, yuzni tanish orqali xodimlar davomatini qayd etish uchun ishlatasiz."
+      ],
+      [
+        "Planshetga o‘rnatilgach sozlash qiyinmi?",
+        "Ilova o‘rnatilgach bir qadamda sozlanadi. Xodimlar ro‘yxati va ish tartibini oldindan tayyorlab olasiz. O‘rnatish, korxonaga ulash va birinchi davomatni qayd etishni tanishuvda ko‘rsatamiz."
+      ],
+      [
+        "Qaysi planshetga o‘rnatish mumkin?",
+        "Planshetingiz modeli va operatsion tizimini ayting. Qurilmaning mosligini va o‘rnatish tartibini ulashdan oldin birga tekshiramiz."
+      ],
+      [
+        "Face ID va ish haqi hisobi qanday bog‘lanadi?",
+        "Face ID xodim davomatini qayd etishga xizmat qiladi. HRM’da davomat va ishlangan vaqtni tekshirib, belgilangan to‘lov turiga ko‘ra hisob yuritasiz. Donabay haq, qo‘shimcha haq va jarima alohida ko‘rsatiladi."
+      ],
+      [
+        "Face ID ilovasi rahbarga qanday foyda beradi?",
+        "Planshet orqali davomatni qayd etish ishini yengillashtiradi. Rahbar HRM’da davomatni tekshirib, ishlangan vaqt va ish haqi hisobini kuzatadi. Planshetning mosligi va ilovani ulash tartibini tanishuvda ko‘rib chiqamiz."
+      ]
+    ],
+    "workflow": [
+      [
+        "Xodimlar va ish tartibini kiriting",
+        "Xodim kartochkasi, bo‘lim va lavozimlarni yarating. Kunduzgi yoki tungi ish vaqtini hamda har bir xodimga tegishli to‘lov turlarini belgilang."
+      ],
+      [
+        "Face ID ilovasini planshetga o‘rnating",
+        "Ilovani planshetga o‘rnating va bir qadamda sozlang. Planshetni xodimlar kelib-ketadigan joyga joylashtiring; mos qurilma va ulash tartibini tanishuvda ko‘rib chiqamiz."
+      ],
+      [
+        "Davomat va bajarilgan ishni kuzating",
+        "Face ID orqali qayd etilgan davomatni HRM bo‘limida tekshiring. Donabay haq uchun bajarilgan mahsulot miqdorini, qo‘shimcha haq va jarimalarni ham hisobga kiriting."
+      ],
+      [
+        "Ish haqini tekshiring va oyni yoping",
+        "Belgilangan oylik, ishlangan vaqt, donabay haq va boshqa qo‘shimchalarni birga ko‘ring. Hisobni tekshirib, yakunlangan oy natijasini saqlang."
+      ]
+    ],
+    "connections": "HRM davomat, ishlangan vaqt va ish haqini bir hisobda jamlaydi. Face ID ilovasi planshet orqali davomat qayd etish uchun xizmat qiladi. Ishlab chiqarish bilan birga ishlatilganda bajarilgan mahsulot va donabay haqni ham kuzatasiz; savdodan foiz qo‘llanadigan xodimlarga tegishli to‘lov turini belgilaysiz.",
+    "plain": "Bu bo‘lim xodimlar va ularga to‘lanadigan ish haqining hisobi. Kim ishga keldi, qancha ishladi va unga nima uchun qancha pul hisoblandi — shu yerda ko‘rasiz. Face ID degani yuzni tanish: uning ilovasini planshetga o‘rnatib, bir qadamda sozlaysiz va xodimlar davomatini qayd etish uchun ishlatasiz.",
+    "problems": [
+      "Oy oxirida kim necha kun yoki necha soat ishlaganini turli yozuvlardan yig‘asiz.",
+      "Oylik, donabay haq va qo‘shimcha to‘lovlarni birga hisoblashda ayrim yozuvlar esdan chiqadi.",
+      "Xodim «Nega shuncha oylik chiqdi?» deb so‘raganda, hisobning har bir qismini topish qiyin bo‘ladi."
+    ],
+    "benefits": [
+      [
+        "Davomat yozish yengillashadi",
+        "Planshetdagi Face ID ilovasi orqali yuzni tanib davomatni qayd etasiz. HRM’da xodimlarning davomat yozuvlarini tekshirasiz. Bu har bir xodimning kelib-ketishini alohida daftarga yozish ishini yengillashtirishga yordam beradi."
+      ],
+      [
+        "Oy oxiridagi hisobni yig‘ish osonlashadi",
+        "Davomat, ishlangan vaqt va bajarilgan mahsulotni oy davomida yozib borasiz. Oylik yakunida kerakli ma’lumotlar bir joyda turadi. Hisobchi yoki rahbar tarqoq yozuvlarni qayta yig‘ishga kamroq vaqt sarflaydi."
+      ],
+      [
+        "Xodimga ish haqini aniq tushuntirasiz",
+        "Belgilangan oylik, soat yoki dona uchun haq, qo‘shimcha to‘lov va jarimani alohida ko‘rasiz. Xodimga yakuniy summa qanday hosil bo‘lganini ko‘rsatish osonlashadi. Bu hisob bo‘yicha tushunmovchiliklarni kamaytirishga yordam beradi."
+      ],
+      [
+        "Har xil to‘lovlarni birga yuritasiz",
+        "Bir xodim faqat oylik, boshqasi ishlagan soati uchun, yana biri tayyorlagan donasi uchun haq olishi mumkin. Masalan, tikuvchining oyligiga donabay haqni qo‘shasiz. Har bir hisobni alohida jadvalda yuritishga ehtiyoj kamayadi."
+      ]
+    ],
+    "result": "Oy yakunida: kim qancha ishladi, unga qanday haq hisoblandi va yakuniy summa nimadan yig‘ildi — shu savollarga tushunarli javob berasiz."
   },
   {
-    "slug": "talim", "code": "LMS", "name": "O‘quv markazi", "section": "lms",
+    "slug": "talim",
+    "code": "LMS",
+    "name": "O‘quv markazi",
+    "section": "lms",
     "title": "FlowCore LMS — o‘quv markazi va maktab uchun dastur",
     "heading": "Dars, davomat va to‘lov bir joyda — FlowCore LMS.",
     "description": "FlowCore LMS bilan o‘quv markazi va maktab hisobini yuriting. Guruhlar, dars jadvali, davomat, baholar, to‘lov va qarzdorlikni bir joyda kuzating.",
     "intro": "FlowCore LMS — o‘quv markazi va maktablar uchun hisob dasturi. O‘quvchilarni guruhlarga ajrating, dars jadvalini tuzing, davomat va to‘lovlarni yozib boring. O‘qituvchi, o‘quvchi va ota-ona o‘ziga kerakli ma’lumotni ko‘radi.",
     "cards": [
-      ["Guruh va darslarni belgilang", "Kurslar, guruhlar, o‘qituvchilar va xonalarni kiriting. Dars jadvalini tuzing. Xona yoki o‘qituvchi boshqa dars bilan band bo‘lsa, dastur ogohlantiradi."],
-      ["Davomat va baholarni yozing", "Har bir darsda kim kelganini belgilang. O‘quvchining baholarini qayd eting. Kerakli guruh yoki o‘quvchi ma’lumotini ro‘yxatdan toping."],
-      ["To‘lov va qarzni kuzating", "Oylik, har bir dars uchun yoki bir martalik to‘lovni tanlang. Chegirma va tushgan to‘lovlarni yozing. Kimning qancha qarzi qolganini ko‘ring."],
-      ["Ota-onaga ma’lumot bering", "O‘quvchi va ota-ona uchun alohida kirish imkoniyati bor. Ular o‘ziga tegishli davomat, baho va to‘lov ma’lumotlarini ko‘radi. Boshqa o‘quvchining ma’lumoti ochilmaydi."]
+      [
+        "Guruh va darslarni belgilang",
+        "Kurslar, guruhlar, o‘qituvchilar va xonalarni kiriting. Dars jadvalini tuzing. Xona yoki o‘qituvchi boshqa dars bilan band bo‘lsa, dastur ogohlantiradi."
+      ],
+      [
+        "Davomat va baholarni yozing",
+        "Har bir darsda kim kelganini belgilang. O‘quvchining baholarini qayd eting. Kerakli guruh yoki o‘quvchi ma’lumotini ro‘yxatdan toping."
+      ],
+      [
+        "To‘lov va qarzni kuzating",
+        "Oylik, har bir dars uchun yoki bir martalik to‘lovni tanlang. Chegirma va tushgan to‘lovlarni yozing. Kimning qancha qarzi qolganini ko‘ring."
+      ],
+      [
+        "Ota-onaga ma’lumot bering",
+        "O‘quvchi va ota-ona uchun alohida kirish imkoniyati bor. Ular o‘ziga tegishli davomat, baho va to‘lov ma’lumotlarini ko‘radi. Boshqa o‘quvchining ma’lumoti ochilmaydi."
+      ],
+      [
+        "Har bir rolga kerakli ma’lumot",
+        "Boshqaruvchi guruhlar, darslar va to‘lovlar bilan ishlaydi. O‘qituvchi, o‘quvchi va ota-ona o‘ziga tegishli ma’lumotlarni ko‘radi. Kirish huquqlari orqali kim nimani ko‘rishi va tahrirlashini tartibga solasiz."
+      ],
+      [
+        "Guruh bo‘yicha holatni tekshiring",
+        "Bir guruhning jadvali, davomat yozuvlari va to‘lovlarini kuzating. O‘quvchi yoki guruhni topib, darsga qatnashish va qarzdorlik bo‘yicha ma’lumotni tekshiring. Bu boshqaruvchi, o‘qituvchi va ota-ona bilan suhbatga aniq ma’lumot tayyorlashga yordam beradi."
+      ]
     ],
-    "example": ["Ingliz tili guruhiga oylik to‘lov 450 000 so‘m deb belgilandi. O‘quvchi darsga kelganda davomati, pul to‘laganda esa to‘lovi qayd etiladi.", "To‘lov kiritilgach o‘quvchining qarzi yangilanadi. Boshqaruvchi guruhlar, darslar va kutilayotgan to‘lovlarni bir joyda tekshiradi."],
-    "audience": ["O‘quv markazlari: kurs, guruh, dars va to‘lovlarni yuritish uchun.", "Xususiy maktablar: sinf, baho, davomat va ota-ona bilan ishlash uchun.", "Sport klublari: guruhlar, murabbiylar va mashg‘ulot to‘lovlarini hisobga olish uchun."],
+    "example": [
+      "Ingliz tili guruhiga dushanba, chorshanba va juma kunlari dars belgilang. O‘qituvchi hamda xonani jadvalga kiriting.",
+      "Darsda davomatni yozasiz. O‘quvchi 450 000 so‘mlik oylik to‘lovdan 300 000 so‘m to‘lasa, hisobda 150 000 so‘m qoladi.",
+      "Foydasi: dars, davomat va to‘lovni alohida daftarlardan izlamaysiz. Boshqaruvchi holatni tekshiradi, ota-ona esa farzandining ma’lumotini o‘z kabinetida ko‘radi."
+    ],
+    "audience": [
+      "O‘quv markazlari: kurs, guruh, dars va to‘lovlarni yuritish uchun.",
+      "Xususiy maktablar: sinf, baho, davomat va ota-ona bilan ishlash uchun.",
+      "Sport klublari: guruhlar, murabbiylar va mashg‘ulot to‘lovlarini hisobga olish uchun."
+    ],
     "faqs": [
-      ["LMS nima degani?", "LMS — ta’lim ishlarini yuritish dasturining qisqa nomi. FlowCore’da guruhlar, dars jadvali, davomat, baho va to‘lovlarni birga yuritasiz."],
-      ["Ota-ona farzandining ma’lumotini ko‘radimi?", "Ha. Ota-onaga alohida kirish beriladi. U o‘z farzandining davomati, baholari va to‘lov holatini ko‘radi."],
-      ["Dars uchun alohida to‘lov belgilasa bo‘ladimi?", "Ha. Oylik, darsbay yoki bir martalik to‘lov turini tanlash, chegirmalarni qayd etish mumkin."]
-    ]
+      [
+        "LMS nima degani?",
+        "LMS — ta’lim ishlarini yuritish dasturining qisqa nomi. FlowCore’da guruhlar, dars jadvali, davomat, baho va to‘lovlarni birga yuritasiz."
+      ],
+      [
+        "Ota-ona farzandining ma’lumotini ko‘radimi?",
+        "Ha. Ota-onaga alohida kirish beriladi. U o‘z farzandining davomati, baholari va to‘lov holatini ko‘radi."
+      ],
+      [
+        "Dars uchun alohida to‘lov belgilasa bo‘ladimi?",
+        "Ha. Oylik, darsbay yoki bir martalik to‘lov turini tanlash, chegirmalarni qayd etish mumkin."
+      ],
+      [
+        "Bir o‘qituvchi yoki xona ikki darsga belgilansa nima bo‘ladi?",
+        "Jadvalda o‘qituvchi yoki xona band bo‘lsa, dastur ogohlantiradi. Dars vaqtini yoki xonani o‘zgartirib, jadvalni moslashtirasiz."
+      ],
+      [
+        "Ishni boshlash uchun nimalarni tayyorlaymiz?",
+        "Kurslar, guruhlar, o‘quvchilar, o‘qituvchilar va xonalar ro‘yxatini tayyorlang. Amaldagi jadval, to‘lov turlari va boshlang‘ich qarzdorlikni ham birga ko‘rib chiqamiz."
+      ],
+      [
+        "Bu bo‘lim boshqaruvchining ishini qanday yengillashtiradi?",
+        "Jadval, o‘quvchilar, davomat va to‘lovni bir joyda yuritishga yordam beradi. Ma’lumotni alohida daftarlardan yig‘ish kamayadi. Ota-onaga kirish berilsa, u farzandining tegishli ma’lumotlarini o‘zi ham tekshiradi."
+      ]
+    ],
+    "workflow": [
+      [
+        "Kurs va guruhlarni yarating",
+        "O‘qituvchilar, xonalar va o‘quvchilarni kiriting. Har bir guruhning kursi va tarkibini belgilang."
+      ],
+      [
+        "Jadval va to‘lovni sozlang",
+        "Dars vaqtlarini joylashtiring, xona va o‘qituvchi bandligini tekshiring. Oylik, darsbay yoki bir martalik to‘lovni belgilang."
+      ],
+      [
+        "Dars va to‘lovlarni qayd eting",
+        "Har bir darsda davomat va baholarni yozing. Kelib tushgan to‘lov hamda chegirmalarni o‘quvchining hisobiga kiriting."
+      ],
+      [
+        "Natijani kerakli odamga ko‘rsating",
+        "Boshqaruvchi qarzdorlik va guruhlar holatini tekshiradi. Ota-ona o‘z kabinetida farzandining davomati, baholari va to‘lovini ko‘radi."
+      ]
+    ],
+    "connections": "LMS o‘quvchi, dars va to‘lov hisobini yuritadi. CRM bilan birga tanlanganda yangi qiziqqan mijozlar bilan ishlashni, HRM bilan birga esa markaz xodimlarining davomat va ish haqini shu ish muhitida tashkil etish mumkin. Har bir bo‘limning vazifasi va kirish huquqi alohida belgilanadi.",
+    "plain": "Bu bo‘lim o‘quv markazi yoki maktabning kundalik hisobini yuritadi. Qaysi o‘quvchi qaysi guruhda o‘qiydi, darsi qachon, darsga keldimi va to‘lovidan qancha qoldi — shu yerda ko‘rasiz. O‘qituvchi, boshqaruvchi va ota-ona o‘ziga tegishli ma’lumotni ko‘radi.",
+    "problems": [
+      "Dars jadvalida bir o‘qituvchi yoki bir xona ikki guruhga bir vaqtda berilib qoladi.",
+      "O‘quvchining davomati bir daftarda, to‘lovi boshqa jadvalda turadi.",
+      "Kim qancha qarzdorligini yoki farzandining darsga qatnashishini bilish uchun yozuvlarni alohida yig‘ishga to‘g‘ri keladi."
+    ],
+    "benefits": [
+      [
+        "Dars jadvalidagi to‘qnashuvni oldin ko‘rasiz",
+        "Guruh, vaqt, o‘qituvchi va xonani bir jadvalga joylaysiz. Xona yoki o‘qituvchi band bo‘lsa, ogohlantirishni ko‘rasiz. Dars boshlanganda muammo chiqmasligi uchun vaqt yoki xonani oldindan o‘zgartirasiz."
+      ],
+      [
+        "Qolgan to‘lovni topish osonlashadi",
+        "O‘quvchining to‘lov turi, chegirmasi va to‘lagan pulini yozasiz. Masalan, oylik 450 000 so‘m bo‘lib, 300 000 so‘m to‘lansa, 150 000 so‘m qolgani ko‘rinadi. Boshqaruvchi kim bilan to‘lov haqida gaplashish kerakligini biladi."
+      ],
+      [
+        "Davomat va baholar bir joyda turadi",
+        "Har bir darsda kelgan-kelmagan o‘quvchilar va baholarni qayd etasiz. O‘quvchi haqida savol tug‘ilsa, tegishli guruhdagi yozuvni topasiz. Davomat bo‘yicha ota-ona bilan suhbatlashishda aniq ma’lumotga tayanasiz."
+      ],
+      [
+        "Ota-ona kerakli ma’lumotni o‘zi ko‘radi",
+        "Alohida kirish berilganda ota-ona farzandining davomati, baholari va to‘lov holatini tekshiradi. Shu ma’lumotlarni bilish uchun har safar boshqaruvchiga murojaat qilishga ehtiyoj kamayadi. Har bir ota-ona o‘z farzandiga tegishli ma’lumotni ko‘radi."
+      ]
+    ],
+    "result": "Kun oxirida: bugun kim darsga keldi, qaysi guruh qachon o‘qiydi va kimning qancha to‘lovi qoldi — tekshirish oson bo‘ladi."
   }
 ]
