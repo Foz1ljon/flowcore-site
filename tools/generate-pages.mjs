@@ -24,6 +24,7 @@ export function generatePages(assets) {
 <title>${escape(p.title)}</title>
 <meta name="description" content="${escape(p.description)}">
 <meta name="author" content="FlowCore">
+<meta name="yandex-verification" content="09a3603c5db71a5a" />
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="color-scheme" content="light dark"><meta name="theme-color" id="themeColor" content="#fafafa">
 <link rel="canonical" href="${url}"><link rel="alternate" hreflang="uz" href="${url}"><link rel="alternate" hreflang="x-default" href="${url}">
