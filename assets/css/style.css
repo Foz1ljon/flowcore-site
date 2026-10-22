@@ -1519,6 +1519,66 @@ h1, h2, h3 { text-wrap: balance; }
 .tour-lead strong { font-size: 12px; }
 .tour-lead p { font-size: 11px; color: var(--accent-text); margin-top: 12px; }
 .tour-lead > span, .tour-stage-empty { display: block; font-size: 10px; color: var(--ink-3); margin-top: 8px; }
+/* Mirror the real workspace: brand in the sidebar, navbar over content only,
+   cards on a muted canvas, compact Nuxt UI sizing (text-sm, 8px radius). */
+.product-frame { max-width: 1080px; margin-inline: auto; border-radius: 16px; background: var(--surface); }
+.product-shell { grid-template-columns: 200px minmax(0, 1fr); }
+.tour-app-switcher, .tour-caption { max-width: 1080px; margin-inline: auto; }
+.tour-sidebar { padding: 0; background: var(--surface); }
+.tour-brand { display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 14px; }
+.tour-mark { width: 26px; height: 26px; flex: none; }
+.product-wordmark { min-width: 0; font: 700 16px/1 Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.01em; }
+.tour-sidebar-body { display: flex; flex-direction: column; flex: 1; min-height: 0; padding: 6px 10px 10px; }
+.tour-back { display: flex; align-items: center; gap: 8px; padding: 7px 8px 13px; border-bottom: 1px solid var(--line); color: var(--ink-2); font-size: 12.5px; font-weight: 500; }
+.tour-back .icon { width: 16px; height: 16px; color: var(--ink-3); }
+.tour-sidebar-label { display: grid; gap: 3px; padding: 12px 8px 8px; line-height: 1.3; }
+#tour-sidebar-label { color: var(--accent-text); font-size: 10px; font-weight: 600; letter-spacing: .14em; }
+#tour-app-name { color: var(--ink-3); font-size: 11px; font-weight: 400; }
+#tour-sections { gap: 2px; }
+#tour-sections button { gap: 8px; min-height: 34px; padding: 6px 8px; border-radius: 8px; font-size: 12.5px; font-weight: 500; }
+#tour-sections .icon { width: 16px; height: 16px; }
+.tour-sidebar-foot { gap: 8px; margin-top: 0; padding: 10px 12px; border-top: 1px solid var(--line); font-size: 11.5px; }
+.tour-sidebar-foot > div { flex: 1; min-width: 0; }
+.tour-sidebar-foot b { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tour-sidebar-foot small { margin-top: 2px; font-size: 10.5px; }
+.tour-sidebar-foot .icon { width: 15px; height: 15px; color: var(--ink-3); flex: none; }
+.product-account b, .tour-avatar { width: 26px; height: 26px; font-size: 10px; font-weight: 600; flex: none; }
+.tour-main { display: flex; flex-direction: column; min-width: 0; }
+.product-topbar { min-height: 52px; padding: 0 16px; gap: 10px; background: var(--surface); }
+.tour-collapse { width: 16px; height: 16px; color: var(--ink-2); flex: none; }
+.tour-current-app { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.preview-label { font-size: 10px; }
+.tour-topbar-tools { display: flex; align-items: center; gap: 16px; margin-left: auto; color: var(--ink-2); }
+.tour-topbar-tools .icon { width: 16px; height: 16px; }
+.product-account { gap: 7px; margin-left: 6px; font-size: 10px; }
+.product-account > span { font-size: 12px; font-weight: 500; color: var(--ink); }
+.product-account .icon { width: 14px; height: 14px; color: var(--ink-3); }
+.product-content { flex: 1; padding: 20px; background: var(--bg); }
+.product-heading .t-label { margin-bottom: 4px; font-size: 10px; letter-spacing: .14em; }
+.product-heading h3 { font-size: 19px; }
+.product-reset { min-height: 32px; font-size: 11px; }
+.product-description { margin-top: 4px; font-size: 12.5px; }
+.product-metrics { gap: 10px; margin: 16px 0; }
+.product-metric { padding: 12px 14px; border-radius: 8px; box-shadow: 0 1px 2px #18181b0d; }
+.product-metric span { font-size: 11.5px; }
+.product-metric strong { font-size: 19px; margin: 4px 0 2px; }
+.product-toolbar { gap: 8px; margin-bottom: 4px; }
+.product-search { border-radius: 8px; background: var(--surface); }
+.product-search input, .product-toolbar > .btn { min-height: 34px; }
+.product-search input { padding-block: 6px; font-size: 12.5px; }
+.product-toolbar > .btn { padding: 6px 12px; border-radius: 8px; font-size: 12px; }
+.tour-view-label { padding-block: 10px 8px; font-size: 12px; }
+.product-table-wrap { border-radius: 8px; background: var(--surface); box-shadow: 0 1px 2px #18181b0d; }
+.product-table th { padding: 8px 12px; font-size: 11px; }
+.product-table td { padding: 9px 12px; font-size: 12px; }
+.product-status { padding: 2px 6px; font-size: 10.5px; }
+.product-feedback { margin-top: 8px; }
+.product-takeaway { margin-top: 4px; padding-top: 14px; font-size: 12.5px; }
+.tour-stage { min-height: 200px; border-radius: 8px; }
+.tour-lead { padding: 10px; border-radius: 8px; }
+@media (hover: none), (pointer: coarse) {
+  #tour-sections button, .product-reset, .product-search input, .product-toolbar > .btn { min-height: 44px; }
+}
 .faceid-showcase { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: clamp(24px, 6vw, 80px); padding: clamp(24px, 5vw, 60px); margin-top: 48px; border: 1px solid var(--line); border-radius: var(--radius-panel); background: var(--surface); }
 .faceid-copy h3 { font-size: clamp(27px, 3.5vw, 44px); line-height: 1.15; margin-bottom: 20px; }
 .faceid-copy > p:not(.detail-kicker) { font-size: 16px; line-height: 1.7; color: var(--ink-2); }
@@ -1536,15 +1596,20 @@ h1, h2, h3 { text-wrap: balance; }
   .product-toolbar > .btn:active { background: var(--ink); }
 }
 @media (max-width: 1000px) {
-  .product-shell { grid-template-columns: 178px minmax(0, 1fr); }
-  .product-wordmark { min-width: 138px; }
+  .product-shell { grid-template-columns: 176px minmax(0, 1fr); }
+  .tour-topbar-tools, .product-account > span { display: none; }
   .product-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
   .product-shell { grid-template-columns: minmax(0, 1fr); }
-  .product-wordmark { min-width: 0; }
+  .tour-brand, .tour-back, .tour-collapse { display: none; }
+  /* Navbar first, section strip below it, as on the phone layout of the app. */
+  .product-shell { display: flex; flex-direction: column; }
+  .tour-main { display: contents; }
+  .product-topbar { order: -1; }
+  .tour-sidebar-body { padding: 0; }
   .tour-current-app { margin-right: auto; font-size: 12px; }
-  .product-topbar { padding: 12px; gap: 10px; flex-wrap: wrap; }
+  .product-topbar { padding: 10px 12px; gap: 10px; flex-wrap: wrap; }
   .product-topbar .preview-label { display: none; }
   .product-account { margin-left: 0; }
   .tour-sidebar { padding: 8px; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -1552,7 +1617,7 @@ h1, h2, h3 { text-wrap: balance; }
   #tour-sections { display: flex; overflow-x: auto; }
   #tour-sections button { flex-shrink: 0; white-space: nowrap; }
   .tour-app-switcher { flex-wrap: nowrap; padding: 0 0 16px; border: 0; }
-  .product-content { padding: 20px 16px; }
+  .product-content { padding: 16px 12px; }
   .product-search input { font-size: 16px; }
   .faceid-showcase { grid-template-columns: minmax(0, 1fr); }
   .faceid-figure img { max-width: 350px; }

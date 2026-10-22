@@ -1,10 +1,10 @@
 {
   "style": {
     "source": "assets/css/style.css",
-    "output": "assets/dist/style.ffdc8412ba4b.css",
-    "before": 105218,
-    "after": 89375,
-    "gzip": 18438
+    "output": "assets/dist/style.77a9b9885c0c.css",
+    "before": 110039,
+    "after": 93348,
+    "gzip": 19052
   },
   "product": {
     "source": "assets/css/product.css",
@@ -22,10 +22,10 @@
   },
   "tour": {
     "source": "assets/js/tour.js",
-    "output": "assets/dist/tour.73b32f700a4f.js",
-    "before": 20379,
-    "after": 16180,
-    "gzip": 5824
+    "output": "assets/dist/tour.e7097a0324f7.js",
+    "before": 20443,
+    "after": 16222,
+    "gzip": 5834
   },
   "site": {
     "source": "assets/js/site.js",

@@ -127,7 +127,7 @@
   const renderNavigation = () => {
     const info = navigation[current];
     $('#tour-app-name').textContent = info.name;
-    $('#tour-sidebar-label').textContent = `${info.code} · ${info.name}`;
+    $('#tour-sidebar-label').textContent = info.code;
     $('#tour-sections').replaceChildren(...info.pages.map(([key, label, symbol]) => {
       const button = node('button'); button.type = 'button';
       button.append(icon(symbol), node('span', label));
@@ -185,6 +185,7 @@
     renderNavigation();
     const page = navigation[current].pages.find(([key]) => key === view);
     $('#tour-heading').textContent = page[1];
+    $('#tour-page-title').textContent = `${navigation[current].code} · ${page[1]}`;
     $('#tour-list-label').textContent = `${page[1]} · Namuna`;
     action.hidden = !({ wms: ['products', 'movements'], erp: ['orders'], hr: ['attendance'], crm: ['pipeline'], lms: ['payments'] }[current].includes(view));
     $('#tour-description').textContent = definition.description;
