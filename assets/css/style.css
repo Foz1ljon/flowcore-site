@@ -777,6 +777,20 @@ input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius
 .site-footer { padding: 56px 0 28px; border-top: 1px solid var(--line); overflow: hidden; }
 .foot-top { display: flex; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; }
 .foot-note { max-width: 360px; color: var(--ink-2); font-size: 14.5px; }
+.social-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.social-links a {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--ink-2); font-size: 14px;
+  transition: color .2s, border-color .2s;
+}
+.social-links .icon { width: 18px; height: 18px; }
+@media (hover: hover) and (pointer: fine) {
+  .social-links a:hover { color: var(--accent-text); border-color: var(--accent); }
+}
+@media (hover: none), (pointer: coarse) {
+  .social-links a:active { color: var(--accent-text); border-color: var(--accent); }
+}
+.cta-social { margin-top: 24px; }
 .foot-nav { display: flex; flex-wrap: wrap; gap: 10px 26px; }
 .foot-nav a { font-size: 14.5px; color: var(--ink-2); transition: color .2s; }
 @media (hover: hover) and (pointer: fine) {

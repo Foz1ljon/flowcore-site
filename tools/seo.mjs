@@ -19,6 +19,7 @@ export function updateHomeSeo(home) {
     for (const node of schema['@graph']) {
       if (node['@type'] === 'WebSite') node.inLanguage = 'uz';
       if (node['@type'] === 'Organization' || node['@type'] === 'WebSite') node.alternateName = ['Flow Core','flowcore.uz','ФлоуКор'];
+      if (node['@type'] === 'Organization') node.sameAs = ['https://www.instagram.com/flowcore_uz/','https://t.me/flowcoreuz'];
       if (node['@type'] === 'WebPage') Object.assign(node,{name:title,description});
       if (node['@type'] === 'SoftwareApplication') {
         node.description = description;

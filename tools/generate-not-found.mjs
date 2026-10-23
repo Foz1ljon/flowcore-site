@@ -22,7 +22,7 @@ ${symbols}
 <div class="detail-actions"><a class="btn btn-accent btn-lg" href="/">Bosh sahifaga qaytish</a><button class="btn btn-line btn-lg" id="goBack" type="button" hidden>Ortga qaytish</button></div>
 <nav class="detail-related" aria-label="FlowCore bo‘limlari"><a href="/ombor/">Ombor</a><a href="/erp/">Ishlab chiqarish</a><a href="/crm/">Mijozlar va savdo</a><a href="/ish-haqi/">Ish haqi</a><a href="/talim/">Ta’lim</a></nav></section>
 </main>
-<footer class="detail-footer"><div class="wrap legal-footer"><a href="/">© 2026 FlowCore</a><nav aria-label="Huquqiy sahifalar"><a href="/privacy/">Maxfiylik siyosati</a><a href="/terms/">Foydalanish shartlari</a></nav></div></footer>
+<footer class="detail-footer"><div class="wrap legal-footer"><a href="/">© 2026 FlowCore</a><nav aria-label="Ijtimoiy tarmoqlar"><a href="https://www.instagram.com/flowcore_uz/" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/flowcoreuz" target="_blank" rel="noopener">Telegram</a></nav><nav aria-label="Huquqiy sahifalar"><a href="/privacy/">Maxfiylik siyosati</a><a href="/terms/">Foydalanish shartlari</a></nav></div></footer>
 <script src="/${assets.site}" defer></script>
 </body></html>`);
 }
