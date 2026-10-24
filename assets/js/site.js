@@ -9,6 +9,7 @@
   };
   button.addEventListener('click', () => {
     root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('flowcore-theme', root.dataset.theme); } catch { /* Keep the toggle usable without storage. */ }
     sync();
   });
   sync();

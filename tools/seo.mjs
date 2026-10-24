@@ -8,8 +8,8 @@ export const moduleNames = {
 };
 
 export function updateHomeSeo(home) {
-  const title = 'FlowCore — ERP, CRM, WMS, HRM va LMS biznes dasturi';
-  const description = 'FlowCore — O‘zbekiston biznesi uchun ERP ishlab chiqarish, CRM savdo, WMS ombor, HRM ish haqi va LMS o‘quv markazi dasturi. Kerakli bo‘limlarni tanlang.';
+  const title = 'FlowCore — ombor, savdo va ish haqi hisobi dasturi';
+  const description = 'Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.';
   home = home.replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
     .replace(/<meta name="keywords"[^>]*>\s*/, '')
     .replace(/(<meta (?:name="description"|property="og:description"|name="twitter:description") content=")[^"]*(">)/g, `$1${description}$2`)
@@ -26,9 +26,13 @@ export function updateHomeSeo(home) {
         node.alternateName = ['Flow Core','FlowCore ERP','FlowCore CRM','FlowCore WMS','FlowCore HRM','FlowCore LMS','ФлоуКор'];
       }
       if (node['@type'] === 'FAQPage') {
-        const name = 'FlowCore, Flow Core yoki CoreFlow — qaysi biri to‘g‘ri?';
-        node.mainEntity = node.mainEntity.filter(question => question.name !== name);
-        node.mainEntity.push({'@type':'Question',name,acceptedAnswer:{'@type':'Answer',text:'Ushbu dasturning rasmiy nomi FlowCore, sayti flowcore.uz. Flow Core yoki CoreFlow deb qidirgan bo‘lsangiz, mahsulot nomi va rasmiy domenni tekshiring. FlowCore ombor, ishlab chiqarish, mijozlar, xodimlar va ta’lim hisobini yuritadi.'}});
+        // Generate FAQ markup from the visible answers so search and page copy agree.
+        const plain = text => text.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+        const faq = home.match(/<div class="faq">([\s\S]*?)<\/div>/)?.[1] || '';
+        node.mainEntity = [...faq.matchAll(/<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>/g)].map(([,q,a]) => ({
+          '@type':'Question', name:plain(q.replace(/<span>.*?<\/span>/, '')),
+          acceptedAnswer:{'@type':'Answer',text:plain(a)}
+        }));
       }
     }
     return open+JSON.stringify(schema).replace(/</g,'\\u003c')+close;

@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="uz" data-theme="light">
+<html lang="uz" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Primary SEO -->
-  <title>FlowCore — ERP, CRM, WMS, HRM va LMS biznes dasturi</title>
-  <meta name="description" content="FlowCore — O‘zbekiston biznesi uchun ERP ishlab chiqarish, CRM savdo, WMS ombor, HRM ish haqi va LMS o‘quv markazi dasturi. Kerakli bo‘limlarni tanlang.">
+  <title>FlowCore — ombor, savdo va ish haqi hisobi dasturi</title>
+  <meta name="description" content="Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.">
   <meta name="author" content="FlowCore">
   <meta name="yandex-verification" content="09a3603c5db71a5a" />
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" id="themeColor" content="#fafafa">
+  <meta name="theme-color" id="themeColor" content="#09090b">
   <link rel="canonical" href="https://flowcore.uz/">
   <link rel="alternate" hreflang="uz" href="https://flowcore.uz/">
   <link rel="alternate" hreflang="x-default" href="https://flowcore.uz/">
@@ -21,8 +21,8 @@
   <meta property="og:site_name" content="FlowCore">
   <meta property="og:locale" content="uz_UZ">
   <meta property="og:url" content="https://flowcore.uz/">
-  <meta property="og:title" content="FlowCore — ERP, CRM, WMS, HRM va LMS biznes dasturi">
-  <meta property="og:description" content="FlowCore — O‘zbekiston biznesi uchun ERP ishlab chiqarish, CRM savdo, WMS ombor, HRM ish haqi va LMS o‘quv markazi dasturi. Kerakli bo‘limlarni tanlang.">
+  <meta property="og:title" content="FlowCore — ombor, savdo va ish haqi hisobi dasturi">
+  <meta property="og:description" content="Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.">
   <meta property="og:image" content="https://flowcore.uz/og-image.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
@@ -31,8 +31,8 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="FlowCore — ERP, CRM, WMS, HRM va LMS biznes dasturi">
-  <meta name="twitter:description" content="FlowCore — O‘zbekiston biznesi uchun ERP ishlab chiqarish, CRM savdo, WMS ombor, HRM ish haqi va LMS o‘quv markazi dasturi. Kerakli bo‘limlarni tanlang.">
+  <meta name="twitter:title" content="FlowCore — ombor, savdo va ish haqi hisobi dasturi">
+  <meta name="twitter:description" content="Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.">
   <meta name="twitter:image" content="https://flowcore.uz/og-image.png">
   <meta name="twitter:image:alt" content="FlowCore: ombor, ishlab chiqarish, xodimlar, mijozlar va ta’lim hisobi">
 
@@ -51,21 +51,25 @@
       var d = document.documentElement;
       // Set before CSS paints so the mobile header never occupies page flow.
       d.classList.add('has-js');
-      // Every page opens in light mode; dark mode is an explicit in-page choice.
-      d.dataset.theme = 'light';
-      document.querySelector('#themeColor').content = '#fafafa';
+      // Restore the saved choice before painting; first-time visitors see dark mode.
+      var theme = 'dark';
+      try {
+        var saved = localStorage.getItem('flowcore-theme');
+        if (saved === 'light' || saved === 'dark') theme = saved;
+      } catch (e) { /* Storage may be unavailable. */ }
+      d.dataset.theme = theme;
+      document.querySelector('#themeColor').content = theme === 'dark' ? '#09090b' : '#fafafa';
     })();
   </script>
 
   <!-- Main fonts are served locally; text does not wait for external services. -->
-  <link rel="preload" href="assets/fonts/bricolage-latin-v9.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/onest-latin-v11.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/dist/style.82a831f647a8.css">
+    <link rel="preload" href="assets/fonts/onest-latin-v11.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/dist/style.576c39d016c4.css">
 
   <!-- Structured data -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://flowcore.uz/#organization","name":"FlowCore","url":"https://flowcore.uz/","logo":{"@type":"ImageObject","url":"https://flowcore.uz/icon-512.png","width":512,"height":512},"alternateName":["Flow Core","flowcore.uz","ФлоуКор"],"image":"https://flowcore.uz/og-image.png","description":"FlowCore — O‘zbekistondagi korxonalar uchun ombor, ishlab chiqarish (ERP), xodimlar va ish haqi (HR), mijozlar (CRM) va o‘quv markazi (LMS) hisobini yurituvchi o‘zbek tilidagi dastur.","areaServed":{"@type":"Country","name":"O‘zbekiston"},"address":{"@type":"PostalAddress","addressLocality":"Toshkent","addressCountry":"UZ"},"knowsLanguage":"uz","sameAs":["https://www.instagram.com/flowcore_uz/","https://t.me/flowcoreuz"]},{"@type":"WebSite","@id":"https://flowcore.uz/#website","url":"https://flowcore.uz/","name":"FlowCore","inLanguage":"uz","publisher":{"@id":"https://flowcore.uz/#organization"},"alternateName":["Flow Core","flowcore.uz","ФлоуКор"]},{"@type":"WebPage","@id":"https://flowcore.uz/#webpage","url":"https://flowcore.uz/","name":"FlowCore — ERP, CRM, WMS, HRM va LMS biznes dasturi","description":"FlowCore — O‘zbekiston biznesi uchun ERP ishlab chiqarish, CRM savdo, WMS ombor, HRM ish haqi va LMS o‘quv markazi dasturi. Kerakli bo‘limlarni tanlang.","inLanguage":"uz","isPartOf":{"@id":"https://flowcore.uz/#website"},"about":{"@id":"https://flowcore.uz/#software"},"publisher":{"@id":"https://flowcore.uz/#organization"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://flowcore.uz/og-image.png","width":1200,"height":630}},{"@type":"SoftwareApplication","name":"FlowCore","applicationCategory":"BusinessApplication","applicationSubCategory":"ERP","operatingSystem":"Web, Windows, macOS, Linux","inLanguage":"uz","description":"FlowCore — O‘zbekiston biznesi uchun ERP ishlab chiqarish, CRM savdo, WMS ombor, HRM ish haqi va LMS o‘quv markazi dasturi. Kerakli bo‘limlarni tanlang.","featureList":["Ombor: kirim, chiqim va qoldiq","Ishlab chiqarish: buyurtma va bajarilgan ish","Xodimlar: davomat va ish haqi","Mijozlar: xabarlar va savdo","Ta’lim: dars, davomat va to‘lov","Internet orqali yoki kompyuterga o‘rnatib ishlash","HRM: planshet uchun Face ID ilovasi va bir qadamda sozlash"],"publisher":{"@id":"https://flowcore.uz/#organization"},"@id":"https://flowcore.uz/#software","url":"https://flowcore.uz/","isAccessibleForFree":false,"hasPart":[{"@id":"https://flowcore.uz/ombor/#software"},{"@id":"https://flowcore.uz/erp/#software"},{"@id":"https://flowcore.uz/ish-haqi/#software"},{"@id":"https://flowcore.uz/crm/#software"},{"@id":"https://flowcore.uz/talim/#software"}],"alternateName":["Flow Core","FlowCore ERP","FlowCore CRM","FlowCore WMS","FlowCore HRM","FlowCore LMS","ФлоуКор"],"softwareVersion":"1.0.1","screenshot":"https://flowcore.uz/og-image.png","image":"https://flowcore.uz/og-image.png","downloadUrl":["https://github.com/Foz1ljon/flowcore-downloads/releases/download/desktop-v1.0.1-20261020/FlowCore_1.0.1_macOS_AppleSilicon.dmg","https://github.com/Foz1ljon/flowcore-downloads/releases/download/desktop-v1.0.1-20261020/FlowCore_1.0.1_Windows_x64.exe","https://github.com/Foz1ljon/flowcore-downloads/releases/download/desktop-v1.0.1-20261020/FlowCore_1.0.1_Ubuntu_x64.AppImage"],"availableLanguage":"uz","countriesSupported":"UZ"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"HRM’dagi Face ID ilovasi qanday ishlaydi?","acceptedAnswer":{"@type":"Answer","text":"Face ID ilovasini planshetga o‘rnatasiz va bir qadamda sozlaysiz. Planshet yuzni tanish orqali xodimlar davomatini qayd etish uchun ishlatiladi. HRM bo‘limida davomat, ishlangan vaqt va ish haqini kuzatasiz. Planshetingiz mosligini va ulash tartibini tanishuvda ko‘rib chiqamiz."}},{"@type":"Question","name":"Faqat kerakli bo‘limlarni tanlasam bo‘ladimi?","acceptedAnswer":{"@type":"Answer","text":"Ha. Masalan, ombor va ish haqi yoki mijozlar va ta’lim bo‘limlari bilan boshlaysiz. Ishlab chiqarish bo‘limi ombor bilan birga ishlaydi. Boshqa bo‘limlarni keyin qo‘shish mumkin."}},{"@type":"Question","name":"Internet orqali ishlash va kompyuterga o‘rnatishning farqi nima?","acceptedAnswer":{"@type":"Answer","text":"Internet orqali ishlasangiz, jamoangiz bir xil ma’lumotni turli joydan ko‘radi. Kompyuterga o‘rnatsangiz, hisoblar o‘sha kompyuterda saqlanadi. Dasturni ishga tushirish hamda Telegram va Instagramdan xabar olish uchun internet kerak."}},{"@type":"Question","name":"Xodimlar faqat kerakli bo‘limlarni ko‘radimi?","acceptedAnswer":{"@type":"Answer","text":"Egasi yoki boshqaruvchi xodimning qaysi bo‘limlarni ko‘rishi, qaysilarini tahrirlashi mumkinligini belgilaydi. Bu ruxsatlar tizimdagi amallarda tekshiriladi."}},{"@type":"Question","name":"Kompaniyamning ma’lumotlari qanday ajratiladi?","acceptedAnswer":{"@type":"Answer","text":"Ma’lumotlarga kirish kompaniya va foydalanuvchi huquqlari asosida tekshiriladi. Boshqa kompaniya xodimi sizning ish ma’lumotlaringizni ko‘rmaydi. Kompyuterga o‘rnatilganda ma’lumotlar o‘zingizda saqlanadi."}},{"@type":"Question","name":"Mavjud Excel hisoblarimiz bilan boshlay olamizmi?","acceptedAnswer":{"@type":"Answer","text":"Suhbat davomida jadval tuzilishi va boshlang‘ich qoldiqlarni ko‘rib chiqamiz. Qaysi ma’lumotlarni qanday kiritish kerakligi hajmi va tuzilishiga qarab kelishiladi."}},{"@type":"Question","name":"Telegram va Instagram o‘z-o‘zidan ulanadimi?","acceptedAnswer":{"@type":"Answer","text":"Kanallar alohida ulanadi va tegishli hisob ruxsatlari talab qilinadi. Telegram bot tokeni, Instagram uchun mos professional hisob va ruxsatlar kerak. Xabar almashish internet orqali ishlaydi."}},{"@type":"Question","name":"Narx qanday hisoblanadi?","acceptedAnswer":{"@type":"Answer","text":"Narx kerakli bo‘limlar, xodimlar soni va dasturdan qanday foydalanishingizga bog‘liq. Tanlovingizni yuboring, sizga narxini aytamiz. Bu sahifada pul to‘lamaysiz."}},{"@type":"Question","name":"Bu sahifada sinab ko‘rganlarim saqlanadimi?","acceptedAnswer":{"@type":"Answer","text":"Yo‘q. Bu yerdagi tugmalarni bemalol sinang: raqamlar faqat tanishish uchun. Sahifani qayta ochsangiz, hammasi avvalgi holiga qaytadi. Ism va telefoningizni yuborsangiz esa siz bilan bog‘lanish uchun saqlanadi."}},{"@type":"Question","name":"FlowCore, Flow Core yoki CoreFlow — qaysi biri to‘g‘ri?","acceptedAnswer":{"@type":"Answer","text":"Ushbu dasturning rasmiy nomi FlowCore, sayti flowcore.uz. Flow Core yoki CoreFlow deb qidirgan bo‘lsangiz, mahsulot nomi va rasmiy domenni tekshiring. FlowCore ombor, ishlab chiqarish, mijozlar, xodimlar va ta’lim hisobini yuritadi."}}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://flowcore.uz/#organization","name":"FlowCore","url":"https://flowcore.uz/","logo":{"@type":"ImageObject","url":"https://flowcore.uz/icon-512.png","width":512,"height":512},"alternateName":["Flow Core","flowcore.uz","ФлоуКор"],"image":"https://flowcore.uz/og-image.png","description":"FlowCore — O‘zbekistondagi korxonalar uchun ombor, ishlab chiqarish (ERP), xodimlar va ish haqi (HR), mijozlar (CRM) va o‘quv markazi (LMS) hisobini yurituvchi o‘zbek tilidagi dastur.","areaServed":{"@type":"Country","name":"O‘zbekiston"},"address":{"@type":"PostalAddress","addressLocality":"Toshkent","addressCountry":"UZ"},"knowsLanguage":"uz","sameAs":["https://www.instagram.com/flowcore_uz/","https://t.me/flowcoreuz"]},{"@type":"WebSite","@id":"https://flowcore.uz/#website","url":"https://flowcore.uz/","name":"FlowCore","inLanguage":"uz","publisher":{"@id":"https://flowcore.uz/#organization"},"alternateName":["Flow Core","flowcore.uz","ФлоуКор"]},{"@type":"WebPage","@id":"https://flowcore.uz/#webpage","url":"https://flowcore.uz/","name":"FlowCore — ombor, savdo va ish haqi hisobi dasturi","description":"Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.","inLanguage":"uz","isPartOf":{"@id":"https://flowcore.uz/#website"},"about":{"@id":"https://flowcore.uz/#software"},"publisher":{"@id":"https://flowcore.uz/#organization"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://flowcore.uz/og-image.png","width":1200,"height":630}},{"@type":"SoftwareApplication","name":"FlowCore","applicationCategory":"BusinessApplication","applicationSubCategory":"ERP","operatingSystem":"Web, Windows, macOS, Linux","inLanguage":"uz","description":"Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.","featureList":["Ombor: kirim, chiqim va qoldiq","Ishlab chiqarish: buyurtma va bajarilgan ish","Xodimlar: davomat va ish haqi","Mijozlar: xabarlar va savdo","Ta’lim: dars, davomat va to‘lov","Internet orqali yoki kompyuterga o‘rnatib ishlash","HRM: planshet uchun Face ID ilovasi va bir qadamda sozlash"],"publisher":{"@id":"https://flowcore.uz/#organization"},"@id":"https://flowcore.uz/#software","url":"https://flowcore.uz/","isAccessibleForFree":false,"hasPart":[{"@id":"https://flowcore.uz/ombor/#software"},{"@id":"https://flowcore.uz/erp/#software"},{"@id":"https://flowcore.uz/ish-haqi/#software"},{"@id":"https://flowcore.uz/crm/#software"},{"@id":"https://flowcore.uz/talim/#software"}],"alternateName":["Flow Core","FlowCore ERP","FlowCore CRM","FlowCore WMS","FlowCore HRM","FlowCore LMS","ФлоуКор"],"softwareVersion":"1.0.1","screenshot":"https://flowcore.uz/og-image.png","image":"https://flowcore.uz/og-image.png","downloadUrl":["https://github.com/Foz1ljon/flowcore-downloads/releases/download/desktop-v1.0.1-20261020/FlowCore_1.0.1_macOS_AppleSilicon.dmg","https://github.com/Foz1ljon/flowcore-downloads/releases/download/desktop-v1.0.1-20261020/FlowCore_1.0.1_Windows_x64.exe","https://github.com/Foz1ljon/flowcore-downloads/releases/download/desktop-v1.0.1-20261020/FlowCore_1.0.1_Ubuntu_x64.AppImage"],"availableLanguage":"uz","countriesSupported":"UZ"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"FlowCore nima va kimlar uchun kerak?","acceptedAnswer":{"@type":"Answer","text":"FlowCore — kundalik biznes hisobini yuritish dasturi. Do‘kon yoki omborda mahsulot qoldig‘ini, ishlab chiqarishda buyurtmalarni, jamoada davomat va ish haqini, savdoda mijozlarni, o‘quv markazida dars va to‘lovlarni hisobga olasiz. Faqat ishingizga kerakli bo‘limlarni tanlaysiz."}},{"@type":"Question","name":"Yuzni tanish orqali davomat qanday olinadi?","acceptedAnswer":{"@type":"Answer","text":"Face ID ilovasini planshetga o‘rnatasiz va bir qadamda sozlaysiz. Planshet yuzni tanish orqali xodimlar davomatini qayd etish uchun ishlatiladi. HRM bo‘limida davomat, ishlangan vaqt va ish haqini kuzatasiz. Planshetingiz mosligini va ulash tartibini tanishuvda ko‘rib chiqamiz."}},{"@type":"Question","name":"Faqat kerakli bo‘limlarni tanlasam bo‘ladimi?","acceptedAnswer":{"@type":"Answer","text":"Ha. Masalan, ombor va ish haqi yoki mijozlar va ta’lim bo‘limlari bilan boshlaysiz. Ishlab chiqarish bo‘limi ombor bilan birga ishlaydi. Boshqa bo‘limlarni keyin qo‘shish mumkin."}},{"@type":"Question","name":"Internet orqali ishlash va kompyuterga o‘rnatishning farqi nima?","acceptedAnswer":{"@type":"Answer","text":"Internet orqali ishlasangiz, jamoangiz bir xil ma’lumotni turli joydan ko‘radi. Kompyuterga o‘rnatsangiz, hisoblar o‘sha kompyuterda saqlanadi. Dasturni ishga tushirish hamda Telegram va Instagramdan xabar olish uchun internet kerak."}},{"@type":"Question","name":"Xodimlar faqat kerakli bo‘limlarni ko‘radimi?","acceptedAnswer":{"@type":"Answer","text":"Egasi yoki boshqaruvchi xodimning qaysi bo‘limlarni ko‘rishi, qaysilarini tahrirlashi mumkinligini belgilaydi. Bu ruxsatlar tizimdagi amallarda tekshiriladi."}},{"@type":"Question","name":"Kompaniyamning ma’lumotlari qanday ajratiladi?","acceptedAnswer":{"@type":"Answer","text":"Ma’lumotlarga kirish kompaniya va foydalanuvchi huquqlari asosida tekshiriladi. Boshqa kompaniya xodimi sizning ish ma’lumotlaringizni ko‘rmaydi. Kompyuterga o‘rnatilganda ma’lumotlar o‘zingizda saqlanadi."}},{"@type":"Question","name":"Mavjud Excel hisoblarimiz bilan boshlay olamizmi?","acceptedAnswer":{"@type":"Answer","text":"Suhbat davomida jadval tuzilishi va boshlang‘ich qoldiqlarni ko‘rib chiqamiz. Qaysi ma’lumotlarni qanday kiritish kerakligi hajmi va tuzilishiga qarab kelishiladi."}},{"@type":"Question","name":"Telegram va Instagram o‘z-o‘zidan ulanadimi?","acceptedAnswer":{"@type":"Answer","text":"Kanallar alohida ulanadi va tegishli hisob ruxsatlari talab qilinadi. Telegram bot tokeni, Instagram uchun mos professional hisob va ruxsatlar kerak. Xabar almashish internet orqali ishlaydi."}},{"@type":"Question","name":"Narx qanday hisoblanadi?","acceptedAnswer":{"@type":"Answer","text":"Narx kerakli bo‘limlar, xodimlar soni va dasturdan qanday foydalanishingizga bog‘liq. Tanlovingizni yuboring, sizga narxini aytamiz. Bu sahifada pul to‘lamaysiz."}},{"@type":"Question","name":"Bu sahifada sinab ko‘rganlarim saqlanadimi?","acceptedAnswer":{"@type":"Answer","text":"Yo‘q. Bu yerdagi tugmalarni bemalol sinang: raqamlar faqat tanishish uchun. Sahifani qayta ochsangiz, hammasi avvalgi holiga qaytadi. Ism va telefoningizni yuborsangiz esa siz bilan bog‘lanish uchun saqlanadi."}},{"@type":"Question","name":"FlowCore, Flow Core yoki CoreFlow — qaysi biri to‘g‘ri?","acceptedAnswer":{"@type":"Answer","text":"Ushbu dasturning rasmiy nomi FlowCore, sayti flowcore.uz. Flow Core yoki CoreFlow deb qidirgan bo‘lsangiz, mahsulot nomi va rasmiy domenni tekshiring. FlowCore ombor, ishlab chiqarish, mijozlar, xodimlar va ta’lim hisobini yuritadi."}}]}]}</script>
 </head>
-<body id="top">
+<body id="top" class="landing-page">
   <!-- Lucide SVG symbols. License: assets/icons/LICENSE.txt -->
   <svg class="icon-symbols" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false"><defs>
 <symbol id="icon-warehouse" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11"/><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 1.132-1.803l7.95-3.974a2 2 0 0 1 1.837 0l7.948 3.974A2 2 0 0 1 22 8zM6 13h12M6 17h12"/></g></symbol>
@@ -115,8 +119,11 @@
   <a class="skip-link" href="#main">Asosiy mazmunga o‘tish</a>
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
+  <div class="site-atmosphere" id="flowScene" data-scene-src="assets/dist/scene.e705b834c1bd.js" aria-hidden="true"><div class="atmosphere-fallback"><i></i><i></i><i></i></div></div>
+  <button type="button" id="flowMotion" class="flow-motion" hidden aria-pressed="false">Harakatni to‘xtatish</button>
+
   <!-- ================= HEADER ================= -->
-  <header class="site-header">
+  <header class="site-header landing-header">
     <div class="wrap header-inner">
       <a class="logo" href="#top" aria-label="FlowCore, bosh sahifa">
         <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
@@ -124,29 +131,31 @@
           <path d="M20 46V27C20 22.0294 24.0294 18 29 18H46M20 33H39" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
           <circle cx="46" cy="46" r="5" fill="#6ee7b7"/>
         </svg>
-        <span>FlowCore<b>.</b></span>
+        <span class="brand-wordmark">FlowCore<b>.</b><small>Biznesingiz bir oqimda</small></span>
       </a>
 
       <nav class="nav" id="nav" aria-label="Asosiy menyu">
-        <a href="#modullar">Bo‘limlar</a>
-        <a href="#sinab" class="nav-try">Sinab ko‘ring</a>
-        <a href="#ichkarida">Tizim qanday?</a>
-        <a href="#tariflar">Narxlar</a>
-        <a href="#yuklab-olish">Yuklab olish</a>
-        <a class="btn btn-ink nav-cta" href="#aloqa">Bog‘lanish</a>
+        <div class="nav-intro"><span>FLOWCORE / NAVIGATSIYA</span><strong>Kerakli joyga bir qadam.</strong></div>
+        <a href="#modullar" data-caption="Ishingizga mos imkoniyatlar">Bo‘limlar</a>
+        <a href="#sinab" class="nav-try" data-caption="Bitta buyurtma qanday bajariladi?">Sinab ko‘ring</a>
+        <a href="#ichkarida" data-caption="Dasturni ichidan ko‘ring">Dastur namunasi</a>
+        <a href="#tariflar" data-caption="Kerakli bo‘limlarni tanlang">Narxlar</a>
+        <a href="#yuklab-olish" data-caption="Kompyuteringiz uchun dastur">Yuklab olish</a>
+        <a class="btn btn-ink nav-cta" href="#aloqa">Keling, gaplashamiz <span aria-hidden="true">↗</span></a>
       </nav>
 
       <div class="header-tools">
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Tungi rejimga o‘tish">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Kunduzgi rejimga o‘tish">
           <svg class="icon i-moon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>moon</title><use href="#icon-moon"></use></svg>
           <svg class="icon i-sun" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>sun</title><use href="#icon-sun"></use></svg>
         </button>
         <button class="nav-toggle" id="navToggle" type="button" aria-label="Menyuni ochish" aria-expanded="false" aria-controls="nav">
-          <span></span><span></span>
+          <b class="nav-toggle-label">Menyu</b><span></span><span></span>
         </button>
       </div>
     </div>
   </header>
+  <button type="button" class="menu-backdrop" id="menuBackdrop" aria-label="Menyuni yopish" tabindex="-1" hidden></button>
 
   <main id="main">
 
@@ -159,32 +168,36 @@
           <span>Toshkent · <time id="clock">--:--</time></span>
         </div>
 
-        <h1 id="hero-title" class="hero-title split">
-          <span class="sr-only">FlowCore — </span>Ombor, ish haqi va mijozlar
-          <em class="flow-word">bir joyda<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M3 16c30-12 52-12 75 0s47 12 72 0 50-12 74 0 47 10 73-2"/></svg></em>.
-        </h1>
-
-        <div class="hero-row">
-          <p class="hero-lead reveal">
-            Nima sotildi, omborda qancha mahsulot qoldi, kimga qancha ish haqi berish kerak — hammasini FlowCore’da ko‘rasiz.
-            Ombor, ishlab chiqarish, xodimlar, mijozlar yoki o‘quv markazi hisobini yuriting. Kerakli bo‘limni tanlab boshlang. Dastur o‘zbek tilida.
-          </p>
-          <div class="hero-side reveal">
+        <div class="hero-intro">
+          <div class="hero-copy">
+            <p class="hero-eyebrow"><span></span> Biznes hisobini yuritish uchun o‘zbekcha dastur</p>
+            <h1 id="hero-title" class="hero-title"><span class="sr-only">FlowCore — </span>Ishingiz tartibda.<br>Hisob <em class="flow-word">bir joyda.</em></h1>
+            <p class="hero-lead">FlowCore — ombor, savdo, ishlab chiqarish, ish haqi va o‘quv markazi hisobini yuritadigan dastur. Qancha mahsulot qoldi, buyurtma qayergacha yetdi, kimga qancha to‘lash kerak — bitta joydan bilasiz.</p>
             <div class="hero-actions">
-              <a class="btn btn-accent btn-lg" href="#aloqa">Bepul tanishish <span class="arr" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-right</title><use href="#icon-arrow-right"></use></svg></span></a>
-              <a class="btn btn-line btn-lg" href="#ichkarida">Tizimni ichidan ko‘ring <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></a>
+              <a class="btn btn-accent btn-lg" href="#ichkarida">Dasturni sinab ko‘rish <span aria-hidden="true">↗</span></a>
+              <a class="btn btn-line btn-lg" href="#aloqa">Bepul tanishuv olish <span aria-hidden="true">→</span></a>
             </div>
-            <dl class="spec">
-              <div><dt>Bo‘limlar</dt><dd>Ombor · Ishlab chiqarish · Xodimlar · Mijozlar · Ta’lim</dd></div>
-              <div><dt>O‘rnatish</dt><dd>Internet orqali yoki kompyuteringizda</dd></div>
-              <div><dt>Qayerda ishlaydi</dt><dd>Telefon yoki kompyuter brauzeri</dd></div>
-            </dl>
+            <p class="hero-reassurance">Namunani ro‘yxatdan o‘tmasdan sinaysiz. Hech qanday to‘lov yo‘q.</p>
+            <ul class="hero-benefits"><li>O‘zbek tilida</li><li>Faqat kerakli bo‘limlar</li><li>Brauzerda yoki kompyuterda</li></ul>
+            <div class="hero-module-line" aria-label="Dastur bo‘limlari"><span>Ombor</span><i aria-hidden="true"></i><span>Ishlab chiqarish</span><i aria-hidden="true"></i><span>Ish haqi</span><i aria-hidden="true"></i><span>Mijozlar</span><i aria-hidden="true"></i><span>Ta’lim</span></div>
           </div>
+
         </div>
+        <nav class="reading-path" aria-label="Sahifa bo‘ylab tezkor yo‘l">
+          <span>Qayerdan boshlayman?</span><a href="#kerakli-bolim"><b>01</b> O‘zingizga keraklisini toping <span aria-hidden="true">↗</span></a><a href="#ichkarida"><b>02</b> Namunada sinab ko‘ring <span aria-hidden="true">↗</span></a><a href="#tariflar"><b>03</b> Narxni bilib oling <span aria-hidden="true">↗</span></a>
+        </nav>
 
         <!-- Shared hero panel: event board and module shortcuts. -->
         <div class="hero-overview">
-        <figure class="board-wrap reveal">
+          <div class="choice-heading" id="kerakli-bolim"><div><p class="hero-eyebrow">Sizga qaysi biri kerak?</p><h2>Ishingizga mos bo‘limdan boshlang.</h2></div><p>Hammasini olish shart emas.<br>Kerakli bo‘limni ochib, nimalar qilishini o‘qing.</p></div>
+          <nav class="module-directory" aria-label="Kerakli bo‘limga o‘tish">
+      <a class="module-shortcut" href="/ombor/" style="--module-color:var(--c-wms)"><span class="shortcut-icon" data-module-symbol="wms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>warehouse</title><use href="#icon-warehouse"></use></svg></span><span><b>Ombor</b><small>Nima keldi, qancha qoldi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" href="/erp/" style="--module-color:var(--c-erp)"><span class="shortcut-icon" data-module-symbol="erp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg></span><span><b>Ishlab chiqarish</b><small>Qaysi buyurtma tayyor?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" href="/ish-haqi/" style="--module-color:var(--c-hr)"><span class="shortcut-icon" data-module-symbol="hr"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>users-round</title><use href="#icon-users-round"></use></svg></span><span><b>Xodimlar</b><small>Kim ishladi, qancha oladi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" href="/crm/" style="--module-color:var(--c-crm)"><span class="shortcut-icon" data-module-symbol="crm"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>messages-square</title><use href="#icon-messages-square"></use></svg></span><span><b>Mijozlar</b><small>Qaysi mijozga javob kerak?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" href="/talim/" style="--module-color:var(--c-lms)"><span class="shortcut-icon" data-module-symbol="lms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg></span><span><b>Ta’lim</b><small>Kim keldi, kim to‘ladi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
+    </nav>
+<details class="event-details"><summary>Bo‘limlarda nimalar bo‘lishini namunada ko‘ring</summary>        <figure class="board-wrap reveal">
           <div class="board-filter" role="group" aria-label="Yangiliklarni bo‘lim bo‘yicha ko‘rish">
             <span class="bf-label">Ko‘rsatish:</span>
             <button type="button" aria-pressed="true" data-f="">Hammasi</button>
@@ -203,13 +216,7 @@
           </div>
           <figcaption>Namunaviy hodisalar. Ombor, buyurtma va to‘lovdagi o‘zgarishlarni bir joyda ko‘rasiz.</figcaption>
         </figure>
-          <nav class="module-directory" aria-label="Kerakli bo‘limga o‘tish">
-      <a class="module-shortcut" href="/ombor/" style="--module-color:var(--c-wms)"><span class="shortcut-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>warehouse</title><use href="#icon-warehouse"></use></svg></span><span><b>Ombor</b><small>Kirim, qoldiq va xomashyo</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" href="/erp/" style="--module-color:var(--c-erp)"><span class="shortcut-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg></span><span><b>Ishlab chiqarish</b><small>Buyurtma, bosqich va natija</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" href="/ish-haqi/" style="--module-color:var(--c-hr)"><span class="shortcut-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>users-round</title><use href="#icon-users-round"></use></svg></span><span><b>Xodimlar</b><small>Davomat va ish haqi</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" href="/crm/" style="--module-color:var(--c-crm)"><span class="shortcut-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>messages-square</title><use href="#icon-messages-square"></use></svg></span><span><b>Mijozlar</b><small>Murojaat, suhbat va savdo</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" href="/talim/" style="--module-color:var(--c-lms)"><span class="shortcut-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg></span><span><b>Ta’lim</b><small>Guruh, dars va to‘lov</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-    </nav>
+</details>
         </div>
       </div>
     </section>
@@ -220,7 +227,7 @@
       <div class="wrap">
         <header class="sec-head">
           <p class="sec-no">Yaqinroq tanishing <span>O‘zingiz sinab ko‘ring</span></p>
-          <h2 id="tour-title" class="split">Dastur ichiga bir nazar tashlang.</h2>
+          <h2 id="tour-title" class="split">Dastur qanday ishlashini sinab ko‘ring.</h2>
           <p class="sec-sub reveal">FlowCore ilovasidagi kabi: bo‘limni oching, yon menyudan kerakli ishni tanlang va qidirib ko‘ring. Ko‘rinish haqiqiy dastur tuzilishiga moslangan. Ma’lumotlar esa tanishish uchun namuna.</p>
         </header>
         <noscript><p class="form-help">O‘zingiz sinab ko‘ring uchun JavaScriptni yoqing. Bo‘limlarning to‘liq tavsifi quyidagi bo‘limda mavjud.</p></noscript>
@@ -311,7 +318,7 @@
       <div class="wrap">
         <header class="sec-head">
           <p class="sec-no">§ 02 <span>Bo‘limlar</span></p>
-          <h2 id="mod-title" class="split">Beshta bo‘lim. Har birining o‘z vazifasi bor.</h2>
+          <h2 id="mod-title" class="split">Har bir ish uchun tushunarli bo‘lim.</h2>
           <p class="sec-sub reveal">Faqat kerakli bo‘limni tanlang. Masalan, ombor hisobini yuriting yoki xodimlar ish haqini hisoblang. Bo‘limlar birga ishlaganda bir joyda kiritilgan ma’lumot boshqasida ham ko‘rinadi.</p>
         </header>
 
@@ -330,7 +337,7 @@
             <!-- WMS -->
             <article class="mod" id="m-wms" data-mod="wms" aria-labelledby="m-wms-t">
               <div class="mod-copy">
-                <p class="mod-tag"><span class="module-icon-badge"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>warehouse</title><use href="#icon-warehouse"></use></svg></span>01 · Ombor</p>
+                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="wms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>warehouse</title><use href="#icon-warehouse"></use></svg></span>01 · Ombor</p>
                 <h3 id="m-wms-t">Ombor: kirim, chiqim va qoldiq</h3>
                 <p class="module-search-name">FlowCore WMS — ombor hisobi</p>
                 <p>Bu bo‘lim ombordagi mahsulotlarning elektron daftari. Qaysi mahsulotdan qancha kelgani, qancha ishlatilgani yoki sotilgani va qancha qolgani shu yerda yoziladi. Do‘koningiz va omboringiz boshqa joyda bo‘lsa ham, mahsulot qayerda turganini alohida ko‘rasiz.</p>
@@ -363,7 +370,7 @@
             <!-- ERP -->
             <article class="mod" id="m-erp" data-mod="erp" aria-labelledby="m-erp-t">
               <div class="mod-copy">
-                <p class="mod-tag"><span class="module-icon-badge"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg></span>02 · Ishlab chiqarish</p>
+                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="erp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg></span>02 · Ishlab chiqarish</p>
                 <h3 id="m-erp-t">Ishlab chiqarish: buyurtma va bajarilgan ish</h3>
                 <p class="module-search-name">FlowCore ERP — ishlab chiqarish hisobi</p>
                 <p>Bu bo‘lim buyurtmani tayyorlash ishlarini tartibga soladi. Nima tayyorlanadi, qancha tayyorlanadi, kim qaysi ishni bajaradi va hozir ish qayergacha yetdi — barchasini shu yerda ko‘rasiz. Masalan, ko‘ylak bichildimi, tikildimi yoki hali dazmolga o‘tmadimi, bilib turasiz.</p>
@@ -397,7 +404,7 @@
             <!-- HR -->
             <article class="mod" id="m-hr" data-mod="hr" aria-labelledby="m-hr-t">
               <div class="mod-copy">
-                <p class="mod-tag"><span class="module-icon-badge"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>users-round</title><use href="#icon-users-round"></use></svg></span>03 · Ish haqi</p>
+                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="hr"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>users-round</title><use href="#icon-users-round"></use></svg></span>03 · Ish haqi</p>
                 <h3 id="m-hr-t">Xodimlar: davomat va ish haqi</h3>
                 <p class="module-search-name">FlowCore HRM — Face ID, davomat va ish haqi</p>
                 <p>Bu bo‘lim xodimlar va ularga to‘lanadigan ish haqining hisobi. Kim ishga keldi, qancha ishladi va unga nima uchun qancha pul hisoblandi — shu yerda ko‘rasiz. Face ID degani yuzni tanish: uning ilovasini planshetga o‘rnatib, bir qadamda sozlaysiz va xodimlar davomatini qayd etish uchun ishlatasiz.</p>
@@ -428,7 +435,7 @@
             <!-- CRM -->
             <article class="mod" id="m-crm" data-mod="crm" aria-labelledby="m-crm-t">
               <div class="mod-copy">
-                <p class="mod-tag"><span class="module-icon-badge"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>messages-square</title><use href="#icon-messages-square"></use></svg></span>04 · Mijozlar</p>
+                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="crm"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>messages-square</title><use href="#icon-messages-square"></use></svg></span>04 · Mijozlar</p>
                 <h3 id="m-crm-t">Mijozlar: yozishmalar va savdo</h3>
                 <p class="module-search-name">FlowCore CRM — mijozlar va savdo</p>
                 <p>Bu bo‘lim sizdan mahsulot yoki xizmat so‘ragan odamlar bilan ishlash uchun kerak. Kim qo‘ng‘iroq qildi, nima so‘radi, unga kim javob berdi va yana qachon bog‘lanish kerak — yozib borasiz. Mijoz hali xarid qilmagan bo‘lsa ham, uning so‘rovi va keyingi ishni hisobga olasiz.</p>
@@ -463,7 +470,7 @@
             <!-- LMS -->
             <article class="mod" id="m-lms" data-mod="lms" aria-labelledby="m-lms-t">
               <div class="mod-copy">
-                <p class="mod-tag"><span class="module-icon-badge"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg></span>05 · Ta’lim</p>
+                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="lms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg></span>05 · Ta’lim</p>
                 <h3 id="m-lms-t">Ta’lim: dars, davomat va to‘lov</h3>
                 <p class="module-search-name">FlowCore LMS — o‘quv markazi hisobi</p>
                 <p>Bu bo‘lim o‘quv markazi yoki maktabning kundalik hisobini yuritadi. Qaysi o‘quvchi qaysi guruhda o‘qiydi, darsi qachon, darsga keldimi va to‘lovidan qancha qoldi — shu yerda ko‘rasiz. O‘qituvchi, boshqaruvchi va ota-ona o‘ziga tegishli ma’lumotni ko‘radi.</p>
@@ -504,7 +511,7 @@
       <div class="wrap">
         <header class="sec-head">
           <p class="sec-no">§ 03 <span>Sinab ko‘ring</span></p>
-          <h2 id="sb-title" class="split">Bosing. Ma’lumot o‘zi oqadi.</h2>
+          <h2 id="sb-title" class="split">Bitta buyurtma qanday bajariladi?</h2>
           <p class="sec-sub reveal">Bu kichik tikuv sexi: mijozlar, buyurtma, ombor va ishchi. Bitta tugmani bosing va qolgan bo‘limlar qanday javob berishini kuzating. Hech narsa saqlanmaydi, bemalol sinang.</p>
         </header>
 
@@ -578,7 +585,7 @@
       <div class="wrap">
         <header class="sec-head">
           <p class="sec-no">§ 04 <span>Ishlatish qulayliklari</span></p>
-          <h2 id="feat-title" class="split">Dasturchisiz sozlanadi. Birinchi kundan ishlaydi.</h2>
+          <h2 id="feat-title" class="split">Ish tartibingizga moslab sozlang.</h2>
         </header>
 
         <div class="bento">
@@ -620,7 +627,7 @@
 
           <article class="cell c-offline reveal">
             <span class="feature-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>hard-drive</title><use href="#icon-hard-drive"></use></svg></span>
-            <h3>Internetsiz ham</h3>
+            <h3>Hisoblar kompyuteringizda</h3>
             <p>Kompyuterga o‘rnatilgan dastur ma’lumotni o‘z kompyuteringizda saqlaydi.</p>
             <div class="backup" aria-hidden="true">
               <span class="pc">Kompyuter</span>
@@ -780,7 +787,7 @@
       <div class="wrap">
         <header class="sec-head">
           <p class="sec-no">§ 08 <span>Narxlar</span></p>
-          <h2 id="price-title" class="split">To‘plamni o‘zingiz yig‘asiz.</h2>
+          <h2 id="price-title" class="split">Sizga kerakli bo‘limlar qancha turadi?</h2>
           <p class="sec-sub reveal">Bo‘limlarni yoqing, o‘rnatish turini tanlang. Narx taklifini sizga yuboramiz.</p>
         </header>
 
@@ -894,19 +901,20 @@
       <div class="wrap faq-grid">
         <header class="sec-head left">
           <p class="sec-no">§ 09 <span>Savollar</span></p>
-          <h2 id="faq-title" class="split">Ko‘p so‘raladi.</h2>
+          <h2 id="faq-title" class="split">Savollaringizga sodda javoblar.</h2>
         </header>
         <div class="faq">
-          <details class="reveal"><summary><span>01</span>HRM’dagi Face ID ilovasi qanday ishlaydi?</summary><p>Face ID ilovasini planshetga o‘rnatasiz va bir qadamda sozlaysiz. Planshet yuzni tanish orqali xodimlar davomatini qayd etish uchun ishlatiladi. HRM bo‘limida davomat, ishlangan vaqt va ish haqini kuzatasiz. Planshetingiz mosligini va ulash tartibini tanishuvda ko‘rib chiqamiz.</p></details>
-          <details class="reveal"><summary><span>02</span>Faqat kerakli bo‘limlarni tanlasam bo‘ladimi?</summary><p>Ha. Masalan, ombor va ish haqi yoki mijozlar va ta’lim bo‘limlari bilan boshlaysiz. Ishlab chiqarish bo‘limi ombor bilan birga ishlaydi. Boshqa bo‘limlarni keyin qo‘shish mumkin.</p></details>
-          <details class="reveal"><summary><span>03</span>Internet orqali ishlash va kompyuterga o‘rnatishning farqi nima?</summary><p>Internet orqali ishlasangiz, jamoangiz bir xil ma’lumotni turli joydan ko‘radi. Kompyuterga o‘rnatsangiz, hisoblar o‘sha kompyuterda saqlanadi. Dasturni ishga tushirish hamda Telegram va Instagramdan xabar olish uchun internet kerak.</p></details>
-          <details class="reveal"><summary><span>04</span>Xodimlar faqat kerakli bo‘limlarni ko‘radimi?</summary><p>Egasi yoki boshqaruvchi xodimning qaysi bo‘limlarni ko‘rishi, qaysilarini tahrirlashi mumkinligini belgilaydi. Bu ruxsatlar tizimdagi amallarda tekshiriladi.</p></details>
-          <details class="reveal"><summary><span>05</span>Kompaniyamning ma’lumotlari qanday ajratiladi?</summary><p>Ma’lumotlarga kirish kompaniya va foydalanuvchi huquqlari asosida tekshiriladi. Boshqa kompaniya xodimi sizning ish ma’lumotlaringizni ko‘rmaydi. Kompyuterga o‘rnatilganda ma’lumotlar o‘zingizda saqlanadi.</p></details>
-          <details class="reveal"><summary><span>06</span>Mavjud Excel hisoblarimiz bilan boshlay olamizmi?</summary><p>Suhbat davomida jadval tuzilishi va boshlang‘ich qoldiqlarni ko‘rib chiqamiz. Qaysi ma’lumotlarni qanday kiritish kerakligi hajmi va tuzilishiga qarab kelishiladi.</p></details>
-          <details class="reveal"><summary><span>07</span>Telegram va Instagram o‘z-o‘zidan ulanadimi?</summary><p>Kanallar alohida ulanadi va tegishli hisob ruxsatlari talab qilinadi. Telegram bot tokeni, Instagram uchun mos professional hisob va ruxsatlar kerak. Xabar almashish internet orqali ishlaydi.</p></details>
-          <details class="reveal"><summary><span>08</span>Narx qanday hisoblanadi?</summary><p>Narx kerakli bo‘limlar, xodimlar soni va dasturdan qanday foydalanishingizga bog‘liq. Tanlovingizni yuboring, sizga narxini aytamiz. Bu sahifada pul to‘lamaysiz.</p></details>
-          <details class="reveal"><summary><span>09</span>Bu sahifada sinab ko‘rganlarim saqlanadimi?</summary><p>Yo‘q. Bu yerdagi tugmalarni bemalol sinang: raqamlar faqat tanishish uchun. Sahifani qayta ochsangiz, hammasi avvalgi holiga qaytadi. Ism va telefoningizni yuborsangiz esa siz bilan bog‘lanish uchun saqlanadi.</p></details>
-          <details class="reveal"><summary><span>10</span>FlowCore, Flow Core yoki CoreFlow — qaysi biri to‘g‘ri?</summary><p>Ushbu dasturning rasmiy nomi FlowCore, sayti flowcore.uz. Flow Core yoki CoreFlow deb qidirgan bo‘lsangiz, mahsulot nomi va rasmiy domenni tekshiring. FlowCore ombor, ishlab chiqarish, mijozlar, xodimlar va ta’lim hisobini yuritadi.</p></details>
+          <details class="reveal" open><summary><span>01</span>FlowCore nima va kimlar uchun kerak?</summary><p>FlowCore — kundalik biznes hisobini yuritish dasturi. Do‘kon yoki omborda mahsulot qoldig‘ini, ishlab chiqarishda buyurtmalarni, jamoada davomat va ish haqini, savdoda mijozlarni, o‘quv markazida dars va to‘lovlarni hisobga olasiz. Faqat ishingizga kerakli bo‘limlarni tanlaysiz.</p></details>
+          <details class="reveal"><summary><span>02</span>Yuzni tanish orqali davomat qanday olinadi?</summary><p>Face ID ilovasini planshetga o‘rnatasiz va bir qadamda sozlaysiz. Planshet yuzni tanish orqali xodimlar davomatini qayd etish uchun ishlatiladi. HRM bo‘limida davomat, ishlangan vaqt va ish haqini kuzatasiz. Planshetingiz mosligini va ulash tartibini tanishuvda ko‘rib chiqamiz.</p></details>
+          <details class="reveal"><summary><span>03</span>Faqat kerakli bo‘limlarni tanlasam bo‘ladimi?</summary><p>Ha. Masalan, ombor va ish haqi yoki mijozlar va ta’lim bo‘limlari bilan boshlaysiz. Ishlab chiqarish bo‘limi ombor bilan birga ishlaydi. Boshqa bo‘limlarni keyin qo‘shish mumkin.</p></details>
+          <details class="reveal"><summary><span>04</span>Internet orqali ishlash va kompyuterga o‘rnatishning farqi nima?</summary><p>Internet orqali ishlasangiz, jamoangiz bir xil ma’lumotni turli joydan ko‘radi. Kompyuterga o‘rnatsangiz, hisoblar o‘sha kompyuterda saqlanadi. Dasturni ishga tushirish hamda Telegram va Instagramdan xabar olish uchun internet kerak.</p></details>
+          <details class="reveal"><summary><span>05</span>Xodimlar faqat kerakli bo‘limlarni ko‘radimi?</summary><p>Egasi yoki boshqaruvchi xodimning qaysi bo‘limlarni ko‘rishi, qaysilarini tahrirlashi mumkinligini belgilaydi. Bu ruxsatlar tizimdagi amallarda tekshiriladi.</p></details>
+          <details class="reveal"><summary><span>06</span>Kompaniyamning ma’lumotlari qanday ajratiladi?</summary><p>Ma’lumotlarga kirish kompaniya va foydalanuvchi huquqlari asosida tekshiriladi. Boshqa kompaniya xodimi sizning ish ma’lumotlaringizni ko‘rmaydi. Kompyuterga o‘rnatilganda ma’lumotlar o‘zingizda saqlanadi.</p></details>
+          <details class="reveal"><summary><span>07</span>Mavjud Excel hisoblarimiz bilan boshlay olamizmi?</summary><p>Suhbat davomida jadval tuzilishi va boshlang‘ich qoldiqlarni ko‘rib chiqamiz. Qaysi ma’lumotlarni qanday kiritish kerakligi hajmi va tuzilishiga qarab kelishiladi.</p></details>
+          <details class="reveal"><summary><span>08</span>Telegram va Instagram o‘z-o‘zidan ulanadimi?</summary><p>Kanallar alohida ulanadi va tegishli hisob ruxsatlari talab qilinadi. Telegram bot tokeni, Instagram uchun mos professional hisob va ruxsatlar kerak. Xabar almashish internet orqali ishlaydi.</p></details>
+          <details class="reveal"><summary><span>09</span>Narx qanday hisoblanadi?</summary><p>Narx kerakli bo‘limlar, xodimlar soni va dasturdan qanday foydalanishingizga bog‘liq. Tanlovingizni yuboring, sizga narxini aytamiz. Bu sahifada pul to‘lamaysiz.</p></details>
+          <details class="reveal"><summary><span>10</span>Bu sahifada sinab ko‘rganlarim saqlanadimi?</summary><p>Yo‘q. Bu yerdagi tugmalarni bemalol sinang: raqamlar faqat tanishish uchun. Sahifani qayta ochsangiz, hammasi avvalgi holiga qaytadi. Ism va telefoningizni yuborsangiz esa siz bilan bog‘lanish uchun saqlanadi.</p></details>
+          <details class="reveal"><summary><span>11</span>FlowCore, Flow Core yoki CoreFlow — qaysi biri to‘g‘ri?</summary><p>Ushbu dasturning rasmiy nomi FlowCore, sayti flowcore.uz. Flow Core yoki CoreFlow deb qidirgan bo‘lsangiz, mahsulot nomi va rasmiy domenni tekshiring. FlowCore ombor, ishlab chiqarish, mijozlar, xodimlar va ta’lim hisobini yuritadi.</p></details>
         </div>
       </div>
     </section>
@@ -998,7 +1006,8 @@
     <span class="arr" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-right</title><use href="#icon-arrow-right"></use></svg></span>
   </a>
 
-  <script src="assets/dist/main.fc15a4cab759.js" defer></script>
+  <script src="assets/dist/main.6f641a499f23.js" defer></script>
   <script src="assets/dist/tour.e7097a0324f7.js" defer></script>
+  <script type="module" src="assets/dist/experience.27aa7ba690eb.js"></script>
 </body>
 </html>

@@ -29,13 +29,14 @@
 
   /* ---------- Theme ---------- */
   const themeBtn = $('#themeToggle');
-  const currentTheme = () => root.dataset.theme || 'light';
+  const currentTheme = () => root.dataset.theme || 'dark';
   const syncThemeLabel = () => {
     $('#themeColor').content = currentTheme() === 'dark' ? '#09090b' : '#fafafa';
     themeBtn.setAttribute('aria-label', currentTheme() === 'dark' ? 'Kunduzgi rejimga o‘tish' : 'Tungi rejimga o‘tish');
   };
   const applyTheme = (theme) => {
     root.dataset.theme = theme;
+    try { localStorage.setItem('flowcore-theme', theme); } catch { /* Keep the toggle usable without storage. */ }
     syncThemeLabel();
   };
   themeBtn.addEventListener('click', (e) => {
@@ -56,6 +57,20 @@
 
   /* ---------- Header, progress, active nav ---------- */
   const header = $('.site-header');
+  const moduleStoryNav = $('.story-index');
+  const moduleNavList = $('.story-index ol');
+  const syncHeaderGeometry = () => {
+    const clearance = Math.ceil(header.getBoundingClientRect().bottom) + 12;
+    root.style.setProperty('--header-clearance', `${clearance}px`);
+    const horizontal = getComputedStyle(moduleNavList).display === 'flex';
+    root.style.setProperty('--module-nav-clearance', horizontal ? `${Math.ceil(moduleStoryNav.getBoundingClientRect().height) + 12}px` : '0px');
+  };
+  syncHeaderGeometry();
+  const headerGeometryObserver = new ResizeObserver(syncHeaderGeometry);
+  headerGeometryObserver.observe($('.header-inner'));
+  headerGeometryObserver.observe(moduleStoryNav);
+  addEventListener('resize', syncHeaderGeometry, { passive: true });
+
   const progress = $('.scroll-progress');
   let scrollFrame = 0;
   const onScroll = () => {
@@ -79,18 +94,24 @@
 
   const nav = $('#nav');
   const navToggle = $('#navToggle');
-  const mobileNavMq = window.matchMedia('(max-width: 860px)');
+  const mobileNavMq = window.matchMedia('(max-width: 1050px)');
+  const menuBackdrop = $('#menuBackdrop');
   const syncNavAvailability = () => {
     nav.inert = mobileNavMq.matches && !nav.classList.contains('open');
   };
   syncNavAvailability();
   const setNav = (open) => {
+    open = open && mobileNavMq.matches;
     nav.classList.toggle('open', open);
+    document.body.classList.toggle('nav-open', open);
+    menuBackdrop.hidden = !open;
     navToggle.setAttribute('aria-expanded', String(open));
     navToggle.setAttribute('aria-label', open ? 'Menyuni yopish' : 'Menyuni ochish');
     syncNavAvailability();
     syncFloat();
+    window.dispatchEvent(new CustomEvent('flowcore:nav', { detail: { open } }));
   };
+  menuBackdrop.addEventListener('click', () => { setNav(false); navToggle.focus(); });
   navToggle.addEventListener('click', () => setNav(!nav.classList.contains('open')));
   nav.addEventListener('click', (e) => { if (e.target.closest('a')) setNav(false); });
   addEventListener('keydown', (e) => {
@@ -1030,4 +1051,26 @@
     });
   }
   $('#year').textContent = String(new Date().getFullYear());
+  document.dispatchEvent(new Event('flowcore:ready'));
+})();
+
+/* Load the optional 3D layer after critical content; data-saving users keep CSS. */
+(() => {
+  const host = document.querySelector('[data-scene-src]');
+  if (!host || navigator.connection?.saveData) return;
+  const observer = new IntersectionObserver(entries => {
+    if (!entries.some(entry => entry.isIntersecting)) return;
+    observer.disconnect();
+    const load = async () => {
+      try {
+        // Avoid a WebGL download on unsupported devices; keep the static CSS background.
+        if (!document.createElement('canvas').getContext('webgl2')) return;
+        const scene = await import(new URL(host.dataset.sceneSrc, document.baseURI).href);
+        scene.mountFlowScene(host);
+      } catch { /* Optional enhancement: all content and links stay available. */ }
+    };
+    if ('requestIdleCallback' in window) requestIdleCallback(load, {timeout:2500});
+    else setTimeout(load, 500);
+  }, {rootMargin:'100px'});
+  observer.observe(host);
 })();

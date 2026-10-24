@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="uz" data-theme="light">
+<html lang="uz" data-theme="dark">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Foydalanish shartlari va majburiyatlar — FlowCore</title>
 <meta name="description" content="FlowCore’dan foydalanish qoidalari: xizmat doirasi, tarif va litsenziya, mijoz va xizmat ko‘rsatuvchi majburiyatlari, to‘lov, bekor qilish va javobgarlik."><meta name="author" content="FlowCore">
-<meta name="robots" content="index, follow"><meta name="color-scheme" content="light dark"><meta name="theme-color" id="themeColor" content="#fafafa">
+<meta name="robots" content="index, follow"><meta name="color-scheme" content="light dark"><meta name="theme-color" id="themeColor" content="#09090b">
 <link rel="canonical" href="https://flowcore.uz/terms/"><link rel="alternate" hreflang="uz" href="https://flowcore.uz/terms/"><link rel="alternate" hreflang="x-default" href="https://flowcore.uz/terms/">
 <meta property="og:type" content="website"><meta property="og:locale" content="uz_UZ"><meta property="og:site_name" content="FlowCore"><meta property="og:url" content="https://flowcore.uz/terms/"><meta property="og:title" content="Foydalanish shartlari va majburiyatlar — FlowCore"><meta property="og:description" content="FlowCore’dan foydalanish qoidalari: xizmat doirasi, tarif va litsenziya, mijoz va xizmat ko‘rsatuvchi majburiyatlari, to‘lov, bekor qilish va javobgarlik."><meta property="og:image" content="https://flowcore.uz/og-image.png">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Foydalanish shartlari va majburiyatlar — FlowCore"><meta name="twitter:description" content="FlowCore’dan foydalanish qoidalari: xizmat doirasi, tarif va litsenziya, mijoz va xizmat ko‘rsatuvchi majburiyatlari, to‘lov, bekor qilish va javobgarlik."><meta name="twitter:image" content="https://flowcore.uz/og-image.png">
@@ -20,13 +20,18 @@
       var d = document.documentElement;
       // Set before CSS paints so the mobile header never occupies page flow.
       d.classList.add('has-js');
-      // Every page opens in light mode; dark mode is an explicit in-page choice.
-      d.dataset.theme = 'light';
-      document.querySelector('#themeColor').content = '#fafafa';
+      // Restore the saved choice before painting; first-time visitors see dark mode.
+      var theme = 'dark';
+      try {
+        var saved = localStorage.getItem('flowcore-theme');
+        if (saved === 'light' || saved === 'dark') theme = saved;
+      } catch (e) { /* Storage may be unavailable. */ }
+      d.dataset.theme = theme;
+      document.querySelector('#themeColor').content = theme === 'dark' ? '#09090b' : '#fafafa';
     })();
   </script>
-<link rel="preload" href="/assets/fonts/bricolage-latin-v9.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/onest-latin-v11.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/dist/style.82a831f647a8.css"><link rel="stylesheet" href="/assets/dist/product.301f3a09f4bb.css">
+<link rel="preload" href="/assets/fonts/onest-latin-v11.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/dist/style.576c39d016c4.css"><link rel="stylesheet" href="/assets/dist/product.301f3a09f4bb.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://flowcore.uz/terms/#webpage","url":"https://flowcore.uz/terms/","name":"Foydalanish shartlari va majburiyatlar — FlowCore","description":"FlowCore’dan foydalanish qoidalari: xizmat doirasi, tarif va litsenziya, mijoz va xizmat ko‘rsatuvchi majburiyatlari, to‘lov, bekor qilish va javobgarlik.","inLanguage":"uz","dateModified":"2026-10-21","isPartOf":{"@id":"https://flowcore.uz/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"FlowCore","item":"https://flowcore.uz/"},{"@type":"ListItem","position":2,"name":"Foydalanish shartlari","item":"https://flowcore.uz/terms/"}]}]}</script>
 </head>
 <body class="detail-page legal-page" id="top">
@@ -38,8 +43,8 @@
           <path d="M20 46V27C20 22.0294 24.0294 18 29 18H46M20 33H39" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
           <circle cx="46" cy="46" r="5" fill="#6ee7b7"/>
         </svg>
-        <span>FlowCore<b>.</b></span>
-      </a><nav aria-label="Asosiy menyu"><a href="/">Bosh sahifa</a><a href="/privacy/">Maxfiylik siyosati</a><a href="/terms/" aria-current="page">Foydalanish shartlari</a><a href="/#aloqa">Bog‘lanish</a></nav><button class="theme-toggle" id="themeToggle" type="button" aria-label="Tungi rejimga o‘tish">
+        <span class="brand-wordmark">FlowCore<b>.</b><small>Biznesingiz bir oqimda</small></span>
+      </a><nav aria-label="Asosiy menyu"><a href="/">Bosh sahifa</a><a href="/privacy/">Maxfiylik siyosati</a><a href="/terms/" aria-current="page">Foydalanish shartlari</a><a href="/#aloqa">Bog‘lanish</a></nav><button class="theme-toggle" id="themeToggle" type="button" aria-label="Kunduzgi rejimga o‘tish">
           <svg class="icon i-moon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>moon</title><use href="#icon-moon"></use></svg>
           <svg class="icon i-sun" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>sun</title><use href="#icon-sun"></use></svg>
         </button></div></header>
@@ -110,5 +115,5 @@
 <section class="legal-section legal-contact" id="contact" aria-labelledby="contact-title"><h2 id="contact-title">Aloqa va huquqiy manbalar</h2><p>Maxfiylik, ma’lumotlar yoki xizmat shartlari bo‘yicha yozing. Murojaatda kompaniya nomi va bog‘lanish usulini ko‘rsating.</p><a class="btn btn-accent" href="mailto:info@flowcore.uz">info@flowcore.uz</a><p class="legal-contact-note">Xizmat ko‘rsatuvchining to‘liq rekvizitlarini buyurtma yoki shartnoma tuzishdan oldin so‘rang.</p><ul><li><a href="https://lex.uz/docs/-4396419">“Shaxsga doir ma’lumotlar to‘g‘risida” — O‘RQ-547</a></li><li><a href="https://lex.uz/docs/-6213382">“Elektron tijorat to‘g‘risida” — O‘RQ-792</a></li><li><a href="https://lex.uz/docs/-4704">“Iste’molchilarning huquqlarini himoya qilish to‘g‘risida” — 221-I</a></li></ul><p>Manbalar Lex.uz’dagi rasmiy matnlarga olib boradi. Qonunning tegishli vaqtda amalda bo‘lgan tahriri qo‘llanadi.</p></section></div></div>
 </main>
 <footer class="detail-footer"><div class="wrap legal-footer"><a href="/">© 2026 FlowCore</a><nav aria-label="Ijtimoiy tarmoqlar"><a href="https://www.instagram.com/flowcore_uz/" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/flowcoreuz" target="_blank" rel="noopener">Telegram</a></nav><nav aria-label="Huquqiy sahifalar"><a href="/privacy/">Maxfiylik siyosati</a><a href="/terms/">Foydalanish shartlari</a><a href="#top">Yuqoriga ↑</a></nav></div></footer>
-<script src="/assets/dist/site.0187019323b4.js" defer></script>
+<script src="/assets/dist/site.9068466f4a5b.js" defer></script>
 </body></html>

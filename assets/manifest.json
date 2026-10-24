@@ -1,10 +1,12 @@
 {
   "assets": {
-    "style": "assets/dist/style.82a831f647a8.css",
+    "style": "assets/dist/style.576c39d016c4.css",
     "product": "assets/dist/product.301f3a09f4bb.css",
-    "main": "assets/dist/main.fc15a4cab759.js",
+    "main": "assets/dist/main.6f641a499f23.js",
     "tour": "assets/dist/tour.e7097a0324f7.js",
-    "site": "assets/dist/site.0187019323b4.js"
+    "site": "assets/dist/site.9068466f4a5b.js",
+    "scene": "assets/dist/scene.e705b834c1bd.js",
+    "experience": "assets/dist/experience.27aa7ba690eb.js"
   },
   "pages": [
     "erp/index.html",

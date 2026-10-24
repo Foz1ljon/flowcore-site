@@ -41,7 +41,7 @@ class Page(HTMLParser):
             self.robots = attrs.get('content', '')
             if not self.allow_noindex:
                 assert 'noindex' not in self.robots, 'Public page disallows indexing'
-        for key in ['href', 'src']:
+        for key in ['href', 'src', 'data-scene-src']:
             if key in attrs:
                 self.links.append(attrs[key])
 
@@ -64,6 +64,18 @@ for filename in files:
         assert any(item['@type'] == 'WebPage' for item in graph['@graph'])
     assert not re.search(r'(?:href|src)="https://fonts\.(?:googleapis|gstatic)\.com', source), (filename, 'External render dependency')
     pages[filename] = page
+
+# Search answers must match the text visitors can actually read.
+home_source = (ROOT / 'index.html').read_text()
+faq_source = re.search(r'<div class="faq">(.*?)</div>', home_source, re.S)[1]
+def plain(text):
+    return re.sub(r'\s+', ' ', re.sub(r'<[^>]*>', '', text)).strip()
+visible_faq = [(plain(re.sub(r'<span>.*?</span>', '', q)), plain(a))
+    for q, a in re.findall(r'<summary>(.*?)</summary>\s*<p>(.*?)</p>', faq_source, re.S)]
+home_graph = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', home_source, re.S)[1])
+search_faq = next(node for node in home_graph['@graph'] if node['@type'] == 'FAQPage')['mainEntity']
+assert len(visible_faq) >= 10, 'Homepage FAQ extraction is incomplete'
+assert visible_faq == [(q['name'], q['acceptedAnswer']['text']) for q in search_faq], 'Search FAQ differs from visible answers'
 
 assert len(set(titles)) == len(titles), 'Duplicate search titles'
 by_canonical = {page.canonicals[0]: page for page in pages.values()}

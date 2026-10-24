@@ -2,15 +2,15 @@ import { writeFileSync } from 'node:fs';
 
 export function generateNotFound(assets, { home, logo, themeScript, themeButton, symbols }) {
   writeFileSync('404.html', `<!doctype html>
-<html lang="uz" data-theme="light">
+<html lang="uz" data-theme="dark">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sahifa topilmadi — FlowCore</title>
 <meta name="description" content="Bu manzilda sahifa topilmadi. FlowCore bosh sahifasiga qayting yoki kerakli bo‘limni tanlang.">
-<meta name="robots" content="noindex, follow"><meta name="color-scheme" content="light dark"><meta name="theme-color" id="themeColor" content="#fafafa">
+<meta name="robots" content="noindex, follow"><meta name="color-scheme" content="light dark"><meta name="theme-color" id="themeColor" content="#09090b">
 ${home.match(/<!-- Icons & manifest -->([\s\S]*?)<!-- Theme before first paint/)[1].trim()}
 <script>${themeScript}</script>
-<link rel="preload" href="/assets/fonts/bricolage-latin-v9.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/onest-latin-v11.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/onest-latin-v11.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/${assets.style}"><link rel="stylesheet" href="/${assets.product}">
 </head>
 <body class="detail-page notfound-page" id="top">

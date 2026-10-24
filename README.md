@@ -59,7 +59,7 @@ npm run dev   # local preview → http://127.0.0.1:8080 (includes branded 404)
 - `assets/css/style.css` — light/dark tokens at the top (`:root`, `[data-theme]`). Brand colours
   follow the app: emerald `#10b981` (`frontend/playground/shared/brand.ts`), logo `#064e3b` /
   `#6ee7b7`, zinc neutrals; logo SVG from `frontend/playground/public/brand/`. One colour per module (`--c-wms` … `--c-lms`); respects `prefers-reduced-motion`
-- `assets/js/main.js` — theme toggle (every page opens in light mode; dark mode can be selected for the current page), split-flap
+- `assets/js/main.js` — theme toggle (dark mode by default; the selected mode is saved in localStorage across refreshes and pages), split-flap
   boards (`createBoard`; hero events in `EVENTS`, filter by module), before/after slider,
   module scroll story, §03 sandbox (`SB_ACTIONS`: CRM deal → ERP order → HR pieces → WMS
   stock; nothing is saved), payroll receipt, quiz → configurator, floating CTA,
@@ -228,3 +228,111 @@ surfaces and 12px for controls. Product pages share these tokens. Each page open
 in light mode before its first paint, ignoring previous saved theme preferences
 and the operating system appearance. The theme toggle still switches the current
 page; that choice is not persisted across navigation or reloads.
+
+## Clear first visit and optional 3D (2026-10-23)
+
+The homepage starts with a plain Uzbek product explanation, a registration-free
+sample CTA and a three-step reading path. The module directory precedes the
+optional event board, which now opens as a native disclosure. Headings use Onest
+for consistent legibility on product pages too. Search descriptions explain the
+actual tasks; the homepage FAQ schema is generated from its visible answers and
+checked for parity by `npm run check`.
+
+`assets/js/flow-scene.js` uses pinned Three.js for floating geometric forms behind the hero content.
+The build bundles it into a separate content-hashed ESM file. `main.js` imports it
+when the illustration approaches the viewport and the browser is idle. Data-saving
+connections and devices without WebGL 2 retain the static CSS atmosphere. No CDN
+is required. The background canvas is fixed, does not affect layout, is decorative and contains no
+unique product information. Motion respects the system preference, can be paused,
+and stops offscreen or in background tabs. GPU resources and observers are cleaned
+up on page exit; back-forward cache restores are supported. Context loss restores
+the CSS fallback. Three.js attribution: `assets/licenses/three-LICENSE.txt`.
+
+Publish generated HTML and the current hashed assets together. Local checks do
+not establish production Core Web Vitals or a change in search rankings.
+
+The landing uses one fixed, viewport-wide Three.js flow scene. Two families of
+smooth parallel curves run along the margins, with polished emerald conductors,
+fine silver lines, junction beads and illuminated packets moving in opposite
+directions. The central reading lane remains clear. Geometry is rebuilt only on
+viewport resize and previous curve buffers are disposed. Material colors follow
+the theme. Mobile conductors are thinner. Pause, reduced-motion and static CSS
+fallback remain available.
+
+The landing header is a floating navigation dock. Desktop links use a compact
+segmented surface; at 1050px and below, a labeled menu opens numbered cards with
+short explanations. Escape, outside dismissal, focus cycling, inert closed links,
+scroll locking and the no-JavaScript fallback are supported. Detail-page header
+structure remains independent. The cursor accent is now a small trailing ring and
+dot, expanding gently over controls; the former elastic web has been removed.
+
+The shared scene now stays behind all homepage sections, including the footer;
+it is no longer clipped to the hero. Section backgrounds let the decoration show
+through while cards retain solid surfaces. The pause control remains accessible
+in a fixed corner. The small pointer accent also follows across the homepage.
+Only one WebGL renderer is created, with viewport-sized buffers on long pages.
+
+The former floating rings, cubes and polyhedra have been replaced by connected
+flow conductors to give the decoration a consistent visual purpose. The scene
+retains one viewport-sized renderer across all homepage sections.
+
+## Sticky module clearance and scene polish (2026-10-23)
+
+Header and module-menu dimensions are measured with ResizeObserver. The module
+sidebar and horizontal sticky bar use the actual floating-header bottom plus a
+12px gap. Module anchor offsets also include the horizontal bar height, keeping
+headings visible when navigating directly or switching modules.
+
+The shared 3D flow has fewer conductors, smoother tube cross-sections, explicit
+antialiasing, softer reflections and viewport-edge fading. Moving packets taper
+at their endpoints. Context loss stops rendering until the GPU context restores;
+the static CSS fallback and normal page controls remain available.
+
+## Five module symbols (2026-10-23)
+
+The module directory and detailed module headings use a consistent family of
+Three.js symbols: stacked cartons (WMS), a working conveyor (ERP), three team
+members (HR), conversation bubbles (CRM), and an open book (LMS). Each uses a mint
+platform with the established module accent. Animations are intentionally small;
+ERP parcels travel, CRM bubbles float and LMS pages move slightly.
+
+`assets/js/module-symbols.js` uses one small offscreen WebGL renderer shared by
+all ten local 2D display canvases, rather than a WebGL context for every icon.
+Only visible models redraw after their initial static render. The existing pause
+control and reduced-motion preference stop symbol animations too. Original SVGs
+remain as fallbacks. All symbol resources are disposed with the background scene.
+
+## Motion and alternating module stories (2026-10-23)
+
+The module descriptions now alternate copy/example columns on desktop; on mobile,
+copy precedes the example. The original module sidebar stays on the left on desktop; a horizontal rail
+is used on phones/tablets, with measured header and anchor clearance.
+
+`assets/js/experience.js` bundles GSAP + ScrollTrigger and Motion's framework-free
+JavaScript API. GSAP coordinates the hero entrance and once-only section reveals;
+module examples enter from alternating sides on desktop and vertically on mobile.
+Motion handles spring feedback on CTAs, module symbols and presses, plus menu-item
+stagger. Native scrolling, navigation, focus and the existing static content remain
+available. The original reveal system is the fallback if the bundle cannot load.
+
+Reduced-motion preference or the fixed pause button removes enhanced motion and
+reveals all content. Media changes revert inline styles and listeners. Disclosures
+refresh ScrollTrigger positions; page exit releases the animation context. The
+experience bundle is separate from the shared Three.js bundle and uses local files.
+
+## Particle atmosphere (2026-10-23)
+
+The background conductors were replaced with a GPU-driven particle atmosphere:
+two gently undulating point fields and soft moving light washes frame the page.
+Vertex shaders move the points without per-frame buffer uploads; mobile uses
+912 points versus 2560 on desktop. The center stays clear for text. Theme-aware
+colors, subtle pointer depth, global pause/reduced-motion and the full-page fixed
+canvas remain. Module symbols, Motion/GSAP interactions and navigation are kept.
+
+## Connected FlowCore background (2026-10-24)
+
+`assets/js/flow-network.js` adds two decorative 3D department networks to the
+existing atmosphere. Five colored cubes connect to a central core; packets travel
+along curved paths to suggest information moving between modules. Networks sit in
+the viewport margins, use smaller geometry/fewer visible packets on phones, and
+share the existing renderer, theme, pause/reduced-motion handling and cleanup.
