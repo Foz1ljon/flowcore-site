@@ -33,12 +33,14 @@ jobs:
           cache: npm
 
       # The build is committed; fail when it is stale instead of shipping old assets.
-      # sitemap.xml carries the build date as lastmod, so it differs on every run.
+      # sitemap.xml carries the build date as lastmod, so it differs on every run; build-report.json
+      # gzip sizes depend on the zlib version.
       - name: Build and check
         run: |
           npm ci
+          npm run lint
           npm run build
-          git diff --exit-code -- . ':!sitemap.xml' || { echo "::error::Run npm run build and commit the generated files."; exit 1; }
+          git diff --exit-code -- . ':!sitemap.xml' ':!tools/build-report.json' || { echo "::error::Run npm run build and commit the generated files."; exit 1; }
           npm run check
 
       - name: Configure SSH
@@ -60,7 +62,7 @@ jobs:
       - name: Upload site
         run: |
           EXCLUDES=(--exclude .git --exclude .github --exclude node_modules --exclude tools --exclude deploy
-                    --exclude README.md --exclude package.json --exclude package-lock.json --exclude _headers --exclude .DS_Store --exclude .gitignore)
+                    --exclude README.md --exclude eslint.config.mjs --exclude package.json --exclude package-lock.json --exclude _headers --exclude .DS_Store --exclude .gitignore)
           rsync -rlz --chmod=D755,F644 "${EXCLUDES[@]}" --exclude '*.html' ./ "server:$SITE_DIR/"
           rsync -rlz --chmod=D755,F644 --delete --filter 'P assets/dist/***' "${EXCLUDES[@]}" ./ "server:$SITE_DIR/"
 

@@ -1,0 +1,39 @@
+# Every push and pull request: lint the sources, rebuild, and check the generated site.
+name: ci
+
+permissions:
+  contents: read
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # The build is committed; fail when it is stale. sitemap.xml carries the build date and
+      # build-report.json gzip sizes vary with the zlib version, so both are ignored.
+      - name: Build is up to date
+        run: |
+          npm run build
+          git diff --exit-code -- . ':!sitemap.xml' ':!tools/build-report.json' || { echo "::error::Run npm run build and commit the generated files."; exit 1; }
+
+      - name: Test (pages, links, metadata, asset hashes)
+        run: npm test
