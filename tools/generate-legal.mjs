@@ -5,8 +5,10 @@ const escape = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;',
 export function generateLegalPages(assets, { home, logo, themeScript, themeButton, symbols }) {
   return legalPages.map(page => {
     const url = `https://flowcore.uz/${page.slug}/`;
+    const updated = page.updated || '2026-10-21';
+    const updatedLabel = page.updatedLabel || '21-oktabr 2026';
     const schema = { '@context': 'https://schema.org', '@graph': [
-      { '@type': 'WebPage', '@id': `${url}#webpage`, url, name: page.title, description: page.description, inLanguage: 'uz', dateModified: '2026-10-21', isPartOf: { '@id': 'https://flowcore.uz/#website' } },
+      { '@type': 'WebPage', '@id': `${url}#webpage`, url, name: page.title, description: page.description, inLanguage: 'uz', dateModified: updated, isPartOf: { '@id': 'https://flowcore.uz/#website' } },
       { '@type': 'BreadcrumbList', itemListElement: [ { '@type': 'ListItem', position: 1, name: 'FlowCore', item: 'https://flowcore.uz/' }, { '@type': 'ListItem', position: 2, name: page.label, item: url } ] },
     ] };
     const document = `<!doctype html>
@@ -31,7 +33,7 @@ ${symbols}
 <header class="site-header"><div class="wrap detail-header">${logo}<nav aria-label="Asosiy menyu"><a href="/">Bosh sahifa</a>${legalPages.map(p => `<a href="/${p.slug}/"${p.slug === page.slug ? ' aria-current="page"' : ''}>${escape(p.label)}</a>`).join('')}<a href="/#aloqa">Bog‘lanish</a></nav>${themeButton}</div></header>
 <main class="wrap" id="main">
 <nav class="breadcrumbs" aria-label="Sahifa yo‘li"><a href="/">FlowCore</a><span aria-hidden="true">/</span><span aria-current="page">${escape(page.label)}</span></nav>
-<section class="detail-hero legal-hero" aria-labelledby="legal-title"><p class="detail-kicker">FLOWCORE · HUQUQIY MA’LUMOTLAR</p><h1 id="legal-title">${escape(page.label)}.</h1><p class="detail-lead">${escape(page.intro)}</p><div class="legal-meta"><span>Versiya 1.0</span><span>Yangilangan: <time datetime="2026-10-21">21-oktabr 2026</time></span><a href="#contact">Murojaat qilish</a></div></section>
+<section class="detail-hero legal-hero" aria-labelledby="legal-title"><p class="detail-kicker">FLOWCORE · HUQUQIY MA’LUMOTLAR</p><h1 id="legal-title">${escape(page.label)}.</h1><p class="detail-lead">${escape(page.intro)}</p><div class="legal-meta"><span>Versiya ${escape(page.version || '1.0')}</span><span>Yangilangan: <time datetime="${escape(updated)}">${escape(updatedLabel)}</time></span><a href="#contact">Murojaat qilish</a></div></section>
 <div class="legal-summary" aria-label="Asosiy ma’lumotlar">${page.summary.map(([title,text]) => `<article><h2>${escape(title)}</h2><p>${escape(text)}</p></article>`).join('')}</div>
 <div class="legal-layout">
 <aside class="legal-toc"><nav aria-label="Sahifa mundarijasi"><p>Mundarija</p><ol>${page.sections.map(([id,title]) => `<li><a href="#${id}">${escape(title)}</a></li>`).join('')}<li><a href="#contact">Aloqa va huquqiy manbalar</a></li></ol></nav></aside>

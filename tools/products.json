@@ -586,5 +586,113 @@
       ]
     ],
     "result": "Kun oxirida: bugun kim darsga keldi, qaysi guruh qachon o‘qiydi va kimning qancha to‘lovi qoldi — tekshirish oson bo‘ladi."
+  },
+  {
+    "slug": "pos",
+    "code": "POS",
+    "name": "Do‘kon va kassa",
+    "section": "pos",
+    "title": "FlowCore POS — do‘kon, kassa va savdo hisobi",
+    "heading": "Har bir savdo va to‘lov hisobda — FlowCore POS.",
+    "description": "FlowCore POS bilan do‘kon savdosi, shtrix-kod, to‘lov, nasiya, qaytarish va kassa smenalarini boshqaring. Ombor qoldig‘i bilan bog‘langan o‘zbekcha kassa dasturi.",
+    "intro": "Do‘kondagi savdoni bitta joyda yuriting: mahsulotni toping, savatni tuzing, to‘lovni qayd eting va chekni chop eting. Savdo ombor qoldig‘i bilan bog‘lanadi.",
+    "cards": [
+      [
+        "Shtrix-kod orqali toping",
+        "Mahsulotni nomi, SKU yoki shtrix-kodi bilan topib savatga qo‘shing. Miqdor va chegirmani belgilang."
+      ],
+      [
+        "To‘lovlarni ajrating",
+        "Naqd, karta, Click va Payme orqali olingan summalarni qayd eting. Bitta savdoda bir nechta to‘lov turini ishlatish mumkin. Bu to‘lov hisobidir; to‘lov provayderidan pul yechish alohida jarayon."
+      ],
+      [
+        "Nasiyani kuzating",
+        "To‘lanmagan summani mijozning ismi va telefoni bilan qarzga yozing. Keyingi qarz to‘lovlarini shu savdoga bog‘lab qayd eting."
+      ],
+      [
+        "Qaytarishni hisobga oling",
+        "Sotilgan mahsulotning to‘liq yoki bir qismini qaytaring. Qaytgan mahsulot ombor hisobiga kiradi, qaytarilgan pul alohida qayd etiladi."
+      ],
+      [
+        "Smenani yoping",
+        "Boshlang‘ich naqd pul bilan smena oching. Yakunda savdo, qaytarish va to‘lovlar bo‘yicha kassada bo‘lishi kerak bo‘lgan summani tekshiring."
+      ],
+      [
+        "Filiallarni ajrating",
+        "Har bir savdo nuqtasini tegishli omborga bog‘lang. Filiallar bitta ombordan yoki alohida omborlardan savdo qilishi mumkin."
+      ]
+    ],
+    "plain": "POS — do‘konda mahsulot sotish va kassadagi hisobni yuritish bo‘limi. Nima sotildi, qancha to‘landi va kimdan qancha qarz qoldi — shu yerda ko‘rasiz.",
+    "problems": [
+      "Savdo daftari bilan ombor qoldig‘i mos kelmaydi.",
+      "Nasiya va qisman to‘lovlar turli yozuvlarda qolib ketadi.",
+      "Smena oxirida kassada qancha pul bo‘lishi kerakligini yig‘ish qiyin."
+    ],
+    "benefits": [
+      [
+        "Nasiyani kuzating",
+        "To‘lanmagan summani mijozning ismi va telefoni bilan qarzga yozing. Keyingi qarz to‘lovlarini shu savdoga bog‘lab qayd eting."
+      ],
+      [
+        "Qaytarishni hisobga oling",
+        "Sotilgan mahsulotning to‘liq yoki bir qismini qaytaring. Qaytgan mahsulot ombor hisobiga kiradi, qaytarilgan pul alohida qayd etiladi."
+      ],
+      [
+        "Smenani yoping",
+        "Boshlang‘ich naqd pul bilan smena oching. Yakunda savdo, qaytarish va to‘lovlar bo‘yicha kassada bo‘lishi kerak bo‘lgan summani tekshiring."
+      ],
+      [
+        "Filiallarni ajrating",
+        "Har bir savdo nuqtasini tegishli omborga bog‘lang. Filiallar bitta ombordan yoki alohida omborlardan savdo qilishi mumkin."
+      ]
+    ],
+    "workflow": [
+      [
+        "Filial va omborni belgilang",
+        "Savdo nuqtasini omborga bog‘lang va smenani oching."
+      ],
+      [
+        "Savatni tuzing",
+        "Mahsulotni topib, miqdor va chegirmani kiriting."
+      ],
+      [
+        "To‘lovni qayd eting",
+        "To‘lov turlari va summalarni yozing. Nasiya bo‘lsa mijoz ma’lumotlarini kiriting."
+      ],
+      [
+        "Smena natijasini tekshiring",
+        "Savdo, qaytarish va kassadagi naqd pulni tekshirib smenani yoping."
+      ]
+    ],
+    "connections": "POS ombor hisobiga tayanadi: savdo mahsulotni qoldiqdan chiqaradi, qaytarish esa omborga qaytaradi. Filialning qaysi ombordan savdo qilishi oldindan belgilanadi.",
+    "example": [
+      "2 dona mahsulotning har biri 75 000 so‘m: jami 150 000 so‘m.",
+      "Mijoz 100 000 so‘m naqd va 30 000 so‘m karta bilan to‘laydi. Qolgan 20 000 so‘m uning qarzi sifatida yoziladi.",
+      "Ombordan 2 dona chiqadi. Mijoz qolgan qarzni to‘laganda, to‘lov shu savdoga bog‘lanadi."
+    ],
+    "result": "Kun oxirida: qancha sotildi, qancha pul tushdi, qancha nasiya qoldi va kassada qancha bo‘lishi kerakligini ko‘rasiz.",
+    "audience": [
+      "Do‘konlar va chakana savdo nuqtalari.",
+      "Bir nechta filial va ombor bilan ishlaydigan jamoalar.",
+      "Kassirlar va kunlik savdoni kuzatuvchi rahbarlar."
+    ],
+    "faqs": [
+      [
+        "POS nima degani?",
+        "POS — savdo nuqtasidagi kassa hisobi. FlowCore POS savdo, to‘lov, nasiya va smenani yuritadi."
+      ],
+      [
+        "Nasiya savdo qilish mumkinmi?",
+        "Ha. To‘lanmagan qism mijozning ismi va telefoni bilan qarzga yoziladi. Keyingi to‘lov shu savdoga bog‘lanadi."
+      ],
+      [
+        "Karta va naqdni birga qabul qilish mumkinmi?",
+        "Ha. Bitta savdoning to‘lovini bir nechta usulga ajratib qayd etasiz. Click va Payme ham hisobda alohida ko‘rsatiladi."
+      ],
+      [
+        "Savdo omborga qanday ta’sir qiladi?",
+        "Sotilgan mahsulot tegishli ombordan chiqadi. Qaytarish qayd etilganda mahsulot ombor hisobiga qaytadi."
+      ]
+    ]
   }
 ]

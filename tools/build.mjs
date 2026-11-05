@@ -11,7 +11,9 @@ mkdirSync('assets/dist',{recursive:true});
 for (const [name,source] of Object.entries(entries)) {
   const loader = source.endsWith('.css') ? 'css' : 'js';
   const input = readFileSync(source,'utf8');
-  const {code,warnings} = await transform(input,{loader,minify:true,legalComments:'none',target:loader==='css'?['chrome100','safari16.4','firefox115']:['es2020']});
+  const transformed = name === 'tour' ? await build({entryPoints:[source],bundle:true,write:false,format:'esm',minify:true,legalComments:'none',target:'es2020'}) : await transform(input,{loader,minify:true,legalComments:'none',target:loader==='css'?['chrome100','safari16.4','firefox115']:['es2020']});
+  const {warnings} = transformed;
+  const code = name === 'tour' ? transformed.outputFiles[0].text : transformed.code;
   if (warnings.length) throw new Error(JSON.stringify(warnings));
   const hash = createHash('sha256').update(code).digest('hex').slice(0,12);
   const output = `assets/dist/${name}.${hash}.${loader}`;

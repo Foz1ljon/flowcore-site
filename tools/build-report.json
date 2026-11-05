@@ -1,10 +1,10 @@
 {
   "style": {
     "source": "assets/css/style.css",
-    "output": "assets/dist/style.576c39d016c4.css",
-    "before": 131276,
-    "after": 111381,
-    "gzip": 22522
+    "output": "assets/dist/style.de39da13b0ef.css",
+    "before": 161808,
+    "after": 137994,
+    "gzip": 27010
   },
   "product": {
     "source": "assets/css/product.css",
@@ -15,17 +15,17 @@
   },
   "main": {
     "source": "assets/js/main.js",
-    "output": "assets/dist/main.6f641a499f23.js",
-    "before": 49768,
-    "after": 30119,
-    "gzip": 11830
+    "output": "assets/dist/main.e3a46ec53a2d.js",
+    "before": 49824,
+    "after": 30171,
+    "gzip": 11840
   },
   "tour": {
     "source": "assets/js/tour.js",
-    "output": "assets/dist/tour.e7097a0324f7.js",
-    "before": 20443,
-    "after": 16222,
-    "gzip": 5834
+    "output": "assets/dist/tour.cd7785133298.js",
+    "before": 43291,
+    "after": 68937,
+    "gzip": 21610
   },
   "site": {
     "source": "assets/js/site.js",
@@ -36,16 +36,16 @@
   },
   "scene": {
     "source": "assets/js/flow-scene.js",
-    "output": "assets/dist/scene.e705b834c1bd.js",
-    "before": 12163,
-    "after": 592859,
-    "gzip": 151646
+    "output": "assets/dist/scene.82b10a67903f.js",
+    "before": 11751,
+    "after": 592583,
+    "gzip": 151530
   },
   "experience": {
     "source": "assets/js/experience.js",
-    "output": "assets/dist/experience.27aa7ba690eb.js",
-    "before": 6359,
-    "after": 187009,
-    "gzip": 71653
+    "output": "assets/dist/experience.008e31efff72.js",
+    "before": 6937,
+    "after": 187441,
+    "gzip": 71753
   }
 }

@@ -1,5 +1,6 @@
 // Search metadata and product terminology; the public interface remains Uzbek.
 export const moduleNames = {
+  pos: { en: 'Point of Sale', ru: 'Касса и розничная торговля' },
   erp: { en: 'Enterprise Resource Planning', ru: 'Управление производством' },
   crm: { en: 'Customer Relationship Management', ru: 'Управление клиентами и продажами' },
   ombor: { en: 'Warehouse Management System', ru: 'Складской учёт' },
@@ -23,7 +24,10 @@ export function updateHomeSeo(home) {
       if (node['@type'] === 'WebPage') Object.assign(node,{name:title,description});
       if (node['@type'] === 'SoftwareApplication') {
         node.description = description;
-        node.alternateName = ['Flow Core','FlowCore ERP','FlowCore CRM','FlowCore WMS','FlowCore HRM','FlowCore LMS','ФлоуКор'];
+        delete node.downloadUrl;
+        node.featureList = [...new Set([...node.featureList, 'POS: kassa, savdo, to‘lovlar, nasiya va smena', 'Rahbar: Android telefonda hisobotlar va bildirishnomalar', 'FaceID: Android planshetda yuz orqali davomat'])];
+        if (!node.hasPart.some(part => part['@id'] === 'https://flowcore.uz/pos/#software')) node.hasPart.push({'@id':'https://flowcore.uz/pos/#software'});
+        node.alternateName = ['Flow Core','FlowCore ERP','FlowCore CRM','FlowCore WMS','FlowCore HRM','FlowCore LMS','FlowCore POS','ФлоуКор'];
       }
       if (node['@type'] === 'FAQPage') {
         // Generate FAQ markup from the visible answers so search and page copy agree.

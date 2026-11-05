@@ -15,3 +15,7 @@ font files, use new versioned filenames and update both preload and CSS referenc
 
 Sources: https://fonts.google.com/specimen/Bricolage+Grotesque and
 https://fonts.google.com/specimen/Onest.
+
+Inter Variable is used inside the product preview to match the actual app.
+Source: https://github.com/rsms/inter (docs/font-files/InterVariable.woff2).
+License: SIL Open Font License 1.1, see INTER-LICENSE.txt.

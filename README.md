@@ -65,7 +65,7 @@ npm run dev   # local preview → http://127.0.0.1:8080 (includes branded 404)
   stock; nothing is saved), payroll receipt, quiz → configurator, floating CTA,
   lead form (`CONTACT`), industry → bundle choices, cloud/desktop choices, quiz
   back/restart, request validation and explicit delivery/copy/download
-- `assets/js/tour.js` — five-module interactive product illustration, searchable
+- `assets/js/tour.js` — six-module interactive product illustration, searchable
   tables, module-specific actions, metrics, keyboard-operable tabs and reset.
   Uses illustrative data in memory, makes no remote requests and stores no records.
 - Icons — selected Lucide vectors are embedded as reusable SVG symbols in
@@ -85,7 +85,7 @@ npm run dev   # local preview → http://127.0.0.1:8080 (includes branded 404)
 ## Review before publishing
 
 Check 375px mobile and desktop widths in both themes: open/close the mobile menu,
-switch all five tour tabs with arrow keys, search for missing and existing records,
+switch all six tour tabs with arrow keys, search for missing and existing records,
 run each sample action and reset. In the linked sandbox, finish multiple orders,
 test insufficient material, receive stock and retry. Run the quiz forward/back,
 apply its recommendation, select an industry and change deployment type. Ensure
@@ -151,7 +151,7 @@ npm run check
 Edit the readable CSS/JS sources under `assets/css/` and `assets/js/`, the homepage
 `index.html`, and product content in `tools/products.json`. The build uses pinned
 esbuild, writes minified content-hashed files to `assets/dist/`, refreshes homepage
-references and creates five static product pages. Do not edit generated product
+references and creates six static product pages. Do not edit generated product
 HTML or minified assets directly. `assets/manifest.json` lists the files currently
 used; previous hashed files can remain during deployment so existing tabs still
 load assets from the preceding release.
@@ -170,7 +170,7 @@ the main heading is visible immediately. The sandbox board is initialized near
 the viewport, and the payroll counter does not animate below the fold on load.
 
 Verification covered all six public pages, local links, anchors, metadata, JSON-LD,
-sitemap membership, local fonts and generated hashes. All five product pages fit
+sitemap membership, local fonts and generated hashes. All six product pages fit
 320/768/1440px; the recommendation quiz, selection transfer and deferred sandbox
 were exercised in Chrome without JavaScript errors. The previous recommendation
 rendering typo is fixed. Production Core Web Vitals and search ranking have not
@@ -336,3 +336,24 @@ existing atmosphere. Five colored cubes connect to a central core; packets trave
 along curved paths to suggest information moving between modules. Networks sit in
 the viewport margins, use smaller geometry/fewer visible packets on phones, and
 share the existing renderer, theme, pause/reduced-motion handling and cleanup.
+
+
+### Product preview and motion (2026-11-05)
+
+The landing preview mirrors the FlowCore module navigation, workspace palette,
+Inter font, table columns and chart presets. Six modules contain 44 views. The
+fictional reports include 48 KPIs and 35 populated charts. `demo-report-charts.js`
+mirrors the frontend shared report-chart aggregation and presets;
+`demo-reports.js` supplies deterministic demonstration records, and
+`demo-dashboard.js` renders the report cards, charts and searchable data explorer.
+`tour.js` is bundled so those helpers share one content-hashed asset.
+
+Demonstration dialogs do not implement business workflows. Report period inputs
+show the fixed sample period; export controls explain that the full application
+provides export. No production API or authenticated company data is used.
+
+The module directory loops continuously over six cards in an 85-second CSS
+marquee. GSAP adds ongoing decorative motion and repeats section entrances on
+return scroll. Motion respects the OS reduced-motion preference; background-tab
+ambient animations pause. The former motion pause button was removed.
+The event-board disclosure has an explicit open/close label and rotating chevron.

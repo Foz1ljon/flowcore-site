@@ -7,14 +7,12 @@ gsap.registerPlugin(ScrollTrigger);
 function mountExperience() {
   const root=document.documentElement;
   const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
-  const motionButton=document.querySelector('#flowMotion');
   let media=null,disposed=false;
 
   function configure() {
     media?.revert(); media=null;
-    const paused=motionButton?.getAttribute('aria-pressed')==='true';
-    root.classList.toggle('motion-static',paused || motionPreference.matches);
-    if(disposed || paused || motionPreference.matches) { root.dataset.motionExperience='static'; return; }
+    root.classList.toggle('motion-static',motionPreference.matches);
+    if(disposed || motionPreference.matches) { root.dataset.motionExperience='static'; return; }
     media=gsap.matchMedia();
     media.add({desktop:'(min-width: 1101px)',mobile:'(max-width: 1100px)'},context=>{
       const desktop=context.conditions.desktop;
@@ -55,7 +53,7 @@ function mountExperience() {
           .from('.hero-module-line > span',{opacity:.4,y:8,stagger:.045},.45);
       }
 
-      const candidates=[...document.querySelectorAll('.sec-head, .choice-heading, .module-shortcut, .mod-copy, .mod > .viz, .control-card, .delivery-card, .bento .cell, .steps > li, .receipt-wrap, .faq details, .industry-choice')];
+      const candidates=[...document.querySelectorAll('.sec-head, .benefit-heading, .benefit-panel, .benefit-example, .choice-heading, .module-shortcut, .mod-copy, .mod > .viz, .control-card, .delivery-card, .bento .cell, .steps > li, .receipt-wrap, .faq details, .industry-choice')];
       const reveal=candidates.filter(element=>element.getBoundingClientRect().top>innerHeight*.88);
       const initialX=element=>{
         if(!desktop)return 0;
@@ -66,12 +64,24 @@ function mountExperience() {
       };
       reveal.forEach(element=>gsap.set(element,{opacity:0,x:initialX(element),y:initialX(element)?0:22}));
       ScrollTrigger.batch(reveal,{
-        start:'top 91%',once:true,interval:.08,batchMax:5,
+        start:'top 91%',once:false,interval:.08,batchMax:5,
+        onEnterBack:batch=>{gsap.fromTo(batch,{opacity:.65,y:14},{opacity:1,x:0,y:0,duration:.65,ease:'power3.out',stagger:.04,overwrite:'auto',onComplete:()=>gsap.set(batch,{clearProps:'transform,opacity'})});},
         onEnter:batch=>{
           const tween=gsap.to(batch,{opacity:1,x:0,y:0,duration:.72,ease:'power3.out',stagger:.065,overwrite:'auto',onComplete:()=>gsap.set(batch,{clearProps:'transform,opacity'})});
           revealTweens.push(tween);
         }
       });
+
+      // Ambient GSAP motion continues between interactions, not just on first paint.
+      // Keep it on decorative nodes so module tables and reading text stay steady.
+      const ambient=gsap.timeline({repeat:-1,yoyo:true,defaults:{ease:'sine.inOut'}})
+        .to('.hero-module-line i',{opacity:.25,scale:.65,duration:2.8,stagger:.2},0)
+        .to('.event-summary-icon',{y:-3,scale:1.035,duration:3.2},0)
+        .to('.delivery-icon .icon, .feature-icon .icon',{y:-4,rotation:3,duration:3.6,stagger:.18},0)
+        .to('.hero-eyebrow > span',{opacity:.35,scale:.75,duration:2.4},0);
+      const refreshVisibility=()=>ambient.paused(document.hidden);
+      document.addEventListener('visibilitychange',refreshVisibility);
+      refreshVisibility();
 
       const onMenu=event=>{
         if(!event.detail.open) {
@@ -89,6 +99,8 @@ function mountExperience() {
       ScrollTrigger.refresh();
 
       return ()=>{
+        ambient.kill();
+        document.removeEventListener('visibilitychange',refreshVisibility);
         stopGestures.forEach(stop=>stop());
         controls.forEach(animation=>animation.stop());
         revealTweens.forEach(tween=>tween.kill());
@@ -100,18 +112,12 @@ function mountExperience() {
       };
     });
   }
-  let lastPaused=motionButton?.getAttribute('aria-pressed')==='true';
-  const pauseObserver=new MutationObserver(()=>{
-    const paused=motionButton?.getAttribute('aria-pressed')==='true';
-    if(paused!==lastPaused) { lastPaused=paused; configure(); }
-  });
-  if(motionButton)pauseObserver.observe(motionButton,{attributes:true,attributeFilter:['aria-pressed']});
   motionPreference.addEventListener('change',configure);
   const onPageShow=()=>ScrollTrigger.refresh();
   window.addEventListener('pageshow',onPageShow);
   const onPageHide=event=>{
     if(event.persisted)return;
-    disposed=true;media?.revert();pauseObserver.disconnect();
+    disposed=true;media?.revert();
     motionPreference.removeEventListener('change',configure);
     window.removeEventListener('pageshow',onPageShow);window.removeEventListener('pagehide',onPageHide);
   };

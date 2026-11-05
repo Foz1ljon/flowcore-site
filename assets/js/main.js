@@ -673,7 +673,7 @@
   addEventListener('resize', updateSteps);
 
   /* ---------- §08 Configurator ---------- */
-  const moduleNames = { WMS: 'Ombor', ERP: 'Ishlab chiqarish', HR: 'Ish haqi', CRM: 'Mijozlar', LMS: 'Ta’lim' };
+  const moduleNames = { WMS: 'Ombor', ERP: 'Ishlab chiqarish', HR: 'Ish haqi', CRM: 'Mijozlar', LMS: 'Ta’lim', POS: 'POS · Kassa' };
   const deployNames = { Bulut: 'Internet orqali', Desktop: 'Kompyuterda' };
   const moduleList = (codes) => codes.map(code => moduleNames[code]).join(' + ');
   const modBoxes = $$('input[name="mod"]');
@@ -699,7 +699,7 @@
     bundleValue.classList.add('bump');
     bundleNote.textContent = erp.checked
       ? 'Ishlab chiqarishga ombor ham kerak. Ombor bo‘limi qo‘shildi.'
-      : picked.length === 5 ? 'Beshta bo‘limning hammasi tanlandi.'
+      : picked.length === modBoxes.length ? 'Barcha bo‘limlar tanlandi.'
       : picked.length ? `${picked.length} ta bo‘lim. Keyin qo‘shish mumkin.` : 'Kamida bitta bo‘limni tanlang.';
     const summary = picked.length ? `${moduleList(picked)} · ${deployNames[deploy]}` : '';
     bundleField.value = summary;
@@ -732,7 +732,7 @@
   };
   const industries = {
     sewing: ['WMS', 'ERP', 'HR'], production: ['WMS', 'ERP', 'HR'],
-    shop: ['WMS', 'HR', 'CRM'], education: ['LMS', 'CRM', 'HR'],
+    shop: ['WMS', 'POS', 'HR', 'CRM'], education: ['LMS', 'CRM', 'HR'],
     school: ['LMS', 'HR'], sport: ['LMS', 'CRM'],
   };
   $$('[data-industry]').forEach(button => button.addEventListener('click', () => {
@@ -764,14 +764,14 @@
     if (first && quiz.contains(document.activeElement)) first.focus();
   };
   const recommend = () => {
-    const base = { prod: ['WMS', 'ERP', 'HR'], shop: ['WMS', 'HR'], edu: ['LMS', 'HR'], service: ['HR', 'CRM'] }[answers.type];
+    const base = { prod: ['WMS', 'ERP', 'HR'], shop: ['WMS', 'POS', 'HR'], edu: ['LMS', 'HR'], service: ['HR', 'CRM'] }[answers.type];
     const mods = new Set(base);
     if (answers.chan === 'social') mods.add('CRM');
-    const order = ['WMS', 'ERP', 'HR', 'CRM', 'LMS'];
+    const order = ['WMS', 'ERP', 'HR', 'CRM', 'LMS', 'POS'];
     const picked = order.filter((m) => mods.has(m));
     const why = {
       prod: 'Sex ombordan xomashyo oladi, buyurtma bosqichma-bosqich yuradi, ishchilar donabay haq oladi.',
-      shop: 'Qoldiqlar va har bir sotuvchining ish haqi, jumladan savdodan foizi, bitta joyda.',
+      shop: 'Kassa savdosi, to‘lovlar, nasiya, ombor qoldig‘i va sotuvchining ish haqi bitta joyda.',
       edu: 'Guruhlar, jadval, davomat va to‘lovlar, o‘qituvchilar ish haqi ham shu yerda.',
       service: 'Mijozlar oqimi va xodimlar ish haqi bitta tizimda.',
     }[answers.type];

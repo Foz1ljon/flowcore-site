@@ -5,7 +5,6 @@ import { Scene, PerspectiveCamera, WebGLRenderer, Group, Mesh, Points, BufferGeo
 // Decorative, floating background; all product content stays in semantic HTML.
 export function mountFlowScene(host) {
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const button = document.querySelector('#flowMotion');
   const renderer = new WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
   renderer.toneMapping = ACESFilmicToneMapping;
@@ -134,9 +133,6 @@ export function mountFlowScene(host) {
     if (dead) return;
     if(paused || motion.matches || document.hidden || !visible || !contextAvailable) { web.style.opacity='0'; webOpacity=0; }
     renderer.setAnimationLoop(visible && !document.hidden && !paused && contextAvailable ? frame : null);
-    button.hidden = !contextAvailable;
-    button.textContent = paused ? 'Harakatni yoqish' : 'Harakatni to‘xtatish';
-    button.setAttribute('aria-pressed', String(paused));
     render();
   };
   const resize = () => {
@@ -152,7 +148,6 @@ export function mountFlowScene(host) {
   };
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(host);
   const visibility = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); }); visibility.observe(host);
-  const toggle = () => { paused = !paused; sync(); };
   const preference = () => { paused = motion.matches; sync(); };
   const pointer = event => {
     if(event.pointerType!=='mouse' || !finePointer.matches || motion.matches || paused) return;
@@ -171,7 +166,7 @@ export function mountFlowScene(host) {
   };
   const pointerUp = event => { if(event.pointerId===grabbedPointer) { dragging=false; grabbedPointer=null; } };
   const pointerPreference = () => { if(!finePointer.matches) { resetPointer(); web.style.opacity='0'; webOpacity=0; } };
-  const contextLost = event => { event.preventDefault(); contextAvailable=false; renderer.setAnimationLoop(null); host.classList.remove('is-ready'); web.style.opacity='0'; button.hidden=true; };
+  const contextLost = event => { event.preventDefault(); contextAvailable=false; renderer.setAnimationLoop(null); host.classList.remove('is-ready'); web.style.opacity='0'; };
   const contextRestored = () => { contextAvailable=true; host.classList.add('is-ready'); resize(); sync(); };
   const pageHide = event => { if (event.persisted) { renderer.setAnimationLoop(null); return; } cleanup(); };
   const cleanup = () => {
@@ -179,17 +174,17 @@ export function mountFlowScene(host) {
     document.removeEventListener('visibilitychange',sync); motion.removeEventListener('change',preference);
     area.removeEventListener('pointerdown',pointerDown); window.removeEventListener('pointerup',pointerUp); window.removeEventListener('pointercancel',pointerUp);
     window.removeEventListener('blur',resetPointer); finePointer.removeEventListener('change',pointerPreference); web.remove();
-    button.removeEventListener('click',toggle); area.removeEventListener('pointermove',pointer); area.removeEventListener('pointerleave',resetPointer);
+    area.removeEventListener('pointermove',pointer); area.removeEventListener('pointerleave',resetPointer);
     window.removeEventListener('pagehide',pageHide); window.removeEventListener('pageshow',sync);
     renderer.domElement.removeEventListener('webglcontextlost',contextLost); renderer.domElement.removeEventListener('webglcontextrestored',contextRestored);
     const geometries=new Set(), materials=new Set();
     scene.traverse(object => { if(object.geometry) geometries.add(object.geometry); if(object.material) materials.add(object.material); });
     geometries.forEach(g=>g.dispose()); materials.forEach(m=>m.dispose()); renderer.dispose(); renderer.domElement.remove();
-    host.classList.remove('is-ready'); button.hidden=true;
+    host.classList.remove('is-ready');
   };
   area.addEventListener('pointerdown',pointerDown); window.addEventListener('pointerup',pointerUp); window.addEventListener('pointercancel',pointerUp);
   window.addEventListener('blur',resetPointer); finePointer.addEventListener('change',pointerPreference);
-  button.addEventListener('click',toggle); motion.addEventListener('change',preference);
+  motion.addEventListener('change',preference);
   document.addEventListener('visibilitychange',sync); area.addEventListener('pointermove',pointer); area.addEventListener('pointerleave',resetPointer);
   renderer.domElement.addEventListener('webglcontextlost',contextLost); renderer.domElement.addEventListener('webglcontextrestored',contextRestored);
   window.addEventListener('pagehide',pageHide); window.addEventListener('pageshow',sync);
