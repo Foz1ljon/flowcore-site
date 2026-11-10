@@ -357,3 +357,31 @@ marquee. GSAP adds ongoing decorative motion and repeats section entrances on
 return scroll. Motion respects the OS reduced-motion preference; background-tab
 ambient animations pause. The former motion pause button was removed.
 The event-board disclosure has an explicit open/close label and rotating chevron.
+
+## SEO identity and indexing (2026-11-10)
+
+`tools/seo.mjs` is the source of official social profiles: Telegram
+`https://t.me/flowcore_uz` and Instagram `https://www.instagram.com/flowcore.uz`
+(user supplied). Homepage Organization JSON-LD and generated page footers use
+these same links. The logo is the existing 512×512 `/icon-512.png`; there is no
+`/logo.png`. Organization, WebSite, WebPage, software and FAQ entities are linked
+by stable IDs. Unverified release versions and a social card incorrectly marked
+as an application screenshot were removed. No invented ratings or prices are
+published to obtain rich results.
+
+Module titles and H1s describe the actual search intent (CRM, production ERP,
+warehouse accounting, payroll/attendance, education and POS). FAQ markup follows
+the visible answers; it does not promise a FAQ rich result. Sitemap lastmod now
+changes when the generated page changes, and remains stable on an identical
+rebuild. CI checks sitemap drift too. `npm run check` checks the organization
+logo/profiles, page/schema parity and product FAQ parity in addition to existing
+canonical, hreflang, link and asset checks.
+
+After publishing, validate the homepage and a product URL in Google's Rich
+Results Test, then inspect the deployed canonical URLs in the verified Search
+Console property. Submit `https://flowcore.uz/sitemap.xml`. Track impressions,
+clicks, queries and indexed URLs before deciding which product guides or case
+studies to add. Build checks are local integrity checks; they do not establish
+Google indexing, rich-result eligibility or improved rankings. Search Console
+submission requires the owner's verified account and has not been performed by
+this repository change.

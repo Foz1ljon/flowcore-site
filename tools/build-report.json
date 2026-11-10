@@ -1,10 +1,10 @@
 {
   "style": {
     "source": "assets/css/style.css",
-    "output": "assets/dist/style.de39da13b0ef.css",
-    "before": 161808,
-    "after": 137994,
-    "gzip": 27010
+    "output": "assets/dist/style.ad3c619c39b0.css",
+    "before": 166348,
+    "after": 141902,
+    "gzip": 27744
   },
   "product": {
     "source": "assets/css/product.css",
@@ -36,10 +36,10 @@
   },
   "scene": {
     "source": "assets/js/flow-scene.js",
-    "output": "assets/dist/scene.82b10a67903f.js",
-    "before": 11751,
-    "after": 592583,
-    "gzip": 151530
+    "output": "assets/dist/scene.71d020544033.js",
+    "before": 11968,
+    "after": 600904,
+    "gzip": 154174
   },
   "experience": {
     "source": "assets/js/experience.js",

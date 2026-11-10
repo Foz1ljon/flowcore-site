@@ -33,14 +33,14 @@ jobs:
           cache: npm
 
       # The build is committed; fail when it is stale instead of shipping old assets.
-      # sitemap.xml carries the build date as lastmod, so it differs on every run; build-report.json
-      # gzip sizes depend on the zlib version.
+      # Sitemap lastmod is preserved for unchanged pages. Build-report gzip sizes
+      # depend on the zlib version.
       - name: Build and check
         run: |
           npm ci
           npm run lint
           npm run build
-          git diff --exit-code -- . ':!sitemap.xml' ':!tools/build-report.json' || { echo "::error::Run npm run build and commit the generated files."; exit 1; }
+          git diff --exit-code -- . ':!tools/build-report.json' || { echo "::error::Run npm run build and commit the generated files."; exit 1; }
           npm run check
 
       - name: Configure SSH

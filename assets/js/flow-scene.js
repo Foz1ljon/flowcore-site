@@ -1,3 +1,4 @@
+import { mountConnectedScene } from './connected-scene.js';
 import { createFlowNetwork } from './flow-network.js';
 import { createModuleSymbols } from './module-symbols.js';
 import { Scene, PerspectiveCamera, WebGLRenderer, Group, Mesh, Points, BufferGeometry, Float32BufferAttribute, PlaneGeometry, ShaderMaterial, Vector2, Color, ACESFilmicToneMapping } from 'three';
@@ -10,6 +11,8 @@ export function mountFlowScene(host) {
   renderer.toneMapping = ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.3;
   renderer.domElement.setAttribute('aria-hidden', 'true');
+  let connectedCleanup = null;
+  try { connectedCleanup = mountConnectedScene(); } catch { /* Keep the HTML relationship diagram. */ }
   let moduleSymbols = null;
   try { moduleSymbols = createModuleSymbols(); } catch { /* SVG icons remain available. */ }
   const scene = new Scene();
@@ -170,7 +173,7 @@ export function mountFlowScene(host) {
   const contextRestored = () => { contextAvailable=true; host.classList.add('is-ready'); resize(); sync(); };
   const pageHide = event => { if (event.persisted) { renderer.setAnimationLoop(null); return; } cleanup(); };
   const cleanup = () => {
-    dead=true; moduleSymbols?.dispose(); renderer.setAnimationLoop(null); resizeObserver.disconnect(); visibility.disconnect(); themeObserver.disconnect();
+    dead=true; connectedCleanup?.(); moduleSymbols?.dispose(); renderer.setAnimationLoop(null); resizeObserver.disconnect(); visibility.disconnect(); themeObserver.disconnect();
     document.removeEventListener('visibilitychange',sync); motion.removeEventListener('change',preference);
     area.removeEventListener('pointerdown',pointerDown); window.removeEventListener('pointerup',pointerUp); window.removeEventListener('pointercancel',pointerUp);
     window.removeEventListener('blur',resetPointer); finePointer.removeEventListener('change',pointerPreference); web.remove();

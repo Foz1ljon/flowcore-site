@@ -2,6 +2,8 @@
 from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
+from datetime import date
+from html import unescape
 import collections
 import hashlib
 import json
@@ -69,13 +71,37 @@ for filename in files:
 home_source = (ROOT / 'index.html').read_text()
 faq_source = re.search(r'<div class="faq">(.*?)</div>', home_source, re.S)[1]
 def plain(text):
-    return re.sub(r'\s+', ' ', re.sub(r'<[^>]*>', '', text)).strip()
+    return unescape(re.sub(r'\s+', ' ', re.sub(r'<[^>]*>', '', text)).strip())
 visible_faq = [(plain(re.sub(r'<span>.*?</span>', '', q)), plain(a))
     for q, a in re.findall(r'<summary>(.*?)</summary>\s*<p>(.*?)</p>', faq_source, re.S)]
 home_graph = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', home_source, re.S)[1])
 search_faq = next(node for node in home_graph['@graph'] if node['@type'] == 'FAQPage')['mainEntity']
 assert len(visible_faq) >= 10, 'Homepage FAQ extraction is incomplete'
 assert visible_faq == [(q['name'], q['acceptedAnswer']['text']) for q in search_faq], 'Search FAQ differs from visible answers'
+
+# Protect brand identity and page/schema parity across future content builds.
+organization = next(node for node in home_graph['@graph'] if node['@type'] == 'Organization')
+expected_socials = {'https://t.me/flowcore_uz', 'https://www.instagram.com/flowcore.uz'}
+assert set(organization['sameAs']) == expected_socials, 'Incorrect official social profiles'
+assert expected_socials <= set(pages['index.html'].links), 'Organization profiles missing from page'
+logo = organization['logo']
+assert logo['width'] >= 112 and logo['height'] >= 112, 'Organization logo too small'
+assert logo['url'].startswith('https://flowcore.uz/'), 'Logo must use the canonical host'
+assert (ROOT / urlsplit(logo['url']).path.lstrip('/')).is_file(), 'Organization logo missing'
+for filename in files:
+    source = (ROOT / filename).read_text()
+    graph = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', source, re.S)[1])['@graph']
+    webpage = next(node for node in graph if node['@type'] == 'WebPage')
+    assert webpage['url'] == pages[filename].canonicals[0], (filename, 'Schema URL differs from canonical')
+    assert webpage['name'] == unescape(re.search(r'<title>(.*?)</title>', source, re.S)[1]), (filename, 'Schema/title mismatch')
+    assert webpage['description'] == pages[filename].descriptions[0], (filename, 'Schema/description mismatch')
+    for node in graph:
+        if node['@type'] == 'SoftwareApplication':
+            assert node['mainEntityOfPage']['@id'] == webpage['@id'], (filename, 'Software/page relationship missing')
+        if node['@type'] == 'FAQPage' and filename != 'index.html':
+            visible = [(plain(q), plain(a)) for q,a in re.findall(r'<summary>(.*?)</summary><p>(.*?)</p>', source, re.S)]
+            assert visible == [(q['name'], q['acceptedAnswer']['text']) for q in node['mainEntity']], (filename, 'FAQ/schema mismatch')
+    assert expected_socials <= set(pages[filename].links), (filename, 'Outdated social links')
 
 assert len(set(titles)) == len(titles), 'Duplicate search titles'
 by_canonical = {page.canonicals[0]: page for page in pages.values()}
@@ -132,5 +158,7 @@ for font in (ROOT / 'assets/fonts').glob('*.woff2'):
 ns = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
 sitemap = ET.parse(ROOT / 'sitemap.xml')
 assert sorted(node.text for node in sitemap.findall('s:url/s:loc', ns)) == sorted(canonicals), 'Sitemap differs from public pages'
+for node in sitemap.findall('s:url/s:lastmod', ns):
+    assert date.fromisoformat(node.text) <= date.today(), 'Future sitemap modification date'
 assert 'Sitemap: https://flowcore.uz/sitemap.xml' in (ROOT / 'robots.txt').read_text()
 print(f'PASS: {len(files)} crawlable pages, unique titles, canonicals, reciprocal hreflang, legal links, sitemap, JSON-LD, fonts and asset hashes')

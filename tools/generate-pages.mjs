@@ -1,10 +1,14 @@
-import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import { generateLegalPages } from './generate-legal.mjs';
 import { generateNotFound } from './generate-not-found.mjs';
-import { moduleNames } from './seo.mjs';
+import { moduleNames, socialLinks } from './seo.mjs';
 const origin = 'https://flowcore.uz';
 const escape = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export function generatePages(assets) {
+export function generatePages(assets, previousHome) {
+  // Preserve modification dates when a rebuild has not changed a page.
+  const previousSitemap = existsSync('sitemap.xml') ? readFileSync('sitemap.xml','utf8') : '';
+  const previousDates = new Map([...previousSitemap.matchAll(/<url><loc>(.*?)<\/loc><lastmod>(.*?)<\/lastmod><\/url>/g)].map(([,url,date]) => [url,date]));
+  const previousPages = new Map([['index.html', previousHome ?? readFileSync('index.html','utf8')]]);
   const products = JSON.parse(readFileSync(new URL('./products.json', import.meta.url), 'utf8'));
   const home = readFileSync('index.html', 'utf8');
   const logo = home.match(/<a class="logo".*?<\/a>/s)[0].replace('href="#top"', 'href="/"');
@@ -12,13 +16,16 @@ export function generatePages(assets) {
   const themeButton = home.match(/<button class="theme-toggle".*?<\/button>/s)[0];
   const symbols = '<svg class="icon-symbols" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false"><defs>' + [...home.matchAll(/<symbol id="icon-(?:sun|moon)"[\s\S]*?<\/symbol>/g)].map(match=>match[0]).join('') + '</defs></svg>';
   const files = [];
+  for (const filename of [...products.map(p=>`${p.slug}/index.html`), 'privacy/index.html', 'terms/index.html']) {
+    if (existsSync(filename)) previousPages.set(filename, readFileSync(filename,'utf8'));
+  }
   for (const p of products) {
     const url = `${origin}/${p.slug}/`;
     const schema = { '@context':'https://schema.org', '@graph':[
-      { '@type':'WebPage', '@id':`${url}#webpage`, url, name:p.title, description:p.description, inLanguage:'uz', isPartOf:{'@id':`${origin}/#website`}, publisher:{'@id':`${origin}/#organization`}, primaryImageOfPage:{'@type':'ImageObject',url:`${origin}/og-image.png`,width:1200,height:630}, about:{'@id':`${url}#software`}, breadcrumb:{'@id':`${url}#breadcrumb`} },
-      { '@type':'SoftwareApplication', '@id':`${url}#software`, name:`FlowCore ${p.code}`, alternateName:[`FlowCore ${p.name}`,`Flow Core ${p.code}`,`FlowCore ${moduleNames[p.slug].en}`,`FlowCore ${moduleNames[p.slug].ru}`], url, image:`${origin}/og-image.png`, description:p.description, applicationCategory:'BusinessApplication', applicationSubCategory:p.code, operatingSystem:'Web, Windows, macOS, Linux', inLanguage:'uz', isPartOf:{'@id':`${origin}/#software`}, publisher:{'@id':`${origin}/#organization`}, featureList:p.cards.map(([title])=>title) },
+      { '@type':'WebPage', '@id':`${url}#webpage`, url, name:p.title, description:p.description, inLanguage:'uz', isPartOf:{'@id':`${origin}/#website`}, publisher:{'@id':`${origin}/#organization`}, primaryImageOfPage:{'@type':'ImageObject',url:`${origin}/og-image.png`,width:1200,height:630}, about:{'@id':`${url}#software`}, mainEntity:{'@id':`${url}#software`}, hasPart:{'@id':`${url}#faq`}, breadcrumb:{'@id':`${url}#breadcrumb`} },
+      { '@type':'SoftwareApplication', '@id':`${url}#software`, name:`FlowCore ${p.code}`, alternateName:[`FlowCore ${p.name}`,`Flow Core ${p.code}`,`FlowCore ${moduleNames[p.slug].en}`,`FlowCore ${moduleNames[p.slug].ru}`], url, image:`${origin}/og-image.png`, description:p.description, applicationCategory:'BusinessApplication', applicationSubCategory:p.code, operatingSystem:'Web, Windows, macOS, Linux', inLanguage:'uz', mainEntityOfPage:{'@id':`${url}#webpage`}, isAccessibleForFree:false, isPartOf:{'@id':`${origin}/#software`}, publisher:{'@id':`${origin}/#organization`}, featureList:p.cards.map(([title])=>title) },
       { '@type':'BreadcrumbList','@id':`${url}#breadcrumb`,itemListElement:[{'@type':'ListItem',position:1,name:'FlowCore',item:`${origin}/`},{'@type':'ListItem',position:2,name:`FlowCore ${p.code}`,item:url}] },
-      { '@type':'FAQPage','@id':`${url}#faq`,mainEntity:p.faqs.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}})) }
+      { '@type':'FAQPage','@id':`${url}#faq`,inLanguage:'uz',isPartOf:{'@id':`${url}#webpage`},mainEntity:p.faqs.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}})) }
     ]};
     const document = `<!doctype html>
 <html lang="uz" data-theme="dark">
@@ -61,7 +68,7 @@ ${symbols}
 <section class="detail-section detail-faq" aria-labelledby="questions-title"><h2 id="questions-title">Ko‘p so‘raladigan savollar.</h2>${p.faqs.map(([q,a])=>`<details><summary>${escape(q)}</summary><p>${escape(a)}</p></details>`).join('')}</section>
 <section class="detail-section" aria-labelledby="start-title"><h2 id="start-title">Ishingizga mos kelishini birga ko‘ramiz.</h2><p>FlowCore o‘zbek tilida ishlaydi. Dasturdan internet orqali yoki kompyuterga o‘rnatib foydalanish mumkin. Narx kerakli bo‘limlar, jamoa va foydalanish turiga qarab kelishiladi. Ismingiz va telefoningizni qoldiring, siz bilan bog‘lanib, ishingizga mos imkoniyatlarni ko‘rsatamiz.</p><a class="btn btn-accent" href="/#aloqa">So‘rov qoldirish</a></section>
 <section class="detail-section" aria-labelledby="related-title"><h2 id="related-title">Boshqa bo‘limlar bilan tanishing.</h2><nav class="detail-related" aria-label="Boshqa bo‘limlar">${products.filter(x=>x.slug!==p.slug).map(x=>`<a href="/${x.slug}/">FlowCore ${x.code} · ${escape(x.name)}</a>`).join('')}</nav></section>
-</main><footer class="detail-footer"><div class="wrap legal-footer"><a href="/">FlowCore — biznes hisobi.</a><nav aria-label="Ijtimoiy tarmoqlar"><a href="https://www.instagram.com/flowcore_uz/" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/flowcoreuz" target="_blank" rel="noopener">Telegram</a></nav><nav aria-label="Huquqiy sahifalar"><a href="/privacy/">Maxfiylik siyosati</a><a href="/terms/">Foydalanish shartlari</a><a href="#top">Yuqoriga ↑</a></nav></div></footer>
+</main><footer class="detail-footer"><div class="wrap legal-footer"><a href="/">FlowCore — biznes hisobi.</a><nav aria-label="Ijtimoiy tarmoqlar"><a href="${socialLinks.instagram}" target="_blank" rel="noopener">Instagram</a><a href="${socialLinks.telegram}" target="_blank" rel="noopener">Telegram</a></nav><nav aria-label="Huquqiy sahifalar"><a href="/privacy/">Maxfiylik siyosati</a><a href="/terms/">Foydalanish shartlari</a><a href="#top">Yuqoriga ↑</a></nav></div></footer>
 <script src="/${assets.site}" defer></script>
 </body></html>`;
     mkdirSync(p.slug, {recursive:true});
@@ -69,6 +76,6 @@ ${symbols}
   }
   files.push(...generateLegalPages(assets, { home, logo, themeScript, themeButton, symbols }));
   generateNotFound(assets, { home, logo, themeScript, themeButton, symbols });
-  writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['',...files.map(file=>file.replace('index.html',''))].map(path=>`  <url><loc>${origin}/${path}</loc><lastmod>${new Date().toISOString().slice(0,10)}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+  writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['index.html',...files].map(filename=>{ const url = `${origin}/${filename.replace('index.html','')}`; const unchanged = previousPages.get(filename) === readFileSync(filename,'utf8'); const date = unchanged && previousDates.has(url) ? previousDates.get(url) : new Date().toISOString().slice(0,10); return `  <url><loc>${url}</loc><lastmod>${date}</lastmod></url>`; }).join('\n')}\n</urlset>\n`);
   return files;
 }

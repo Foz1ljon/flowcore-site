@@ -35,7 +35,8 @@ const experienceHash = createHash('sha256').update(experienceCode).digest('hex')
 assets.experience = `assets/dist/experience.${experienceHash}.js`;
 writeFileSync(assets.experience,experienceCode);
 report.experience = {source:experienceSource,output:assets.experience,before:Buffer.byteLength(readFileSync(experienceSource)),after:experienceCode.length,gzip:gzipSync(experienceCode,{level:9}).length};
-let home=readFileSync('index.html','utf8');
+const previousHome=readFileSync('index.html','utf8');
+let home=previousHome;
 home=home.replace(/assets\/(?:js\/flow-scene|dist\/scene\.[a-f0-9]+)\.js/g,assets.scene);
 home=home.replace(/assets\/(?:js\/experience|dist\/experience\.[a-f0-9]+)\.js/g,assets.experience);
 home=updateHomeSeo(home);
@@ -47,7 +48,7 @@ for (const name of ['style','main','tour']) {
 // Minify JSON-LD only; preserve meaningful HTML whitespace and readable source.
 home=home.replace(/(<script type="application\/ld\+json">)\s*([\s\S]*?)\s*(<\/script>)/g,(_match,open,json,close)=>open+JSON.stringify(JSON.parse(json))+close);
 writeFileSync('index.html',home);
-const pages=generatePages(assets);
+const pages=generatePages(assets, previousHome);
 writeFileSync('assets/manifest.json',JSON.stringify({assets,pages,errorPages:['404.html']},null,2)+'\n');
 writeFileSync('tools/build-report.json',JSON.stringify(report,null,2)+'\n');
 console.log(Object.entries(report).map(([name,r])=>`${name}: ${r.before} -> ${r.after} bytes (${r.gzip} gzip)`).join('\n'));
