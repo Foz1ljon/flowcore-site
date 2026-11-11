@@ -13,7 +13,7 @@ export function createModuleSymbols() {
   const materials=[];
   const material=color=>{const value=new MeshPhysicalMaterial({color,metalness:.18,roughness:.32,clearcoat:.6});materials.push(value);return value;};
   const mint=material(0xc1eadb),deep=material(0x08775d),ivory=material(0xf6faf7),ink=material(0x37554b);
-  const accents={wms:material(0xc78f42),erp:material(0xcf7653),hr:material(0x4b9aaa),crm:material(0x8d78bb),lms:material(0xbc7894)};
+  const accents={wms:material(0xc78f42),erp:material(0xcf7653),hr:material(0x4b9aaa),crm:material(0x8d78bb),lms:material(0xbc7894),finance:material(0xd4a342)};
   const models=new Map();
   function modelFor(id) {
     const scene=new Scene(),root=new Group(),parts=[];
@@ -47,6 +47,13 @@ export function createModuleSymbols() {
         parts.push(g);
       };
       bubble(accent,-.2,.25,-.14);bubble(deep,.26,-.19,.18);
+    } else if(id==='finance') {
+      box(.65,.95,.1,deep,-.27,-.05,-.14);
+      box(.56,.83,.02,ivory,-.27,-.05,-.075);
+      for(let i=0;i<3;i++)box(.09,.18+i*.12,.03,accent,-.43+i*.16,-.17+i*.06,-.05);
+      for(const [x,z,count] of [[.23,.24,4],[.53,-.08,6]]){
+        for(let i=0;i<count;i++)mesh(new CylinderGeometry(.18,.18,.075,32),accent,x,-.6+i*.08,z);
+      }
     } else if(id==='lms') {
       const book=new Group();root.add(book);book.position.y=-.1;
       for(const side of [-1,1]) {

@@ -274,6 +274,8 @@
 
   /* ---------- Hero board (with module filter) ---------- */
   const EVENTS = [
+    { m: 'FINANCE', t: 'NAQD HISOB: +1 500 000', s: 'KIRIM +1 500 000', st: 'OK' },
+    { m: 'FINANCE', t: 'IJARA: -400 000 SO‘M', s: 'CHIQIM -400 000', st: 'OK' },
     { m: 'WMS', t: '+500 M MATO KIRIM QILINDI', s: '+500 M MATO KIRIM', st: 'OK' },
     { m: 'ERP', t: '#1042 DAZMOL BOSQICHIDA', s: '#1042 DAZMOLDA', st: 'JARAYON' },
     { m: 'CRM', t: 'TELEGRAM: YANGI SO‘ROV', s: 'TELEGRAM: YANGI SO‘ROV', st: 'YANGI' },
@@ -701,7 +703,8 @@
       ? 'Ishlab chiqarishga ombor ham kerak. Ombor bo‘limi qo‘shildi.'
       : picked.length === modBoxes.length ? 'Barcha bo‘limlar tanlandi.'
       : picked.length ? `${picked.length} ta bo‘lim. Keyin qo‘shish mumkin.` : 'Kamida bitta bo‘limni tanlang.';
-    const summary = picked.length ? `${moduleList(picked)} · ${deployNames[deploy]}` : '';
+    if (picked.length) bundleNote.textContent += ' Moliya bonus sifatida kiradi.';
+    const summary = picked.length ? `${moduleList(picked)} + Moliya (bonus) · ${deployNames[deploy]}` : '';
     bundleField.value = summary;
     formBundle.textContent = summary ? `Tanlangan to‘plam: ${summary}` : '';
     bundleButton.setAttribute('aria-disabled', String(!picked.length));
@@ -1052,6 +1055,76 @@
   }
   $('#year').textContent = String(new Date().getFullYear());
   document.dispatchEvent(new Event('flowcore:ready'));
+})();
+
+/* The opening is driven by native page scroll, even when WebGL cannot load. */
+(() => {
+  const intro=document.querySelector('[data-assembly-intro]');
+  if(!intro)return;
+  const sticky=intro.querySelector('.assembly-sticky'),stage=intro.querySelector('.connected-stage');
+  const host=intro.querySelector('[data-connected-scene]'),labels=intro.querySelector('.connected-nodes');
+  const buttons=[...intro.querySelectorAll('[data-flow-module]')],caption=intro.querySelector('[data-flow-description]');
+  const motion=matchMedia('(prefers-reduced-motion: reduce)');
+  const clamp=value=>Math.max(0,Math.min(1,value));
+  const smooth=value=>{const t=clamp(value);return t*t*(3-2*t);};
+  let top=0,range=1,frame=0,dead=false,lastProgress=-1,lastConnected=false;
+  const update=()=>{
+    frame=0;if(dead)return;
+    const scroll=document.scrollingElement?.scrollTop??window.scrollY;
+    const progress=motion.matches?1:clamp((scroll-top)/range);
+    const connected=host.classList.contains('is-connected');
+    if(progress===lastProgress&&connected===lastConnected)return;
+    lastProgress=progress;lastConnected=connected;
+    intro.dataset.assemblyProgress=String(progress);
+    intro.dataset.assemblyState=progress>.87?'assembled':progress>.1?'gathering':'scattered';
+    intro.style.setProperty('--assembly-reveal',String(smooth((progress-.64)/.23)));
+    intro.style.setProperty('--assembly-labels',String(1-smooth((progress-.22)/.22)));
+    intro.style.setProperty('--assembly-focus',String(smooth((progress-.12)/.58)));
+    intro.style.setProperty('--assembly-details',String(smooth((progress-.76)/.15)));
+    const result=intro.querySelector('.assembly-result');
+    if(result){result.style.visibility=progress>.76?'visible':'hidden';result.inert=progress<.82;}
+    labels.inert=progress>.4;
+    if(!host.classList.contains('is-connected')){
+      buttons.forEach((button,i)=>{
+        const gather=smooth((progress-.08-i*.009)/.64);
+        const x=parseFloat(button.style.getPropertyValue('--fallback-x'));
+        const y=parseFloat(button.style.getPropertyValue('--fallback-y'));
+        button.style.setProperty('--node-x',`${x+(50-x)*gather-Math.sin(gather*Math.PI)*(i%2?6:-6)}%`);
+        button.style.setProperty('--node-y',`${y+(50-y)*gather-Math.sin(gather*Math.PI)*5}%`);
+        button.style.scale=String(1-gather*.9);
+      });
+    }
+    const message=progress>.84?'Ombor, savdo, jamoa va moliya — biznesingiz bir oqimda.':progress>.22?'Har bir modul umumiy hisobga birlashmoqda.':'Modullarni birlashtirish uchun pastga scroll qiling.';
+    if(caption.textContent!==message)caption.textContent=message;
+    intro.querySelectorAll('[data-assembly-step]').forEach((item,i)=>{
+      const active=progress>.87?2:progress>.1?1:0;
+      item.setAttribute('aria-current',i===active?'step':'false');
+    });
+    intro.dispatchEvent(new CustomEvent('flowcore:assembly',{detail:{progress}}));
+  };
+  const schedule=()=>{if(!frame)frame=requestAnimationFrame(update);};
+  const measure=()=>{
+    const scroll=document.scrollingElement?.scrollTop??window.scrollY;
+    top=intro.getBoundingClientRect().top+scroll;
+    range=Math.max(1,intro.offsetHeight-sticky.offsetHeight);update();
+  };
+  const configure=()=>{
+    intro.classList.toggle('is-assembling',!motion.matches);
+    measure();window.dispatchEvent(new Event('flowcore:layout'));
+  };
+  configure();
+  window.addEventListener('scroll',schedule,{passive:true});
+  window.addEventListener('resize',measure);
+  window.addEventListener('pageshow',measure);
+  motion.addEventListener('change',configure);
+  const observer=new ResizeObserver(measure);observer.observe(stage);
+  document.fonts?.ready.then(()=>{if(!dead)measure();});
+  window.addEventListener('pagehide',event=>{
+    if(event.persisted)return;
+    dead=true;cancelAnimationFrame(frame);observer.disconnect();
+    window.removeEventListener('scroll',schedule);window.removeEventListener('resize',measure);
+    window.removeEventListener('pageshow',measure);motion.removeEventListener('change',configure);
+  });
 })();
 
 /* Load the optional 3D layer after critical content; data-saving users keep CSS. */

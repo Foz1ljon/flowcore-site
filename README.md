@@ -385,3 +385,70 @@ studies to add. Build checks are local integrity checks; they do not establish
 Google indexing, rich-result eligibility or improved rankings. Search Console
 submission requires the owner's verified account and has not been performed by
 this repository change.
+
+
+## Demo layout and charts (2026-11-11)
+
+The demo uses the landing page scroll, with an automatic height on desktop and mobile.
+There is no nested vertical report, sidebar or bar-chart scroll area. Wide data tables
+retain horizontal scrolling. Mobile sidebar links wrap across rows.
+
+Reports initially display two charts; a button expands or collapses the remaining
+charts, and report tables live in a native details disclosure. Existing records and
+aggregation are preserved. SVG line charts include area shading and data markers;
+donut segments have separation and readable legends. All chart types use a shared,
+theme-aware palette. Line-chart keyboard controls and chart data tables remain available.
+
+
+## Scroll assembly opening (2026-11-11)
+
+The homepage begins with seven scattered 3D module miniatures (CRM, ERP, HRM, WMS,
+LMS, POS and Moliya). A native sticky section maps page scroll to their convergence;
+a 3D FlowCore tile and HTML wordmark emerge at the center before the lower content
+continues. Reverse scrolling reverses the assembly. No wheel, touch, or scroll-lock
+handlers are used; the “Davom etish” link bypasses the sequence.
+
+A lightweight controller in main.js drives the sticky section and progress before
+the optional WebGL bundle loads. Reduced-motion users see the assembled brand without
+the long scroll. When WebGL is unavailable, HTML module labels converge and reveal
+the SVG brand tile and wordmark using the same progress. Body overflow-x uses clip
+so it does not create an accidental scrolling ancestor that breaks sticky positioning. Scene geometry/materials and scroll
+listeners are released on cleanup. Desktop/mobile visual and touch-device QA remain
+to be completed because active user browser interaction interrupted the UI checks.
+
+
+The actual main.js assembly controller was checked locally with and without
+motion reduction, confirming scatter,
+convergence, final brand reveal, reverse scroll and progress events without WebGL.
+This is controller verification; native browser visual inspection was interrupted
+by concurrent activity in Chrome, and the DOM browser adapter also failed.
+
+
+### Assembly motion refinement (2026-11-11)
+
+The seven modules now follow deterministic curved paths into separate sockets within
+the brand tile. They retain their shape during approach and dissolve during the
+brand build, rather than shrinking to a zero-size point. The tile, F strokes and
+dot settle in stages, with a gentle camera approach and a clear final hold. A three-step
+indicator follows scroll progress. HTML fallback paths also curve toward the center;
+forward/reverse scrolling and reduced-motion behavior remain intact.
+
+The exported `assemblyPose` calculation was checked at 1,000 samples for each of
+seven modules: finite coordinates, continuity, monotonic opacity and complete
+convergence within the logo bounds. Controller regression, build, lint and site
+checks passed; browser visual QA remains limited by concurrent Chrome activity.
+
+
+### Exact brand and result copy (2026-11-11)
+
+User rejected a recreated 3D logo and requested an exact match to the existing brand.
+The final assembly now uses the same inline SVG shapes, stroke attributes and colors
+as the header, with the same Onest wordmark font. The approximate extruded logo was
+removed; module miniatures remain 3D. Initial module scale increased by 40% and their
+positions moved inward to retain framing. The progress bar was removed. Three short
+explanations appear after assembly: unified accounts, connected modules and staff
+permissions. Reduced motion and the SVG-only assembly continue to work.
+
+Validation compares header/final SVG geometry and colors, checks absence of the bar,
+and exercises controller forward/reverse behavior; build/lint/site/HTTP pass. This
+supersedes earlier README notes describing an extruded final logo or a progress bar.

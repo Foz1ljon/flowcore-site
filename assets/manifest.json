@@ -1,12 +1,12 @@
 {
   "assets": {
-    "style": "assets/dist/style.ad3c619c39b0.css",
+    "style": "assets/dist/style.7937cce5ca7f.css",
     "product": "assets/dist/product.301f3a09f4bb.css",
-    "main": "assets/dist/main.e3a46ec53a2d.js",
-    "tour": "assets/dist/tour.cd7785133298.js",
+    "main": "assets/dist/main.9f109287cc57.js",
+    "tour": "assets/dist/tour.74a2444b0b7c.js",
     "site": "assets/dist/site.9068466f4a5b.js",
-    "scene": "assets/dist/scene.71d020544033.js",
-    "experience": "assets/dist/experience.008e31efff72.js"
+    "scene": "assets/dist/scene.871f5510caad.js",
+    "experience": "assets/dist/experience.1f4180c7c38c.js"
   },
   "pages": [
     "erp/index.html",
@@ -15,6 +15,7 @@
     "ish-haqi/index.html",
     "talim/index.html",
     "pos/index.html",
+    "moliya/index.html",
     "privacy/index.html",
     "terms/index.html"
   ],

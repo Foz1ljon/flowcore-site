@@ -5,6 +5,7 @@ export const socialLinks = Object.freeze({
 
 // Search metadata and product terminology; the public interface remains Uzbek.
 export const moduleNames = {
+  moliya: { en: 'Finance', ru: 'Финансы' },
   pos: { en: 'Point of Sale', ru: 'Касса и розничная торговля' },
   erp: { en: 'Enterprise Resource Planning', ru: 'Управление производством' },
   crm: { en: 'Customer Relationship Management', ru: 'Управление клиентами и продажами' },
@@ -46,9 +47,10 @@ export function updateHomeSeo(home) {
         delete node.availableLanguage;
         node.inLanguage = 'uz';
         node.mainEntityOfPage = {'@id':'https://flowcore.uz/#webpage'};
-        node.featureList = [...new Set([...node.featureList, 'POS: kassa, savdo, to‘lovlar, nasiya va smena', 'Rahbar: Android telefonda hisobotlar va bildirishnomalar', 'FaceID: Android planshetda yuz orqali davomat'])];
+        node.featureList = [...new Set([...node.featureList, 'POS: kassa, savdo, to‘lovlar, nasiya va smena', 'Moliya: hisoblar, kirim, chiqim va o‘tkazmalar — bonus modul', 'Rahbar: Android telefonda hisobotlar va bildirishnomalar', 'FaceID: Android planshetda yuz orqali davomat'])];
         if (!node.hasPart.some(part => part['@id'] === 'https://flowcore.uz/pos/#software')) node.hasPart.push({'@id':'https://flowcore.uz/pos/#software'});
-        node.alternateName = ['Flow Core','FlowCore ERP','FlowCore CRM','FlowCore WMS','FlowCore HRM','FlowCore LMS','FlowCore POS','ФлоуКор'];
+        if (!node.hasPart.some(part => part['@id'] === 'https://flowcore.uz/moliya/#software')) node.hasPart.push({'@id':'https://flowcore.uz/moliya/#software'});
+        node.alternateName = ['Flow Core','FlowCore Moliya','FlowCore ERP','FlowCore CRM','FlowCore WMS','FlowCore HRM','FlowCore LMS','FlowCore POS','ФлоуКор'];
       }
       if (node['@type'] === 'FAQPage') {
         node['@id'] = 'https://flowcore.uz/#faq';

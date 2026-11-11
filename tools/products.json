@@ -694,5 +694,113 @@
         "Sotilgan mahsulot tegishli ombordan chiqadi. Qaytarish qayd etilganda mahsulot ombor hisobiga qaytadi."
       ]
     ]
+  },
+  {
+    "slug": "moliya",
+    "code": "Moliya",
+    "name": "Moliya",
+    "section": "finance",
+    "title": "FlowCore Moliya — kirim, chiqim va hisoblar dasturi",
+    "heading": "Pul harakati va hisoblar bir joyda",
+    "description": "FlowCore Moliya: naqd, karta va bank hisoblari, kirim-chiqim, o‘tkazmalar, valyuta almashtirish va davr hisoboti. Tarif va desktop litsenziyada bonus modul.",
+    "intro": "Pul qayerdan keldi, nimaga sarflandi va qaysi hisobda qancha qoldi — bitta joyda kuzating. Har bir hisob o‘z valyutasida yuritiladi.",
+    "cards": [
+      [
+        "Hisoblarni alohida yuriting",
+        "Naqd pul, karta va bank hisoblarini o‘z valyutasi hamda boshlang‘ich qoldig‘i bilan oching."
+      ],
+      [
+        "Kirim va chiqimlarni ajrating",
+        "Pul harakatini sana, hisob va kategoriya bilan qayd eting."
+      ],
+      [
+        "O‘tkazmalarni hisobga oling",
+        "Hisoblar orasida pul o‘tkazing. Valyuta almashtirishda jo‘natilgan va olingan summalar alohida saqlanadi."
+      ],
+      [
+        "Davr hisobotini ko‘ring",
+        "Tanlangan davrda kategoriyalar bo‘yicha kirim-chiqim, hisoblarning boshlang‘ich va yakuniy qoldig‘ini kuzating."
+      ],
+      [
+        "To‘lovlarni ixtiyoriy ulang",
+        "POS va ta’lim to‘lov usullarini, ish haqi avans va to‘lovlarini mos hisobga bog‘lang. Ulanish boshlanadigan sanani o‘zingiz tanlaysiz."
+      ],
+      [
+        "Tarif bilan birga foydalaning",
+        "Kamida bitta modulli har bir tarifga va har bir desktop litsenziyaga Moliya bonus sifatida qo‘shiladi."
+      ]
+    ],
+    "plain": "Moliya — kompaniya hisoblari va pul harakatini yuritish bo‘limi. Kirim, chiqim, o‘tkazma va davr yakunidagi qoldiqlarni ko‘rasiz.",
+    "problems": [
+      "Naqd, karta va bank qoldig‘i turli daftarlarda qolib ketadi.",
+      "Qaysi xarajatga qancha ketganini yig‘ish qiyin.",
+      "So‘m va dollar hisoblari aralashib ketadi."
+    ],
+    "benefits": [
+      [
+        "Hisoblarni alohida yuriting",
+        "Naqd pul, karta va bank hisoblarini o‘z valyutasi hamda boshlang‘ich qoldig‘i bilan oching."
+      ],
+      [
+        "Kirim va chiqimlarni ajrating",
+        "Pul harakatini sana, hisob va kategoriya bilan qayd eting."
+      ],
+      [
+        "O‘tkazmalarni hisobga oling",
+        "Hisoblar orasida pul o‘tkazing. Valyuta almashtirishda jo‘natilgan va olingan summalar alohida saqlanadi."
+      ],
+      [
+        "Davr hisobotini ko‘ring",
+        "Tanlangan davrda kategoriyalar bo‘yicha kirim-chiqim, hisoblarning boshlang‘ich va yakuniy qoldig‘ini kuzating."
+      ]
+    ],
+    "workflow": [
+      [
+        "Hisoblarni oching",
+        "Valyuta va boshlang‘ich qoldiqni kiriting."
+      ],
+      [
+        "Kategoriyalarni belgilang",
+        "Kirim va chiqim turlarini ish tartibingizga moslang."
+      ],
+      [
+        "Pul harakatini qayd eting",
+        "Kirim, chiqim, o‘tkazma yoki valyuta almashtirishni yozing."
+      ],
+      [
+        "Davrni tekshiring",
+        "Kategoriyalar va hisoblar bo‘yicha natijani ko‘ring."
+      ]
+    ],
+    "connections": "POS, ta’lim to‘lovlari va ish haqi avans/to‘lovlarini o‘zingiz tanlagan hisobga ulash mumkin. Manba va hisob valyutasi mos bo‘lishi kerak. Ulangan to‘lov yoki qaytarish o‘zgarsa, natija hisobda aks etadi.",
+    "example": [
+      "Naqd so‘m hisobida boshlang‘ich qoldiq 2 000 000 so‘m.",
+      "1 500 000 so‘m kirim, 400 000 so‘m xarajat qayd etiladi.",
+      "Yakuniy qoldiq 3 100 000 so‘m. Dollar hisobining qoldig‘i dollar sifatida alohida ko‘rsatiladi."
+    ],
+    "result": "Davr oxirida qaysi hisobda qancha pul borligi, qancha kirim va chiqim bo‘lgani hamda pul qaysi kategoriyalarga sarflanganini ko‘rasiz.",
+    "audience": [
+      "Pul harakatini kuzatuvchi rahbarlar.",
+      "Naqd, karta va bank hisoblari bilan ishlaydigan jamoalar.",
+      "POS, ta’lim va ish haqi to‘lovlarini hisobga bog‘lamoqchi bo‘lgan kompaniyalar."
+    ],
+    "faqs": [
+      [
+        "Moliya uchun alohida modul tanlash kerakmi?",
+        "Moliya kamida bitta modulli har bir tarifga va har bir desktop litsenziyaga bonus sifatida kiradi."
+      ],
+      [
+        "Kassa va Moliya nimasi bilan farq qiladi?",
+        "POS savdo, chek, nasiya va kassir smenasini yuritadi. Moliya esa pul hisoblari, kirim-chiqim, o‘tkazma va valyutalar qoldig‘ini kuzatadi. POS to‘lovlarini Moliya hisoblariga ixtiyoriy ulash mumkin."
+      ],
+      [
+        "Turli valyutalarda hisob ochish mumkinmi?",
+        "Ha. Har bir hisobning o‘z valyutasi bor. Valyuta almashtirishda ikkala summa qayd etiladi; turli valyuta qoldiqlari qo‘shilmaydi."
+      ],
+      [
+        "To‘lovlar avtomatik ulanadimi?",
+        "Ulanish ixtiyoriy. POS yoki ta’lim to‘lov usuli, ish haqi avans/to‘lovi uchun hisob va boshlanish sanasini o‘zingiz belgilaysiz."
+      ]
+    ]
   }
 ]

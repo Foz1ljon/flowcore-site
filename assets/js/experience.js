@@ -92,6 +92,7 @@ function mountExperience() {
       };
       window.addEventListener('flowcore:nav',onMenu);
       const refresh=()=>ScrollTrigger.refresh();
+      window.addEventListener('flowcore:layout',refresh);
       const details=[...document.querySelectorAll('details')];
       details.forEach(element=>element.addEventListener('toggle',refresh));
       // Font readiness and native disclosures can change section positions.
@@ -107,6 +108,7 @@ function mountExperience() {
         animated.forEach(element=>{element.style.removeProperty('transform');element.style.removeProperty('opacity');});
         gsap.set(reveal,{clearProps:'transform,opacity'});
         window.removeEventListener('flowcore:nav',onMenu);
+        window.removeEventListener('flowcore:layout',refresh);
         details.forEach(element=>element.removeEventListener('toggle',refresh));
         root.classList.remove('motion-enhanced');
       };
