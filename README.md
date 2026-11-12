@@ -91,7 +91,7 @@ test insufficient material, receive stock and retry. Run the quiz forward/back,
 apply its recommendation, select an industry and change deployment type. Ensure
 ERP includes WMS. Validate an empty form and a valid request; confirm the selected
 bundle is present in the draft, and test copy, TXT and email/Telegram delivery.
-The static folder sends leads to `/api/public/leads`, implemented in the platform app/backend. Route this path to the app when serving this folder separately. Override `window.FLOWCORE_LEADS_ENDPOINT` before main.js for a separate app origin, and allow the landing origin in backend `ALLOWED_ORIGINS`. See `../docs/ADMIN-LEADS-2026-10-19.md` for setup. Social accounts require their own webhook configuration.
+The static folder sends leads to `/api/public/leads`, implemented in the platform app/backend. Route this path to the app when serving this folder separately. Override `window.FLOWCORE_LEADS_ENDPOINT` before main.js for a separate app origin, and allow the landing origin in backend `ALLOWED_ORIGINS`. See `../backend/docs/ADMIN-LEADS-2026-10-19.md` for setup. Social accounts require their own webhook configuration.
 
 ## Mobile and SEO update (2026-10-20)
 
