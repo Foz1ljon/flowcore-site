@@ -69,7 +69,7 @@ for env in "$BACKEND_DIR/.env" "$BACKEND_DIR/shared/.env"; do
   fi
   echo "$env: ALLOWED_ORIGINS=$updated"
 done
-sudo -iu "$DEPLOY_USER" bash -lc "cd '$BACKEND_DIR' && pm2 startOrReload ecosystem.config.cjs --update-env && pm2 save" >/dev/null
+sudo -iu "$DEPLOY_USER" bash -lc "cd '$BACKEND_DIR' && NODE_ENV=production pm2 reload flowcore-backend --update-env && pm2 save" >/dev/null
 
 echo "== Check (expect HTTP 400 JSON, which means routing and origin work)"
 sleep 5
