@@ -69,6 +69,7 @@ ${symbols}
 <section class="detail-section" aria-labelledby="start-title"><h2 id="start-title">Ishingizga mos kelishini birga ko‘ramiz.</h2><p>FlowCore o‘zbek tilida ishlaydi. Dasturdan internet orqali yoki kompyuterga o‘rnatib foydalanish mumkin. Narx kerakli bo‘limlar, jamoa va foydalanish turiga qarab kelishiladi. Ismingiz va telefoningizni qoldiring, siz bilan bog‘lanib, ishingizga mos imkoniyatlarni ko‘rsatamiz.</p><a class="btn btn-accent" href="/#aloqa">So‘rov qoldirish</a></section>
 <section class="detail-section" aria-labelledby="related-title"><h2 id="related-title">Boshqa bo‘limlar bilan tanishing.</h2><nav class="detail-related" aria-label="Boshqa bo‘limlar">${products.filter(x=>x.slug!==p.slug).map(x=>`<a href="/${x.slug}/">FlowCore ${x.code} · ${escape(x.name)}</a>`).join('')}</nav></section>
 </main><footer class="detail-footer"><div class="wrap legal-footer"><a href="/">FlowCore — biznes hisobi.</a><nav aria-label="Ijtimoiy tarmoqlar"><a href="${socialLinks.instagram}" target="_blank" rel="noopener">Instagram</a><a href="${socialLinks.telegram}" target="_blank" rel="noopener">Telegram</a></nav><nav aria-label="Huquqiy sahifalar"><a href="/privacy/">Maxfiylik siyosati</a><a href="/terms/">Foydalanish shartlari</a><a href="#top">Yuqoriga ↑</a></nav></div></footer>
+<script src="/${assets.stack}" defer></script>
 <script src="/${assets.site}" defer></script>
 </body></html>`;
     mkdirSync(p.slug, {recursive:true});

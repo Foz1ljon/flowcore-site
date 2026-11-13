@@ -4,7 +4,7 @@ import { gzipSync } from 'node:zlib';
 import { transform, build } from 'esbuild';
 import { generatePages } from './generate-pages.mjs';
 import { updateHomeSeo } from './seo.mjs';
-const entries = {style:'assets/css/style.css',product:'assets/css/product.css',main:'assets/js/main.js',tour:'assets/js/tour.js',site:'assets/js/site.js'};
+const entries = {style:'assets/css/style.css',product:'assets/css/product.css',main:'assets/js/main.js',tour:'assets/js/tour.js',site:'assets/js/site.js',stack:'assets/js/stack-scroll.js'};
 const assets = {};
 const report = {};
 mkdirSync('assets/dist',{recursive:true});
@@ -40,7 +40,7 @@ let home=previousHome;
 home=home.replace(/assets\/(?:js\/flow-scene|dist\/scene\.[a-f0-9]+)\.js/g,assets.scene);
 home=home.replace(/assets\/(?:js\/experience|dist\/experience\.[a-f0-9]+)\.js/g,assets.experience);
 home=updateHomeSeo(home);
-for (const name of ['style','main','tour']) {
+for (const name of ['style','main','tour','stack']) {
   const source=entries[name].replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   const regex=new RegExp(`(?:${source}(?:\\?v=[a-f0-9]+)?|assets/dist/${name}\\.[a-f0-9]+\\.(?:css|js))`,'g');
   home=home.replace(regex,assets[name]);

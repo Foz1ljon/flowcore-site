@@ -1,12 +1,13 @@
 {
   "assets": {
-    "style": "assets/dist/style.7937cce5ca7f.css",
+    "style": "assets/dist/style.4a561f9be3dc.css",
     "product": "assets/dist/product.301f3a09f4bb.css",
-    "main": "assets/dist/main.9f109287cc57.js",
-    "tour": "assets/dist/tour.74a2444b0b7c.js",
+    "main": "assets/dist/main.66b8e7ec7668.js",
+    "tour": "assets/dist/tour.4e790b698018.js",
     "site": "assets/dist/site.9068466f4a5b.js",
-    "scene": "assets/dist/scene.871f5510caad.js",
-    "experience": "assets/dist/experience.1f4180c7c38c.js"
+    "stack": "assets/dist/stack.e5c16d2e0637.js",
+    "scene": "assets/dist/scene.e6ec2a0fd4b9.js",
+    "experience": "assets/dist/experience.dcf81f115fb1.js"
   },
   "pages": [
     "erp/index.html",

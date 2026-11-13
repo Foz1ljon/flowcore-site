@@ -1063,7 +1063,7 @@
   if(!intro)return;
   const sticky=intro.querySelector('.assembly-sticky'),stage=intro.querySelector('.connected-stage');
   const host=intro.querySelector('[data-connected-scene]'),labels=intro.querySelector('.connected-nodes');
-  const buttons=[...intro.querySelectorAll('[data-flow-module]')],caption=intro.querySelector('[data-flow-description]');
+  const buttons=[...intro.querySelectorAll('[data-flow-module]')];
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
   const clamp=value=>Math.max(0,Math.min(1,value));
   const smooth=value=>{const t=clamp(value);return t*t*(3-2*t);};
@@ -1094,18 +1094,12 @@
         button.style.scale=String(1-gather*.9);
       });
     }
-    const message=progress>.84?'Ombor, savdo, jamoa va moliya — biznesingiz bir oqimda.':progress>.22?'Har bir modul umumiy hisobga birlashmoqda.':'Modullarni birlashtirish uchun pastga scroll qiling.';
-    if(caption.textContent!==message)caption.textContent=message;
-    intro.querySelectorAll('[data-assembly-step]').forEach((item,i)=>{
-      const active=progress>.87?2:progress>.1?1:0;
-      item.setAttribute('aria-current',i===active?'step':'false');
-    });
     intro.dispatchEvent(new CustomEvent('flowcore:assembly',{detail:{progress}}));
   };
   const schedule=()=>{if(!frame)frame=requestAnimationFrame(update);};
   const measure=()=>{
     const scroll=document.scrollingElement?.scrollTop??window.scrollY;
-    top=intro.getBoundingClientRect().top+scroll;
+    top=window.flowcoreStack?window.flowcoreStack.naturalTop(intro):intro.getBoundingClientRect().top+scroll;
     range=Math.max(1,intro.offsetHeight-sticky.offsetHeight);update();
   };
   const configure=()=>{

@@ -260,7 +260,7 @@ import { renderDemoDashboard, renderDemoBuilder } from './demo-dashboard.js';
       const button = node('button'); button.type = 'button';
       button.append(icon(symbol), node('span', label));
       if (key === view) button.setAttribute('aria-current', 'page');
-      button.addEventListener('click', () => { view = key; filters = {}; search.value = ''; feedback.textContent = ''; render(); });
+      button.addEventListener('click', () => { view = key; filters = {}; search.value = ''; feedback.textContent = ''; render(); $('#tour-panel').scrollTop = 0; });
       return button;
     }));
   };
@@ -356,7 +356,7 @@ import { renderDemoDashboard, renderDemoBuilder } from './demo-dashboard.js';
     renderWorkspace();
     renderRows();
   };
-  const select = (key) => { current = key; view = defaults[key]; filters = {}; search.value = ''; feedback.textContent = ''; render(); };
+  const select = (key) => { current = key; view = defaults[key]; filters = {}; search.value = ''; feedback.textContent = ''; render(); $('#tour-panel').scrollTop = 0; };
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => select(tab.dataset.tour));
     tab.addEventListener('keydown', event => {

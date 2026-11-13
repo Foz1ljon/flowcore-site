@@ -2,16 +2,16 @@ import { Scene, PerspectiveCamera, WebGLRenderer, Group, Mesh, BoxGeometry, Sphe
 
 // One small offscreen WebGL context draws all module symbols into local 2D canvases.
 // This keeps each illustration inside its card, with normal scrolling and clipping.
-export function createModuleSymbols() {
+export function createModuleSymbols(quality = {tier:'high', antialias:true}) {
   const hosts = [...document.querySelectorAll('[data-module-symbol]')];
   if (!hosts.length) return null;
-  const renderer = new WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power'});
-  renderer.setSize(144,144,false); renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+  const renderer = new WebGLRenderer({alpha:true,antialias:quality.antialias,powerPreference:'low-power'});
+  renderer.setSize(144,144,false); renderer.setPixelRatio(Math.min(devicePixelRatio,quality.tier==='low'?1:1.5));
   renderer.toneMapping=ACESFilmicToneMapping; renderer.toneMappingExposure=1.2;
   const camera=new PerspectiveCamera(32,1,.1,20);
   camera.position.set(3,2.5,4.8); camera.lookAt(0,-.02,0); camera.zoom=1.3; camera.updateProjectionMatrix();
   const materials=[];
-  const material=color=>{const value=new MeshPhysicalMaterial({color,metalness:.18,roughness:.32,clearcoat:.6});materials.push(value);return value;};
+  const material=color=>{const value=new MeshPhysicalMaterial({color,metalness:.18,roughness:.32,clearcoat:quality.tier==='high'?.6:0});materials.push(value);return value;};
   const mint=material(0xc1eadb),deep=material(0x08775d),ivory=material(0xf6faf7),ink=material(0x37554b);
   const accents={wms:material(0xc78f42),erp:material(0xcf7653),hr:material(0x4b9aaa),crm:material(0x8d78bb),lms:material(0xbc7894),finance:material(0xd4a342)};
   const models=new Map();
@@ -77,6 +77,7 @@ export function createModuleSymbols() {
   });
   let first=true,last=-Infinity,available=true,disposed=false;
   function render(time,animated) {
+    if(quality.tier==='low' && !first && animated)return;
     if(disposed || !available || (!first && animated && time-last<.05))return;
     last=time;
     for(const [id,model] of models) {

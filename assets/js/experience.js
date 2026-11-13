@@ -3,6 +3,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { animate, hover, press } from 'motion';
 
 gsap.registerPlugin(ScrollTrigger);
+// Stacked sections stick in place; ScrollTrigger must measure their natural layout.
+ScrollTrigger.addEventListener('refreshInit',()=>document.documentElement.classList.add('stack-measure'));
+ScrollTrigger.addEventListener('refresh',()=>document.documentElement.classList.remove('stack-measure'));
 
 function mountExperience() {
   const root=document.documentElement;

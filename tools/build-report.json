@@ -1,10 +1,10 @@
 {
   "style": {
     "source": "assets/css/style.css",
-    "output": "assets/dist/style.7937cce5ca7f.css",
-    "before": 178310,
-    "after": 152155,
-    "gzip": 29541
+    "output": "assets/dist/style.4a561f9be3dc.css",
+    "before": 176588,
+    "after": 150440,
+    "gzip": 29358
   },
   "product": {
     "source": "assets/css/product.css",
@@ -15,17 +15,17 @@
   },
   "main": {
     "source": "assets/js/main.js",
-    "output": "assets/dist/main.9f109287cc57.js",
-    "before": 54137,
-    "after": 33216,
-    "gzip": 12854
+    "output": "assets/dist/main.66b8e7ec7668.js",
+    "before": 53674,
+    "after": 32864,
+    "gzip": 12710
   },
   "tour": {
     "source": "assets/js/tour.js",
-    "output": "assets/dist/tour.74a2444b0b7c.js",
-    "before": 43291,
-    "after": 70367,
-    "gzip": 22154
+    "output": "assets/dist/tour.4e790b698018.js",
+    "before": 43355,
+    "after": 70425,
+    "gzip": 22169
   },
   "site": {
     "source": "assets/js/site.js",
@@ -34,18 +34,25 @@
     "after": 615,
     "gzip": 342
   },
+  "stack": {
+    "source": "assets/js/stack-scroll.js",
+    "output": "assets/dist/stack.e5c16d2e0637.js",
+    "before": 3986,
+    "after": 2189,
+    "gzip": 1170
+  },
   "scene": {
     "source": "assets/js/flow-scene.js",
-    "output": "assets/dist/scene.871f5510caad.js",
-    "before": 11968,
-    "after": 614714,
-    "gzip": 158561
+    "output": "assets/dist/scene.e6ec2a0fd4b9.js",
+    "before": 10420,
+    "after": 631990,
+    "gzip": 163636
   },
   "experience": {
     "source": "assets/js/experience.js",
-    "output": "assets/dist/experience.1f4180c7c38c.js",
-    "before": 7058,
-    "after": 187538,
-    "gzip": 71770
+    "output": "assets/dist/experience.dcf81f115fb1.js",
+    "before": 7356,
+    "after": 187725,
+    "gzip": 71803
   }
 }

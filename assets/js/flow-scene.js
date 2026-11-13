@@ -1,30 +1,35 @@
 import { mountConnectedScene } from './connected-scene.js';
-import { createFlowNetwork } from './flow-network.js';
+import { createFlowRibbons } from './flow-ribbons.js';
 import { createModuleSymbols } from './module-symbols.js';
-import { Scene, PerspectiveCamera, WebGLRenderer, Group, Mesh, Points, BufferGeometry, Float32BufferAttribute, PlaneGeometry, ShaderMaterial, Vector2, Color, ACESFilmicToneMapping } from 'three';
+import { deviceQuality, createGovernor } from './quality.js';
+import { Scene, PerspectiveCamera, WebGLRenderer, Group, Mesh, PlaneGeometry, ShaderMaterial, Color, ACESFilmicToneMapping } from 'three';
 
 // Decorative, floating background; all product content stays in semantic HTML.
 export function mountFlowScene(host) {
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const renderer = new WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+  const quality = deviceQuality();
+  // Software WebGL (no GPU) keeps the CSS atmosphere and the HTML diagram.
+  if (quality.software) return () => {};
+  // The background is soft haze, translucent ribbons and points: it never needs more than 1.5x resolution.
+  const renderer = new WebGLRenderer({ alpha: true, antialias: false, powerPreference: 'low-power', failIfMajorPerformanceCaveat: true });
+  const backgroundQuality = {...quality, pixelRatio: Math.min(quality.pixelRatio, 1.5), minPixelRatio: Math.min(quality.minPixelRatio, .6)};
+  let hostWidth = 1, hostHeight = 1;
+  const governor = createGovernor(backgroundQuality, ratio => { renderer.setPixelRatio(ratio); ribbons.pixelRatio(ratio); renderer.setSize(hostWidth, hostHeight, false); });
+  renderer.setPixelRatio(governor.ratio);
   renderer.toneMapping = ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.3;
   renderer.domElement.setAttribute('aria-hidden', 'true');
   let connectedCleanup = null;
   try { connectedCleanup = mountConnectedScene(); } catch { /* Keep the HTML relationship diagram. */ }
   let moduleSymbols = null;
-  try { moduleSymbols = createModuleSymbols(); } catch { /* SVG icons remain available. */ }
+  try { moduleSymbols = createModuleSymbols(quality); } catch { /* SVG icons remain available. */ }
   const scene = new Scene();
   const camera = new PerspectiveCamera(35,1,.1,50);
   camera.position.set(0,0,10);
   const group = new Group(); scene.add(group);
-  const network = createFlowNetwork(group);
-  const uniforms={
-    uTime:{value:0},uBounds:{value:new Vector2(5,3.2)},
-    uPixelRatio:{value:Math.min(devicePixelRatio,1.5)},uDark:{value:0},
-    uTint:{value:new Color(0x15856b)},uGlow:{value:new Color(0x4fc6a6)}
-  };
+    const ribbons = createFlowRibbons(group, quality);
+  ribbons.pixelRatio(governor.ratio);
+  const uniforms={uTime:{value:0},uDark:{value:0},uGlow:{value:new Color(0x4fc6a6)}};
   // A soft light field, independent of the particle geometry, uses two triangles.
   const hazeMaterial=new ShaderMaterial({
     uniforms,transparent:true,depthWrite:false,depthTest:false,toneMapped:false,
@@ -43,60 +48,15 @@ export function mountFlowScene(host) {
       }`
   });
   const haze=new Mesh(new PlaneGeometry(2,2),hazeMaterial);haze.frustumCulled=false;haze.renderOrder=-10;scene.add(haze);
-  const pointMaterial=new ShaderMaterial({
-    uniforms,transparent:true,depthWrite:false,toneMapped:false,
-    vertexShader:`uniform float uTime;uniform vec2 uBounds;uniform float uPixelRatio;
-      attribute float aSize;attribute float aPhase;varying float vAlpha;
-      void main(){
-        float side=sign(position.x);
-        float row=position.y;
-        float spread=abs(position.x)-1.0;
-        float wave=sin(row*3.0+uTime*.22)*.10+cos(row*1.8-uTime*.12)*.055;
-        vec3 p=vec3(side*(.91+spread*.34+wave)*uBounds.x,
-          (row+sin(spread*4.0+uTime*.17)*.035)*uBounds.y,
-          -.8+sin(row*2.0+spread*3.0+uTime*.13)*.28);
-        gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.0);
-        gl_PointSize=aSize*uPixelRatio;
-        vAlpha=(.68+.22*sin(aPhase+uTime*.42))*(.55+.45*cos(spread*1.4));
-      }`,
-    fragmentShader:`uniform vec3 uTint;uniform float uDark;varying float vAlpha;
-      void main(){
-        float radius=length(gl_PointCoord-.5);
-        if(radius>.5)discard;
-        float softness=1.0-smoothstep(.12,.5,radius);
-        gl_FragColor=vec4(uTint,softness*vAlpha*mix(.4,.63,uDark));
-        #include <colorspace_fragment>
-      }`
-  });
-  const particles=new Points(new BufferGeometry(),pointMaterial);particles.frustumCulled=false;group.add(particles);
-  let halfWidth=5,halfHeight=3.2,mobileField=null;
-  const rebuildField=width=>{
-    const mobile=width<700;
-    if(mobileField===mobile)return;
-    mobileField=mobile;
-    const rows=mobile?38:64,columns=mobile?12:20;
-    const positions=[],sizes=[],phases=[];
-    for(const side of [-1,1])for(let row=0;row<rows;row++)for(let col=0;col<columns;col++){
-      positions.push(side*(1+(col/(columns-1)-.5)*1.7),-1.5+row/(rows-1)*3,0);
-      sizes.push(1.25+(Math.sin(row*37+col*19)*.5+.5)*1.55);
-      phases.push(row*.38+col*.73);
-    }
-    const geometry=new BufferGeometry();
-    geometry.setAttribute('position',new Float32BufferAttribute(positions,3));
-    geometry.setAttribute('aSize',new Float32BufferAttribute(sizes,1));
-    geometry.setAttribute('aPhase',new Float32BufferAttribute(phases,1));
-    particles.geometry.dispose();particles.geometry=geometry;
-  };
   const theme=()=>{
     const dark=document.documentElement.dataset.theme==='dark';
     uniforms.uDark.value=dark?1:0;
-    network.theme(dark);
-    uniforms.uTint.value.setHex(dark?0x6ee7b7:0x15856b);
+    ribbons.theme(dark);
     uniforms.uGlow.value.setHex(dark?0x13a783:0x4fc6a6);
   };
   const themeObserver=new MutationObserver(()=>{theme();render();});
   themeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});theme();
-  const place=time=>{uniforms.uTime.value=time+scrollY*.00008;network.update(time);};
+  const place=time=>{uniforms.uTime.value=time+scrollY*.00008;ribbons.update(time,pointerX,pointerY,scrollY/Math.max(1,innerHeight));};
   let visible = false, paused = motion.matches, dead = false, contextAvailable = true, last = 0, elapsed = 0;
   let pointerX = 0, pointerY = 0;
   const area = document.documentElement;
@@ -124,12 +84,14 @@ export function mountFlowScene(host) {
     if(contextAvailable && !dead) { renderer.render(scene,camera); moduleSymbols?.render(elapsed,!paused && !motion.matches); }
   };
   const frame = time => {
-    if (time - last < 33) return;
-    elapsed += Math.min((time-last)/1000,.05); last = time;
+    const budget = quality.idleFrameMs, interval = time - last;
+    if (interval < budget - 2) return;
+    governor.sample(interval, budget);
+    elapsed += Math.min(interval/1000,.05); last = time;
     place(elapsed);
     updateWeb();
-    group.rotation.y += (pointerX*.045-group.rotation.y)*.035;
-    group.rotation.x += (-pointerY*.025-group.rotation.x)*.035;
+    group.rotation.y += (pointerX*.06-group.rotation.y)*.035;
+    group.rotation.x += (pointerY*.04-group.rotation.x)*.035;
     render();
   };
   const sync = () => {
@@ -142,11 +104,10 @@ export function mountFlowScene(host) {
     const {width,height} = host.getBoundingClientRect();
     if (!width || !height || dead) return;
     active=false; dragging=false; grabbedPointer=null; seeded=false; webOpacity=0; web.style.opacity='0';
+    hostWidth = width; hostHeight = height;
     renderer.setSize(width,height,false); camera.aspect = width/height; camera.updateProjectionMatrix();
-    halfHeight = Math.tan(35*Math.PI/360)*10; halfWidth=halfHeight*camera.aspect;
-    uniforms.uBounds.value.set(halfWidth,halfHeight);
-    rebuildField(width);
-    network.resize(halfWidth,halfHeight,width);
+    const halfHeight = Math.tan(35*Math.PI/360)*10, halfWidth=halfHeight*camera.aspect;
+    ribbons.resize(halfWidth,halfHeight,width);
     place(elapsed); render();
   };
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(host);

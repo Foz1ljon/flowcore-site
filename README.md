@@ -329,13 +329,30 @@ Vertex shaders move the points without per-frame buffer uploads; mobile uses
 colors, subtle pointer depth, global pause/reduced-motion and the full-page fixed
 canvas remain. Module symbols, Motion/GSAP interactions and navigation are kept.
 
-## Connected FlowCore background (2026-10-24)
+## Flow ribbons background (2026-11-13)
 
-`assets/js/flow-network.js` adds two decorative 3D department networks to the
-existing atmosphere. Five colored cubes connect to a central core; packets travel
-along curved paths to suggest information moving between modules. Networks sit in
-the viewport margins, use smaller geometry/fewer visible packets on phones, and
-share the existing renderer, theme, pause/reduced-motion handling and cleanup.
+`assets/js/flow-ribbons.js` replaced the wireframe cube networks and point columns.
+Four translucent silk ribbons (threaded lines, a light pulse travelling along each)
+sweep across the page with particles flowing along them, all moved in the vertex
+shader. Scroll drives the motion: each ribbon drops from the top, then flattens,
+pleats and settles onto a neat stack near the bottom before fading while the next
+one falls in; scrolling back reverses it. The center column is dimmed for text,
+the pointer gently bulges the ribbons, dark mode uses additive glow and light mode
+normal blending. Ribbon/particle density follows the device tier; phones use
+fewer particles and three ribbons on mid/low devices.
+
+
+## Stacked sections (2026-11-13)
+
+`assets/js/stack-scroll.js` (home, module and legal pages) turns every `main > section`
+into a card. A section sticks once its end reaches the viewport bottom (`--stack-top`)
+and the next one slides over it; the covered one shrinks, rises slightly and fades
+(`--stack-p`), and becomes `visibility: hidden` when fully covered. Layout heights do
+not change. Because stuck sections report shifted positions, measurements use
+`window.flowcoreStack.naturalTop()` (the `stack-measure` class unsticks them inside one
+synchronous call); ScrollTrigger adds that class during refresh, the assembly intro
+uses it, and same-page anchors scroll to the natural place (`#aloqa` stays with
+main.js). Reduced motion keeps the stacking without the scale.
 
 
 ### Product preview and motion (2026-11-05)
@@ -452,3 +469,39 @@ permissions. Reduced motion and the SVG-only assembly continue to work.
 Validation compares header/final SVG geometry and colors, checks absence of the bar,
 and exercises controller forward/reverse behavior; build/lint/site/HTTP pass. This
 supersedes earlier README notes describing an extruded final logo or a progress bar.
+
+## Assembly scene polish (2026-11-13)
+
+The "01 Modullar / 02 Birlashish / 03 FlowCore" step indicator was removed from
+the opening (markup, styles and its scroll handler). The WebGL assembly in
+`assets/js/connected-scene.js` now spirals every module into the core (`assemblyPose`
+stays deterministic for forward/reverse scroll), leaves short colour trails while
+the page is scrolled, draws a dust vortex that is pulled in and released as a burst,
+grows an energy core (glow, wireframe lattice, three gyroscope rings) and sends two
+shockwave rings as the exact SVG mark appears. Data packets now flow from the
+departments into the core. Checked in Chrome at desktop width, light and dark;
+mobile and low-end GPU performance were not measured.
+
+## Performance tiers, opening caption and demo height (2026-11-13)
+
+- `assets/js/quality.js` picks one profile per device (`high`/`mid`/`low` from pointer type,
+  width, CPU cores, device memory, data saver and the GPU name). Software WebGL
+  (SwiftShader/llvmpipe) mounts no WebGL at all and keeps the HTML/CSS fallback; every
+  renderer also uses `failIfMajorPerformanceCaveat`. The profile sets pixel ratio,
+  antialiasing, shadows (high only), physical vs standard materials, particle count,
+  trails and frame budgets. `createGovernor` lowers the drawing-buffer resolution when
+  frames stay slow and raises it again when they recover.
+- Assembly scene: each miniature is merged into one mesh per material (draw calls drop
+  from hundreds to a few dozen), packets and trails are `InstancedMesh`, label positions
+  are written only while labels are visible, scroll events no longer render twice, the
+  loop runs at full rate only while scrolling and stops once the final mark holds.
+- Background scene and module symbols follow the same profile (background capped at
+  1.25x, fewer points on weaker devices; symbols render once on `low`).
+- The opening caption row ("Modullarni birlashtirish uchun pastga scroll qiling" and
+  "Davom etish") was removed with its styles and script.
+- "Dastur qanday ishlashini sinab ko‘ring": the demo window now has an app-like height
+  (`clamp(540px, 100svh - 150px, 760px)`); its page scrolls inside the window and resets
+  to the top on module/section change. Phones cap the content at `min(600px, 72svh)`.
+  The section went from 3390px to about 2080px at a 700px-high desktop window.
+- Checked in Chrome at desktop and 500px width: no console errors, no long tasks while
+  scrolling the opening, no horizontal overflow. Real low-end phones were not tested.
