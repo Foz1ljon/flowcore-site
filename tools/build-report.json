@@ -43,21 +43,21 @@
   },
   "scene": {
     "source": "assets/js/flow-scene.js",
-    "output": "assets/dist/scene.af8d7f1c028b.js",
+    "output": "assets/dist/scene.57e097cb5780.js",
     "before": 10420,
     "after": 41708,
     "gzip": 16061
   },
   "factory": {
     "source": "assets/js/factory-scene.js",
-    "output": "assets/dist/factory.f37fceac2d10.js",
+    "output": "assets/dist/factory.ceff083efc19.js",
     "before": 27535,
     "after": 16740,
     "gzip": 7293
   },
   "threeShared0": {
     "source": "Shared Three.js engine and addons",
-    "output": "assets/dist/three-chunk-b2velybx.b4943dfc4d56.js",
+    "output": "assets/dist/three-chunk-3aiu7zbs.b4943dfc4d56.js",
     "before": 594112,
     "after": 594112,
     "gzip": 149807
