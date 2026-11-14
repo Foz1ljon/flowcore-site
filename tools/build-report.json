@@ -1,45 +1,45 @@
 {
   "style": {
     "source": "assets/css/style.css",
-    "output": "assets/dist/style.5b449e245172.css",
-    "before": 189123,
-    "after": 161045,
-    "gzip": 31333
+    "output": "assets/dist/style.2e360722575e.css",
+    "before": 202994,
+    "after": 172582,
+    "gzip": 33648
   },
   "product": {
     "source": "assets/css/product.css",
-    "output": "assets/dist/product.301f3a09f4bb.css",
-    "before": 7972,
-    "after": 6954,
-    "gzip": 1805
+    "output": "assets/dist/product.9bde219b717d.css",
+    "before": 8584,
+    "after": 7489,
+    "gzip": 1916
   },
   "main": {
     "source": "assets/js/main.js",
-    "output": "assets/dist/main.d15add190ef5.js",
-    "before": 45092,
-    "after": 27521,
-    "gzip": 10627
+    "output": "assets/dist/main.7bf08b8dbe23.js",
+    "before": 48057,
+    "after": 29149,
+    "gzip": 11112
   },
   "tour": {
     "source": "assets/js/tour.js",
-    "output": "assets/dist/tour.4e790b698018.js",
-    "before": 43355,
-    "after": 70425,
-    "gzip": 22169
+    "output": "assets/dist/tour.1aa1212f34db.js",
+    "before": 44172,
+    "after": 70778,
+    "gzip": 22373
   },
   "site": {
     "source": "assets/js/site.js",
-    "output": "assets/dist/site.9068466f4a5b.js",
+    "output": "assets/dist/site.719eef3a15a6.js",
     "before": 939,
     "after": 615,
-    "gzip": 342
+    "gzip": 344
   },
   "stack": {
     "source": "assets/js/stack-scroll.js",
-    "output": "assets/dist/stack.e5c16d2e0637.js",
-    "before": 3986,
-    "after": 2189,
-    "gzip": 1170
+    "output": "assets/dist/stack.a0c8752bb9fa.js",
+    "before": 5766,
+    "after": 2639,
+    "gzip": 1358
   },
   "scene": {
     "source": "assets/js/flow-scene.js",
@@ -64,9 +64,9 @@
   },
   "experience": {
     "source": "assets/js/experience.js",
-    "output": "assets/dist/experience.dcf81f115fb1.js",
-    "before": 7356,
-    "after": 187725,
-    "gzip": 71803
+    "output": "assets/dist/experience.606f9fadc619.js",
+    "before": 8363,
+    "after": 188143,
+    "gzip": 71968
   }
 }

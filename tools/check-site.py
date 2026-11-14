@@ -106,8 +106,12 @@ for filename in files:
 assert len(set(titles)) == len(titles), 'Duplicate search titles'
 by_canonical = {page.canonicals[0]: page for page in pages.values()}
 for filename, page in pages.items():
-    assert page.lang == 'uz', (filename, 'Public pages must remain Uzbek')
-    assert set(page.alternates) <= {'uz', 'x-default'}, (filename, 'Unexpected translated page alternate')
+    # Uzbek is the source language; English and Russian pages live under /en/ and /ru/.
+    expected_lang = filename.split('/')[0] if filename.split('/')[0] in ('en', 'ru') else 'uz'
+    assert page.lang == expected_lang, (filename, 'Wrong page language', page.lang)
+    assert set(page.alternates) <= {'uz', 'en', 'ru', 'x-default'}, (filename, 'Unexpected page alternate')
+    if page.alternates:
+        assert page.alternates.get('x-default', '').startswith('https://flowcore.uz/') and '/en/' not in page.alternates['x-default'] and '/ru/' not in page.alternates['x-default'], (filename, 'x-default must be the Uzbek page')
     assert page.alternates.get(page.lang) == page.canonicals[0], (filename, 'Missing self hreflang')
     for language, url in page.alternates.items():
         assert url in by_canonical, (filename, 'Hreflang points to a missing page', url)
@@ -160,9 +164,16 @@ for path in manifest['assets'].values():
                 assert ((ROOT / path).parent / url).is_file(), ('Broken CSS asset', path, url)
 for font in (ROOT / 'assets/fonts').glob('*.woff2'):
     assert font.read_bytes().startswith(b'wOF2'), ('Invalid font', font)
-ns = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+ns = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9', 'x': 'http://www.w3.org/1999/xhtml', 'i': 'http://www.google.com/schemas/sitemap-image/1.1'}
 sitemap = ET.parse(ROOT / 'sitemap.xml')
 assert sorted(node.text for node in sitemap.findall('s:url/s:loc', ns)) == sorted(canonicals), 'Sitemap differs from public pages'
+for node in sitemap.findall('s:url', ns):
+    loc = node.find('s:loc', ns).text
+    sitemap_alternates = {link.get('hreflang'): link.get('href') for link in node.findall('x:link', ns)}
+    page_alternates = by_canonical[loc].alternates
+    assert sitemap_alternates == ({} if set(page_alternates) <= {'uz', 'x-default'} else page_alternates), ('Sitemap hreflang differs from page', loc)
+    for image in node.findall('i:image/i:loc', ns):
+        assert (ROOT / urlsplit(image.text).path.lstrip('/')).is_file(), ('Sitemap image missing', image.text)
 for node in sitemap.findall('s:url/s:lastmod', ns):
     assert date.fromisoformat(node.text) <= date.today(), 'Future sitemap modification date'
 assert 'Sitemap: https://flowcore.uz/sitemap.xml' in (ROOT / 'robots.txt').read_text()

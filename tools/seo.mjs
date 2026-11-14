@@ -5,6 +5,7 @@ export const socialLinks = Object.freeze({
 
 // Search metadata and product terminology; the public interface remains Uzbek.
 export const moduleNames = {
+  ai: { en: 'AI Business Analytics and MCP', ru: 'ИИ-аналитика и MCP' },
   moliya: { en: 'Finance', ru: 'Финансы' },
   pos: { en: 'Point of Sale', ru: 'Касса и розничная торговля' },
   erp: { en: 'Enterprise Resource Planning', ru: 'Управление производством' },
@@ -15,7 +16,7 @@ export const moduleNames = {
 };
 
 export function updateHomeSeo(home) {
-  const title = 'FlowCore — biznes uchun CRM, ERP va ombor dasturi';
+  const title = 'FlowCore — biznes uchun ERP, CRM, ombor va AI dasturi';
   const description = 'Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.';
   home = home.replace(/https:\/\/www\.instagram\.com\/flowcore[._]uz\/?(?=["'])/g, socialLinks.instagram)
     .replace(/https:\/\/t\.me\/flowcore_?uz(?=["'])/g, socialLinks.telegram);
@@ -23,6 +24,9 @@ export function updateHomeSeo(home) {
     const handle = network === 'instagram' ? '@flowcore_uz' : '@flowcoreuz';
     home = home.replaceAll(new RegExp(`<a href="${url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*>[\\s\\S]*?<\\/a>`, 'g'), link => link.replace(/@flowcore(?:_uz|uz|\.uz)/g, handle));
   }
+  // Uzbek, English and Russian versions of the home page point at each other.
+  home = home.replace(/(<link rel="canonical" href="https:\/\/flowcore\.uz\/">)(?:\s*<link rel="alternate" hreflang="[^"]+" href="[^"]+">)*/,
+    `$1\n  <link rel="alternate" hreflang="uz" href="https://flowcore.uz/">\n  <link rel="alternate" hreflang="en" href="https://flowcore.uz/en/">\n  <link rel="alternate" hreflang="ru" href="https://flowcore.uz/ru/">\n  <link rel="alternate" hreflang="x-default" href="https://flowcore.uz/">`);
   home = home.replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
     .replace(/<meta name="keywords"[^>]*>\s*/, '')
     .replace(/(<meta (?:name="description"|property="og:description"|name="twitter:description") content=")[^"]*(">)/g, `$1${description}$2`)
@@ -43,14 +47,15 @@ export function updateHomeSeo(home) {
         node.description = description;
         delete node.downloadUrl;
         delete node.softwareVersion; // Not tied to a release feed.
-        delete node.screenshot; // The social card is not an application screenshot.
-        delete node.availableLanguage;
+        // Real screens from the product tour (tools/capture-screens.mjs), not the social card.
+        node.screenshot = ['ombor','erp','crm','ish-haqi','talim','pos'].map(slug => ({'@type':'ImageObject', url:`https://flowcore.uz/assets/images/screens/${slug}.webp`, width:1240, height:752}));
         node.inLanguage = 'uz';
         node.mainEntityOfPage = {'@id':'https://flowcore.uz/#webpage'};
-        node.featureList = [...new Set([...node.featureList, 'POS: kassa, savdo, to‘lovlar, nasiya va smena', 'Moliya: hisoblar, kirim, chiqim va o‘tkazmalar — bonus modul', 'Rahbar: Android telefonda hisobotlar va bildirishnomalar', 'FaceID: Android planshetda yuz orqali davomat'])];
+        node.featureList = [...new Set([...node.featureList, 'AI: har bir bo‘limda AI tahlilchi va MCP orqali AI agent ulash', 'POS: kassa, savdo, to‘lovlar, nasiya va smena', 'Moliya: hisoblar, kirim, chiqim va o‘tkazmalar — bonus modul', 'Rahbar: Android telefonda hisobotlar va bildirishnomalar', 'FaceID: Android planshetda yuz orqali davomat'])];
         if (!node.hasPart.some(part => part['@id'] === 'https://flowcore.uz/pos/#software')) node.hasPart.push({'@id':'https://flowcore.uz/pos/#software'});
         if (!node.hasPart.some(part => part['@id'] === 'https://flowcore.uz/moliya/#software')) node.hasPart.push({'@id':'https://flowcore.uz/moliya/#software'});
-        node.alternateName = ['Flow Core','FlowCore Moliya','FlowCore ERP','FlowCore CRM','FlowCore WMS','FlowCore HRM','FlowCore LMS','FlowCore POS','ФлоуКор'];
+        if (!node.hasPart.some(part => part['@id'] === 'https://flowcore.uz/ai/#software')) node.hasPart.push({'@id':'https://flowcore.uz/ai/#software'});
+        node.alternateName = ['Flow Core','FlowCore AI','FlowCore Moliya','FlowCore ERP','FlowCore CRM','FlowCore WMS','FlowCore HRM','FlowCore LMS','FlowCore POS','FlowCore Rahbar','FlowCore FaceID','ФлоуКор'];
       }
       if (node['@type'] === 'FAQPage') {
         node['@id'] = 'https://flowcore.uz/#faq';

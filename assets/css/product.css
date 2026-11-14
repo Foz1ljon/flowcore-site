@@ -107,3 +107,10 @@
   .detail-card, .detail-example { padding: 22px; }
   .detail-actions .btn { flex: 1 1 auto; }
 }
+.detail-shot { margin: 40px 0 0; max-width: 1100px; }
+.detail-shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); box-shadow: 0 24px 60px -36px rgb(0 0 0 / .35); }
+.detail-shot figcaption { margin-top: 10px; font-size: 13px; color: var(--ink-2); }
+.detail-gallery { display: grid; gap: 24px; }
+.detail-gallery .detail-shot { margin: 0; }
+.detail-gallery > p { color: var(--ink-2); font-size: 14px; }
+.detail-card h3 a { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; }

@@ -1,7 +1,7 @@
 import { demoReport } from './demo-reports.js';
 import { renderDemoDashboard, renderDemoBuilder } from './demo-dashboard.js';
 /* Interactive product illustration. All state is in memory and is reset on reload. */
-(() => {
+const mountTour = () => {
   'use strict';
   const $ = (selector) => document.querySelector(selector);
   const tabs = [...document.querySelectorAll('[data-tour]')];
@@ -331,7 +331,6 @@ import { renderDemoDashboard, renderDemoBuilder } from './demo-dashboard.js';
     action.querySelector('[data-label]').textContent = definition.button();
     action.disabled = Boolean(definition.disabled?.());
     action.querySelector('use').setAttribute('href', `#icon-${action.disabled ? 'check' : current === 'erp' ? 'arrow-right' : 'plus'}`);
-    action.querySelector('title').textContent = action.disabled ? 'Bajarildi' : 'Namunaviy amal';
     tabs.forEach(tab => {
       const selected = tab.dataset.tour === current;
       tab.setAttribute('aria-selected', String(selected));
@@ -377,4 +376,23 @@ import { renderDemoDashboard, renderDemoBuilder } from './demo-dashboard.js';
   $('#tourReset').addEventListener('click', () => { state = initial(); filters = {}; search.value = ''; render(); feedback.textContent = 'Barcha bo‘limlardagi sinov ma’lumotlari tiklandi.'; });
   document.querySelectorAll('[data-tour-link]').forEach(link => link.addEventListener('click', () => select(link.dataset.tourLink)));
   render();
+};
+
+// The demo sits below the first screen; building it is a long main-thread task, so it
+// starts when the section approaches the viewport or on the first input, whichever is first.
+(() => {
+  const section = document.getElementById('ichkarida');
+  const events = ['pointermove', 'pointerdown', 'touchstart', 'wheel', 'keydown'];
+  let started = false, observer = null;
+  const start = () => {
+    if (started) return;
+    started = true;
+    observer?.disconnect();
+    events.forEach(type => removeEventListener(type, start, true));
+    mountTour();
+  };
+  if (!section || !('IntersectionObserver' in window)) { start(); return; }
+  observer = new IntersectionObserver(entries => { if (entries.some(entry => entry.isIntersecting)) start(); }, { rootMargin: '400px 0px' });
+  observer.observe(section);
+  events.forEach(type => addEventListener(type, start, { capture: true, passive: true }));
 })();

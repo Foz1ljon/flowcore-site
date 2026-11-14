@@ -52,8 +52,8 @@ function mountExperience() {
           .from('.hero-title',{opacity:.7,y:22,duration:.9},.08)
           .from('.hero-lead',{opacity:.45,y:16},.2)
           .from('.hero-actions',{opacity:.6,y:14},.28)
-          .from('.hero-reassurance, .hero-benefits',{opacity:.5,y:10,stagger:.05},.38)
-          .from('.hero-module-line > span',{opacity:.4,y:8,stagger:.045},.45);
+          .from('.hero-reassurance, .hero-stats > div',{opacity:.5,y:10,stagger:.05},.38)
+          .from('.hero-node',{opacity:.4,y:8,stagger:.045},.45);
       }
 
       const candidates=[...document.querySelectorAll('.sec-head, .benefit-heading, .benefit-panel, .benefit-example, .choice-heading, .module-shortcut, .mod-copy, .mod > .viz, .control-card, .delivery-card, .bento .cell, .steps > li, .receipt-wrap, .faq details, .industry-choice')];
@@ -78,7 +78,7 @@ function mountExperience() {
       // Ambient GSAP motion continues between interactions, not just on first paint.
       // Keep it on decorative nodes so module tables and reading text stay steady.
       const ambient=gsap.timeline({repeat:-1,yoyo:true,defaults:{ease:'sine.inOut'}})
-        .to('.hero-module-line i',{opacity:.25,scale:.65,duration:2.8,stagger:.2},0)
+        .to('.hero-node',{y:-4,duration:2.8,stagger:.25},0)
         .to('.event-summary-icon',{y:-3,scale:1.035,duration:3.2},0)
         .to('.delivery-icon .icon, .feature-icon .icon',{y:-4,rotation:3,duration:3.6,stagger:.18},0)
         .to('.hero-eyebrow > span',{opacity:.35,scale:.75,duration:2.4},0);
@@ -99,8 +99,10 @@ function mountExperience() {
       const details=[...document.querySelectorAll('details')];
       details.forEach(element=>element.addEventListener('toggle',refresh));
       // Font readiness and native disclosures can change section positions.
-      document.fonts?.ready.then(()=>{if(!disposed && root.classList.contains('motion-enhanced'))ScrollTrigger.refresh();});
-      ScrollTrigger.refresh();
+      // ScrollTrigger refreshes on window load by itself; fonts that settle later move
+      // section positions, so refresh once more only when they finish after load.
+      if(document.readyState==='complete')ScrollTrigger.refresh();
+      else document.fonts?.ready.then(()=>{if(document.readyState==='complete' && !disposed && root.classList.contains('motion-enhanced'))ScrollTrigger.refresh();});
 
       return ()=>{
         ambient.kill();
@@ -130,5 +132,19 @@ function mountExperience() {
   configure();
 }
 
-if(document.documentElement.classList.contains('js'))mountExperience();
-else document.addEventListener('flowcore:ready',mountExperience,{once:true});
+// This layer loads on the first interaction. Creating scroll triggers refreshes them and
+// restores the scroll position, which would cancel a running smooth anchor jump, so
+// mounting waits until scrolling has settled.
+function whenScrollSettles(callback) {
+  let timer=0;
+  const wait=()=>{clearTimeout(timer);timer=setTimeout(()=>{removeEventListener('scroll',wait);callback();},180);};
+  addEventListener('scroll',wait,{passive:true});wait();
+}
+const start=()=>whenScrollSettles(()=>{
+  mountExperience();
+  // Resume an anchor jump that the first ScrollTrigger refresh interrupted.
+  const top=window.flowcoreStack?.takePendingJump?.();
+  if(top!=null&&Math.abs(scrollY-top)>4)requestAnimationFrame(()=>scrollTo({top,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));
+});
+if(document.documentElement.classList.contains('js'))start();
+else document.addEventListener('flowcore:ready',start,{once:true});

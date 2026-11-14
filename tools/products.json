@@ -802,5 +802,117 @@
         "Ulanish ixtiyoriy. POS yoki ta’lim to‘lov usuli, ish haqi avans/to‘lovi uchun hisob va boshlanish sanasini o‘zingiz belgilaysiz."
       ]
     ]
+  },
+  {
+    "slug": "ai",
+    "code": "AI",
+    "name": "AI tahlil va MCP",
+    "section": "ai-mcp",
+    "title": "FlowCore AI — biznes hisobotlari uchun AI tahlilchi va MCP",
+    "heading": "Biznes hisobotlaringizni AI bilan tahlil qiling",
+    "description": "FlowCore AI ombor, ishlab chiqarish, mijozlar, ta’lim va ish haqi hisobotlarini tahlil qiladi. O‘z AI kalitingizni ulang yoki AI agentingizni FlowCore MCP serveriga ulang.",
+    "intro": "FlowCore AI — har bir bo‘limdagi hisobotlarni tushunarli tilda izohlaydigan AI tahlilchi. Savol berasiz: qoldiq yetarlimi, qaysi buyurtma kechikyapti, savdo nega tushdi. AI raqamlarni tahlil qilib, e’tibor talab qiladigan holatlarni ko‘rsatadi. MCP orqali o‘z AI agentingizni ham ulashingiz mumkin.",
+    "plain": "FlowCore AI — FlowCore hisobotlariga savol berib, tushunarli javob oladigan yordamchi. U hisoblarni o‘zi o‘zgartirmaydi: tahlil va tavsiya beradi.",
+    "problems": [
+      "Hisobotlar ko‘p, lekin ulardan qanday xulosa chiqarishni bilish qiyin.",
+      "Muammo — kam qolgan mahsulot, kechikkan buyurtma yoki tushgan savdo — kech seziladi.",
+      "AI yordamchingiz biznes ma’lumotlaringizni ko‘ra olmaydi."
+    ],
+    "benefits": [
+      [
+        "Har bo‘limda AI tahlilchi",
+        "Mijozlar, ombor, ishlab chiqarish, xodimlar va ta’lim bo‘limlarida “AI tahlilchi” bo‘limi bor. Har birining o‘z vazifasi va tayyor savol namunalari mavjud."
+      ],
+      [
+        "O‘z AI kalitingiz",
+        "OpenAI, Claude, Gemini, OpenRouter yoki OpenAI bilan mos boshqa xizmat kalitini ulaysiz. Kalitni egasi yoki administrator boshqaradi."
+      ],
+      [
+        "Shaxsiy ma’lumotlar yuborilmaydi",
+        "AI’ga ko‘rsatkichlar, qoidalar asosidagi xulosalar va umumlashtirilgan jadvallar yuboriladi. Mijoz, xodim yoki o‘quvchi ismlari yuborilmaydi."
+      ],
+      [
+        "Kalitsiz ham xulosa",
+        "AI kaliti ulanmagan bo‘lsa, FlowCore o‘zining qoidalari asosidagi xulosalarni ko‘rsatadi."
+      ]
+    ],
+    "cards": [
+      [
+        "Hisobotga savol bering",
+        "Davrni tanlab, savolingizni yozing. AI ko‘rsatkichlarni izohlaydi va nimaga e’tibor berish kerakligini aytadi."
+      ],
+      [
+        "Bo‘limga mos tahlil",
+        "Ombor tahlilchisi qoldiq va harakatni, mijozlar tahlilchisi savdo bosqichlarini, ishlab chiqarish tahlilchisi buyurtma va bosqichlarni ko‘radi."
+      ],
+      [
+        "AI agentni MCP orqali ulang",
+        "MCP’ni qo‘llaydigan AI yordamchingizni kompaniyangizning FlowCore serveriga ulaysiz. Agent ruxsat berilgan bo‘limlar, hisobotlar va yozuvlarni oladi."
+      ],
+      [
+        "O‘qish va yozish kalitlari",
+        "MCP kaliti faqat o‘qish yoki yozish huquqi bilan beriladi. Kalit faqat o‘z kompaniyangiz manzilida ishlaydi."
+      ],
+      [
+        "Tashqi MCP xizmatlari",
+        "Mos tashqi MCP serverini qo‘shib, uning vositalarini tekshirish va chaqirish mumkin. Bajarish alohida tasdiq talab qiladi."
+      ],
+      [
+        "Tavsiya hisobni o‘zgartirmaydi",
+        "AI tahlili faqat maslahat beradi. Ma’lumotni o‘zgartirish xodim huquqlari va aniq tasdiqqa bog‘liq."
+      ]
+    ],
+    "workflow": [
+      [
+        "Kalitni ulang",
+        "Egasi yoki administrator AI xizmati, modeli va API kalitini sozlaydi."
+      ],
+      [
+        "Bo‘limni tanlang",
+        "Kerakli bo‘limning “AI tahlilchi” qismini oching."
+      ],
+      [
+        "Savol bering",
+        "Tayyor savollardan birini tanlang yoki o‘zingiz yozing."
+      ],
+      [
+        "Xulosani tekshiring",
+        "AI javobini hisobot raqamlari bilan solishtirib, qaror qabul qiling."
+      ]
+    ],
+    "connections": "AI tahlilchi ombor (WMS), ishlab chiqarish (ERP), mijozlar (CRM), xodimlar va ish haqi (HRM) hamda ta’lim (LMS) hisobotlari bilan ishlaydi. MCP orqali ulangan agent ham shu bo‘limlarning ruxsat berilgan hisobot va yozuvlarini oladi.",
+    "example": [
+      "Ombor bo‘limida “Qaysi mahsulotlar tez orada tugaydi?” deb so‘raysiz.",
+      "AI qoldiq va chiqim sur’atini ko‘rib, kam qolgan mahsulotlar va ularni qachon to‘ldirish kerakligini izohlaydi.",
+      "Javob hisobni o‘zgartirmaydi: buyurtma berish qarori sizda qoladi."
+    ],
+    "result": "Hisobotlardagi raqamlar nimani anglatishini, qaysi holat e’tibor talab qilishini va keyingi qadamni tezroq tushunasiz.",
+    "audience": [
+      "Hisobotlarni tez tushunmoqchi bo‘lgan rahbarlar.",
+      "ChatGPT, Claude yoki boshqa AI yordamchidan foydalanadigan jamoalar.",
+      "AI agentlarini biznes ma’lumotlariga xavfsiz ulamoqchi bo‘lgan kompaniyalar."
+    ],
+    "faqs": [
+      [
+        "FlowCore AI qaysi AI xizmatlari bilan ishlaydi?",
+        "OpenAI, Claude, Gemini, OpenRouter va OpenAI bilan mos boshqa xizmatlar. Kompaniya o‘z API kalitini ulaydi; AI xizmatidan foydalanish uning tarifiga bog‘liq."
+      ],
+      [
+        "AI’ga mijoz va xodim ismlari yuboriladimi?",
+        "Yo‘q. AI’ga ko‘rsatkichlar, qoidalar asosidagi xulosalar va umumlashtirilgan jadvallar yuboriladi. Mijoz, xodim va o‘quvchi ismlari yuborilmaydi."
+      ],
+      [
+        "MCP nima?",
+        "MCP — AI yordamchilar tashqi dasturlar ma’lumotlari va vositalaridan foydalanishi uchun umumiy ulanish usuli. FlowCore MCP serveri orqali AI agentingiz ruxsat berilgan hisobotlarni o‘qiy oladi."
+      ],
+      [
+        "AI ma’lumotlarimni o‘zgartira oladimi?",
+        "AI tahlilchi faqat tahlil va tavsiya beradi. MCP agenti esa faqat yozish huquqli kalit va sizning aniq topshirig‘ingiz bilan amal bajaradi."
+      ],
+      [
+        "AI kaliti bo‘lmasa nima bo‘ladi?",
+        "FlowCore qoidalari asosidagi xulosalar baribir ko‘rsatiladi. AI kalitini keyin ulash mumkin."
+      ]
+    ]
   }
 ]

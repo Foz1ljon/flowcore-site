@@ -1,0 +1,52 @@
+# FlowCore
+
+> FlowCore (flowcore.uz) is all-in-one business management software from Uzbekistan. It combines warehouse/inventory (WMS), production (ERP), customers and sales (CRM), HR with Face ID attendance and payroll (HRM), training centres and schools (LMS), a shop till (POS), finance and AI analytics with an MCP server. Companies choose only the modules they need. The application interface is in Uzbek.
+
+Key facts:
+- Official name: FlowCore. Official website: https://flowcore.uz/ . Also written "Flow Core"; not the same product as other software named "CoreFlow".
+- Made for companies in Uzbekistan; prices are quoted per company depending on modules, users and deployment.
+- Deployment: online at <company>.flowcore.uz, or a licensed desktop edition for Windows and macOS that keeps data on the computer.
+- Mobile apps: FlowCore Rahbar (Android, reports and notifications for owners) and FlowCore FaceID (Android tablet face-recognition attendance terminal).
+- Channels: Telegram and Instagram messages in CRM; Telegram bots for owner reports.
+- AI: an AI analyst in each module using the company's own OpenAI, Claude, Gemini, OpenRouter or OpenAI-compatible key; only aggregated metrics are sent, no customer or employee names. AI agents can connect to the company's FlowCore MCP server with read-only or read-write keys.
+- Official social profiles: Telegram https://t.me/flowcoreuz , Instagram https://www.instagram.com/flowcore_uz
+- Contact and demo requests: https://flowcore.uz/#aloqa
+
+## Modules (English)
+- [FlowCore ERP — production and garment workshop software](https://flowcore.uz/en/erp/): FlowCore ERP tracks production orders, raw materials, bills of materials, work stages and finished goods. Production software from Uzbekistan for factories and sewing workshops.
+- [FlowCore CRM — customer and sales management software](https://flowcore.uz/en/crm/): FlowCore CRM tracks leads, deals, follow-up calls and tasks, and receives Telegram and Instagram messages in one inbox. CRM software from Uzbekistan.
+- [FlowCore WMS — warehouse and inventory management software](https://flowcore.uz/en/ombor/): FlowCore WMS records goods receipts, issues, transfers and stock levels across several warehouses, with stock value and low-stock alerts. Inventory software from Uzbekistan.
+- [FlowCore HRM — Face ID attendance and payroll software](https://flowcore.uz/en/ish-haqi/): FlowCore HRM records attendance with a Face ID tablet app and calculates payroll: fixed, hourly, daily, piece-rate, sales commission, bonuses and deductions.
+- [FlowCore LMS — training centre and school management software](https://flowcore.uz/en/talim/): FlowCore LMS manages students, groups, timetables, attendance, grades and tuition payments, with a read-only portal for students and parents.
+- [FlowCore POS — point of sale and till software for shops](https://flowcore.uz/en/pos/): FlowCore POS handles shop sales with barcodes, payments, customer credit (nasiya), returns and cashier shifts, connected to warehouse stock.
+- [FlowCore Finance — income, expenses and accounts software](https://flowcore.uz/en/moliya/): FlowCore Finance keeps cash, card and bank accounts in UZS and USD, with income and expense categories, transfers and currency exchange. Included as a bonus module.
+- [FlowCore AI — AI analyst and MCP for business reports](https://flowcore.uz/en/ai/): FlowCore AI explains warehouse, production, CRM, HR and LMS reports. Connect your own OpenAI, Claude or Gemini key, or connect an AI agent to the FlowCore MCP server.
+
+## Modules (Uzbek, main language)
+- [FlowCore ERP — ishlab chiqarish va tikuv sexi dasturi](https://flowcore.uz/erp/): FlowCore ERP bilan ishlab chiqarish buyurtmalari, xomashyo, ish bosqichlari va tayyor mahsulotni hisobga oling. Tikuv sexi va ishlab chiqarish uchun o‘zbekcha dastur.
+- [FlowCore CRM — mijozlar va savdoni boshqarish dasturi](https://flowcore.uz/crm/): FlowCore CRM bilan mijozlar, savdo va keyingi qo‘ng‘iroqlarni kuzating. Telegram va Instagram xabarlarini bir joyda ko‘ring. O‘zbek tilidagi mijozlar dasturi.
+- [FlowCore WMS — ombor hisobi, kirim va chiqim dasturi](https://flowcore.uz/ombor/): FlowCore ombor dasturi bilan kirim, chiqim, qoldiq va mahsulot qiymatini hisobga oling. Bir nechta ombor, xomashyo va tayyor mahsulotni bir joyda boshqaring.
+- [FlowCore HRM — Face ID, davomat va ish haqi dasturi](https://flowcore.uz/ish-haqi/): FlowCore HRM: planshet uchun Face ID ilovasi, bir qadamda sozlash, xodimlar davomati va ish haqi. Oylik, soatbay va donabay hisobni bir joyda yuriting.
+- [FlowCore LMS — o‘quv markazi va maktab uchun dastur](https://flowcore.uz/talim/): FlowCore LMS bilan o‘quv markazi va maktab hisobini yuriting. Guruhlar, dars jadvali, davomat, baholar, to‘lov va qarzdorlikni bir joyda kuzating.
+- [FlowCore POS — do‘kon uchun kassa va savdo dasturi](https://flowcore.uz/pos/): FlowCore POS bilan do‘kon savdosi, shtrix-kod, to‘lov, nasiya, qaytarish va kassa smenalarini boshqaring. Ombor qoldig‘i bilan bog‘langan o‘zbekcha kassa dasturi.
+- [FlowCore Moliya — kirim, chiqim va hisoblar dasturi](https://flowcore.uz/moliya/): FlowCore Moliya: naqd, karta va bank hisoblari, kirim-chiqim, o‘tkazmalar, valyuta almashtirish va davr hisoboti. Tarif va desktop litsenziyada bonus modul.
+- [FlowCore AI — biznes hisobotlari uchun AI tahlilchi va MCP](https://flowcore.uz/ai/): FlowCore AI ombor, ishlab chiqarish, mijozlar, ta’lim va ish haqi hisobotlarini tahlil qiladi. O‘z AI kalitingizni ulang yoki AI agentingizni FlowCore MCP serveriga ulang.
+
+## Модули (русский)
+- [FlowCore ERP — программа для производства и швейного цеха](https://flowcore.uz/ru/erp/): FlowCore ERP учитывает производственные заказы, сырьё, спецификации (BOM), этапы работ и готовую продукцию. Программа для производства и швейных цехов из Узбекистана.
+- [FlowCore CRM — программа для клиентов и продаж](https://flowcore.uz/ru/crm/): FlowCore CRM ведёт лиды, сделки, звонки и задачи и собирает сообщения Telegram и Instagram в одном окне. CRM-система из Узбекистана.
+- [FlowCore WMS — программа складского учёта](https://flowcore.uz/ru/ombor/): FlowCore WMS учитывает приход, расход, перемещения и остатки на нескольких складах, стоимость запасов и заканчивающиеся товары. Программа складского учёта из Узбекистана.
+- [FlowCore HRM — учёт посещаемости по Face ID и зарплата](https://flowcore.uz/ru/ish-haqi/): FlowCore HRM фиксирует посещаемость через приложение Face ID на планшете и рассчитывает зарплату: оклад, почасовая, посменная, сдельная, процент с продаж, бонусы и удержания.
+- [FlowCore LMS — программа для учебного центра и школы](https://flowcore.uz/ru/talim/): FlowCore LMS ведёт учеников, группы, расписание, посещаемость, оценки и оплату обучения, с порталом для учеников и родителей.
+- [FlowCore POS — кассовая программа для магазина](https://flowcore.uz/ru/pos/): FlowCore POS ведёт продажи магазина: штрихкоды, оплаты, продажа в долг (насия), возвраты и кассовые смены, со списанием со склада.
+- [FlowCore Финансы — учёт доходов, расходов и счетов](https://flowcore.uz/ru/moliya/): FlowCore Финансы ведёт наличные, карточные и банковские счета в сумах и долларах, категории доходов и расходов, переводы и обмен валют. Входит бонусом.
+- [FlowCore AI — ИИ-аналитик и MCP для бизнес-отчётов](https://flowcore.uz/ru/ai/): FlowCore AI объясняет отчёты склада, производства, CRM, кадров и LMS. Подключите свой ключ OpenAI, Claude или Gemini или подключите ИИ-агента к MCP-серверу FlowCore.
+
+## Overview pages
+- [FlowCore (Uzbek)](https://flowcore.uz/): Main page with an interactive demo of the application, pricing request form and FAQ.
+- [FlowCore (English)](https://flowcore.uz/en/): FlowCore is business software from Uzbekistan: warehouse (WMS), production (ERP), CRM, HR with Face ID attendance and payroll, LMS, POS, finance and AI analytics in one system.
+- [FlowCore (Русский)](https://flowcore.uz/ru/): FlowCore — программа для бизнеса из Узбекистана: склад (WMS), производство (ERP), CRM, кадры с Face ID и зарплатой, учебный центр (LMS), касса (POS), финансы и ИИ-аналитика в одной системе.
+
+## Optional
+- [Privacy policy (Uzbek)](https://flowcore.uz/privacy/)
+- [Terms of use (Uzbek)](https://flowcore.uz/terms/)

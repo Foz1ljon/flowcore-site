@@ -27,9 +27,9 @@
 
   /* ---------- Theme ---------- */
   const themeBtn = $('#themeToggle');
-  const currentTheme = () => root.dataset.theme || 'light';
+  const currentTheme = () => root.dataset.theme || 'dark';
   const syncThemeLabel = () => {
-    $('#themeColor').content = currentTheme() === 'dark' ? '#09090b' : '#fafafa';
+    $('#themeColor').content = currentTheme() === 'dark' ? '#050a0e' : '#fafafa';
     themeBtn.setAttribute('aria-label', currentTheme() === 'dark' ? 'Kunduzgi rejimga o‘tish' : 'Tungi rejimga o‘tish');
   };
   const applyTheme = (theme) => {
@@ -104,7 +104,7 @@
     document.body.classList.toggle('nav-open', open);
     menuBackdrop.hidden = !open;
     navToggle.setAttribute('aria-expanded', String(open));
-    navToggle.setAttribute('aria-label', open ? 'Menyuni yopish' : 'Menyuni ochish');
+    navToggle.setAttribute('aria-label', open ? 'Menyu: yopish' : 'Menyu: ochish');
     syncNavAvailability();
     syncFloat();
     window.dispatchEvent(new CustomEvent('flowcore:nav', { detail: { open } }));
@@ -128,9 +128,11 @@
 
   /* ---------- Clock ---------- */
   const clock = $('#clock');
-  const tickClock = () => { clock.textContent = tashkentTime(); };
-  tickClock();
-  setInterval(() => { if (!document.hidden) tickClock(); }, 15000);
+  if (clock) {
+    const tickClock = () => { clock.textContent = tashkentTime(); };
+    tickClock();
+    setInterval(() => { if (!document.hidden) tickClock(); }, 15000);
+  }
 
   /* ---------- Split headings into words ---------- */
   $$('.split:not(.hero-title)').forEach((el) => {
@@ -598,6 +600,8 @@
   const scrollToContact = (behavior = reduceMotion ? 'instant' : 'smooth') => {
     const grid = $('.cta-grid', contactEl);
     const target = window.matchMedia('(max-width: 900px)').matches ? $('#leadForm') : grid;
+    // Sections skipped by content-visibility are laid out first, so the offset is exact.
+    root.classList.add('stack-render-all');
     const bounds = target.getBoundingClientRect();
     // Reveal animations move the form visually; centre its final layout position.
     const transform = getComputedStyle(target).transform;
@@ -861,11 +865,16 @@
     intro.dispatchEvent(new CustomEvent('flowcore:assembly',{detail:{progress}}));
   };
   const schedule=()=>{if(!frame)frame=requestAnimationFrame(update);};
-  const measure=()=>{
+  // Layout reads are batched into one frame: resize, font and observer signals that
+  // arrive together during page load cost a single measurement.
+  let measureFrame=0;
+  const measureNow=()=>{
+    measureFrame=0;if(dead)return;
     const scroll=document.scrollingElement?.scrollTop??window.scrollY;
     top=window.flowcoreStack?window.flowcoreStack.naturalTop(intro):intro.getBoundingClientRect().top+scroll;
-    range=Math.max(1,intro.offsetHeight-sticky.offsetHeight);update();
+    range=Math.max(1,intro.offsetHeight-sticky.offsetHeight);lastProgress=-1;update();
   };
+  const measure=()=>{if(!measureFrame)measureFrame=requestAnimationFrame(measureNow);};
   const configure=()=>{
     intro.classList.toggle('is-assembling',!motion.matches);
     measure();window.dispatchEvent(new Event('flowcore:layout'));
@@ -876,7 +885,7 @@
   window.addEventListener('pageshow',measure);
   motion.addEventListener('change',configure);
   const observer=new ResizeObserver(measure);observer.observe(stage);
-  document.fonts?.ready.then(()=>{if(!dead)measure();});
+  document.fonts?.ready.then(measure);
   window.addEventListener('pagehide',event=>{
     if(event.persisted)return;
     dead=true;cancelAnimationFrame(frame);observer.disconnect();
@@ -900,8 +909,15 @@
         scene.mountFlowScene(host);
       } catch { /* Optional enhancement: all content and links stay available. */ }
     };
-    if ('requestIdleCallback' in window) requestIdleCallback(load, {timeout:2500});
-    else setTimeout(load, 500);
+    // The WebGL scene is decorative and costs a long main-thread task to compile, so
+    // it starts on the visitor's first interaction instead of competing with page load.
+    const events = ['pointermove','pointerdown','touchstart','wheel','keydown'];
+    const start = () => {
+      events.forEach(type => removeEventListener(type, start, {capture:true}));
+      if ('requestIdleCallback' in window) requestIdleCallback(load, {timeout:1000});
+      else setTimeout(load, 50);
+    };
+    events.forEach(type => addEventListener(type, start, {capture:true, passive:true, once:true}));
   }, {rootMargin:'100px'});
   observer.observe(host);
 })();
@@ -927,4 +943,43 @@
     }
   },{rootMargin:'300px'});
   hosts.forEach(host=>observer.observe(host));
+})();
+
+/* Module grid: hovering or focusing a module card shows it in the large panel. */
+(() => {
+  const grid = document.querySelector('[data-platform]');
+  if (!grid) return;
+  const feature = grid.querySelector('.platform-feature');
+  const image = feature.querySelector('img');
+  const code = feature.querySelector('.platform-code b');
+  const name = feature.querySelector('.platform-code span');
+  const desc = feature.querySelector('.platform-desc');
+  const points = feature.querySelector('.platform-points');
+  const more = feature.querySelector('.platform-more');
+  const cards = [...grid.querySelectorAll('.platform-card[data-code]')];
+  const show = card => {
+    if (card.getAttribute('aria-current') === 'true') return;
+    cards.forEach(item => item.setAttribute('aria-current', String(item === card)));
+    const data = card.dataset;
+    feature.style.setProperty('--node', card.style.getPropertyValue('--node'));
+    image.srcset = data.srcset || ''; image.src = data.img; image.width = Number(data.w); image.height = Number(data.h);
+    image.alt = `FlowCore ${data.code} ekrani`;
+    code.textContent = data.code; name.textContent = data.name; desc.textContent = data.desc;
+    points.replaceChildren(...data.points.split('|').map(text => Object.assign(document.createElement('li'), { textContent: text })));
+    more.href = card.getAttribute('href');
+  };
+  cards[0]?.setAttribute('aria-current', 'true');
+  cards.forEach(card => {
+    card.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') show(card); });
+    card.addEventListener('focus', () => show(card));
+  });
+})();
+
+
+/* Language menu: closes on an outside click or Escape. */
+(() => {
+  const menu = document.querySelector('.lang-menu');
+  if (!menu) return;
+  document.addEventListener('click', event => { if (menu.open && !menu.contains(event.target)) menu.open = false; });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); } });
 })();

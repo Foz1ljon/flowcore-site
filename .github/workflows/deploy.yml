@@ -69,7 +69,7 @@ jobs:
       - name: Verify live site
         run: |
           sleep 3
-          for path in / /pos/ /privacy/ /terms/ /favicon.ico /favicon-48x48.png /site.webmanifest /sitemap.xml; do
+          for path in / /pos/ /ai/ /en/ /ru/ /privacy/ /terms/ /llms.txt /favicon.ico /favicon-48x48.png /site.webmanifest /sitemap.xml; do
             code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Cache-Control: no-cache' "$SITE_URL$path?v=$GITHUB_SHA")
             echo "$path → $code"
             [ "$code" = 200 ] || exit 1

@@ -1,15 +1,15 @@
 {
   "assets": {
-    "style": "assets/dist/style.5b449e245172.css",
-    "product": "assets/dist/product.301f3a09f4bb.css",
-    "main": "assets/dist/main.d15add190ef5.js",
-    "tour": "assets/dist/tour.4e790b698018.js",
-    "site": "assets/dist/site.9068466f4a5b.js",
-    "stack": "assets/dist/stack.e5c16d2e0637.js",
+    "style": "assets/dist/style.2e360722575e.css",
+    "product": "assets/dist/product.9bde219b717d.css",
+    "main": "assets/dist/main.7bf08b8dbe23.js",
+    "tour": "assets/dist/tour.1aa1212f34db.js",
+    "site": "assets/dist/site.719eef3a15a6.js",
+    "stack": "assets/dist/stack.a0c8752bb9fa.js",
     "scene": "assets/dist/scene.af8d7f1c028b.js",
     "factory": "assets/dist/factory.f37fceac2d10.js",
     "threeShared0": "assets/dist/three-chunk-b2velybx.b4943dfc4d56.js",
-    "experience": "assets/dist/experience.dcf81f115fb1.js"
+    "experience": "assets/dist/experience.606f9fadc619.js"
   },
   "pages": [
     "erp/index.html",
@@ -19,8 +19,27 @@
     "talim/index.html",
     "pos/index.html",
     "moliya/index.html",
+    "ai/index.html",
     "privacy/index.html",
-    "terms/index.html"
+    "terms/index.html",
+    "en/index.html",
+    "en/erp/index.html",
+    "en/crm/index.html",
+    "en/ombor/index.html",
+    "en/ish-haqi/index.html",
+    "en/talim/index.html",
+    "en/pos/index.html",
+    "en/moliya/index.html",
+    "en/ai/index.html",
+    "ru/index.html",
+    "ru/erp/index.html",
+    "ru/crm/index.html",
+    "ru/ombor/index.html",
+    "ru/ish-haqi/index.html",
+    "ru/talim/index.html",
+    "ru/pos/index.html",
+    "ru/moliya/index.html",
+    "ru/ai/index.html"
   ],
   "errorPages": [
     "404.html"

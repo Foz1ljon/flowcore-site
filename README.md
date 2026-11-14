@@ -505,3 +505,56 @@ mobile and low-end GPU performance were not measured.
   The section went from 3390px to about 2080px at a 700px-high desktop window.
 - Checked in Chrome at desktop and 500px width: no console errors, no long tasks while
   scrolling the opening, no horizontal overflow. Real low-end phones were not tested.
+
+## Lighthouse 100, languages and search (2026-11-14)
+
+Goal: Lighthouse 100 in every category on mobile and desktop, and better search and
+AI-assistant visibility for "FlowCore", "FlowCore ERP/CRM/AI/…" in Uzbek, English and Russian.
+
+Performance (mobile TBT was 1.3 s):
+- The hero WebGL scene and the GSAP/motion layer (`experience.*.js`) load on the first real
+  input (pointer, touch, wheel, key). `scroll` is not a trigger: Chrome fires it during load.
+  The motion layer mounts only after scrolling settles, because creating ScrollTriggers
+  restores the scroll position and would cancel a smooth anchor jump.
+- Sections from the 4th onward use `content-visibility: auto`. On the first input
+  `stack-scroll.js` adds `.stack-render-all`, so anchors, sticky offsets and ScrollTrigger
+  positions use real sizes afterwards. Anchor clicks and `#aloqa` force it too.
+- Stack and assembly measurements are batched into one animation frame; card heights are read
+  without the unstuck relayout; the stack fade starts at a card's stuck edge (a short first
+  screen is no longer dimmed).
+- Accessibility: contrast tokens (`--ink-3`, `--ok`, `.t-label`), names for the logo, menu,
+  reset button and ✓/✗ cells.
+
+Search and languages:
+- `/en/` and `/ru/` overview and product pages from `tools/i18n.mjs` (generator
+  `tools/generate-i18n.mjs`); every home/product page links uz/en/ru with hreflang,
+  `x-default` is Uzbek. The application itself stays Uzbek.
+- New `/ai/` page (FlowCore AI: module AI analysts, own AI key, MCP).
+- Product pages show a real screen of the demo company (`assets/images/screens/*.webp`,
+  640px variants for phones) and their own OG card (`assets/images/og/*.jpg`); regenerate with
+  `tools/capture-screens.mjs`.
+- `sitemap.xml` carries hreflang alternates and images; `llms.txt` (built from the same data)
+  summarises FlowCore for AI assistants; `robots.txt` explicitly allows AI crawlers.
+- `tools/check-site.py` now accepts uz/en/ru pages and checks sitemap hreflang and images.
+
+Off-site steps that the code cannot do: submit the sitemap in Google Search Console and Yandex
+Webmaster, request indexing of `/en/`, `/ru/` and `/ai/`, and keep the Telegram/Instagram
+profiles linking to flowcore.uz.
+
+## Platform look (2026-11-14)
+
+Requested direction: close to iotics.uz in structure, built only from FlowCore's own product.
+- Dark navy-green is the default theme (`data-theme="dark"`, tokens at the end of
+  `assets/css/style.css`); the toggle and a saved choice still switch to light.
+- Hero is two columns: brand, headline, CTAs and four fact cards (7 modules, 3 ways to run,
+  2 mobile apps, 5+ AI providers) next to a still render of our own 3D furniture factory
+  (`assets/images/hero/factory-hero*.webp`, rendered from `factory-scene.js` with a transparent
+  background) with module badges linked to their pages. The scroll assembly section now follows
+  the hero.
+- `#modullar` opens with a module grid built from `tools/products.json`: hovering or focusing a
+  card shows that module's real screen and points in the large panel.
+- The home header has a UZ/EN/RU language menu; generated pages have the UZ/EN/RU switch.
+- Kept fast: no `filter`/`backdrop-filter` on the hero (paint cost on phones), the hero image is
+  preloaded with 520/760/1400 widths, and sections from the third one skip rendering
+  (`.has-js main > section:nth-child(n+3)`) so the demo font (Inter, 350 KB) is not fetched at load.
+- A fixed bottom section-progress bar was tried and removed at the user's request.

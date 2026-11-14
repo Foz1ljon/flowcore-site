@@ -1,19 +1,21 @@
 <!doctype html>
-<html lang="uz" data-theme="light">
+<html lang="uz" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Primary SEO -->
-  <title>FlowCore — biznes uchun CRM, ERP va ombor dasturi</title>
+  <title>FlowCore — biznes uchun ERP, CRM, ombor va AI dasturi</title>
   <meta name="description" content="Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.">
   <meta name="author" content="FlowCore">
   <meta name="yandex-verification" content="09a3603c5db71a5a" />
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" id="themeColor" content="#fafafa">
+  <meta name="theme-color" id="themeColor" content="#050a0e">
   <link rel="canonical" href="https://flowcore.uz/">
   <link rel="alternate" hreflang="uz" href="https://flowcore.uz/">
+  <link rel="alternate" hreflang="en" href="https://flowcore.uz/en/">
+  <link rel="alternate" hreflang="ru" href="https://flowcore.uz/ru/">
   <link rel="alternate" hreflang="x-default" href="https://flowcore.uz/">
 
   <!-- Open Graph -->
@@ -21,7 +23,7 @@
   <meta property="og:site_name" content="FlowCore">
   <meta property="og:locale" content="uz_UZ">
   <meta property="og:url" content="https://flowcore.uz/">
-  <meta property="og:title" content="FlowCore — biznes uchun CRM, ERP va ombor dasturi">
+  <meta property="og:title" content="FlowCore — biznes uchun ERP, CRM, ombor va AI dasturi">
   <meta property="og:description" content="Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.">
   <meta property="og:image" content="https://flowcore.uz/og-image.png">
   <meta property="og:image:type" content="image/png">
@@ -31,7 +33,7 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="FlowCore — biznes uchun CRM, ERP va ombor dasturi">
+  <meta name="twitter:title" content="FlowCore — biznes uchun ERP, CRM, ombor va AI dasturi">
   <meta name="twitter:description" content="Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.">
   <meta name="twitter:image" content="https://flowcore.uz/og-image.png">
   <meta name="twitter:image:alt" content="FlowCore: ombor, ishlab chiqarish, xodimlar, mijozlar va ta’lim hisobi">
@@ -51,23 +53,24 @@
       var d = document.documentElement;
       // Set before CSS paints so the mobile header never occupies page flow.
       d.classList.add('has-js');
-      // Restore the saved choice before painting; first-time visitors see light mode.
-      var theme = 'light';
+      // Restore the saved choice before painting; first-time visitors see dark mode.
+      var theme = 'dark';
       try {
         var saved = localStorage.getItem('flowcore-theme');
         if (saved === 'light' || saved === 'dark') theme = saved;
       } catch (e) { /* Storage may be unavailable. */ }
       d.dataset.theme = theme;
-      document.querySelector('#themeColor').content = theme === 'dark' ? '#09090b' : '#fafafa';
+      document.querySelector('#themeColor').content = theme === 'dark' ? '#050a0e' : '#fafafa';
     })();
   </script>
 
   <!-- Main fonts are served locally; text does not wait for external services. -->
     <link rel="preload" href="assets/fonts/onest-latin-v11.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/dist/style.5b449e245172.css">
+  <link rel="preload" as="image" href="assets/images/hero/factory-hero-760.webp" imagesrcset="assets/images/hero/factory-hero-520.webp 520w, assets/images/hero/factory-hero-760.webp 760w, assets/images/hero/factory-hero.webp 1400w" imagesizes="(max-width: 1100px) 92vw, 52vw" fetchpriority="high">
+  <link rel="stylesheet" href="assets/dist/style.2e360722575e.css">
 
   <!-- Structured data -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://flowcore.uz/#organization","name":"FlowCore","url":"https://flowcore.uz/","logo":{"@type":"ImageObject","@id":"https://flowcore.uz/#logo","url":"https://flowcore.uz/icon-512.png","contentUrl":"https://flowcore.uz/icon-512.png","width":512,"height":512,"caption":"FlowCore"},"alternateName":["Flow Core","flowcore.uz","ФлоуКор"],"image":"https://flowcore.uz/og-image.png","description":"FlowCore — O‘zbekistondagi korxonalar uchun ombor, ishlab chiqarish (ERP), xodimlar va ish haqi (HR), mijozlar (CRM) va o‘quv markazi (LMS) hisobini yurituvchi o‘zbek tilidagi dastur.","areaServed":{"@type":"Country","name":"O‘zbekiston"},"address":{"@type":"PostalAddress","addressLocality":"Toshkent","addressCountry":"UZ"},"knowsLanguage":"uz","sameAs":["https://t.me/flowcoreuz","https://www.instagram.com/flowcore_uz"],"contactPoint":{"@type":"ContactPoint","contactType":"sales","url":"https://flowcore.uz/#aloqa","availableLanguage":["uz"],"areaServed":"UZ"}},{"@type":"WebSite","@id":"https://flowcore.uz/#website","url":"https://flowcore.uz/","name":"FlowCore","inLanguage":"uz","publisher":{"@id":"https://flowcore.uz/#organization"},"alternateName":["Flow Core","flowcore.uz","ФлоуКор"]},{"@type":"WebPage","@id":"https://flowcore.uz/#webpage","url":"https://flowcore.uz/","name":"FlowCore — biznes uchun CRM, ERP va ombor dasturi","description":"Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.","inLanguage":"uz","isPartOf":{"@id":"https://flowcore.uz/#website"},"about":{"@id":"https://flowcore.uz/#software"},"publisher":{"@id":"https://flowcore.uz/#organization"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://flowcore.uz/og-image.png","width":1200,"height":630},"mainEntity":{"@id":"https://flowcore.uz/#software"},"hasPart":{"@id":"https://flowcore.uz/#faq"}},{"@type":"SoftwareApplication","name":"FlowCore","applicationCategory":"BusinessApplication","applicationSubCategory":"ERP","operatingSystem":"Web, Windows, macOS, Linux","inLanguage":"uz","description":"Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.","featureList":["Ombor: kirim, chiqim va qoldiq","Ishlab chiqarish: buyurtma va bajarilgan ish","Xodimlar: davomat va ish haqi","Mijozlar: xabarlar va savdo","Ta’lim: dars, davomat va to‘lov","Internet orqali yoki kompyuterga o‘rnatib ishlash","HRM: planshet uchun Face ID ilovasi va bir qadamda sozlash","POS: kassa, savdo, to‘lovlar, nasiya va smena","Rahbar: Android telefonda hisobotlar va bildirishnomalar","FaceID: Android planshetda yuz orqali davomat","Moliya: hisoblar, kirim, chiqim va o‘tkazmalar — bonus modul"],"publisher":{"@id":"https://flowcore.uz/#organization"},"@id":"https://flowcore.uz/#software","url":"https://flowcore.uz/","isAccessibleForFree":false,"hasPart":[{"@id":"https://flowcore.uz/ombor/#software"},{"@id":"https://flowcore.uz/erp/#software"},{"@id":"https://flowcore.uz/ish-haqi/#software"},{"@id":"https://flowcore.uz/crm/#software"},{"@id":"https://flowcore.uz/talim/#software"},{"@id":"https://flowcore.uz/pos/#software"},{"@id":"https://flowcore.uz/moliya/#software"}],"alternateName":["Flow Core","FlowCore Moliya","FlowCore ERP","FlowCore CRM","FlowCore WMS","FlowCore HRM","FlowCore LMS","FlowCore POS","ФлоуКор"],"image":"https://flowcore.uz/og-image.png","countriesSupported":"UZ","mainEntityOfPage":{"@id":"https://flowcore.uz/#webpage"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"FlowCore nima va kimlar uchun kerak?","acceptedAnswer":{"@type":"Answer","text":"FlowCore — kundalik biznes hisobini yuritish dasturi. Do‘kon yoki omborda mahsulot qoldig‘ini, ishlab chiqarishda buyurtmalarni, jamoada davomat va ish haqini, savdoda mijozlarni, o‘quv markazida dars va to‘lovlarni hisobga olasiz. Faqat ishingizga kerakli bo‘limlarni tanlaysiz."}},{"@type":"Question","name":"Yuzni tanish orqali davomat qanday olinadi?","acceptedAnswer":{"@type":"Answer","text":"Face ID ilovasini planshetga o‘rnatasiz va bir qadamda sozlaysiz. Planshet yuzni tanish orqali xodimlar davomatini qayd etish uchun ishlatiladi. HRM bo‘limida davomat, ishlangan vaqt va ish haqini kuzatasiz. Planshetingiz mosligini va ulash tartibini tanishuvda ko‘rib chiqamiz."}},{"@type":"Question","name":"Faqat kerakli bo‘limlarni tanlasam bo‘ladimi?","acceptedAnswer":{"@type":"Answer","text":"Ha. Masalan, ombor va ish haqi yoki mijozlar va ta’lim bo‘limlari bilan boshlaysiz. Ishlab chiqarish bo‘limi ombor bilan birga ishlaydi. Boshqa bo‘limlarni keyin qo‘shish mumkin."}},{"@type":"Question","name":"Internet orqali ishlash va kompyuterga o‘rnatishning farqi nima?","acceptedAnswer":{"@type":"Answer","text":"Internet orqali ishlasangiz, jamoangiz bir xil ma’lumotni turli joydan ko‘radi. Kompyuterga o‘rnatsangiz, hisoblar o‘sha kompyuterda saqlanadi. Dasturni ishga tushirish hamda Telegram va Instagramdan xabar olish uchun internet kerak."}},{"@type":"Question","name":"Xodimlar faqat kerakli bo‘limlarni ko‘radimi?","acceptedAnswer":{"@type":"Answer","text":"Egasi yoki boshqaruvchi xodimning qaysi bo‘limlarni ko‘rishi, qaysilarini tahrirlashi mumkinligini belgilaydi. Bu ruxsatlar tizimdagi amallarda tekshiriladi."}},{"@type":"Question","name":"Kompaniyamning ma’lumotlari qanday ajratiladi?","acceptedAnswer":{"@type":"Answer","text":"Ma’lumotlarga kirish kompaniya va foydalanuvchi huquqlari asosida tekshiriladi. Boshqa kompaniya xodimi sizning ish ma’lumotlaringizni ko‘rmaydi. Kompyuterga o‘rnatilganda ma’lumotlar o‘zingizda saqlanadi."}},{"@type":"Question","name":"Mavjud Excel hisoblarimiz bilan boshlay olamizmi?","acceptedAnswer":{"@type":"Answer","text":"Suhbat davomida jadval tuzilishi va boshlang‘ich qoldiqlarni ko‘rib chiqamiz. Qaysi ma’lumotlarni qanday kiritish kerakligi hajmi va tuzilishiga qarab kelishiladi."}},{"@type":"Question","name":"Telegram va Instagram o‘z-o‘zidan ulanadimi?","acceptedAnswer":{"@type":"Answer","text":"Kanallar alohida ulanadi va tegishli hisob ruxsatlari talab qilinadi. Telegram bot tokeni, Instagram uchun mos professional hisob va ruxsatlar kerak. Xabar almashish internet orqali ishlaydi."}},{"@type":"Question","name":"Narx qanday hisoblanadi?","acceptedAnswer":{"@type":"Answer","text":"Narx kerakli bo‘limlar, xodimlar soni va dasturdan qanday foydalanishingizga bog‘liq. Tanlovingizni yuboring, sizga narxini aytamiz. Bu sahifada pul to‘lamaysiz."}},{"@type":"Question","name":"Bu sahifada sinab ko‘rganlarim saqlanadimi?","acceptedAnswer":{"@type":"Answer","text":"Yo‘q. Bu yerdagi tugmalarni bemalol sinang: raqamlar faqat tanishish uchun. Sahifani qayta ochsangiz, hammasi avvalgi holiga qaytadi. Ism va telefoningizni yuborsangiz esa siz bilan bog‘lanish uchun saqlanadi."}},{"@type":"Question","name":"FlowCore, Flow Core yoki CoreFlow — qaysi biri to‘g‘ri?","acceptedAnswer":{"@type":"Answer","text":"Ushbu dasturning rasmiy nomi FlowCore, sayti flowcore.uz. Flow Core yoki CoreFlow deb qidirgan bo‘lsangiz, mahsulot nomi va rasmiy domenni tekshiring. FlowCore ombor, ishlab chiqarish, mijozlar, xodimlar va ta’lim hisobini yuritadi."}}],"@id":"https://flowcore.uz/#faq","isPartOf":{"@id":"https://flowcore.uz/#webpage"},"inLanguage":"uz"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://flowcore.uz/#organization","name":"FlowCore","url":"https://flowcore.uz/","logo":{"@type":"ImageObject","@id":"https://flowcore.uz/#logo","url":"https://flowcore.uz/icon-512.png","contentUrl":"https://flowcore.uz/icon-512.png","width":512,"height":512,"caption":"FlowCore"},"alternateName":["Flow Core","flowcore.uz","ФлоуКор"],"image":"https://flowcore.uz/og-image.png","description":"FlowCore — O‘zbekistondagi korxonalar uchun ombor, ishlab chiqarish (ERP), xodimlar va ish haqi (HR), mijozlar (CRM) va o‘quv markazi (LMS) hisobini yurituvchi o‘zbek tilidagi dastur.","areaServed":{"@type":"Country","name":"O‘zbekiston"},"address":{"@type":"PostalAddress","addressLocality":"Toshkent","addressCountry":"UZ"},"knowsLanguage":"uz","sameAs":["https://t.me/flowcoreuz","https://www.instagram.com/flowcore_uz"],"contactPoint":{"@type":"ContactPoint","contactType":"sales","url":"https://flowcore.uz/#aloqa","availableLanguage":["uz"],"areaServed":"UZ"}},{"@type":"WebSite","@id":"https://flowcore.uz/#website","url":"https://flowcore.uz/","name":"FlowCore","inLanguage":"uz","publisher":{"@id":"https://flowcore.uz/#organization"},"alternateName":["Flow Core","flowcore.uz","ФлоуКор"]},{"@type":"WebPage","@id":"https://flowcore.uz/#webpage","url":"https://flowcore.uz/","name":"FlowCore — biznes uchun ERP, CRM, ombor va AI dasturi","description":"Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.","inLanguage":"uz","isPartOf":{"@id":"https://flowcore.uz/#website"},"about":{"@id":"https://flowcore.uz/#software"},"publisher":{"@id":"https://flowcore.uz/#organization"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://flowcore.uz/og-image.png","width":1200,"height":630},"mainEntity":{"@id":"https://flowcore.uz/#software"},"hasPart":{"@id":"https://flowcore.uz/#faq"}},{"@type":"SoftwareApplication","name":"FlowCore","applicationCategory":"BusinessApplication","applicationSubCategory":"ERP","operatingSystem":"Web, Windows, macOS, Linux","inLanguage":"uz","description":"Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.","featureList":["Ombor: kirim, chiqim va qoldiq","Ishlab chiqarish: buyurtma va bajarilgan ish","Xodimlar: davomat va ish haqi","Mijozlar: xabarlar va savdo","Ta’lim: dars, davomat va to‘lov","Internet orqali yoki kompyuterga o‘rnatib ishlash","HRM: planshet uchun Face ID ilovasi va bir qadamda sozlash","POS: kassa, savdo, to‘lovlar, nasiya va smena","Rahbar: Android telefonda hisobotlar va bildirishnomalar","FaceID: Android planshetda yuz orqali davomat","Moliya: hisoblar, kirim, chiqim va o‘tkazmalar — bonus modul","AI: har bir bo‘limda AI tahlilchi va MCP orqali AI agent ulash"],"publisher":{"@id":"https://flowcore.uz/#organization"},"@id":"https://flowcore.uz/#software","url":"https://flowcore.uz/","isAccessibleForFree":false,"hasPart":[{"@id":"https://flowcore.uz/ombor/#software"},{"@id":"https://flowcore.uz/erp/#software"},{"@id":"https://flowcore.uz/ish-haqi/#software"},{"@id":"https://flowcore.uz/crm/#software"},{"@id":"https://flowcore.uz/talim/#software"},{"@id":"https://flowcore.uz/pos/#software"},{"@id":"https://flowcore.uz/moliya/#software"},{"@id":"https://flowcore.uz/ai/#software"}],"alternateName":["Flow Core","FlowCore AI","FlowCore Moliya","FlowCore ERP","FlowCore CRM","FlowCore WMS","FlowCore HRM","FlowCore LMS","FlowCore POS","FlowCore Rahbar","FlowCore FaceID","ФлоуКор"],"image":"https://flowcore.uz/og-image.png","countriesSupported":"UZ","mainEntityOfPage":{"@id":"https://flowcore.uz/#webpage"},"screenshot":[{"@type":"ImageObject","url":"https://flowcore.uz/assets/images/screens/ombor.webp","width":1240,"height":752},{"@type":"ImageObject","url":"https://flowcore.uz/assets/images/screens/erp.webp","width":1240,"height":752},{"@type":"ImageObject","url":"https://flowcore.uz/assets/images/screens/crm.webp","width":1240,"height":752},{"@type":"ImageObject","url":"https://flowcore.uz/assets/images/screens/ish-haqi.webp","width":1240,"height":752},{"@type":"ImageObject","url":"https://flowcore.uz/assets/images/screens/talim.webp","width":1240,"height":752},{"@type":"ImageObject","url":"https://flowcore.uz/assets/images/screens/pos.webp","width":1240,"height":752}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"FlowCore nima va kimlar uchun kerak?","acceptedAnswer":{"@type":"Answer","text":"FlowCore — kundalik biznes hisobini yuritish dasturi. Do‘kon yoki omborda mahsulot qoldig‘ini, ishlab chiqarishda buyurtmalarni, jamoada davomat va ish haqini, savdoda mijozlarni, o‘quv markazida dars va to‘lovlarni hisobga olasiz. Faqat ishingizga kerakli bo‘limlarni tanlaysiz."}},{"@type":"Question","name":"Yuzni tanish orqali davomat qanday olinadi?","acceptedAnswer":{"@type":"Answer","text":"Face ID ilovasini planshetga o‘rnatasiz va bir qadamda sozlaysiz. Planshet yuzni tanish orqali xodimlar davomatini qayd etish uchun ishlatiladi. HRM bo‘limida davomat, ishlangan vaqt va ish haqini kuzatasiz. Planshetingiz mosligini va ulash tartibini tanishuvda ko‘rib chiqamiz."}},{"@type":"Question","name":"Faqat kerakli bo‘limlarni tanlasam bo‘ladimi?","acceptedAnswer":{"@type":"Answer","text":"Ha. Masalan, ombor va ish haqi yoki mijozlar va ta’lim bo‘limlari bilan boshlaysiz. Ishlab chiqarish bo‘limi ombor bilan birga ishlaydi. Boshqa bo‘limlarni keyin qo‘shish mumkin."}},{"@type":"Question","name":"Internet orqali ishlash va kompyuterga o‘rnatishning farqi nima?","acceptedAnswer":{"@type":"Answer","text":"Internet orqali ishlasangiz, jamoangiz bir xil ma’lumotni turli joydan ko‘radi. Kompyuterga o‘rnatsangiz, hisoblar o‘sha kompyuterda saqlanadi. Dasturni ishga tushirish hamda Telegram va Instagramdan xabar olish uchun internet kerak."}},{"@type":"Question","name":"Xodimlar faqat kerakli bo‘limlarni ko‘radimi?","acceptedAnswer":{"@type":"Answer","text":"Egasi yoki boshqaruvchi xodimning qaysi bo‘limlarni ko‘rishi, qaysilarini tahrirlashi mumkinligini belgilaydi. Bu ruxsatlar tizimdagi amallarda tekshiriladi."}},{"@type":"Question","name":"Kompaniyamning ma’lumotlari qanday ajratiladi?","acceptedAnswer":{"@type":"Answer","text":"Ma’lumotlarga kirish kompaniya va foydalanuvchi huquqlari asosida tekshiriladi. Boshqa kompaniya xodimi sizning ish ma’lumotlaringizni ko‘rmaydi. Kompyuterga o‘rnatilganda ma’lumotlar o‘zingizda saqlanadi."}},{"@type":"Question","name":"Mavjud Excel hisoblarimiz bilan boshlay olamizmi?","acceptedAnswer":{"@type":"Answer","text":"Suhbat davomida jadval tuzilishi va boshlang‘ich qoldiqlarni ko‘rib chiqamiz. Qaysi ma’lumotlarni qanday kiritish kerakligi hajmi va tuzilishiga qarab kelishiladi."}},{"@type":"Question","name":"Telegram va Instagram o‘z-o‘zidan ulanadimi?","acceptedAnswer":{"@type":"Answer","text":"Kanallar alohida ulanadi va tegishli hisob ruxsatlari talab qilinadi. Telegram bot tokeni, Instagram uchun mos professional hisob va ruxsatlar kerak. Xabar almashish internet orqali ishlaydi."}},{"@type":"Question","name":"Narx qanday hisoblanadi?","acceptedAnswer":{"@type":"Answer","text":"Narx kerakli bo‘limlar, xodimlar soni va dasturdan qanday foydalanishingizga bog‘liq. Tanlovingizni yuboring, sizga narxini aytamiz. Bu sahifada pul to‘lamaysiz."}},{"@type":"Question","name":"Bu sahifada sinab ko‘rganlarim saqlanadimi?","acceptedAnswer":{"@type":"Answer","text":"Yo‘q. Bu yerdagi tugmalarni bemalol sinang: raqamlar faqat tanishish uchun. Sahifani qayta ochsangiz, hammasi avvalgi holiga qaytadi. Ism va telefoningizni yuborsangiz esa siz bilan bog‘lanish uchun saqlanadi."}},{"@type":"Question","name":"FlowCore, Flow Core yoki CoreFlow — qaysi biri to‘g‘ri?","acceptedAnswer":{"@type":"Answer","text":"Ushbu dasturning rasmiy nomi FlowCore, sayti flowcore.uz. Flow Core yoki CoreFlow deb qidirgan bo‘lsangiz, mahsulot nomi va rasmiy domenni tekshiring. FlowCore ombor, ishlab chiqarish, mijozlar, xodimlar va ta’lim hisobini yuritadi."}}],"@id":"https://flowcore.uz/#faq","isPartOf":{"@id":"https://flowcore.uz/#webpage"},"inLanguage":"uz"}]}</script>
 </head>
 <body id="top" class="landing-page">
   <!-- Lucide SVG symbols. License: assets/icons/LICENSE.txt -->
@@ -145,13 +148,13 @@
   <!-- ================= HEADER ================= -->
   <header class="site-header landing-header">
     <div class="wrap header-inner">
-      <a class="logo" href="#top" aria-label="FlowCore, bosh sahifa">
+      <a class="logo" href="#top">
         <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
           <rect width="64" height="64" rx="18" fill="#064e3b"/>
           <path d="M20 46V27C20 22.0294 24.0294 18 29 18H46M20 33H39" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
           <circle cx="46" cy="46" r="5" fill="#6ee7b7"/>
         </svg>
-        <span class="brand-wordmark">FlowCore<b>.</b><small>Biznesingiz bir oqimda</small></span>
+        <span class="brand-wordmark">FlowCore<b>.</b><small>Biznesingiz bir oqimda</small></span><span class="sr-only"> — bosh sahifa</span>
       </a>
 
       <nav class="nav" id="nav" aria-label="Asosiy menyu">
@@ -165,11 +168,15 @@
       </nav>
 
       <div class="header-tools">
+        <details class="lang-menu">
+          <summary><span aria-hidden="true">UZ</span><span class="sr-only">Til: O‘zbekcha. Tilni tanlash</span></summary>
+          <nav aria-label="Tillar"><a href="/" hreflang="uz" lang="uz" aria-current="page">O‘zbekcha</a><a href="/en/" hreflang="en" lang="en">English</a><a href="/ru/" hreflang="ru" lang="ru">Русский</a></nav>
+        </details>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Kunduzgi rejimga o‘tish">
-          <svg class="icon i-moon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>moon</title><use href="#icon-moon"></use></svg>
-          <svg class="icon i-sun" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>sun</title><use href="#icon-sun"></use></svg>
+          <svg class="icon i-moon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-moon"></use></svg>
+          <svg class="icon i-sun" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-sun"></use></svg>
         </button>
-        <button class="nav-toggle" id="navToggle" type="button" aria-label="Menyuni ochish" aria-expanded="false" aria-controls="nav">
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Menyu: ochish" aria-expanded="false" aria-controls="nav">
           <b class="nav-toggle-label">Menyu</b><span></span><span></span>
         </button>
       </div>
@@ -178,54 +185,40 @@
   <button type="button" class="menu-backdrop" id="menuBackdrop" aria-label="Menyuni yopish" tabindex="-1" hidden></button>
 
   <main id="main">
-    <section class="assembly-intro" data-assembly-intro aria-label="AI yordamchilari bilan biznes modullari FlowCore’ga birlashadi">
-      <div class="assembly-sticky wrap">
-        <figure class="connected-flow" data-connected-scene aria-label="FlowCore bo‘limlari bitta hisobda bog‘langan">
-          <div class="connected-stage">
-            <div class="assembly-aura" aria-hidden="true"></div>
-            <div class="connected-core-label"><svg class="assembly-brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="18" fill="#064e3b"/><path d="M20 46V27C20 22.0294 24.0294 18 29 18H46M20 33H39" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="46" cy="46" r="5" fill="#6ee7b7"/></svg><b>FlowCore<span aria-hidden="true">.</span></b><span>Biznesingiz bir oqimda</span></div>
-            <div class="connected-nodes" role="group" aria-label="Bo‘limlar va AI yordamchilari — 3D namuna">
-              <button type="button" disabled data-flow-module="crm" aria-pressed="false" style="--node-color:var(--c-crm);--fallback-x:21%;--fallback-y:28%"><span>Mijozlar</span><small>CRM</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
-              <button type="button" disabled data-flow-module="erp" aria-pressed="false" style="--node-color:var(--c-erp);--fallback-x:51%;--fallback-y:17%"><span>Ishlab chiqarish</span><small>ERP</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
-              <button type="button" disabled data-flow-module="hr" aria-pressed="false" style="--node-color:var(--c-hr);--fallback-x:80%;--fallback-y:30%"><span>Ish haqi</span><small>HRM</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
-              <button type="button" disabled data-flow-module="wms" aria-pressed="false" style="--node-color:var(--c-wms);--fallback-x:80%;--fallback-y:73%"><span>Ombor</span><small>WMS</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
-              <button type="button" disabled data-flow-module="lms" aria-pressed="false" style="--node-color:var(--c-lms);--fallback-x:49%;--fallback-y:85%"><span>Ta’lim</span><small>LMS</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
-              <button type="button" disabled data-flow-module="pos" aria-pressed="true" style="--node-color:var(--accent);--fallback-x:20%;--fallback-y:72%"><span>Savdo va kassa</span><small>POS</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
-              <button type="button" disabled data-flow-module="finance" aria-pressed="false" style="--node-color:var(--c-finance);--fallback-x:15%;--fallback-y:55%"><span>Moliya</span><small>Kirim · Chiqim</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
-            </div>
-            <div class="assembly-result" aria-label="FlowCore bilan ishlash">
-              <article><h3>Hisoblar bir joyda</h3><p>Ombor qoldig‘i, savdo va pul harakatini bir tizimda kuzating.</p></article>
-              <article><h3>Bo‘limlar bog‘langan</h3><p>POS, ishlab chiqarish, ish haqi va ta’limni ish tartibingizga mos ulang.</p></article>
-              <article><h3>Nazorat o‘zingizda</h3><p>Xodimlarga ko‘rish va tahrirlash ruxsatlarini belgilang.</p></article>
-            </div>
-          </div>
-        </figure>
-      </div>
-    </section>
-
     <!-- ================= HERO ================= -->
     <section class="hero" id="bosh-sahifa" aria-labelledby="hero-title">
       <div class="wrap">
-        <div class="hero-meta">
-          <span>FlowCore</span>
-          <span>Ishingiz uchun hisob dasturi</span>
-          <span>Toshkent · <time id="clock">--:--</time></span>
-        </div>
-
-        <div class="hero-intro">
+        <div class="hero-stage">
           <div class="hero-copy">
-            <p class="hero-eyebrow"><span></span> Biznes hisobini yuritish uchun o‘zbekcha dastur</p>
-            <h1 id="hero-title" class="hero-title"><span class="sr-only">FlowCore — </span>Ishingiz tartibda.<br>Hisob <em class="flow-word">bir joyda.</em></h1>
-            <p class="hero-lead">FlowCore — ombor, savdo, ishlab chiqarish, ish haqi va o‘quv markazi hisobini yuritadigan dastur. Qancha mahsulot qoldi, buyurtma qayergacha yetdi, kimga qancha to‘lash kerak — bitta joydan bilasiz.</p>
+            <p class="hero-eyebrow"><span></span> FlowCore · yagona biznes platformasi</p>
+            <p class="hero-brand" aria-hidden="true"><b>FLOWCORE</b><span>Platforma</span></p>
+            <h1 id="hero-title" class="hero-title"><span class="sr-only">FlowCore — </span>Yagona platforma.<br>Butun biznesingiz <em class="flow-word">bir oqimda.</em></h1>
+            <p class="hero-lead">Ombor, ishlab chiqarish, savdo, xodimlar, ta’lim va moliya — har bo‘limida AI tahlilchi bor yagona o‘zbekcha tizim.</p>
             <div class="hero-actions">
-              <a class="btn btn-accent btn-lg" href="#ichkarida">Dasturni sinab ko‘rish <span aria-hidden="true">↗</span></a>
-              <a class="btn btn-line btn-lg" href="#aloqa">Bepul tanishuv olish <span aria-hidden="true">→</span></a>
+              <a class="btn btn-accent btn-lg" href="#ichkarida">Platforma bilan tanishish <span aria-hidden="true">→</span></a>
+              <a class="btn btn-line btn-lg" href="#aloqa">Bepul tanishuv</a>
             </div>
             <p class="hero-reassurance">Namunani ro‘yxatdan o‘tmasdan sinaysiz. Hech qanday to‘lov yo‘q.</p>
-            <ul class="hero-benefits"><li>O‘zbek tilida</li><li>Faqat kerakli bo‘limlar</li><li>Brauzerda yoki kompyuterda</li></ul>
-            <div class="hero-module-line" aria-label="Dastur bo‘limlari"><span>Ombor</span><i aria-hidden="true"></i><span>Ishlab chiqarish</span><i aria-hidden="true"></i><span>Ish haqi</span><i aria-hidden="true"></i><span>Mijozlar</span><i aria-hidden="true"></i><span>Ta’lim</span><i aria-hidden="true"></i><span>POS · Kassa</span><i aria-hidden="true"></i><span>Moliya</span></div>
+            <dl class="hero-stats">
+              <div><dt>Biznes modullari</dt><dd><b>7</b><small>WMS, ERP, CRM, HRM, LMS, POS, Moliya</small></dd></div>
+              <div><dt>Ishlash usuli</dt><dd><b>3</b><small>Brauzer, Windows, macOS</small></dd></div>
+              <div><dt>Mobil ilovalar</dt><dd><b>2</b><small>Rahbar va FaceID · Android</small></dd></div>
+              <div><dt>AI xizmatlari</dt><dd><b>5+</b><small>OpenAI, Claude, Gemini, OpenRouter</small></dd></div>
+            </dl>
           </div>
-
+          <figure class="hero-visual" aria-label="FlowCore bo‘limlari bitta korxonada: ombor, ishlab chiqarish, xodimlar, savdo va AI tahlil">
+            <div class="hero-art">
+              <img src="assets/images/hero/factory-hero.webp" srcset="assets/images/hero/factory-hero-520.webp 520w, assets/images/hero/factory-hero-760.webp 760w, assets/images/hero/factory-hero.webp 1400w" sizes="(max-width: 1100px) 92vw, 52vw" width="1400" height="843" alt="FlowCore bilan ishlaydigan mebel korxonasining 3D modeli: xomashyo ombori, kesish stanogi, yig‘ish liniyasi va jo‘natish" fetchpriority="high" decoding="async">
+              <svg class="hero-links" viewBox="0 0 100 114" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M52 0 L24 40"/><path d="M52 0 L44 50"/><path d="M52 0 L66 64"/><path d="M52 0 L84 80"/><path d="M52 0 L16 80"/><path d="M52 0 L58 100"/></svg>
+              <span class="hero-core"><b>FlowCore</b><small>AI tahlilchi</small></span>
+              <a class="hero-node" href="/ombor/" style="--x:24%;--y:26%;--node:var(--c-wms)"><b>WMS</b><small>Ombor</small></a>
+              <a class="hero-node" href="/erp/" style="--x:44%;--y:36%;--node:var(--c-erp)"><b>ERP</b><small>Ishlab chiqarish</small></a>
+              <a class="hero-node" href="/ish-haqi/" style="--x:66%;--y:50%;--node:var(--c-hr)"><b>HRM</b><small>FaceID · ish haqi</small></a>
+              <a class="hero-node" href="/crm/" style="--x:84%;--y:66%;--node:var(--c-crm)"><b>CRM</b><small>Mijozlar · savdo</small></a>
+              <a class="hero-node" href="/moliya/" style="--x:16%;--y:66%;--node:var(--c-finance)"><b>Moliya</b><small>Kirim · chiqim</small></a>
+              <a class="hero-node" href="/pos/" style="--x:58%;--y:86%;--node:var(--accent)"><b>POS</b><small>Kassa</small></a>
+            </div>
+          </figure>
         </div>
         <section class="benefit-bridge" id="foyda" aria-labelledby="benefit-title">
           <header class="benefit-heading">
@@ -281,20 +274,20 @@
           <div class="choice-heading" id="kerakli-bolim"><div><p class="hero-eyebrow">Sizga qaysi biri kerak?</p><h2>Ishingizga mos bo‘limdan boshlang.</h2></div><p>Hammasini olish shart emas.<br>Kerakli bo‘limni ochib, nimalar qilishini o‘qing.</p></div>
           <div class="module-marquee"><div class="module-marquee-track">
           <nav class="module-directory" aria-label="Kerakli bo‘limga o‘tish">
-      <a class="module-shortcut" href="/ombor/" style="--module-color:var(--c-wms)"><span class="shortcut-icon" data-module-symbol="wms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>warehouse</title><use href="#icon-warehouse"></use></svg></span><span><b>Ombor</b><small>Nima keldi, qancha qoldi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" href="/erp/" style="--module-color:var(--c-erp)"><span class="shortcut-icon" data-module-symbol="erp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg></span><span><b>Ishlab chiqarish</b><small>Qaysi buyurtma tayyor?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" href="/ish-haqi/" style="--module-color:var(--c-hr)"><span class="shortcut-icon" data-module-symbol="hr"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>users-round</title><use href="#icon-users-round"></use></svg></span><span><b>Xodimlar</b><small>Kim ishladi, qancha oladi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" href="/crm/" style="--module-color:var(--c-crm)"><span class="shortcut-icon" data-module-symbol="crm"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>messages-square</title><use href="#icon-messages-square"></use></svg></span><span><b>Mijozlar</b><small>Qaysi mijozga javob kerak?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" href="/talim/" style="--module-color:var(--c-lms)"><span class="shortcut-icon" data-module-symbol="lms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg></span><span><b>Ta’lim</b><small>Kim keldi, kim to‘ladi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" href="/ombor/" style="--module-color:var(--c-wms)"><span class="shortcut-icon" data-module-symbol="wms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-warehouse"></use></svg></span><span><b>Ombor</b><small>Nima keldi, qancha qoldi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" href="/erp/" style="--module-color:var(--c-erp)"><span class="shortcut-icon" data-module-symbol="erp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-factory"></use></svg></span><span><b>Ishlab chiqarish</b><small>Qaysi buyurtma tayyor?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" href="/ish-haqi/" style="--module-color:var(--c-hr)"><span class="shortcut-icon" data-module-symbol="hr"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-users-round"></use></svg></span><span><b>Xodimlar</b><small>Kim ishladi, qancha oladi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" href="/crm/" style="--module-color:var(--c-crm)"><span class="shortcut-icon" data-module-symbol="crm"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-messages-square"></use></svg></span><span><b>Mijozlar</b><small>Qaysi mijozga javob kerak?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" href="/talim/" style="--module-color:var(--c-lms)"><span class="shortcut-icon" data-module-symbol="lms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-graduation-cap"></use></svg></span><span><b>Ta’lim</b><small>Kim keldi, kim to‘ladi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
           <a class="module-shortcut" href="/pos/" style="--module-color:var(--accent)"><span class="shortcut-icon"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-store"></use></svg></span><span><b>POS · Kassa</b><small>Savdo, to‘lov va nasiya</small></span></a>
       <a class="module-shortcut" href="/moliya/" style="--module-color:var(--c-finance)"><span class="shortcut-icon" data-module-symbol="finance"><svg class="icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-wallet"/></svg></span><span><b>Moliya</b><small>Kirim, chiqim va hisoblar · bonus</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg></a>
 </nav>
           <div class="module-directory" aria-hidden="true">
-      <a class="module-shortcut" tabindex="-1" href="/ombor/" style="--module-color:var(--c-wms)"><span class="shortcut-icon" data-module-symbol="wms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>warehouse</title><use href="#icon-warehouse"></use></svg></span><span><b>Ombor</b><small>Nima keldi, qancha qoldi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" tabindex="-1" href="/erp/" style="--module-color:var(--c-erp)"><span class="shortcut-icon" data-module-symbol="erp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg></span><span><b>Ishlab chiqarish</b><small>Qaysi buyurtma tayyor?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" tabindex="-1" href="/ish-haqi/" style="--module-color:var(--c-hr)"><span class="shortcut-icon" data-module-symbol="hr"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>users-round</title><use href="#icon-users-round"></use></svg></span><span><b>Xodimlar</b><small>Kim ishladi, qancha oladi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" tabindex="-1" href="/crm/" style="--module-color:var(--c-crm)"><span class="shortcut-icon" data-module-symbol="crm"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>messages-square</title><use href="#icon-messages-square"></use></svg></span><span><b>Mijozlar</b><small>Qaysi mijozga javob kerak?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-      <a class="module-shortcut" tabindex="-1" href="/talim/" style="--module-color:var(--c-lms)"><span class="shortcut-icon" data-module-symbol="lms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg></span><span><b>Ta’lim</b><small>Kim keldi, kim to‘ladi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" tabindex="-1" href="/ombor/" style="--module-color:var(--c-wms)"><span class="shortcut-icon" data-module-symbol="wms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-warehouse"></use></svg></span><span><b>Ombor</b><small>Nima keldi, qancha qoldi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" tabindex="-1" href="/erp/" style="--module-color:var(--c-erp)"><span class="shortcut-icon" data-module-symbol="erp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-factory"></use></svg></span><span><b>Ishlab chiqarish</b><small>Qaysi buyurtma tayyor?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" tabindex="-1" href="/ish-haqi/" style="--module-color:var(--c-hr)"><span class="shortcut-icon" data-module-symbol="hr"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-users-round"></use></svg></span><span><b>Xodimlar</b><small>Kim ishladi, qancha oladi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" tabindex="-1" href="/crm/" style="--module-color:var(--c-crm)"><span class="shortcut-icon" data-module-symbol="crm"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-messages-square"></use></svg></span><span><b>Mijozlar</b><small>Qaysi mijozga javob kerak?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
+      <a class="module-shortcut" tabindex="-1" href="/talim/" style="--module-color:var(--c-lms)"><span class="shortcut-icon" data-module-symbol="lms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-graduation-cap"></use></svg></span><span><b>Ta’lim</b><small>Kim keldi, kim to‘ladi?</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
           <a class="module-shortcut" tabindex="-1" href="/pos/" style="--module-color:var(--accent)"><span class="shortcut-icon"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-store"></use></svg></span><span><b>POS · Kassa</b><small>Savdo, to‘lov va nasiya</small></span></a>
       <a class="module-shortcut" tabindex="-1" href="/moliya/" style="--module-color:var(--c-finance)"><span class="shortcut-icon" data-module-symbol="finance"><svg class="icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-wallet"/></svg></span><span><b>Moliya</b><small>Kirim, chiqim va hisoblar · bonus</small></span><svg class="icon shortcut-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg></a>
 </div>
@@ -328,6 +321,31 @@
 
 
     <!-- Product tour uses illustrative data; no account or remote requests. -->
+    <section class="assembly-intro" data-assembly-intro aria-label="AI yordamchilari bilan biznes modullari FlowCore’ga birlashadi">
+      <div class="assembly-sticky wrap">
+        <figure class="connected-flow" data-connected-scene aria-label="FlowCore bo‘limlari bitta hisobda bog‘langan">
+          <div class="connected-stage">
+            <div class="assembly-aura" aria-hidden="true"></div>
+            <div class="connected-core-label"><svg class="assembly-brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="18" fill="#064e3b"/><path d="M20 46V27C20 22.0294 24.0294 18 29 18H46M20 33H39" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="46" cy="46" r="5" fill="#6ee7b7"/></svg><b>FlowCore<span aria-hidden="true">.</span></b><span>Biznesingiz bir oqimda</span></div>
+            <div class="connected-nodes" role="group" aria-label="Bo‘limlar va AI yordamchilari — 3D namuna">
+              <button type="button" disabled data-flow-module="crm" aria-pressed="false" style="--node-color:var(--c-crm);--fallback-x:21%;--fallback-y:28%"><span>Mijozlar</span><small>CRM</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
+              <button type="button" disabled data-flow-module="erp" aria-pressed="false" style="--node-color:var(--c-erp);--fallback-x:51%;--fallback-y:17%"><span>Ishlab chiqarish</span><small>ERP</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
+              <button type="button" disabled data-flow-module="hr" aria-pressed="false" style="--node-color:var(--c-hr);--fallback-x:80%;--fallback-y:30%"><span>Ish haqi</span><small>HRM</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
+              <button type="button" disabled data-flow-module="wms" aria-pressed="false" style="--node-color:var(--c-wms);--fallback-x:80%;--fallback-y:73%"><span>Ombor</span><small>WMS</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
+              <button type="button" disabled data-flow-module="lms" aria-pressed="false" style="--node-color:var(--c-lms);--fallback-x:49%;--fallback-y:85%"><span>Ta’lim</span><small>LMS</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
+              <button type="button" disabled data-flow-module="pos" aria-pressed="true" style="--node-color:var(--accent);--fallback-x:20%;--fallback-y:72%"><span>Savdo va kassa</span><small>POS</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
+              <button type="button" disabled data-flow-module="finance" aria-pressed="false" style="--node-color:var(--c-finance);--fallback-x:15%;--fallback-y:55%"><span>Moliya</span><small>Kirim · Chiqim</small><span class="module-agent-tag" aria-hidden="true">AI</span></button>
+            </div>
+            <div class="assembly-result" aria-label="FlowCore bilan ishlash">
+              <article><h3>Hisoblar bir joyda</h3><p>Ombor qoldig‘i, savdo va pul harakatini bir tizimda kuzating.</p></article>
+              <article><h3>Bo‘limlar bog‘langan</h3><p>POS, ishlab chiqarish, ish haqi va ta’limni ish tartibingizga mos ulang.</p></article>
+              <article><h3>Nazorat o‘zingizda</h3><p>Xodimlarga ko‘rish va tahrirlash ruxsatlarini belgilang.</p></article>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
     <section class="section product-tour" id="ichkarida" aria-labelledby="tour-title">
       <div class="wrap">
         <header class="sec-head">
@@ -337,11 +355,11 @@
         </header>
         <noscript><p class="form-help">O‘zingiz sinab ko‘ring uchun JavaScriptni yoqing. Bo‘limlarning to‘liq tavsifi quyidagi bo‘limda mavjud.</p></noscript>
             <div class="product-tabs tour-app-switcher" role="tablist" aria-label="Namuna ilovasini tanlang">
-              <button type="button" role="tab" id="tour-tab-wms" aria-controls="tour-panel" aria-selected="true" tabindex="0" data-tour="wms"><svg class="icon module-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>warehouse</title><use href="#icon-warehouse"></use></svg>Ombor </button>
-              <button type="button" role="tab" id="tour-tab-erp" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-tour="erp"><svg class="icon module-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg>Ishlab chiqarish </button>
-              <button type="button" role="tab" id="tour-tab-hr" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-tour="hr"><svg class="icon module-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>users-round</title><use href="#icon-users-round"></use></svg>Xodimlar </button>
-              <button type="button" role="tab" id="tour-tab-crm" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-tour="crm"><svg class="icon module-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>messages-square</title><use href="#icon-messages-square"></use></svg>Mijozlar </button>
-              <button type="button" role="tab" id="tour-tab-lms" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-tour="lms"><svg class="icon module-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg>Ta’lim </button>
+              <button type="button" role="tab" id="tour-tab-wms" aria-controls="tour-panel" aria-selected="true" tabindex="0" data-tour="wms"><svg class="icon module-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-warehouse"></use></svg>Ombor </button>
+              <button type="button" role="tab" id="tour-tab-erp" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-tour="erp"><svg class="icon module-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-factory"></use></svg>Ishlab chiqarish </button>
+              <button type="button" role="tab" id="tour-tab-hr" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-tour="hr"><svg class="icon module-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-users-round"></use></svg>Xodimlar </button>
+              <button type="button" role="tab" id="tour-tab-crm" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-tour="crm"><svg class="icon module-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-messages-square"></use></svg>Mijozlar </button>
+              <button type="button" role="tab" id="tour-tab-lms" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-tour="lms"><svg class="icon module-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-graduation-cap"></use></svg>Ta’lim </button>
               <button type="button" role="tab" id="tour-tab-pos" aria-controls="tour-panel" aria-selected="false" tabindex="-1" data-tour="pos"><svg class="icon module-icon" width="24" height="24" aria-hidden="true"><use href="#icon-store"></use></svg>POS · Kassa</button>
             </div>
         <div class="product-frame reveal">
@@ -353,18 +371,18 @@
               <div class="product-heading"><div><p class="t-label" id="tour-eyebrow">Ombor hisobi</p><h3 id="tour-heading">Qoldiqni taxmin qilmang.</h3></div><div class="tour-primary-actions" id="tour-primary-actions"></div></div>
               <p class="product-description" id="tour-description">Qaysi mahsulot qancha qoldi, nimani buyurtma qilish kerak — bir qarashda ko‘ring.</p>
               <details class="tour-stats" id="tour-stats"><summary>Qisqa statistika</summary><div class="product-metrics" id="tour-metrics"></div></details>
-              <div class="product-toolbar"><label class="product-search"><span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>search</title><use href="#icon-search"></use></svg></span><span class="sr-only">Namuna jadvalidan qidirish</span><input type="search" id="tour-search" placeholder="Mahsulot nomini qidiring" autocomplete="off" maxlength="80"></label><button type="button" class="btn btn-ink" id="tour-action"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>plus</title><use href="#icon-plus"></use></svg><span data-label>100 m mato kirim</span></button></div>
+              <div class="product-toolbar"><label class="product-search"><span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-search"></use></svg></span><span class="sr-only">Namuna jadvalidan qidirish</span><input type="search" id="tour-search" placeholder="Mahsulot nomini qidiring" autocomplete="off" maxlength="80"></label><button type="button" class="btn btn-ink" id="tour-action"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg><span data-label>100 m mato kirim</span></button></div>
               <div class="tour-filters" id="tour-filters"></div><div id="tour-special" hidden></div><div class="tour-view-label"><span id="tour-list-label">Mahsulotlar ro‘yxati</span><span id="tour-record-count"></span></div>
               <div class="tour-kanban" id="tour-kanban" hidden></div>
               <p class="table-hint" id="tour-table-hint">Jadvalni to‘liq ko‘rish uchun yon tomonga suring.</p>
               <div class="product-table-wrap" aria-describedby="tour-table-hint" role="region" aria-label="Namuna jadvali" tabindex="0"><table class="product-table"><caption class="sr-only" id="tour-caption">Namunaviy ombor qoldiqlari</caption><thead id="tour-head"></thead><tbody id="tour-body"></tbody></table></div>
               <div class="tour-pager" id="tour-pager"></div><p class="product-feedback" id="tour-feedback" role="status" aria-live="polite"></p>
-              <div class="product-takeaway"><span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>corner-down-right</title><use href="#icon-corner-down-right"></use></svg></span><p id="tour-takeaway">Natija: xaridni qoldiqqa qarab rejalashtirasiz, xomashyo yetishmovchiligini oldindan ko‘rasiz.</p><a id="tour-more" href="#m-wms">Batafsil <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></a></div>
+              <div class="product-takeaway"><span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-corner-down-right"></use></svg></span><p id="tour-takeaway">Natija: xaridni qoldiqqa qarab rejalashtirasiz, xomashyo yetishmovchiligini oldindan ko‘rasiz.</p><a id="tour-more" href="#m-wms">Batafsil <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></a></div>
             </div>
             </div>
           </div>
         </div>
-        <div class="tour-caption"><button type="button" class="product-reset" id="tourReset"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>rotate-ccw</title><use href="#icon-rotate-ccw"></use></svg><span data-label>Namunani tiklash</span></button><span>6 bo‘lim · hammasi bir joyda</span></div>
+        <div class="tour-caption"><button type="button" class="product-reset" id="tourReset" aria-label="Namunani tiklash"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-rotate-ccw"></use></svg><span data-label>Namunani tiklash</span></button><span>6 bo‘lim · hammasi bir joyda</span></div>
         <div class="faceid-showcase" aria-labelledby="faceid-preview-title">
           <div class="faceid-copy">
             <p class="detail-kicker">HRM · Face ID ilovasi</p>
@@ -421,11 +439,11 @@
           <div class="ba-after" aria-label="FlowCore bilan">
             <span class="ba-tag ba-tag-r">FlowCore bilan</span>
             <ul class="ba-rows">
-              <li><span class="m m-wms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>warehouse</title><use href="#icon-warehouse"></use></svg></span><span>Paxta mato, oq</span><b>1 240 m</b><em class="ok">hozirgi qoldiq</em></li>
-              <li><span class="m m-hr"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>users-round</title><use href="#icon-users-round"></use></svg></span><span>Malika A., tikuvchi</span><b>4 650 000</b><em class="ok">hisoblandi</em></li>
-              <li><span class="m m-crm"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>messages-square</title><use href="#icon-messages-square"></use></svg></span><span>Aziz T., Telegram</span><b>09:14</b><em class="ok">javob berildi</em></li>
-              <li><span class="m m-erp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg></span><span>#1042, Dazmol bosqichi</span><b>3 / 4</b><em>Sardor</em></li>
-              <li><span class="m m-lms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg></span><span>Jasur, Ingliz B1</span><b>−400 000</b><em class="warn">eslatma</em></li>
+              <li><span class="m m-wms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-warehouse"></use></svg></span><span>Paxta mato, oq</span><b>1 240 m</b><em class="ok">hozirgi qoldiq</em></li>
+              <li><span class="m m-hr"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-users-round"></use></svg></span><span>Malika A., tikuvchi</span><b>4 650 000</b><em class="ok">hisoblandi</em></li>
+              <li><span class="m m-crm"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-messages-square"></use></svg></span><span>Aziz T., Telegram</span><b>09:14</b><em class="ok">javob berildi</em></li>
+              <li><span class="m m-erp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-factory"></use></svg></span><span>#1042, Dazmol bosqichi</span><b>3 / 4</b><em>Sardor</em></li>
+              <li><span class="m m-lms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-graduation-cap"></use></svg></span><span>Jasur, Ingliz B1</span><b>−400 000</b><em class="warn">eslatma</em></li>
             </ul>
           </div>
           <!-- BEFORE (top layer, clipped) -->
@@ -441,7 +459,7 @@
             <span class="sticky-note">Ertaga mahsulotni sanash!!</span>
             <span class="coffee" aria-hidden="true"></span>
           </div>
-          <div class="ba-handle" aria-hidden="true"><span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-left-right</title><use href="#icon-arrow-left-right"></use></svg></span></div>
+          <div class="ba-handle" aria-hidden="true"><span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left-right"></use></svg></span></div>
           <label class="sr-only" for="baRange">Oldin va keyin taqqoslash chizig‘i</label>
           <input class="ba-range" id="baRange" type="range" min="0" max="100" value="50">
         </div>
@@ -458,14 +476,28 @@
           <p class="sec-sub reveal">Faqat kerakli bo‘limni tanlang. Masalan, ombor hisobini yuriting yoki xodimlar ish haqini hisoblang. Bo‘limlar birga ishlaganda bir joyda kiritilgan ma’lumot boshqasida ham ko‘rinadi.</p>
         </header>
 
+        <div class="platform-grid" data-platform>
+          <article class="platform-feature" style="--node:var(--c-wms)">
+            <div class="platform-shot"><img src="/assets/images/screens/ombor-640.webp" srcset="/assets/images/screens/ombor-640.webp 640w, /assets/images/screens/ombor.webp 1240w" sizes="(max-width: 1100px) 92vw, 40vw" width="640" height="388" alt="FlowCore WMS ekrani" loading="lazy" decoding="async"></div>
+            <p class="platform-code"><b>WMS</b><span>Ombor boshqaruvi</span></p>
+            <p class="platform-desc">FlowCore WMS — ombor hisobini yuritish dasturi. Nima keldi, nima chiqdi, qancha mahsulot qoldi va u qaysi omborda turibdi — barchasini ro‘yxatdan ko‘rasiz. Xomashyo va tayyor mahsulotni bir-biridan ajratib hisobga oling.</p>
+            <ul class="platform-points"><li>Kirim va chiqimni yozing</li><li>Bir nechta omborni yuriting</li><li>Mahsulotni o‘zingizga mos yozing</li><li>Yetishmayotgan mahsulotni biling</li></ul>
+            <a class="platform-more" href="/ombor/">Bo‘lim haqida batafsil <span aria-hidden="true">→</span></a>
+          </article>
+          <nav class="platform-cards" aria-label="FlowCore modullari">
+            <a class="platform-card" href="/ombor/" style="--node:var(--c-wms)" data-code="WMS" data-name="Ombor boshqaruvi" data-desc="FlowCore WMS — ombor hisobini yuritish dasturi. Nima keldi, nima chiqdi, qancha mahsulot qoldi va u qaysi omborda turibdi — barchasini ro‘yxatdan ko‘rasiz. Xomashyo va tayyor mahsulotni bir-biridan ajratib hisobga oling." data-points="Kirim va chiqimni yozing|Bir nechta omborni yuriting|Mahsulotni o‘zingizga mos yozing|Yetishmayotgan mahsulotni biling" data-img="/assets/images/screens/ombor-640.webp" data-srcset="/assets/images/screens/ombor-640.webp 640w, /assets/images/screens/ombor.webp 1240w" data-w="640" data-h="388"><span class="platform-card-top"><b>WMS</b><span class="platform-status">Tayyor</span></span><strong>Ombor boshqaruvi</strong><small>Qoldiq, kirim-chiqim va omborlar bir joyda.</small></a><a class="platform-card" href="/erp/" style="--node:var(--c-erp)" data-code="ERP" data-name="Ishlab chiqarish" data-desc="FlowCore ERP — ishlab chiqarish ishlarini bir joyda kuzatish uchun dastur. Buyurtma nimadan tayyorlanadi, kim bajaradi va qaysi bosqichda turibdi — shularni ko‘rasiz. Tikuv sexi yoki boshqa ishlab chiqarish korxonasi o‘z ish tartibini belgilab oladi." data-points="Buyurtmalarni yozib boring|Xomashyo yetishini biling|Ishni xodimlarga topshiring|Tayyor mahsulotni hisobga oling" data-img="/assets/images/screens/erp-640.webp" data-srcset="/assets/images/screens/erp-640.webp 640w, /assets/images/screens/erp.webp 1240w" data-w="640" data-h="388"><span class="platform-card-top"><b>ERP</b><span class="platform-status">Tayyor</span></span><strong>Ishlab chiqarish</strong><small>Buyurtma, xomashyo va bosqichlar nazorati.</small></a><a class="platform-card" href="/crm/" style="--node:var(--c-crm)" data-code="CRM" data-name="Mijozlar va savdo" data-desc="FlowCore CRM — mijozlar bilan ishlash va savdoni kuzatish bo‘limi. Kim nima so‘ragani, qaysi xodim javob berishi va keyin nima qilish kerakligini yozib borasiz. Telegram va Instagramdagi yozishmalarni tegishli hisoblarni ulab bir joyda ko‘rish mumkin." data-points="Mijozlarni bir joyda saqlang|Savdo qanday ketayotganini biling|Telegram va Instagramni ulang|Qo‘ng‘iroq va uchrashuvni unutmang" data-img="/assets/images/screens/crm-640.webp" data-srcset="/assets/images/screens/crm-640.webp 640w, /assets/images/screens/crm.webp 1240w" data-w="640" data-h="388"><span class="platform-card-top"><b>CRM</b><span class="platform-status">Tayyor</span></span><strong>Mijozlar va savdo</strong><small>Lidlar, bitimlar, Telegram va Instagram.</small></a><a class="platform-card" href="/ish-haqi/" style="--node:var(--c-hr)" data-code="HRM" data-name="Xodimlar va ish haqi" data-desc="FlowCore HRM — xodimlar, davomat va ish haqi uchun yagona bo‘lim. Face ID ilovasini planshetga o‘rnatib, bir qadamda sozlaysiz va yuzni tanish orqali davomatni qayd etasiz. Kim kelgani, qancha vaqt ishlagani va nechta mahsulot tayyorlaganini kuzating. Oylik, soatbay, kunbay, donabay va savdodan foizni bir xodim uchun birga qo‘llash mumkin." data-points="Davomatni belgilang|To‘lov turini tanlang|Qo‘shimcha haq va jarimani yozing|Oy hisobini saqlang" data-img="/assets/images/screens/ish-haqi-640.webp" data-srcset="/assets/images/screens/ish-haqi-640.webp 640w, /assets/images/screens/ish-haqi.webp 1240w" data-w="640" data-h="388"><span class="platform-card-top"><b>HRM</b><span class="platform-status">Tayyor</span></span><strong>Xodimlar va ish haqi</strong><small>FaceID davomat va aralash ish haqi.</small></a><a class="platform-card" href="/talim/" style="--node:var(--c-lms)" data-code="LMS" data-name="O‘quv markazi" data-desc="FlowCore LMS — o‘quv markazi va maktablar uchun hisob dasturi. O‘quvchilarni guruhlarga ajrating, dars jadvalini tuzing, davomat va to‘lovlarni yozib boring. O‘qituvchi, o‘quvchi va ota-ona o‘ziga kerakli ma’lumotni ko‘radi." data-points="Guruh va darslarni belgilang|Davomat va baholarni yozing|To‘lov va qarzni kuzating|Ota-onaga ma’lumot bering" data-img="/assets/images/screens/talim-640.webp" data-srcset="/assets/images/screens/talim-640.webp 640w, /assets/images/screens/talim.webp 1240w" data-w="640" data-h="388"><span class="platform-card-top"><b>LMS</b><span class="platform-status">Tayyor</span></span><strong>O‘quv markazi</strong><small>Guruhlar, davomat, baho va to‘lovlar.</small></a><a class="platform-card" href="/pos/" style="--node:var(--accent)" data-code="POS" data-name="Kassa va do‘kon" data-desc="Do‘kondagi savdoni bitta joyda yuriting: mahsulotni toping, savatni tuzing, to‘lovni qayd eting va chekni chop eting. Savdo ombor qoldig‘i bilan bog‘lanadi." data-points="Shtrix-kod orqali toping|To‘lovlarni ajrating|Nasiyani kuzating|Qaytarishni hisobga oling" data-img="/assets/images/screens/pos-640.webp" data-srcset="/assets/images/screens/pos-640.webp 640w, /assets/images/screens/pos.webp 1240w" data-w="640" data-h="388"><span class="platform-card-top"><b>POS</b><span class="platform-status">Tayyor</span></span><strong>Kassa va do‘kon</strong><small>Shtrix-kod, nasiya, qaytarish va smena.</small></a><a class="platform-card" href="/moliya/" style="--node:var(--c-finance)" data-code="Moliya" data-name="Hisoblar va pul" data-desc="Pul qayerdan keldi, nimaga sarflandi va qaysi hisobda qancha qoldi — bitta joyda kuzating. Har bir hisob o‘z valyutasida yuritiladi." data-points="Hisoblarni alohida yuriting|Kirim va chiqimlarni ajrating|O‘tkazmalarni hisobga oling|Davr hisobotini ko‘ring" data-img="/assets/images/og/moliya.jpg" data-srcset="" data-w="1200" data-h="630"><span class="platform-card-top"><b>Moliya</b><span class="platform-status is-bonus">Bonus</span></span><strong>Hisoblar va pul</strong><small>Kirim, chiqim, o‘tkazma va valyuta.</small></a><a class="platform-card" href="/ai/" style="--node:#38bdf8" data-code="AI" data-name="AI tahlil va MCP" data-desc="FlowCore AI — har bir bo‘limdagi hisobotlarni tushunarli tilda izohlaydigan AI tahlilchi. Savol berasiz: qoldiq yetarlimi, qaysi buyurtma kechikyapti, savdo nega tushdi. AI raqamlarni tahlil qilib, e’tibor talab qiladigan holatlarni ko‘rsatadi. MCP orqali o‘z AI agentingizni ham ulashingiz mumkin." data-points="Hisobotga savol bering|Bo‘limga mos tahlil|AI agentni MCP orqali ulang|O‘qish va yozish kalitlari" data-img="/assets/images/og/ai.jpg" data-srcset="" data-w="1200" data-h="630"><span class="platform-card-top"><b>AI</b><span class="platform-status">Tayyor</span></span><strong>AI tahlil va MCP</strong><small>Har bo‘limda AI tahlilchi, MCP agentlar.</small></a>
+            <a class="platform-card platform-cta" href="#aloqa"><strong>Qayerdan boshlashni bilmaysizmi?</strong><small>Biznesingiz uchun kerakli modullarni birga tanlaymiz.</small><span aria-hidden="true">→</span></a>
+          </nav>
+        </div>
+
         <div class="story">
           <nav class="story-index" aria-label="Bo‘limlar ro‘yxati">
             <ol>
-              <li><a href="#m-wms" data-mod="wms"><span class="n"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>warehouse</title><use href="#icon-warehouse"></use></svg></span>Ombor </a></li>
-              <li><a href="#m-erp" data-mod="erp"><span class="n"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg></span>Ishlab chiqarish </a></li>
-              <li><a href="#m-hr" data-mod="hr"><span class="n"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>users-round</title><use href="#icon-users-round"></use></svg></span>Xodimlar </a></li>
-              <li><a href="#m-crm" data-mod="crm"><span class="n"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>messages-square</title><use href="#icon-messages-square"></use></svg></span>Mijozlar </a></li>
-              <li><a href="#m-lms" data-mod="lms"><span class="n"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg></span>Ta’lim </a></li>
+              <li><a href="#m-wms" data-mod="wms"><span class="n"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-warehouse"></use></svg></span>Ombor </a></li>
+              <li><a href="#m-erp" data-mod="erp"><span class="n"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-factory"></use></svg></span>Ishlab chiqarish </a></li>
+              <li><a href="#m-hr" data-mod="hr"><span class="n"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-users-round"></use></svg></span>Xodimlar </a></li>
+              <li><a href="#m-crm" data-mod="crm"><span class="n"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-messages-square"></use></svg></span>Mijozlar </a></li>
+              <li><a href="#m-lms" data-mod="lms"><span class="n"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-graduation-cap"></use></svg></span>Ta’lim </a></li>
               <li><a href="#m-finance" data-mod="finance"><span class="n"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-wallet"/></svg></span>Moliya · bonus</a></li>
               <li><a href="#m-pos" data-mod="pos"><span class="n"><svg class="icon" width="24" height="24" aria-hidden="true"><use href="#icon-store"></use></svg></span>POS · Kassa</a></li>
             </ol>
@@ -475,7 +507,7 @@
             <!-- WMS -->
             <article class="mod" id="m-wms" data-mod="wms" aria-labelledby="m-wms-t">
               <div class="mod-copy">
-                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="wms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>warehouse</title><use href="#icon-warehouse"></use></svg></span>01 · Ombor</p>
+                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="wms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-warehouse"></use></svg></span>01 · Ombor</p>
                 <h3 id="m-wms-t">Ombor: kirim, chiqim va qoldiq</h3>
                 <p class="module-search-name">FlowCore WMS — ombor hisobi</p>
                 <p>Bu bo‘lim ombordagi mahsulotlarning elektron daftari. Qaysi mahsulotdan qancha kelgani, qancha ishlatilgani yoki sotilgani va qancha qolgani shu yerda yoziladi. Do‘koningiz va omboringiz boshqa joyda bo‘lsa ham, mahsulot qayerda turganini alohida ko‘rasiz.</p>
@@ -487,7 +519,7 @@
                 </ul>
                 <p class="module-outcome">Kun oxirida: nima keldi, nima chiqdi, qayerda qancha qoldi va keyingi ishga nima yetishmayapti — shu savollarga hisobdan javob topasiz.</p>
                 <p>Masalan, ishga 200 metr mato kerak, omborda 150 metr bor. Yetishmayotgan 50 metrni oldindan bilib, xaridni rejalashtirasiz.</p>
-                <a class="module-tour-link" href="#ichkarida" data-tour-link="wms">Bo‘limni namunada ko‘rish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></a>
+                <a class="module-tour-link" href="#ichkarida" data-tour-link="wms">Bo‘limni namunada ko‘rish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></a>
                 <a class="module-details-link" href="/ombor/">Ombor hisobining imkoniyatlari va foydasi</a>
               </div>
               <div class="viz viz-wms" aria-hidden="true">
@@ -508,7 +540,7 @@
             <!-- ERP -->
             <article class="mod" id="m-erp" data-mod="erp" aria-labelledby="m-erp-t">
               <div class="mod-copy">
-                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="erp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg></span>02 · Ishlab chiqarish</p>
+                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="erp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-factory"></use></svg></span>02 · Ishlab chiqarish</p>
                 <h3 id="m-erp-t">Ishlab chiqarish: buyurtma va bajarilgan ish</h3>
                 <p class="module-search-name">FlowCore ERP — ishlab chiqarish hisobi</p>
                 <p>Bu bo‘lim buyurtmani tayyorlash ishlarini tartibga soladi. Nima tayyorlanadi, qancha tayyorlanadi, kim qaysi ishni bajaradi va hozir ish qayergacha yetdi — barchasini shu yerda ko‘rasiz. Masalan, ko‘ylak bichildimi, tikildimi yoki hali dazmolga o‘tmadimi, bilib turasiz.</p>
@@ -520,7 +552,7 @@
                 </ul>
                 <p class="module-outcome">Kun oxirida: qaysi buyurtma davom etyapti, qaysi bosqich tugadi, kim mas’ul va qanday material kerak — barchasini tekshirasiz.</p>
                 <p>Masalan, 50 ta ko‘ylakning bichilishi tugadi, tikilishi davom etyapti. Mijoz so‘raganda buyurtma holatini hisobdan ko‘rib javob berasiz.</p>
-                <a class="module-tour-link" href="#ichkarida" data-tour-link="erp">Bo‘limni namunada ko‘rish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></a>
+                <a class="module-tour-link" href="#ichkarida" data-tour-link="erp">Bo‘limni namunada ko‘rish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></a>
                 <a class="module-details-link" href="/erp/">Ishlab chiqarish bo‘limining imkoniyatlari va foydasi</a>
               </div>
               <div class="viz viz-erp" aria-hidden="true">
@@ -542,7 +574,7 @@
             <!-- HR -->
             <article class="mod" id="m-hr" data-mod="hr" aria-labelledby="m-hr-t">
               <div class="mod-copy">
-                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="hr"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>users-round</title><use href="#icon-users-round"></use></svg></span>03 · Ish haqi</p>
+                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="hr"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-users-round"></use></svg></span>03 · Ish haqi</p>
                 <h3 id="m-hr-t">Xodimlar: davomat va ish haqi</h3>
                 <p class="module-search-name">FlowCore HRM — Face ID, davomat va ish haqi</p>
                 <p>Bu bo‘lim xodimlar va ularga to‘lanadigan ish haqining hisobi. Kim ishga keldi, qancha ishladi va unga nima uchun qancha pul hisoblandi — shu yerda ko‘rasiz. Face ID degani yuzni tanish: uning ilovasini planshetga o‘rnatib, bir qadamda sozlaysiz va xodimlar davomatini qayd etish uchun ishlatasiz.</p>
@@ -555,7 +587,7 @@
                 </ul>
                 <p class="module-outcome">Oy yakunida: kim qancha ishladi, unga qanday haq hisoblandi va yakuniy summa nimadan yig‘ildi — shu savollarga tushunarli javob berasiz.</p>
                 <p>Masalan, 2 million so‘m oylikka 2,4 million so‘m donabay haq qo‘shildi. Xodimga jami 4,4 million so‘m nimadan yig‘ilganini tushuntirasiz.</p>
-                <a class="module-tour-link" href="#ichkarida" data-tour-link="hr">Bo‘limni namunada ko‘rish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></a>
+                <a class="module-tour-link" href="#ichkarida" data-tour-link="hr">Bo‘limni namunada ko‘rish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></a>
                 <a class="module-details-link" href="/ish-haqi/">Face ID va ish haqi bo‘limining foydasi</a>
               </div>
               <div class="viz viz-hr" aria-hidden="true">
@@ -573,7 +605,7 @@
             <!-- CRM -->
             <article class="mod" id="m-crm" data-mod="crm" aria-labelledby="m-crm-t">
               <div class="mod-copy">
-                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="crm"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>messages-square</title><use href="#icon-messages-square"></use></svg></span>04 · Mijozlar</p>
+                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="crm"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-messages-square"></use></svg></span>04 · Mijozlar</p>
                 <h3 id="m-crm-t">Mijozlar: yozishmalar va savdo</h3>
                 <p class="module-search-name">FlowCore CRM — mijozlar va savdo</p>
                 <p>Bu bo‘lim sizdan mahsulot yoki xizmat so‘ragan odamlar bilan ishlash uchun kerak. Kim qo‘ng‘iroq qildi, nima so‘radi, unga kim javob berdi va yana qachon bog‘lanish kerak — yozib borasiz. Mijoz hali xarid qilmagan bo‘lsa ham, uning so‘rovi va keyingi ishni hisobga olasiz.</p>
@@ -585,7 +617,7 @@
                 </ul>
                 <p class="module-outcome">Kun oxirida: kim yozdi, nima so‘radi, kim javobgar va keyin nima qilish kerak — shu ma’lumotlar bir joyda turadi.</p>
                 <p>Masalan, mijoz narx so‘radi. Ertaga taklif yuborishni vazifa qilib yozasiz. Xodim bugungi ishlar ro‘yxatidan kimga qayta bog‘lanishni ko‘radi.</p>
-                <a class="module-tour-link" href="#ichkarida" data-tour-link="crm">Bo‘limni namunada ko‘rish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></a>
+                <a class="module-tour-link" href="#ichkarida" data-tour-link="crm">Bo‘limni namunada ko‘rish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></a>
                 <a class="module-details-link" href="/crm/">Mijozlar bo‘limining imkoniyatlari va foydasi</a>
               </div>
               <div class="viz viz-crm" aria-hidden="true">
@@ -608,7 +640,7 @@
             <!-- LMS -->
             <article class="mod" id="m-lms" data-mod="lms" aria-labelledby="m-lms-t">
               <div class="mod-copy">
-                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="lms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg></span>05 · Ta’lim</p>
+                <p class="mod-tag"><span class="module-icon-badge" data-module-symbol="lms"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-graduation-cap"></use></svg></span>05 · Ta’lim</p>
                 <h3 id="m-lms-t">Ta’lim: dars, davomat va to‘lov</h3>
                 <p class="module-search-name">FlowCore LMS — o‘quv markazi hisobi</p>
                 <p>Bu bo‘lim o‘quv markazi yoki maktabning kundalik hisobini yuritadi. Qaysi o‘quvchi qaysi guruhda o‘qiydi, darsi qachon, darsga keldimi va to‘lovidan qancha qoldi — shu yerda ko‘rasiz. O‘qituvchi, boshqaruvchi va ota-ona o‘ziga tegishli ma’lumotni ko‘radi.</p>
@@ -620,7 +652,7 @@
                 </ul>
                 <p class="module-outcome">Kun oxirida: bugun kim darsga keldi, qaysi guruh qachon o‘qiydi va kimning qancha to‘lovi qoldi — tekshirish oson bo‘ladi.</p>
                 <p>Masalan, oylik to‘lov 450 ming so‘m, o‘quvchi 300 ming so‘m berdi. Qolgan 150 ming so‘mni alohida hisoblab o‘tirmasdan tekshirasiz.</p>
-                <a class="module-tour-link" href="#ichkarida" data-tour-link="lms">Bo‘limni namunada ko‘rish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></a>
+                <a class="module-tour-link" href="#ichkarida" data-tour-link="lms">Bo‘limni namunada ko‘rish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></a>
                 <a class="module-details-link" href="/talim/">O‘quv markazi bo‘limining imkoniyatlari va foydasi</a>
               </div>
               <div class="viz viz-lms" aria-hidden="true">
@@ -672,23 +704,23 @@
 
 
           <article class="cell c-roles reveal">
-            <span class="feature-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>shield-check</title><use href="#icon-shield-check"></use></svg></span>
+            <span class="feature-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-shield-check"></use></svg></span>
             <h3>Kim nimani ko‘radi</h3>
             <p>Har bir bo‘lim uchun alohida: ko‘rish yoki tahrirlash.</p>
             <table class="perm" aria-label="Ruxsatlar namunasi">
               <thead><tr><th scope="col">Bo‘lim</th><th scope="col">Ko‘rish</th><th scope="col">Tahrir</th></tr></thead>
               <tbody>
-                <tr><th scope="row">Ombor</th><td><span class="sw on" aria-label="ha"></span></td><td><span class="sw on" aria-label="ha"></span></td></tr>
-                <tr><th scope="row">Sex vazifalari</th><td><span class="sw on" aria-label="ha"></span></td><td><span class="sw on" aria-label="ha"></span></td></tr>
-                <tr><th scope="row">Ish haqi</th><td><span class="sw" aria-label="yo‘q"></span></td><td><span class="sw" aria-label="yo‘q"></span></td></tr>
-                <tr><th scope="row">Mijozlar</th><td><span class="sw on" aria-label="ha"></span></td><td><span class="sw" aria-label="yo‘q"></span></td></tr>
+                <tr><th scope="row">Ombor</th><td><span class="sw on" role="img" aria-label="ha"></span></td><td><span class="sw on" role="img" aria-label="ha"></span></td></tr>
+                <tr><th scope="row">Sex vazifalari</th><td><span class="sw on" role="img" aria-label="ha"></span></td><td><span class="sw on" role="img" aria-label="ha"></span></td></tr>
+                <tr><th scope="row">Ish haqi</th><td><span class="sw" role="img" aria-label="yo‘q"></span></td><td><span class="sw" role="img" aria-label="yo‘q"></span></td></tr>
+                <tr><th scope="row">Mijozlar</th><td><span class="sw on" role="img" aria-label="ha"></span></td><td><span class="sw" role="img" aria-label="yo‘q"></span></td></tr>
               </tbody>
             </table>
             <p class="cell-note">Bloklangan xodim darhol tizimdan chiqariladi.</p>
           </article>
 
           <article class="cell c-offline reveal">
-            <span class="feature-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>hard-drive</title><use href="#icon-hard-drive"></use></svg></span>
+            <span class="feature-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-hard-drive"></use></svg></span>
             <h3>Hisoblar kompyuteringizda</h3>
             <p>Kompyuterga o‘rnatilgan dastur ma’lumotni o‘z kompyuteringizda saqlaydi.</p>
             <div class="backup" aria-hidden="true">
@@ -700,7 +732,7 @@
           </article>
 
           <article class="cell c-inbox reveal">
-            <span class="feature-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>inbox</title><use href="#icon-inbox"></use></svg></span>
+            <span class="feature-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-inbox"></use></svg></span>
             <h3>Xabarlar bir joyda</h3>
             <p>Mijoz qayerda yozsa ham, javob bitta oynadan beriladi.</p>
             <div class="merge" aria-hidden="true">
@@ -712,7 +744,7 @@
 
 
           <article class="cell c-iso reveal">
-            <span class="feature-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>lock-keyhole</title><use href="#icon-lock-keyhole"></use></svg></span>
+            <span class="feature-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-lock-keyhole"></use></svg></span>
             <h3>Ma’lumotlar aralashmaydi</h3>
             <p>Har bir kompaniyaning ma’lumoti alohida saqlanadi. Xodim faqat siz ruxsat bergan ma’lumotlarni ko‘radi.</p>
             <div class="iso" aria-hidden="true">
@@ -757,7 +789,7 @@
             <a href="#aloqa">MCP ulanishini muhokama qilish <span aria-hidden="true">↗</span></a>
           </article>
         </div>
-        <div class="control-bottom"><span>AI tahlilga savolingiz va umumlashtirilgan ko‘rsatkichlar yuboriladi. AI xizmatidan foydalanish uning tarifiga bog‘liq.</span><a href="#aloqa">Biznesingizga mos ulanishni tanlaymiz <span aria-hidden="true">↗</span></a></div>
+        <div class="control-bottom"><span>AI tahlilga savolingiz va umumlashtirilgan ko‘rsatkichlar yuboriladi. AI xizmatidan foydalanish uning tarifiga bog‘liq. <a href="/ai/">FlowCore AI haqida batafsil</a></span><a href="#aloqa">Biznesingizga mos ulanishni tanlaymiz <span aria-hidden="true">↗</span></a></div>
       </div>
     </section>
 
@@ -771,12 +803,12 @@
         </header>
 
         <ul class="industries">
-          <li class="reveal"><button type="button" class="industry-choice" data-industry="sewing"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>scissors</title><use href="#icon-scissors"></use></svg></span><span class="i-name">Tikuv sexi</span><span class="i-desc">Bichish → tikish → dazmol → qadoqlash, donabay ish haqi</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></button></li>
-          <li class="reveal"><button type="button" class="industry-choice" data-industry="production"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>factory</title><use href="#icon-factory"></use></svg></span><span class="i-name">Ishlab chiqarish</span><span class="i-desc">Xomashyo, tayyor mahsulot va yaroqsiz mahsulotlar hisobi</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></button></li>
-          <li class="reveal"><button type="button" class="industry-choice" data-industry="shop"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>store</title><use href="#icon-store"></use></svg></span><span class="i-name">Do‘kon va savdo</span><span class="i-desc">Qoldiqlar, sotuvchiga savdodan foiz, Instagram mijozlari</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></button></li>
-          <li class="reveal"><button type="button" class="industry-choice" data-industry="education"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>graduation-cap</title><use href="#icon-graduation-cap"></use></svg></span><span class="i-name">O‘quv markazi</span><span class="i-desc">Guruhlar, jadval, to‘lovlar, qarzdorlar, Telegramdan kelgan so‘rovlar</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></button></li>
-          <li class="reveal"><button type="button" class="industry-choice" data-industry="school"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>school</title><use href="#icon-school"></use></svg></span><span class="i-name">Xususiy maktab</span><span class="i-desc">Sinflar, baholar, ota-ona kabineti</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></button></li>
-          <li class="reveal"><button type="button" class="industry-choice" data-industry="sport"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>dumbbell</title><use href="#icon-dumbbell"></use></svg></span><span class="i-name">Sport klubi</span><span class="i-desc">Jamoalar, trenerlar, abonement to‘lovlari</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></button></li>
+          <li class="reveal"><button type="button" class="industry-choice" data-industry="sewing"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-scissors"></use></svg></span><span class="i-name">Tikuv sexi</span><span class="i-desc">Bichish → tikish → dazmol → qadoqlash, donabay ish haqi</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></button></li>
+          <li class="reveal"><button type="button" class="industry-choice" data-industry="production"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-factory"></use></svg></span><span class="i-name">Ishlab chiqarish</span><span class="i-desc">Xomashyo, tayyor mahsulot va yaroqsiz mahsulotlar hisobi</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></button></li>
+          <li class="reveal"><button type="button" class="industry-choice" data-industry="shop"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-store"></use></svg></span><span class="i-name">Do‘kon va savdo</span><span class="i-desc">Qoldiqlar, sotuvchiga savdodan foiz, Instagram mijozlari</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></button></li>
+          <li class="reveal"><button type="button" class="industry-choice" data-industry="education"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-graduation-cap"></use></svg></span><span class="i-name">O‘quv markazi</span><span class="i-desc">Guruhlar, jadval, to‘lovlar, qarzdorlar, Telegramdan kelgan so‘rovlar</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></button></li>
+          <li class="reveal"><button type="button" class="industry-choice" data-industry="school"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-school"></use></svg></span><span class="i-name">Xususiy maktab</span><span class="i-desc">Sinflar, baholar, ota-ona kabineti</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></button></li>
+          <li class="reveal"><button type="button" class="industry-choice" data-industry="sport"><span class="i-no"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-dumbbell"></use></svg></span><span class="i-name">Sport klubi</span><span class="i-desc">Jamoalar, trenerlar, abonement to‘lovlari</span><span class="industry-arrow" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></button></li>
         </ul>
       </div>
     </section>
@@ -808,8 +840,8 @@
         </header>
 
         <div class="delivery-grid">
-          <article class="delivery-card reveal"><div class="delivery-top"><span class="delivery-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>cloud</title><use href="#icon-cloud"></use></svg></span><p class="t-label">01 / Internet orqali</p></div><h3>Jamoa bilan, istalgan joydan.</h3><p>Brauzer orqali umumiy ish muhitiga kirasiz. Bir nechta xodim va masofadan boshqarish uchun.</p><dl><div><dt>Kirish</dt><dd>Internet va brauzer</dd></div><div><dt>Ma’lumot</dt><dd>Internet orqali, faqat kompaniyangiz uchun</dd></div><div><dt>To‘lov turi</dt><dd>Tanlangan to‘plam uchun oylik yoki yillik to‘lov</dd></div></dl><button type="button" class="btn btn-line" data-deploy-pick="Bulut">Internet orqali ishlash <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></button></article>
-          <article class="delivery-card reveal"><div class="delivery-top"><span class="delivery-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>monitor</title><use href="#icon-monitor"></use></svg></span><p class="t-label">02 / Kompyuterda</p></div><h3>Ish joyingizdagi kompyuterda.</h3><p>Asosiy hisoblar kompyuteringizda saqlanadi. Internet uzilganda ham kompyuteringizda ishni davom ettirasiz.</p><dl><div><dt>Kirish</dt><dd>Dastur o‘rnatilgan kompyuter</dd></div><div><dt>Ma’lumot</dt><dd>O‘z kompyuteringizda</dd></div><div><dt>Internet</dt><dd>Ishga tushirish, Telegram va Instagram uchun</dd></div></dl><button type="button" class="btn btn-line" data-deploy-pick="Desktop">Kompyuterga o‘rnatish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></button></article>
+          <article class="delivery-card reveal"><div class="delivery-top"><span class="delivery-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-cloud"></use></svg></span><p class="t-label">01 / Internet orqali</p></div><h3>Jamoa bilan, istalgan joydan.</h3><p>Brauzer orqali umumiy ish muhitiga kirasiz. Bir nechta xodim va masofadan boshqarish uchun.</p><dl><div><dt>Kirish</dt><dd>Internet va brauzer</dd></div><div><dt>Ma’lumot</dt><dd>Internet orqali, faqat kompaniyangiz uchun</dd></div><div><dt>To‘lov turi</dt><dd>Tanlangan to‘plam uchun oylik yoki yillik to‘lov</dd></div></dl><button type="button" class="btn btn-line" data-deploy-pick="Bulut">Internet orqali ishlash <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></button></article>
+          <article class="delivery-card reveal"><div class="delivery-top"><span class="delivery-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-monitor"></use></svg></span><p class="t-label">02 / Kompyuterda</p></div><h3>Ish joyingizdagi kompyuterda.</h3><p>Asosiy hisoblar kompyuteringizda saqlanadi. Internet uzilganda ham kompyuteringizda ishni davom ettirasiz.</p><dl><div><dt>Kirish</dt><dd>Dastur o‘rnatilgan kompyuter</dd></div><div><dt>Ma’lumot</dt><dd>O‘z kompyuteringizda</dd></div><div><dt>Internet</dt><dd>Ishga tushirish, Telegram va Instagram uchun</dd></div></dl><button type="button" class="btn btn-line" data-deploy-pick="Desktop">Kompyuterga o‘rnatish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></button></article>
         </div>
 
         <section class="apps-showcase" id="ilovalar" aria-labelledby="apps-title">
@@ -826,7 +858,7 @@
             <h3>Qaysi bo‘limlar kerakligini bilmaysizmi?</h3>
             <ol class="quiz-dots" aria-hidden="true"><li class="on"></li><li></li><li></li></ol>
             <p class="quiz-progress" id="quizProgress" role="status">1 / 3 savol</p>
-            <button type="button" class="quiz-back" id="quizBack" hidden><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-left</title><use href="#icon-arrow-left"></use></svg><span data-label>Oldingi savol</span></button>
+            <button type="button" class="quiz-back" id="quizBack" hidden><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg><span data-label>Oldingi savol</span></button>
           </div>
           <div class="quiz-main">
             <div class="quiz-step" data-step="0">
@@ -857,7 +889,7 @@
               <p class="quiz-bundle" id="quizBundle"></p>
               <p class="quiz-why" id="quizWhy"></p>
               <div class="quiz-cta">
-                <button type="button" class="btn btn-accent" id="quizApply">Shu to‘plamni tanlash <span class="arr" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-right</title><use href="#icon-arrow-right"></use></svg></span></button>
+                <button type="button" class="btn btn-accent" id="quizApply">Shu to‘plamni tanlash <span class="arr" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></span></button>
                 <button type="button" class="btn btn-line" id="quizRestart">Qaytadan</button>
               </div>
             </div>
@@ -898,7 +930,7 @@
             <p class="t-value" id="bundleValue" aria-live="polite">Ombor + Ish haqi</p>
             <p class="t-deploy" id="bundleDeploy">Internet orqali</p>
             <p class="t-note" id="bundleNote"></p>
-            <a class="btn btn-accent" id="bundleRequest" href="#aloqa"><span data-label>Narx taklifini olish</span> <span class="arr" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-right</title><use href="#icon-arrow-right"></use></svg></span></a>
+            <a class="btn btn-accent" id="bundleRequest" href="#aloqa"><span data-label>Narx taklifini olish</span> <span class="arr" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></span></a>
           </div>
         </div>
         <p class="pricing-explainer"><strong>Moliya bonus sifatida kiradi.</strong> Kamida bitta bo‘limli tarifda va har bir desktop litsenziyada kirim, chiqim va hisoblarni yuritasiz. <a href="/moliya/">Moliya haqida batafsil</a>.</p>
@@ -937,20 +969,20 @@
           <h2 id="cta-title" class="cta-title split">Ishingizga qanday yordam berishini ko‘rsatamiz.</h2>
           <p class="sec-sub reveal">Qanday ish bilan shug‘ullanishingizni ayting. Kerakli bo‘limlarni ko‘rsatamiz va narxini tushuntiramiz.</p>
           <ol class="demo-agenda"><li><span>01</span>Biznesingizdagi asosiy vazifani aniqlaymiz</li><li><span>02</span>Kerakli bo‘limlarni misolda ko‘rsatamiz</li><li><span>03</span>Jamoa, o‘rnatish va narxni kelishamiz</li></ol>
-          <nav class="social-links cta-social reveal" aria-label="Ijtimoiy tarmoqlar"><a href="https://www.instagram.com/flowcore_uz" target="_blank" rel="noopener" aria-label="Instagram: @flowcore_uz"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>instagram</title><use href="#icon-instagram"></use></svg><span>@flowcore_uz</span></a><a href="https://t.me/flowcoreuz" target="_blank" rel="noopener" aria-label="Telegram: @flowcoreuz"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>telegram</title><use href="#icon-telegram"></use></svg><span>@flowcoreuz</span></a></nav>
+          <nav class="social-links cta-social reveal" aria-label="Ijtimoiy tarmoqlar"><a href="https://www.instagram.com/flowcore_uz" target="_blank" rel="noopener" aria-label="Instagram: @flowcore_uz"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-instagram"></use></svg><span>@flowcore_uz</span></a><a href="https://t.me/flowcoreuz" target="_blank" rel="noopener" aria-label="Telegram: @flowcoreuz"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-telegram"></use></svg><span>@flowcoreuz</span></a></nav>
         </div>
         <form class="lead-form reveal" id="leadForm" novalidate>
           <div class="field">
             <input id="f-name" name="name" type="text" autocomplete="name" maxlength="80" required placeholder=" " aria-describedby="formMsg">
-            <label for="f-name"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>circle-user-round</title><use href="#icon-circle-user-round"></use></svg>Ismingiz</label>
+            <label for="f-name"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-circle-user-round"></use></svg>Ismingiz</label>
           </div>
           <div class="field">
             <input id="f-phone" name="phone" type="tel" autocomplete="tel" enterkeyhint="next" inputmode="tel" value="+998" required placeholder=" " aria-describedby="formMsg phoneHint">
-            <label for="f-phone"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>phone</title><use href="#icon-phone"></use></svg>Telefon raqam</label>
+            <label for="f-phone"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-phone"></use></svg>Telefon raqam</label>
           </div>
           <div class="field">
             <input id="f-company" name="company" type="text" autocomplete="organization" maxlength="160" placeholder=" ">
-            <label for="f-company"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>store</title><use href="#icon-store"></use></svg>Korxona nomi</label>
+            <label for="f-company"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-store"></use></svg>Korxona nomi</label>
           </div>
           <input type="hidden" name="bundle" id="f-bundle" value="">
           <p class="form-bundle" id="formBundle"></p>
@@ -959,15 +991,15 @@
             <input id="f-consent" name="privacyConsent" type="checkbox" required aria-describedby="consentHint formMsg">
             <div><label for="f-consent">So‘rovimga javob berish uchun ismim va telefon raqamimdan foydalanishga roziman.</label><p id="consentHint"><a href="/privacy/" target="_blank" rel="noopener">Maxfiylik siyosati (yangi oynada)</a>. Xizmat bo‘yicha <a href="/terms/" target="_blank" rel="noopener">foydalanish shartlari (yangi oynada)</a> bilan tanishing. Bu tanlov reklama xabarlariga rozilik yoki pullik buyurtma emas.</p></div>
           </div>
-          <button class="btn btn-accent btn-lg btn-block" type="submit" id="leadSubmit"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>send</title><use href="#icon-send"></use></svg><span data-label>So‘rovni tayyorlash</span></button>
+          <button class="btn btn-accent btn-lg btn-block" type="submit" id="leadSubmit"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-send"></use></svg><span data-label>So‘rovni tayyorlash</span></button>
           <p class="form-help" id="deliveryHint">Avval so‘rov matni tayyorlanadi. Keyingi qadamda uni yuborasiz yoki nusxalaysiz.</p>
           <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
           <div class="lead-draft" id="leadDraft" hidden>
             <label for="leadText">Tayyor so‘rov</label>
             <textarea id="leadText" rows="7" readonly></textarea>
             <!-- The draft renderer sets the recipient and message before this link is shown. -->
-            <a class="btn btn-ink btn-block" id="leadSend" href="mailto:"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>mail</title><use href="#icon-mail"></use></svg><span data-label>Email orqali yuborish</span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></a>
-            <div class="draft-actions"><button type="button" class="btn btn-line" id="leadCopy"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>copy</title><use href="#icon-copy"></use></svg><span data-label>Nusxalash</span></button><button type="button" class="btn btn-line" id="leadDownload"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>download</title><use href="#icon-download"></use></svg><span data-label>TXT yuklab olish</span></button></div>
+            <a class="btn btn-ink btn-block" id="leadSend" href="mailto:"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg><span data-label>Email orqali yuborish</span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></a>
+            <div class="draft-actions"><button type="button" class="btn btn-line" id="leadCopy"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-copy"></use></svg><span data-label>Nusxalash</span></button><button type="button" class="btn btn-line" id="leadDownload"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-download"></use></svg><span data-label>TXT yuklab olish</span></button></div>
             <p class="form-help">Xabarni yuborish pochta yoki Telegram ilovasida tasdiqlanadi. Matnni nusxalash va yuklab olish so‘rovni yubormaydi.</p>
           </div>
         </form>
@@ -980,16 +1012,16 @@
     <div class="wrap">
       <div class="foot-cta">
         <div><p class="foot-kicker">Bepul tanishuv · 30 daqiqa</p><p class="foot-cta-title">Ishingizga mos bo‘limlarni birga tanlaymiz.</p></div>
-        <a class="btn btn-accent btn-lg" href="#aloqa">Bog‘lanish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up-right</title><use href="#icon-arrow-up-right"></use></svg></span></a>
+        <a class="btn btn-accent btn-lg" href="#aloqa">Bog‘lanish <span aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg></span></a>
       </div>
       <div class="foot-top">
         <div class="foot-brand">
-          <a class="foot-logo" href="#top" aria-label="FlowCore, bosh sahifa">
+          <a class="foot-logo" href="#top">
             <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="18" fill="#064e3b"/><path d="M20 46V27C20 22.0294 24.0294 18 29 18H46M20 33H39" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="46" cy="46" r="5" fill="#6ee7b7"/></svg>
-            <span>FlowCore<b>.</b></span>
+            <span>FlowCore<b>.</b></span><span class="sr-only"> — bosh sahifa</span>
           </a>
           <p class="foot-note">Ombor, ishlab chiqarish, xodimlar, mijozlar, ta’lim, kassa va moliya uchun yagona tizim. O‘zbekistonda, o‘zbek tilida.</p>
-          <nav class="social-links" aria-label="Ijtimoiy tarmoqlar"><a href="https://www.instagram.com/flowcore_uz" target="_blank" rel="noopener" aria-label="Instagram: @flowcore_uz"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>instagram</title><use href="#icon-instagram"></use></svg><span>@flowcore_uz</span></a><a href="https://t.me/flowcoreuz" target="_blank" rel="noopener" aria-label="Telegram: @flowcoreuz"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>telegram</title><use href="#icon-telegram"></use></svg><span>@flowcoreuz</span></a></nav>
+          <nav class="social-links" aria-label="Ijtimoiy tarmoqlar"><a href="https://www.instagram.com/flowcore_uz" target="_blank" rel="noopener" aria-label="Instagram: @flowcore_uz"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-instagram"></use></svg><span>@flowcore_uz</span></a><a href="https://t.me/flowcoreuz" target="_blank" rel="noopener" aria-label="Telegram: @flowcoreuz"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-telegram"></use></svg><span>@flowcoreuz</span></a></nav>
         </div>
         <nav class="foot-col" aria-labelledby="foot-products">
           <h2 class="foot-title" id="foot-products">Mahsulotlar</h2>
@@ -1001,6 +1033,7 @@
             <li><a href="/ish-haqi/">HRM — davomat va ish haqi</a></li>
             <li><a href="/crm/">CRM — mijozlar va savdo</a></li>
             <li><a href="/talim/">LMS — o‘quv markazi</a></li>
+            <li><a href="/ai/">AI — tahlil va MCP</a></li>
           </ul>
         </nav>
         <nav class="foot-col" aria-labelledby="foot-explore">
@@ -1026,7 +1059,8 @@
       <div class="foot-bottom">
         <small>© <span id="year">2026</span> FlowCore</small>
         <nav class="foot-legal" aria-label="Huquqiy sahifalar"><a href="/privacy/">Maxfiylik siyosati</a><a href="/terms/">Foydalanish shartlari va majburiyatlar</a></nav>
-        <a href="#top">Yuqoriga <svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-up</title><use href="#icon-arrow-up"></use></svg></a>
+        <nav class="lang-switch" aria-label="Tillar"><a href="/" hreflang="uz" lang="uz" aria-current="page" title="O‘zbekcha"><abbr title="O‘zbekcha">UZ</abbr></a><a href="/en/" hreflang="en" lang="en" title="English"><abbr title="English">EN</abbr></a><a href="/ru/" hreflang="ru" lang="ru" title="Русский"><abbr title="Русский">RU</abbr></a></nav>
+        <a href="#top">Yuqoriga <svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg></a>
       </div>
     </div>
   </footer>
@@ -1034,12 +1068,13 @@
   <a class="float-cta" id="floatCta" href="#aloqa" aria-hidden="true" tabindex="-1">
     <span class="fc-pulse" aria-hidden="true"></span>
     <span id="floatText">Bepul tanishish</span>
-    <span class="arr" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><title>arrow-right</title><use href="#icon-arrow-right"></use></svg></span>
+    <span class="arr" aria-hidden="true"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></span>
   </a>
 
-  <script src="assets/dist/stack.e5c16d2e0637.js" defer></script>
-  <script src="assets/dist/main.d15add190ef5.js" defer></script>
-  <script src="assets/dist/tour.4e790b698018.js" defer></script>
-  <script type="module" src="assets/dist/experience.dcf81f115fb1.js"></script>
+  <script src="assets/dist/stack.a0c8752bb9fa.js" defer></script>
+  <script src="assets/dist/main.7bf08b8dbe23.js" defer></script>
+  <script src="assets/dist/tour.1aa1212f34db.js" defer></script>
+  <!-- Motion layer (hover, press, scroll reveal) loads on the first interaction, so page load stays free of animation work. -->
+  <script>(()=>{const events=['pointermove','pointerdown','touchstart','wheel','keydown'];const load=()=>{events.forEach(type=>removeEventListener(type,load,true));import(new URL('assets/dist/experience.606f9fadc619.js',document.baseURI).href).catch(()=>{});};events.forEach(type=>addEventListener(type,load,{capture:true,passive:true}));})();</script>
 </body>
 </html>
