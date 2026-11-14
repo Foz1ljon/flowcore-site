@@ -22,14 +22,12 @@
   };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const group = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  const signed = (n) => (n < 0 ? `−${group(-n)}` : group(n));
   const tashkentTime = (offsetMin = 0) =>
     new Date(Date.now() - offsetMin * 60000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tashkent' });
 
   /* ---------- Theme ---------- */
   const themeBtn = $('#themeToggle');
-  const currentTheme = () => root.dataset.theme || 'dark';
+  const currentTheme = () => root.dataset.theme || 'light';
   const syncThemeLabel = () => {
     $('#themeColor').content = currentTheme() === 'dark' ? '#09090b' : '#fafafa';
     themeBtn.setAttribute('aria-label', currentTheme() === 'dark' ? 'Kunduzgi rejimga o‘tish' : 'Tungi rejimga o‘tish');
@@ -335,191 +333,6 @@
     });
   });
 
-  /* ---------- §03 Sandbox: one core, cascading modules ---------- */
-  let sandboxBoard;
-  let sandboxFeed = [];
-  const initSandboxBoard = () => {
-    if (sandboxBoard) return;
-    sandboxBoard = createBoard($('#sbBoard'), $('#sbRows'), {
-      rows: 6, wide: [['time', 5], ['t', 22]], compact: [['s', 18]],
-    });
-    sandboxBoard.set(sandboxFeed, false);
-  };
-  const sbBoard = {
-    set(feed) { sandboxFeed = feed.slice(0, 6); if (sandboxBoard) sandboxBoard.set(sandboxFeed, false); },
-    push(event) { initSandboxBoard(); sandboxBoard.push(event); },
-  };
-  const sandboxObserver = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) { initSandboxBoard(); sandboxObserver.disconnect(); }
-  }, { rootMargin: '300px' });
-  sandboxObserver.observe($('#sbBoard'));
-  const SB_START = () => ({ newL: 2, talk: 1, won: 0, order: { no: 1043, stage: 0 }, backlog: 0, nextNo: 1044, mato: 140, shirt: 312, pieces: 480 });
-  const QTY = 50;
-  const MATO_PER = 2.5;
-  const STAGES = ['Bichish', 'Tikish', 'Dazmol', 'Qadoqlash'];
-  const STAGE_UP = ['BICHISH', 'TIKISH', 'DAZMOL', 'QADOQLASH'];
-  let sb = SB_START();
-  let sbCount = 0;
-  let sbActions = 0;
-  const sbEl = (id) => $(`#${id}`);
-  const sbCards = { crm: sbEl('sb-crm'), erp: sbEl('sb-erp'), wms: sbEl('sb-wms'), hr: sbEl('sb-hr') };
-  const setNum = (id, value) => {
-    const el = sbEl(id);
-    const text = typeof value === 'number' ? group(value) : value;
-    if (el.textContent === text) return;
-    el.textContent = text;
-    const dd = el.closest('dd');
-    if (dd) { dd.classList.remove('tick'); void dd.offsetWidth; dd.classList.add('tick'); }
-  };
-  const hit = (mod, from) => {
-    const card = sbCards[mod];
-    card.querySelector('.sb-from').textContent = from ? `← ${{ CRM: 'Mijozlar', ERP: 'Buyurtma', WMS: 'Ombor', HR: 'Ish haqi' }[from] || from}` : '';
-    card.classList.remove('hit');
-    void card.offsetWidth;
-    card.classList.add('hit');
-    clearTimeout(card._t);
-    card._t = setTimeout(() => card.classList.remove('hit'), 1600);
-  };
-  const bad = (mod) => {
-    const card = sbCards[mod];
-    card.classList.remove('bad');
-    void card.offsetWidth;
-    card.classList.add('bad');
-    setTimeout(() => card.classList.remove('bad'), 600);
-  };
-  const log = (m, t, s, st = 'OK') => {
-    sbCount++;
-    sbBoard.push({ m, t, s, st, time: tashkentTime() });
-    $('#sbCount').textContent = `${sbCount} hodisa`;
-    $('#sbLast').textContent = `${m}: ${t.toLowerCase()}`;
-  };
-  const renderSb = () => {
-    setNum('sb-new', sb.newL);
-    setNum('sb-talk', sb.talk);
-    setNum('sb-won', sb.won);
-    setNum('sb-mato', sb.mato);
-    setNum('sb-shirt', sb.shirt);
-    setNum('sb-pieces', sb.pieces);
-    setNum('sb-pay', 2000000 + sb.pieces * 5000);
-    const stages = $$('#sb-stages li');
-    const btn = sbEl('sb-stage-btn');
-    const note = sbEl('sb-erp-note');
-    $('#sb-stages').classList.toggle('idle', !sb.order);
-    if (sb.order) {
-      sbEl('sb-order').textContent = `#${sb.order.no}`;
-      stages.forEach((li, i) => { li.className = i < sb.order.stage ? 'done' : i === sb.order.stage ? 'now' : ''; });
-      btn.disabled = false;
-      setLabel(btn, sb.order.stage === 3 ? 'Yakunlash va omborga o‘tkazish' : `${STAGES[sb.order.stage]} tayyor`);
-      note.textContent = `${QTY} ta ko‘ylak · hisob bo‘yicha ${group(QTY * MATO_PER)} m mato${sb.backlog ? ` · navbatda ${sb.backlog}` : ''}`;
-    } else {
-      sbEl('sb-order').textContent = '—';
-      stages.forEach((li) => { li.className = 'done'; });
-      btn.disabled = true;
-      setLabel(btn, 'Faol buyurtma yo‘q');
-      note.textContent = 'Yangi buyurtma Mijozlar bo‘limida savdo yopilganda paydo bo‘ladi.';
-    }
-  };
-  const nudge = () => {
-    sbActions++;
-    if (sbActions === 2) $('#sbHint').innerHTML = 'Zo‘r! Endi Buyurtma bo‘limida bosqichlarni o‘tkazing: <b>“Tikish”</b> tugaganda Malikaning ish haqi o‘zi oshadi.';
-    if (sbActions === 5) $('#sbNudge').hidden = false;
-  };
-  const startOrder = () => {
-    sb.order = { no: sb.nextNo++, stage: 0 };
-    log('ERP', `#${sb.order.no} YARATILDI: ${QTY} DONA`, `#${sb.order.no} YARATILDI`, 'YANGI');
-    hit('erp', 'CRM');
-  };
-  const SB_ACTIONS = {
-    lead() {
-      sb.newL++;
-      log('CRM', 'TELEGRAM: YANGI SO‘ROV', 'TELEGRAM: SO‘ROV', 'YANGI');
-      hit('crm');
-    },
-    deal() {
-      if (sb.talk + sb.newL === 0) {
-        log('CRM', 'AVVAL XABAR KERAK', 'SO‘ROV YO‘Q', 'DIQQAT');
-        bad('crm');
-        return;
-      }
-      if (sb.talk > 0) sb.talk--; else sb.newL--;
-      sb.won++;
-      log('CRM', `BITIM: ${QTY} TA KO‘YLAK`, `BITIM: ${QTY} DONA`, 'OK');
-      hit('crm');
-      if (sb.order) {
-        sb.backlog++;
-        log('ERP', `BUYURTMA NAVBATGA (${sb.backlog})`, `NAVBATDA: ${sb.backlog}`, 'JARAYON');
-        hit('erp', 'CRM');
-      } else {
-        startOrder();
-      }
-    },
-    stage() {
-      const o = sb.order;
-      if (!o) return;
-      if (o.stage < 3) {
-        log('ERP', `#${o.no} ${STAGE_UP[o.stage]} TAYYOR`, `#${o.no} ${STAGE_UP[o.stage]}`, 'JARAYON');
-        hit('erp');
-        if (o.stage === 1) {
-          sb.pieces += QTY;
-          log('HR', `MALIKA: +${QTY} DONA, +${group(QTY * 5000)}`, `MALIKA +${QTY} DONA`, 'OK');
-          hit('hr', 'ERP');
-        }
-        o.stage++;
-        return;
-      }
-      const need = QTY * MATO_PER;
-      if (sb.mato < need) {
-        log('WMS', `MATO YETMAYDI: -${group(need - sb.mato)} M`, `MATO YETMAYDI`, 'DIQQAT');
-        bad('wms');
-        $('#sbHint').innerHTML = 'Tizim chiqimni blokladi: omborda mato yetmaydi. Ombor bo‘limida <b>“Mato kirim”</b> qiling va qayta urining.';
-        return;
-      }
-      log('ERP', `#${o.no} YAKUNLANDI`, `#${o.no} YAKUNLANDI`, 'OK');
-      hit('erp');
-      sb.mato -= need;
-      sb.shirt += QTY;
-      log('WMS', `-${group(need)} M MATO, +${QTY} KO‘YLAK`, `-${group(need)} M, +${QTY} DONA`, 'OK');
-      hit('wms', 'ERP');
-      sb.order = null;
-      if (sb.backlog > 0) { sb.backlog--; startOrder(); }
-    },
-    receive() {
-      sb.mato += 200;
-      log('WMS', '+200 M MATO KIRIM', '+200 M MATO', 'OK');
-      hit('wms');
-    },
-  };
-  $$('#sb [data-act]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      btn.classList.remove('ripple');
-      void btn.offsetWidth;
-      btn.classList.add('ripple');
-      SB_ACTIONS[btn.dataset.act]();
-      renderSb();
-      nudge();
-    });
-  });
-  const sbIdle = () => sbBoard.set([{ m: 'SYS', t: 'TUGMANI BOSING', s: 'TUGMANI BOSING', st: '', time: tashkentTime() }], false);
-  $('#sbReset').addEventListener('click', () => {
-    sb = SB_START();
-    sbCount = 0;
-    sbActions = 0;
-    $('#sbCount').textContent = '0 hodisa';
-    $('#sbNudge').hidden = true;
-    $('#sbLast').textContent = 'Namuna tiklandi. Boshlash uchun tugmani bosing.';
-    Object.values(sbCards).forEach((card) => {
-      clearTimeout(card._t);
-      card.classList.remove('hit', 'bad');
-      card.querySelector('.sb-from').textContent = '';
-    });
-    $('#sbHint').innerHTML = 'Mijozlar bo‘limida <b>“Savdoni yakunlash”</b>ni bosing va buyurtma qanday paydo bo‘lishini ko‘ring.';
-    sbBoard.set([], false);
-    sbIdle();
-    renderSb();
-  });
-  sbIdle();
-  renderSb();
-
   /* ---------- §01 Before / after ---------- */
   const ba = $('#ba');
   const baRange = $('#baRange');
@@ -606,57 +419,6 @@
   }, { threshold: 0.3 });
   mods.forEach((m) => { activeObserver.observe(m); inObserver.observe(m); });
   setActiveMod(mods[0].id);
-
-  /* ---------- §05 Payroll receipt ---------- */
-  const calc = $('#calc');
-  const val = (id) => Number($(`#${id}`).value);
-  const units = { 'c-fixed': 'so‘m', 'c-pieces': 'dona', 'c-rate': 'so‘m', 'c-bonus': 'so‘m' };
-  const lines = { fixed: $('.r-line[data-k="fixed"] b'), piece: $('.r-line[data-k="piece"] b'), bonus: $('.r-line[data-k="bonus"] b') };
-  const pieceNote = $('#r-piece-note');
-  const totalEl = $('#r-total');
-  let shownTotal = 0;
-  let totalFrame = 0;
-  const flash = (el) => {
-    const line = el.closest('.r-line');
-    line.classList.remove('flash');
-    void line.offsetWidth;
-    line.classList.add('flash');
-  };
-  const animateTotal = (to) => {
-    cancelAnimationFrame(totalFrame);
-    if (reduceMotion) { shownTotal = to; totalEl.textContent = group(to); return; }
-    const from = shownTotal;
-    const start = performance.now();
-    const step = (now) => {
-      const p = Math.min((now - start) / 420, 1);
-      shownTotal = from + (to - from) * (1 - Math.pow(1 - p, 3));
-      totalEl.textContent = group(shownTotal);
-      if (p < 1) totalFrame = requestAnimationFrame(step);
-    };
-    totalFrame = requestAnimationFrame(step);
-  };
-  const updateCalc = (changedId) => {
-    $$('input[type="range"]', calc).forEach((input) => {
-      const v = Number(input.value);
-      const out = $(`output[for="${input.id}"]`, calc);
-      out.textContent = `${input.id === 'c-bonus' && v > 0 ? '+' : ''}${signed(v)} ${units[input.id]}`;
-      input.style.setProperty('--p', `${((v - input.min) / (input.max - input.min)) * 100}%`);
-    });
-    const fixed = val('c-fixed');
-    const piece = val('c-pieces') * val('c-rate');
-    const bonus = val('c-bonus');
-    lines.fixed.textContent = group(fixed);
-    lines.piece.textContent = group(piece);
-    lines.bonus.textContent = `${bonus > 0 ? '+' : ''}${signed(bonus)}`;
-    pieceNote.textContent = `${val('c-pieces')}×${group(val('c-rate'))}`;
-    const map = { 'c-fixed': lines.fixed, 'c-pieces': lines.piece, 'c-rate': lines.piece, 'c-bonus': lines.bonus };
-    if (changedId && map[changedId]) flash(map[changedId]);
-    const total = Math.max(fixed + piece + bonus, 0);
-    if (changedId) animateTotal(total);
-    else { shownTotal = total; totalEl.textContent = group(total); }
-  };
-  calc.addEventListener('input', (e) => updateCalc(e.target.id));
-  updateCalc();
 
   /* ---------- §07 Steps progress (scroll-linked) ---------- */
   const steps = $('#steps');
@@ -1078,6 +840,8 @@
     intro.dataset.assemblyProgress=String(progress);
     intro.dataset.assemblyState=progress>.87?'assembled':progress>.1?'gathering':'scattered';
     intro.style.setProperty('--assembly-reveal',String(smooth((progress-.64)/.23)));
+    const brand=intro.querySelector('.connected-core-label');
+    if(brand){brand.style.visibility=progress>.64?'visible':'hidden';brand.setAttribute('aria-hidden',String(progress<=.64));}
     intro.style.setProperty('--assembly-labels',String(1-smooth((progress-.22)/.22)));
     intro.style.setProperty('--assembly-focus',String(smooth((progress-.12)/.58)));
     intro.style.setProperty('--assembly-details',String(smooth((progress-.76)/.15)));
@@ -1140,4 +904,27 @@
     else setTimeout(load, 500);
   }, {rootMargin:'100px'});
   observer.observe(host);
+})();
+
+/* Each comparison has its own independently mounted 3D factory. */
+(() => {
+  const hosts=[...document.querySelectorAll('[data-factory-src]')];
+  if(!hosts.length)return;
+  const observer=new IntersectionObserver(async entries=>{
+    for(const entry of entries){
+      if(!entry.isIntersecting)continue;
+      const host=entry.target;
+      observer.unobserve(host);
+      const fallback=host.querySelector('.factory-fallback small');
+      if(navigator.connection?.saveData){fallback.textContent='Jarayonning matnli taqqoslanishi quyida.';continue;}
+      try {
+        const module=await import(new URL(host.dataset.factorySrc,document.baseURI).href);
+        module.mountFactory(host);
+      }catch{
+        host.classList.remove('is-ready');host.querySelector('canvas')?.remove();
+        fallback.textContent='3D ko‘rinish bu qurilmada ochilmadi. Jarayon izohi quyida.';
+      }
+    }
+  },{rootMargin:'300px'});
+  hosts.forEach(host=>observer.observe(host));
 })();

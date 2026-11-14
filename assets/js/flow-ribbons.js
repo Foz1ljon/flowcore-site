@@ -76,7 +76,7 @@ export function createFlowRibbons(parent, quality) {
           float rim=smoothstep(.0,.08,vUv.y)*smoothstep(1.,.92,vUv.y)*(1.-smoothstep(.04,.18,min(vUv.y,1.-vUv.y)));
           float body=(.1+thread*.55+pulse*.55)*edge+rim*.5;
           vec3 color=mix(uColorA[uIndex],uColorB[uIndex],smoothstep(.1,.9,vUv.x))*(.65+.7*vShade);
-          float alpha=body*ends*vVis*centerFade(vX)*(.35+.65*vShade)*mix(.38,.62,uDark);
+          float alpha=body*ends*vVis*centerFade(vX)*(.35+.65*vShade)*mix(.7,.62,uDark);
           gl_FragColor=vec4(color,alpha);
           #include <colorspace_fragment>
         }`,

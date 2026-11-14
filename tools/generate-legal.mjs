@@ -13,12 +13,12 @@ export function generateLegalPages(assets, { home, logo, themeScript, themeButto
       { '@type': 'BreadcrumbList', itemListElement: [ { '@type': 'ListItem', position: 1, name: 'FlowCore', item: 'https://flowcore.uz/' }, { '@type': 'ListItem', position: 2, name: page.label, item: url } ] },
     ] };
     const document = `<!doctype html>
-<html lang="uz" data-theme="dark">
+<html lang="uz" data-theme="light">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(page.title)}</title>
 <meta name="description" content="${escape(page.description)}"><meta name="author" content="FlowCore">
-<meta name="robots" content="index, follow"><meta name="color-scheme" content="light dark"><meta name="theme-color" id="themeColor" content="#09090b">
+<meta name="robots" content="index, follow"><meta name="color-scheme" content="light dark"><meta name="theme-color" id="themeColor" content="#fafafa">
 <link rel="canonical" href="${url}"><link rel="alternate" hreflang="uz" href="${url}"><link rel="alternate" hreflang="x-default" href="${url}">
 <meta property="og:type" content="website"><meta property="og:locale" content="uz_UZ"><meta property="og:site_name" content="FlowCore"><meta property="og:url" content="${url}"><meta property="og:title" content="${escape(page.title)}"><meta property="og:description" content="${escape(page.description)}"><meta property="og:image" content="https://flowcore.uz/og-image.png">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escape(page.title)}"><meta name="twitter:description" content="${escape(page.description)}"><meta name="twitter:image" content="https://flowcore.uz/og-image.png">

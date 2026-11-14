@@ -81,7 +81,7 @@ assert visible_faq == [(q['name'], q['acceptedAnswer']['text']) for q in search_
 
 # Protect brand identity and page/schema parity across future content builds.
 organization = next(node for node in home_graph['@graph'] if node['@type'] == 'Organization')
-expected_socials = {'https://t.me/flowcore_uz', 'https://www.instagram.com/flowcore.uz'}
+expected_socials = {'https://t.me/flowcoreuz', 'https://www.instagram.com/flowcore_uz'}
 assert set(organization['sameAs']) == expected_socials, 'Incorrect official social profiles'
 assert expected_socials <= set(pages['index.html'].links), 'Organization profiles missing from page'
 logo = organization['logo']
@@ -149,6 +149,11 @@ for path in manifest['assets'].values():
     content = (ROOT / path).read_bytes()
     digest = hashlib.sha256(content).hexdigest()[:12]
     assert digest in Path(path).name, ('Stale content hash', path)
+    if path.endswith('.js'):
+        for dependency in re.findall(r'''(?:from\s*|import\s*)["'](\./[^"']+\.js)["']''', content.decode()):
+            target = ((ROOT / path).parent / dependency).resolve()
+            assert target.is_file(), ('Broken JS chunk', path, dependency)
+            assert target.relative_to(ROOT).as_posix() in manifest['assets'].values(), ('Untracked JS chunk', dependency)
     if path.endswith('.css'):
         for url in re.findall(r'url\(["\']?([^\s)"\']+)', content.decode()):
             if not url.startswith(('data:', '#', '%23')):

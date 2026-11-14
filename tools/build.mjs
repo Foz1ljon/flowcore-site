@@ -20,14 +20,32 @@ for (const [name,source] of Object.entries(entries)) {
   writeFileSync(output,code);assets[name]=output;
   report[name]={source,output,before:Buffer.byteLength(input),after:Buffer.byteLength(code),gzip:gzipSync(code,{level:9}).length};
 }
-// Bundle Three.js separately: it is never part of the critical page scripts.
-const sceneSource = 'assets/js/flow-scene.js';
-const sceneBuild = await build({entryPoints:[sceneSource],bundle:true,write:false,format:'esm',minify:true,legalComments:'none',target:'es2020'});
-const sceneCode = sceneBuild.outputFiles[0].contents;
-const sceneHash = createHash('sha256').update(sceneCode).digest('hex').slice(0,12);
-assets.scene = `assets/dist/scene.${sceneHash}.js`;
-writeFileSync(assets.scene,sceneCode);
-report.scene = {source:sceneSource,output:assets.scene,before:Buffer.byteLength(readFileSync(sceneSource)),after:sceneCode.length,gzip:gzipSync(sceneCode,{level:9}).length};
+// Both optional 3D entries share Three.js and addons; visitors download the engine once.
+const sceneSources={scene:'assets/js/flow-scene.js',factory:'assets/js/factory-scene.js'};
+const sceneBuild=await build({entryPoints:sceneSources,bundle:true,splitting:true,write:false,outdir:'assets/dist',format:'esm',minify:true,legalComments:'eof',target:'es2020'});
+const outputs=new Map(sceneBuild.outputFiles.map(file=>[file.path.split('/').pop(),file.text]));
+const finalized=new Map(),visiting=new Set();
+function saveSceneChunk(name){
+  if(finalized.has(name))return finalized.get(name);
+  if(visiting.has(name))throw new Error(`Circular 3D chunk dependency: ${name}`);
+  visiting.add(name);
+  const code=outputs.get(name).replace(/(["'])\.\/([^"']+\.js)\1/g,(_match,quote,dependency)=>`${quote}./${saveSceneChunk(dependency).filename}${quote}`);
+  const hash=createHash('sha256').update(code).digest('hex').slice(0,12);
+  const label=name==='scene.js'?'scene':name==='factory.js'?'factory':`three-${name.replace(/\.js$/,'').toLowerCase()}`;
+  const filename=`${label}.${hash}.js`,output=`assets/dist/${filename}`;
+  writeFileSync(output,code);
+  const result={filename,output,code};finalized.set(name,result);visiting.delete(name);return result;
+}
+for(const [name,source] of Object.entries(sceneSources)){
+  const result=saveSceneChunk(`${name}.js`);assets[name]=result.output;
+  report[name]={source,output:result.output,before:Buffer.byteLength(readFileSync(source)),after:Buffer.byteLength(result.code),gzip:gzipSync(result.code,{level:9}).length};
+}
+let sharedIndex=0;
+for(const [name,result] of finalized){
+  if(name==='scene.js'||name==='factory.js')continue;
+  const key=`threeShared${sharedIndex++}`;assets[key]=result.output;
+  report[key]={source:'Shared Three.js engine and addons',output:result.output,before:Buffer.byteLength(result.code),after:Buffer.byteLength(result.code),gzip:gzipSync(result.code,{level:9}).length};
+}
 const experienceSource = 'assets/js/experience.js';
 const experienceBuild = await build({entryPoints:[experienceSource],bundle:true,write:false,format:'esm',minify:true,legalComments:'eof',target:'es2020'});
 const experienceCode = experienceBuild.outputFiles[0].contents;
@@ -37,6 +55,7 @@ writeFileSync(assets.experience,experienceCode);
 report.experience = {source:experienceSource,output:assets.experience,before:Buffer.byteLength(readFileSync(experienceSource)),after:experienceCode.length,gzip:gzipSync(experienceCode,{level:9}).length};
 const previousHome=readFileSync('index.html','utf8');
 let home=previousHome;
+home=home.replace(/assets\/(?:js\/factory-scene|dist\/factory\.[a-f0-9]+)\.js/g,assets.factory);
 home=home.replace(/assets\/(?:js\/flow-scene|dist\/scene\.[a-f0-9]+)\.js/g,assets.scene);
 home=home.replace(/assets\/(?:js\/experience|dist\/experience\.[a-f0-9]+)\.js/g,assets.experience);
 home=updateHomeSeo(home);

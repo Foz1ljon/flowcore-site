@@ -28,7 +28,7 @@ export function generatePages(assets, previousHome) {
       { '@type':'FAQPage','@id':`${url}#faq`,inLanguage:'uz',isPartOf:{'@id':`${url}#webpage`},mainEntity:p.faqs.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}})) }
     ]};
     const document = `<!doctype html>
-<html lang="uz" data-theme="dark">
+<html lang="uz" data-theme="light">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(p.title)}</title>
@@ -36,7 +36,7 @@ export function generatePages(assets, previousHome) {
 <meta name="author" content="FlowCore">
 <meta name="yandex-verification" content="09a3603c5db71a5a" />
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="color-scheme" content="light dark"><meta name="theme-color" id="themeColor" content="#09090b">
+<meta name="color-scheme" content="light dark"><meta name="theme-color" id="themeColor" content="#fafafa">
 <link rel="canonical" href="${url}"><link rel="alternate" hreflang="uz" href="${url}"><link rel="alternate" hreflang="x-default" href="${url}">
 <meta property="og:type" content="website"><meta property="og:locale" content="uz_UZ"><meta property="og:site_name" content="FlowCore"><meta property="og:url" content="${url}">
 <meta property="og:title" content="${escape(p.title)}"><meta property="og:description" content="${escape(p.description)}">

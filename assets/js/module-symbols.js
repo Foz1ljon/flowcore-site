@@ -1,4 +1,5 @@
-import { Scene, PerspectiveCamera, WebGLRenderer, Group, Mesh, BoxGeometry, SphereGeometry, CapsuleGeometry, CylinderGeometry, MeshPhysicalMaterial, AmbientLight, DirectionalLight, Shape, ExtrudeGeometry, ACESFilmicToneMapping } from 'three';
+import { createTeamModel } from './team-model.js';
+import { Scene, PerspectiveCamera, WebGLRenderer, Group, Mesh, BoxGeometry, SphereGeometry, CylinderGeometry, MeshPhysicalMaterial, AmbientLight, DirectionalLight, Shape, ExtrudeGeometry, ACESFilmicToneMapping } from 'three';
 
 // One small offscreen WebGL context draws all module symbols into local 2D canvases.
 // This keeps each illustration inside its card, with normal scrolling and clipping.
@@ -11,7 +12,7 @@ export function createModuleSymbols(quality = {tier:'high', antialias:true}) {
   const camera=new PerspectiveCamera(32,1,.1,20);
   camera.position.set(3,2.5,4.8); camera.lookAt(0,-.02,0); camera.zoom=1.3; camera.updateProjectionMatrix();
   const materials=[];
-  const material=color=>{const value=new MeshPhysicalMaterial({color,metalness:.18,roughness:.32,clearcoat:quality.tier==='high'?.6:0});materials.push(value);return value;};
+  const material=(color,metalness=.18,roughness=.32)=>{const value=new MeshPhysicalMaterial({color,metalness,roughness,clearcoat:quality.tier==='high' && roughness<.6?.6:0});materials.push(value);return value;};
   const mint=material(0xc1eadb),deep=material(0x08775d),ivory=material(0xf6faf7),ink=material(0x37554b);
   const accents={wms:material(0xc78f42),erp:material(0xcf7653),hr:material(0x4b9aaa),crm:material(0x8d78bb),lms:material(0xbc7894),finance:material(0xd4a342)};
   const models=new Map();
@@ -34,10 +35,9 @@ export function createModuleSymbols(quality = {tier:'high', antialias:true}) {
       for(let i=0;i<5;i++){const roller=mesh(new CylinderGeometry(.105,.105,.76,12),mint,-.65+i*.325,-.3);roller.rotation.x=Math.PI/2;}
       for(let i=0;i<2;i++){const parcel=new Group();box(.38,.38,.4,accent,0,0,0,parcel);box(.07,.39,.41,ivory,0,0,0,parcel);parcel.position.set(-.44+i*.82,0,0);root.add(parcel);parts.push(parcel);}
     } else if(id==='hr') {
-      [[-.53,.18,.05],[.53,.18,.05],[0,.4,.25]].forEach(([x,y,z],i)=>{
-        mesh(new SphereGeometry(.18,18,12),i===2?deep:accent,x,y+.16,z);
-        mesh(new CapsuleGeometry(.19,.28,4,12),i===2?deep:mint,x,y-.32,z);
-      });
+      const team = createTeamModel(material);
+      team.position.y = -.08;
+      root.add(team);
     } else if(id==='crm') {
       const bubble=(mat,x,y,z)=>{
         const g=new Group();g.position.set(x,y,z);root.add(g);

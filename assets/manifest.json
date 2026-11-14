@@ -1,12 +1,14 @@
 {
   "assets": {
-    "style": "assets/dist/style.4a561f9be3dc.css",
+    "style": "assets/dist/style.5b449e245172.css",
     "product": "assets/dist/product.301f3a09f4bb.css",
-    "main": "assets/dist/main.66b8e7ec7668.js",
+    "main": "assets/dist/main.d15add190ef5.js",
     "tour": "assets/dist/tour.4e790b698018.js",
     "site": "assets/dist/site.9068466f4a5b.js",
     "stack": "assets/dist/stack.e5c16d2e0637.js",
-    "scene": "assets/dist/scene.e6ec2a0fd4b9.js",
+    "scene": "assets/dist/scene.af8d7f1c028b.js",
+    "factory": "assets/dist/factory.f37fceac2d10.js",
+    "threeShared0": "assets/dist/three-chunk-b2velybx.b4943dfc4d56.js",
     "experience": "assets/dist/experience.dcf81f115fb1.js"
   },
   "pages": [

@@ -378,7 +378,7 @@ The event-board disclosure has an explicit open/close label and rotating chevron
 ## SEO identity and indexing (2026-11-10)
 
 `tools/seo.mjs` is the source of official social profiles: Telegram
-`https://t.me/flowcore_uz` and Instagram `https://www.instagram.com/flowcore.uz`
+`https://t.me/flowcoreuz` and Instagram `https://www.instagram.com/flowcore_uz`
 (user supplied). Homepage Organization JSON-LD and generated page footers use
 these same links. The logo is the existing 512×512 `/icon-512.png`; there is no
 `/logo.png`. Organization, WebSite, WebPage, software and FAQ entities are linked

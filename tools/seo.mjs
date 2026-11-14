@@ -1,6 +1,6 @@
 export const socialLinks = Object.freeze({
-  telegram: 'https://t.me/flowcore_uz',
-  instagram: 'https://www.instagram.com/flowcore.uz',
+  telegram: 'https://t.me/flowcoreuz',
+  instagram: 'https://www.instagram.com/flowcore_uz',
 });
 
 // Search metadata and product terminology; the public interface remains Uzbek.
@@ -17,10 +17,10 @@ export const moduleNames = {
 export function updateHomeSeo(home) {
   const title = 'FlowCore — biznes uchun CRM, ERP va ombor dasturi';
   const description = 'Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.';
-  home = home.replaceAll('https://www.instagram.com/flowcore_uz/', socialLinks.instagram)
-    .replaceAll('https://t.me/flowcoreuz', socialLinks.telegram);
+  home = home.replace(/https:\/\/www\.instagram\.com\/flowcore[._]uz\/?(?=["'])/g, socialLinks.instagram)
+    .replace(/https:\/\/t\.me\/flowcore_?uz(?=["'])/g, socialLinks.telegram);
   for (const [network, url] of Object.entries(socialLinks)) {
-    const handle = network === 'instagram' ? '@flowcore.uz' : '@flowcore_uz';
+    const handle = network === 'instagram' ? '@flowcore_uz' : '@flowcoreuz';
     home = home.replaceAll(new RegExp(`<a href="${url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*>[\\s\\S]*?<\\/a>`, 'g'), link => link.replace(/@flowcore(?:_uz|uz|\.uz)/g, handle));
   }
   home = home.replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)

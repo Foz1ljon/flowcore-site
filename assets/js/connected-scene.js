@@ -1,4 +1,5 @@
-import { Scene, PerspectiveCamera, WebGLRenderer, Group, Mesh, InstancedMesh, Object3D, Matrix4, MeshPhysicalMaterial, MeshStandardMaterial, MeshBasicMaterial, CylinderGeometry, CapsuleGeometry, TorusGeometry, SphereGeometry, IcosahedronGeometry, RingGeometry, TubeGeometry, CatmullRomCurve3, Vector3, Color, AmbientLight, DirectionalLight, ACESFilmicToneMapping, PMREMGenerator, PCFSoftShadowMap, Sprite, SpriteMaterial, CanvasTexture, SRGBColorSpace, Points, PointsMaterial, BufferGeometry, BufferAttribute, DoubleSide } from 'three';
+import { createTeamModel } from './team-model.js';
+import { Scene, PerspectiveCamera, WebGLRenderer, Group, Mesh, InstancedMesh, Object3D, Matrix4, MeshPhysicalMaterial, MeshStandardMaterial, MeshBasicMaterial, CylinderGeometry, TorusGeometry, SphereGeometry, IcosahedronGeometry, RingGeometry, TubeGeometry, CatmullRomCurve3, Vector3, Color, AmbientLight, DirectionalLight, ACESFilmicToneMapping, PMREMGenerator, PCFSoftShadowMap, Sprite, SpriteMaterial, CanvasTexture, SRGBColorSpace, Points, PointsMaterial, BufferGeometry, BufferAttribute, DoubleSide } from 'three';
 
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
@@ -115,7 +116,7 @@ export function mountConnectedScene() {
   const particleMaterial=new PointsMaterial({size:.15,map:glowTexture,vertexColors:true,transparent:true,opacity:.5,depthWrite:false,sizeAttenuation:true});
   const particles=new Points(particleGeometry,particleMaterial); root.add(particles);
   // Each department is a miniature product model, lit by the same studio environment.
-  const material=(color,metalness=.05,roughness=.36)=>quality.physical?new MeshPhysicalMaterial({color,metalness,roughness,clearcoat:.55,envMapIntensity:.7}):new MeshStandardMaterial({color,metalness,roughness,envMapIntensity:.8});
+  const material=(color,metalness=.05,roughness=.36)=>quality.physical?new MeshPhysicalMaterial({color,metalness,roughness,clearcoat:roughness<.6?.55:0,envMapIntensity:.7}):new MeshStandardMaterial({color,metalness,roughness,envMapIntensity:.8});
   const ivory=material(0xf5f5ed),ink=material(0x203c3b,.4),metal=material(0x9cb8b6,.75,.26),wood=material(0xc39b65);
   function miniature(id,accent) {
     const model=new Group(); model.rotation.set(.32,-.48,.03);
@@ -136,11 +137,10 @@ export function mountConnectedScene() {
       box(.08,.69,.09,accent,.45,.02,-.24);box(.43,.08,.09,accent,.28,.32,-.24);
       box(.09,.13,.09,ink,.1,.22,-.24);
     } else if(id==='hr') {
-      [[-.33,-.07,0],[.33,-.07,0],[0,.08,.16]].forEach(([x,y,z],i)=>{
-        add(new CapsuleGeometry(.12,.18,5,16),i===2?ink:accent,x,y-.12,z);
-        add(new SphereGeometry(.115,24,16),ivory,x,y+.19,z);
-        box(.055,.08,.014,metal,x,y-.09,z+.12);
-      });
+      const team = createTeamModel(material);
+      team.scale.setScalar(.72);
+      team.position.y = .04;
+      model.add(team);
     } else if(id==='crm') {
       const bubble=(x,y,z,mat)=>{
         box(.64,.4,.13,mat,x,y,z);
@@ -203,12 +203,55 @@ export function mountConnectedScene() {
     merged.rotation.copy(rotation);
     return merged;
   }
+  // A small assistant works beside each miniature, leaving the centre for assembly.
+  const agentHead = new SphereGeometry(1,24,16);
+  const agentBody = new RoundedBoxGeometry(.18,.19,.13,3,.045);
+  const agentJoint = new SphereGeometry(.027,12,8);
+  const agentArm = new CylinderGeometry(.022,.025,.13,12);
+  const agentEye = new SphereGeometry(.018,12,8);
+  const agentVisor = new RoundedBoxGeometry(.19,.085,.035,3,.025);
+  const agentPalm = new RoundedBoxGeometry(.065,.065,.04,2,.012);
+  const agentFinger = new RoundedBoxGeometry(.014,.052,.023,2,.006);
+  function moduleAgent(side, accent) {
+    const group=new Group();
+    group.position.set(side*.78,.08,.3);
+    group.scale.setScalar(.68);
+    group.rotation.y=-.25;
+    const add=(geometry,mat,x,y,z,parent=group)=>{
+      const mesh=new Mesh(geometry,mat);mesh.position.set(x,y,z);parent.add(mesh);return mesh;
+    };
+    add(agentHead,ivory,0,.23,0).scale.set(.132,.112,.102);
+    add(agentVisor,ink,0,.228,.083);
+    for(const x of [-.043,.043])add(agentEye,accent,x,.23,.109);
+    add(agentJoint,metal,0,.112,0);
+    add(agentBody,ivory,0,0,0);
+    add(agentVisor,ink,0,.01,.068).scale.set(.45,.5,.8);
+    add(agentEye,accent,0,.01,.087).scale.set(.6,.6,.6);
+    const arms=[-1,1].map(direction=>{
+      const shoulder=new Group();shoulder.position.set(direction*.125,.035,0);group.add(shoulder);
+      shoulder.rotation.z=direction*.6;
+      add(agentJoint,ink,0,0,0,shoulder);
+      add(agentArm,ivory,0,-.065,0,shoulder);
+      const elbow=new Group();elbow.position.y=-.135;shoulder.add(elbow);
+      add(agentJoint,accent,0,0,0,elbow);
+      add(agentArm,ivory,0,-.065,0,elbow);
+      const hand=new Group();hand.position.set(0,-.16,.01);elbow.add(hand);
+      add(agentPalm,accent,0,0,0,hand);
+      for(const x of [-.024,0,.024])add(agentFinger,ivory,x,-.05,.005,hand);
+      add(agentFinger,ivory,direction*.045,-.005,.005,hand).rotation.z=-direction*.8;
+      return {shoulder,elbow,hand,direction};
+    });
+    const scan=new Mesh(new TorusGeometry(.13,.006,6,32),accent);
+    scan.rotation.x=Math.PI/2;scan.position.set(-side*.19,-.3,0);group.add(scan);
+    return {group,arms,scan,side};
+  }
   const nodes = buttons.map((button,i)=>{
     const scattered=[[-2.55,1.2,-.25],[-.55,1.65,.15],[2.25,1.2,-.25],[2.65,-.8,.15],[.75,-1.55,-.1],[-1.25,-1.45,.25],[-2.65,-.4,-.15]];
     const position = new Vector3(...scattered[i]);
     const group = new Group(); group.position.copy(position); root.add(group);
     const material = quality.physical?new MeshPhysicalMaterial({color:colors[i],metalness:.3,roughness:.25,clearcoat:1,emissive:colors[i],emissiveIntensity:.1}):new MeshStandardMaterial({color:colors[i],metalness:.3,roughness:.25,emissive:colors[i],emissiveIntensity:.1});
     const cube = miniature(button.dataset.flowModule,material); group.add(cube);
+    const agent=moduleAgent(position.x>0?-1:1,material);group.add(agent.group);
     const halo = new Mesh(new TorusGeometry(.67,.009,8,64),new MeshBasicMaterial({color:colors[i],transparent:true,opacity:.45}));
     halo.rotation.x=Math.PI/2; halo.position.y=-.5; group.add(halo);
     const curve = new CatmullRomCurve3([new Vector3(),new Vector3(position.x*.3,position.y*.18,.8),new Vector3(position.x*.72,position.y*.8,.45),position]);
@@ -218,7 +261,7 @@ export function mountConnectedScene() {
     packets.frustumCulled=false; root.add(packets);
     const trail = quality.trails ? new InstancedMesh(trailGeometry,new MeshBasicMaterial({color:colors[i],transparent:true,opacity:.55,depthWrite:false}),7) : null;
     if(trail){trail.frustumCulled=false;root.add(trail);}
-    return {button,position,group,cube,halo,curve,routeMaterial,material,packets,trail};
+    return {button,position,group,cube,agent,halo,curve,routeMaterial,material,packets,trail};
   });
   let fitDistance=10;
   let width=1,height=1,visible=false,dead=false,available=true,elapsed=0,last=0,selected=5,dark=false,velocity=0,lastProgress=null;
@@ -288,6 +331,18 @@ export function mountConnectedScene() {
       node.cube.position.y=Math.sin(elapsed*.7+i)*.025*(1-pose.travel);
       node.group.scale.setScalar((active?1.06:1)*1.4*pose.scale);
       node.group.visible=pose.opacity>.005;
+      const agentMotion=motion.matches?0:Math.sin(elapsed*1.8+i*.9);
+      node.agent.group.visible=progress<.58;
+      node.agent.group.position.y=.08+agentMotion*.022;
+      node.agent.group.rotation.z=agentMotion*.045;
+      node.agent.arms.forEach(({shoulder,elbow,hand,direction})=>{
+        const working=direction===-node.agent.side;
+        shoulder.rotation.z=direction*(working?.95+agentMotion*.22:.45-agentMotion*.08);
+        elbow.rotation.x=working?-.7-agentMotion*.3:-.18;
+        hand.rotation.z=agentMotion*(working?.2:.08);
+      });
+      node.agent.scan.scale.setScalar(.85+agentMotion*.12);
+      node.agent.scan.position.y=-.3+agentMotion*.025;
       node.material.transparent=true;node.material.opacity=pose.opacity;node.material.depthWrite=pose.opacity>.95;
       node.halo.material.opacity=.32*(1-pose.travel);
       node.halo.rotation.z=elapsed*.3;
