@@ -114,3 +114,16 @@
 .detail-gallery .detail-shot { margin: 0; }
 .detail-gallery > p { color: var(--ink-2); font-size: 14px; }
 .detail-card h3 a { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; }
+
+/* Module and locale pages share the marketing site's typography and surfaces. */
+.detail-page:not(.legal-page, .notfound-page) .detail-hero {
+  max-width: none;
+  padding: clamp(26px, 5vw, 68px) clamp(18px, 6vw, 78px);
+  margin-bottom: clamp(28px, 5vw, 65px);
+  border: 1px solid var(--line-2);
+  border-radius: clamp(16px, 2.4vw, 30px);
+  background: radial-gradient(ellipse at 100% 0%, var(--glow), transparent 62%), var(--bg-2);
+}
+.detail-page .detail-hero h1 { text-wrap: balance; letter-spacing: -.05em; }
+.detail-page .detail-section { padding-block: clamp(35px, 6vw, 72px); }
+.detail-page .detail-card { border-radius: clamp(16px, 2.4vw, 24px); }

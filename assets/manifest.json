@@ -1,15 +1,15 @@
 {
   "assets": {
-    "style": "assets/dist/style.2e360722575e.css",
-    "product": "assets/dist/product.9bde219b717d.css",
-    "main": "assets/dist/main.7bf08b8dbe23.js",
+    "style": "assets/dist/style.05997b2a779c.css",
+    "product": "assets/dist/product.f4f8f13008c2.css",
+    "main": "assets/dist/main.49f5edb5e2c2.js",
     "tour": "assets/dist/tour.1aa1212f34db.js",
     "site": "assets/dist/site.719eef3a15a6.js",
-    "stack": "assets/dist/stack.a0c8752bb9fa.js",
-    "scene": "assets/dist/scene.57e097cb5780.js",
+    "stack": "assets/dist/stack.f3c8b7cf7cc2.js",
+    "scene": "assets/dist/scene.5d8abd05e682.js",
     "factory": "assets/dist/factory.ceff083efc19.js",
     "threeShared0": "assets/dist/three-chunk-3aiu7zbs.b4943dfc4d56.js",
-    "experience": "assets/dist/experience.606f9fadc619.js"
+    "experience": "assets/dist/experience.8170109b2058.js"
   },
   "pages": [
     "erp/index.html",

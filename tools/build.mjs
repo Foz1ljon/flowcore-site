@@ -67,7 +67,7 @@ for (const name of ['style','main','tour','stack']) {
 // Minify JSON-LD only; preserve meaningful HTML whitespace and readable source.
 home=home.replace(/(<script type="application\/ld\+json">)\s*([\s\S]*?)\s*(<\/script>)/g,(_match,open,json,close)=>open+JSON.stringify(JSON.parse(json))+close);
 writeFileSync('index.html',home);
-const pages=generatePages(assets, previousHome);
+const pages=generatePages(assets, home);
 writeFileSync('assets/manifest.json',JSON.stringify({assets,pages,errorPages:['404.html']},null,2)+'\n');
 writeFileSync('tools/build-report.json',JSON.stringify(report,null,2)+'\n');
 console.log(Object.entries(report).map(([name,r])=>`${name}: ${r.before} -> ${r.after} bytes (${r.gzip} gzip)`).join('\n'));

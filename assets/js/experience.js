@@ -46,16 +46,6 @@ function mountExperience() {
         return ()=>{if(symbol)react(symbol,{scale:1,rotate:0});};
       }));
 
-      if(scrollY<120 && performance.now()<1800) {
-        gsap.timeline({defaults:{ease:'power3.out',duration:.72}})
-          .from('.hero-eyebrow',{opacity:.45,y:12})
-          .from('.hero-title',{opacity:.7,y:22,duration:.9},.08)
-          .from('.hero-lead',{opacity:.45,y:16},.2)
-          .from('.hero-actions',{opacity:.6,y:14},.28)
-          .from('.hero-reassurance, .hero-stats > div',{opacity:.5,y:10,stagger:.05},.38)
-          .from('.hero-node',{opacity:.4,y:8,stagger:.045},.45);
-      }
-
       const candidates=[...document.querySelectorAll('.sec-head, .benefit-heading, .benefit-panel, .benefit-example, .choice-heading, .module-shortcut, .mod-copy, .mod > .viz, .control-card, .delivery-card, .bento .cell, .steps > li, .receipt-wrap, .faq details, .industry-choice')];
       const reveal=candidates.filter(element=>element.getBoundingClientRect().top>innerHeight*.88);
       const initialX=element=>{
@@ -78,10 +68,8 @@ function mountExperience() {
       // Ambient GSAP motion continues between interactions, not just on first paint.
       // Keep it on decorative nodes so module tables and reading text stay steady.
       const ambient=gsap.timeline({repeat:-1,yoyo:true,defaults:{ease:'sine.inOut'}})
-        .to('.hero-node',{y:-4,duration:2.8,stagger:.25},0)
         .to('.event-summary-icon',{y:-3,scale:1.035,duration:3.2},0)
-        .to('.delivery-icon .icon, .feature-icon .icon',{y:-4,rotation:3,duration:3.6,stagger:.18},0)
-        .to('.hero-eyebrow > span',{opacity:.35,scale:.75,duration:2.4},0);
+        .to('.delivery-icon .icon, .feature-icon .icon',{y:-4,rotation:3,duration:3.6,stagger:.18},0);
       const refreshVisibility=()=>ambient.paused(document.hidden);
       document.addEventListener('visibilitychange',refreshVisibility);
       refreshVisibility();

@@ -43,7 +43,7 @@ class Page(HTMLParser):
             self.robots = attrs.get('content', '')
             if not self.allow_noindex:
                 assert 'noindex' not in self.robots, 'Public page disallows indexing'
-        for key in ['href', 'src', 'data-scene-src']:
+        for key in ['href', 'src', 'data-scene-src', 'data-factory-src']:
             if key in attrs:
                 self.links.append(attrs[key])
 
@@ -69,6 +69,18 @@ for filename in files:
 
 # Search answers must match the text visitors can actually read.
 home_source = (ROOT / 'index.html').read_text()
+def home_section_ids(source):
+    main = re.search(r'<main[^>]*>(.*?)</main>', source, re.S)[1]
+    return re.findall(r'^    <section[^>]*\bid="([^"]+)"', main, re.M)
+
+for locale in ('en', 'ru'):
+    translated = (ROOT / locale / 'index.html').read_text()
+    assert home_section_ids(translated) == home_section_ids(home_source), (locale, 'Homepage layout drift')
+    assert 'new URL(\'assets/' not in translated, (locale, 'Relative runtime assets')
+    assert 'src="assets/' not in translated, (locale, 'Relative script or image paths')
+
+assert home_section_ids(home_source)[0] == 'bir-oqimda', 'The 3D assembly must open the homepage'
+
 faq_source = re.search(r'<div class="faq">(.*?)</div>', home_source, re.S)[1]
 def plain(text):
     return unescape(re.sub(r'\s+', ' ', re.sub(r'<[^>]*>', '', text)).strip())
@@ -99,7 +111,10 @@ for filename in files:
         if node['@type'] == 'SoftwareApplication':
             assert node['mainEntityOfPage']['@id'] == webpage['@id'], (filename, 'Software/page relationship missing')
         if node['@type'] == 'FAQPage' and filename != 'index.html':
-            visible = [(plain(q), plain(a)) for q,a in re.findall(r'<summary>(.*?)</summary><p>(.*?)</p>', source, re.S)]
+            faq_markup = source
+            if filename in ('en/index.html', 'ru/index.html'):
+                faq_markup = re.search(r'<div class="faq">(.*?)</div>', source, re.S)[1]
+            visible = [(plain(q), plain(a)) for q,a in re.findall(r'<summary>(.*?)</summary><p>(.*?)</p>', faq_markup, re.S)]
             assert visible == [(q['name'], q['acceptedAnswer']['text']) for q in node['mainEntity']], (filename, 'FAQ/schema mismatch')
     assert expected_socials <= set(pages[filename].links), (filename, 'Outdated social links')
 

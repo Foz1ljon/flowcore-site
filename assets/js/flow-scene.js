@@ -1,4 +1,5 @@
 import { mountConnectedScene } from './connected-scene.js';
+export { mountConnectedScene };
 import { createFlowRibbons } from './flow-ribbons.js';
 import { createModuleSymbols } from './module-symbols.js';
 import { deviceQuality, createGovernor } from './quality.js';

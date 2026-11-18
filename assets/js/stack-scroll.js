@@ -5,7 +5,8 @@
   const main = document.querySelector('main');
   const root = document.documentElement;
   if (!main || !CSS.supports('position', 'sticky')) return;
-  const cards = [...main.children].filter(element => element.tagName === 'SECTION');
+  // The 3D opening owns its own sticky scroll range.
+  const cards = [...main.children].filter(element => element.matches('section:not([data-assembly-intro])'));
   if (cards.length < 2) return;
 
   // Measures layout as if nothing were stuck. Toggling the class within one synchronous

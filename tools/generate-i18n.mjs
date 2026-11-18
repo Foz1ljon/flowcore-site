@@ -1,5 +1,6 @@
 // English (/en/) and Russian (/ru/) overview and product pages, built from tools/i18n.mjs.
 import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
+import { localizedHomeBody } from './generate-localized-home.mjs';
 import { languages } from './i18n.mjs';
 import { moduleNames, socialLinks } from './seo.mjs';
 
@@ -70,7 +71,7 @@ function header(lang, slug, ctx) {
   const L = languages[lang].ui;
   return `<a class="skip-link" href="#main">${escape(L.skip)}</a>
 <header class="site-header"><div class="wrap detail-header">${ctx.logo.replace('href="/"', `href="${pathFor(lang, '')}"`).replace('— bosh sahifa', lang === 'en' ? '— home page' : '— главная страница').replace('Biznesingiz bir oqimda', lang === 'en' ? 'Your business in one flow' : 'Ваш бизнес в одном потоке')}
-<nav aria-label="${escape(L.modules)}"><a href="${pathFor(lang, '')}#modules">${escape(L.modules)}</a><a href="${pathFor(lang, 'erp')}"${slug==='erp'?' aria-current="page"':''}>ERP</a><a href="${pathFor(lang, 'crm')}"${slug==='crm'?' aria-current="page"':''}>CRM</a><a href="${pathFor(lang, 'ai')}"${slug==='ai'?' aria-current="page"':''}>AI</a><a href="/#aloqa">${escape(L.contact)}</a></nav>${languageNav(lang, slug, L.languages)}${ctx.themeButton}</div></header>`;
+<nav aria-label="${escape(L.modules)}"><a href="${pathFor(lang, '')}#modullar">${escape(L.modules)}</a><a href="${pathFor(lang, 'erp')}"${slug==='erp'?' aria-current="page"':''}>ERP</a><a href="${pathFor(lang, 'crm')}"${slug==='crm'?' aria-current="page"':''}>CRM</a><a href="${pathFor(lang, 'ai')}"${slug==='ai'?' aria-current="page"':''}>AI</a><a href="${pathFor(lang, '')}#aloqa">${escape(L.contact)}</a></nav>${languageNav(lang, slug, L.languages)}${ctx.themeButton}</div></header>`;
 }
 
 function footer(lang, slug, assets) {
@@ -84,38 +85,22 @@ function footer(lang, slug, assets) {
 const faqHtml = (faqs) => faqs.map(([q, a]) => `<details><summary>${escape(q)}</summary><p>${escape(a)}</p></details>`).join('');
 const faqSchema = (id, url, lang, faqs) => ({ '@type':'FAQPage', '@id':id, inLanguage:lang, isPartOf:{'@id':`${url}#webpage`}, mainEntity:faqs.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}})) });
 
-export function generateTranslatedPages(assets, ctx, products) {
+export function generateTranslatedPages(assets, ctx, products, home) {
   const files = [];
   for (const lang of translatedLanguages) {
     const L = languages[lang];
     const H = L.home;
     const homeUrl = origin + pathFor(lang, '');
     const order = products.map(p => p.slug).filter(slug => L.products[slug]);
-    // Overview page.
+    const { body, faq } = localizedHomeBody(home, lang, products, L.products, escape);
     const homeSchema = { '@context':'https://schema.org', '@graph':[
       { '@type':'WebPage', '@id':`${homeUrl}#webpage`, url:homeUrl, name:H.title, description:H.description, inLanguage:lang, isPartOf:{'@id':`${origin}/#website`}, publisher:{'@id':`${origin}/#organization`}, about:{'@id':`${origin}/#software`}, primaryImageOfPage:{'@type':'ImageObject',url:`${origin}/og-image.png`,width:1200,height:630}, hasPart:{'@id':`${homeUrl}#faq`} },
-      faqSchema(`${homeUrl}#faq`, homeUrl, lang, H.faq),
+      faqSchema(`${homeUrl}#faq`, homeUrl, lang, faq),
     ]};
-    const cards = order.map(slug => {
-      const p = L.products[slug];
-      return `<article class="detail-card"><h3><a href="${pathFor(lang, slug)}">${escape(p.title.split(' — ')[0])}</a></h3><p>${escape(p.description)}</p></article>`;
-    }).join('');
-    const shots = ['erp','crm','ombor'].map(slug => {
-      const name = L.products[slug].title.split(' — ')[0];
-      return screenFor(slug) ? `<figure class="detail-shot"><img src="${screenFor(slug)}" srcset="${screenSrcset(screenFor(slug))}" sizes="${SCREEN_SIZES}" width="${SCREEN_WIDTH}" height="${SCREEN_HEIGHT}" alt="${escape(L.ui.screenAlt(name))}" loading="lazy" decoding="async"><figcaption>${escape(name)}</figcaption></figure>` : '';
-    }).join('');
-    const homeHtml = `${head({ lang, title:H.title, description:H.description, url:homeUrl, slug:'', image:`${origin}/og-image.png`, schema:homeSchema, assets, ctx })}
-<body class="detail-page" id="top">
-${ctx.symbols}
-${header(lang, '', ctx)}
-<main class="wrap" id="main">
-<section class="detail-hero" aria-labelledby="detail-title"><p class="detail-kicker">${escape(H.kicker)}</p><h1 id="detail-title">${escape(H.heading)}</h1><p class="detail-lead">${escape(H.intro)}</p><div class="detail-actions"><a class="btn btn-accent btn-lg" href="/#aloqa">${escape(L.ui.demo)}</a><a class="btn btn-line btn-lg" href="/#ichkarida" hreflang="uz">${escape(L.ui.tryIt)}</a></div></section>
-<section class="detail-section" id="modules" aria-labelledby="modules-title"><h2 id="modules-title">${escape(H.modulesTitle)}</h2><div class="detail-grid">${cards}</div></section>
-<section class="detail-section" aria-labelledby="why-title"><h2 id="why-title">${escape(H.whyTitle)}</h2><div class="detail-grid">${H.why.map(([t, x]) => `<article class="detail-card"><h3>${escape(t)}</h3><p>${escape(x)}</p></article>`).join('')}</div></section>
-${shots ? `<section class="detail-section detail-gallery" aria-label="${escape(L.ui.screenCaption)}">${shots}<p>${escape(L.ui.screenCaption)}</p></section>` : ''}
-<section class="detail-section detail-faq" aria-labelledby="questions-title"><h2 id="questions-title">${escape(L.ui.faq)}</h2>${faqHtml(H.faq)}</section>
-<section class="detail-section" aria-labelledby="start-title"><h2 id="start-title">${escape(H.contactTitle)}</h2><p>${escape(H.contactText)}</p><div class="detail-actions"><a class="btn btn-accent" href="${socialLinks.telegram}" target="_blank" rel="noopener">Telegram</a><a class="btn btn-line" href="${socialLinks.instagram}" target="_blank" rel="noopener">Instagram</a><a class="btn btn-line" href="/#aloqa">${escape(L.ui.startButton)}</a></div></section>
-</main>${footer(lang, '', assets)}`;
+    const headHtml = head({ lang, title:H.title, description:H.description, url:homeUrl, slug:'', image:`${origin}/og-image.png`, schema:homeSchema, assets, ctx });
+    const homePreloads = [...home.matchAll(/<link rel="preload" as="image"[^>]*>/g)]
+      .map(([tag]) => tag.replace(/([=", ]\s*)assets\//g, '$1/assets/')).join('');
+    const homeHtml = headHtml.replace(`<link rel="stylesheet" href="/${assets.product}">`, homePreloads) + '\n' + body;
     mkdirSync(lang, { recursive: true });
     writeFileSync(`${lang}/index.html`, homeHtml); files.push(`${lang}/index.html`);
 
@@ -135,10 +120,10 @@ ${ctx.symbols}
 ${header(lang, slug, ctx)}
 <main class="wrap" id="main">
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${pathFor(lang, '')}">FlowCore</a><span aria-hidden="true">/</span><span aria-current="page">${escape(name)}</span></nav>
-<section class="detail-hero" aria-labelledby="detail-title"><p class="detail-kicker">FlowCore ${escape(base.code)} · ${escape(moduleNames[slug][lang] || moduleNames[slug].en)}</p><h1 id="detail-title">${escape(p.heading)}</h1><p class="detail-lead">${escape(p.intro)}</p><div class="detail-actions"><a class="btn btn-accent btn-lg" href="/#aloqa">${escape(L.ui.demo)}</a><a class="btn btn-line btn-lg" href="/#ichkarida" hreflang="uz">${escape(L.ui.tryIt)}</a></div>${screenFigure(slug, L.ui.screenAlt(name), L.ui.screenCaption)}</section>
+<section class="detail-hero" aria-labelledby="detail-title"><p class="detail-kicker">FlowCore ${escape(base.code)} · ${escape(moduleNames[slug][lang] || moduleNames[slug].en)}</p><h1 id="detail-title">${escape(p.heading)}</h1><p class="detail-lead">${escape(p.intro)}</p><div class="detail-actions"><a class="btn btn-accent btn-lg" href="${pathFor(lang, '')}#aloqa">${escape(L.ui.demo)}</a><a class="btn btn-line btn-lg" href="${pathFor(lang, '')}#modullar">${escape(L.ui.modules)}</a></div>${screenFigure(slug, L.ui.screenAlt(name), L.ui.screenCaption)}</section>
 <section class="detail-section" aria-labelledby="features-title"><h2 id="features-title">${escape(L.ui.features)}</h2><div class="detail-grid">${p.cards.map(([t, x]) => `<article class="detail-card"><h3>${escape(t)}</h3><p>${escape(x)}</p></article>`).join('')}</div></section>
 <section class="detail-section detail-faq" aria-labelledby="questions-title"><h2 id="questions-title">${escape(L.ui.faq)}</h2>${faqHtml(p.faqs)}</section>
-<section class="detail-section" aria-labelledby="start-title"><h2 id="start-title">${escape(L.ui.startTitle)}</h2><p>${escape(L.ui.startText)}</p><a class="btn btn-accent" href="/#aloqa">${escape(L.ui.startButton)}</a></section>
+<section class="detail-section" aria-labelledby="start-title"><h2 id="start-title">${escape(L.ui.startTitle)}</h2><p>${escape(L.ui.startText)}</p><a class="btn btn-accent" href="${pathFor(lang, '')}#aloqa">${escape(L.ui.startButton)}</a></section>
 <section class="detail-section" aria-labelledby="related-title"><h2 id="related-title">${escape(L.ui.related)}</h2><nav class="detail-related" aria-label="${escape(L.ui.related)}">${order.filter(s => s !== slug).map(s => `<a href="${pathFor(lang, s)}">${escape(L.products[s].title.split(' — ')[0])}</a>`).join('')}</nav></section>
 </main>${footer(lang, slug, assets)}`;
       mkdirSync(`${lang}/${slug}`, { recursive: true });

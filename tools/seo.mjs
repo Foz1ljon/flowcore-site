@@ -16,8 +16,8 @@ export const moduleNames = {
 };
 
 export function updateHomeSeo(home) {
-  const title = 'FlowCore — biznes uchun ERP, CRM, ombor va AI dasturi';
-  const description = 'Ombor qoldig‘i, mijozlar, buyurtmalar, davomat va ish haqini FlowCore’da boshqaring. O‘zbek tilidagi biznes dasturini ro‘yxatdan o‘tmasdan namunada sinang.';
+  const title = 'FlowCore — ERP, CRM va ombor hisobi dasturi';
+  const description = 'Ombor qoldig‘i, ishlab chiqarish, savdo, davomat va ish haqini bitta o‘zbekcha dasturda boshqaring. FlowCore bo‘limlari bilan tanishing va demo so‘rang.';
   home = home.replace(/https:\/\/www\.instagram\.com\/flowcore[._]uz\/?(?=["'])/g, socialLinks.instagram)
     .replace(/https:\/\/t\.me\/flowcore_?uz(?=["'])/g, socialLinks.telegram);
   for (const [network, url] of Object.entries(socialLinks)) {
@@ -34,13 +34,13 @@ export function updateHomeSeo(home) {
   return home.replace(/(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/, (_match,open,json,close) => {
     const schema = JSON.parse(json);
     for (const node of schema['@graph']) {
-      if (node['@type'] === 'WebSite') node.inLanguage = 'uz';
+      if (node['@type'] === 'WebSite') node.inLanguage = ['uz', 'en', 'ru'];
       if (node['@type'] === 'Organization' || node['@type'] === 'WebSite') node.alternateName = ['Flow Core','flowcore.uz','ФлоуКор'];
       if (node['@type'] === 'Organization') Object.assign(node, {
         name: 'FlowCore', url: 'https://flowcore.uz/',
         logo: {'@type':'ImageObject', '@id':'https://flowcore.uz/#logo', url:'https://flowcore.uz/icon-512.png', contentUrl:'https://flowcore.uz/icon-512.png', width:512, height:512, caption:'FlowCore'},
         sameAs: Object.values(socialLinks),
-        contactPoint: {'@type':'ContactPoint', contactType:'sales', url:'https://flowcore.uz/#aloqa', availableLanguage:['uz'], areaServed:'UZ'},
+        contactPoint: {'@type':'ContactPoint', contactType:'sales', telephone:'+998881083039', url:'https://flowcore.uz/#aloqa', availableLanguage:['uz'], areaServed:'UZ'},
       });
       if (node['@type'] === 'WebPage') Object.assign(node,{name:title,description, mainEntity:{'@id':'https://flowcore.uz/#software'}, hasPart:{'@id':'https://flowcore.uz/#faq'}});
       if (node['@type'] === 'SoftwareApplication') {

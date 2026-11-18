@@ -17,8 +17,10 @@
   const root = document.documentElement;
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+  const translations = JSON.parse($('#homeTranslations')?.textContent || '{}');
+  const t = text => Object.hasOwn(translations, text) ? translations[text] : text;
   const setLabel = (element, text) => {
-    (element.querySelector('[data-label]') || element).textContent = text;
+    (element.querySelector('[data-label]') || element).textContent = t(text);
   };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -30,7 +32,7 @@
   const currentTheme = () => root.dataset.theme || 'dark';
   const syncThemeLabel = () => {
     $('#themeColor').content = currentTheme() === 'dark' ? '#050a0e' : '#fafafa';
-    themeBtn.setAttribute('aria-label', currentTheme() === 'dark' ? 'Kunduzgi rejimga o‘tish' : 'Tungi rejimga o‘tish');
+    themeBtn.setAttribute('aria-label', t(currentTheme() === 'dark' ? 'Kunduzgi rejimga o‘tish' : 'Tungi rejimga o‘tish'));
   };
   const applyTheme = (theme) => {
     root.dataset.theme = theme;
@@ -104,7 +106,7 @@
     document.body.classList.toggle('nav-open', open);
     menuBackdrop.hidden = !open;
     navToggle.setAttribute('aria-expanded', String(open));
-    navToggle.setAttribute('aria-label', open ? 'Menyu: yopish' : 'Menyu: ochish');
+    navToggle.setAttribute('aria-label', t(open ? 'Menyu: yopish' : 'Menyu: ochish'));
     syncNavAvailability();
     syncFloat();
     window.dispatchEvent(new CustomEvent('flowcore:nav', { detail: { open } }));
@@ -458,8 +460,8 @@
     if (erp.checked) wms.checked = true;
     const picked = modBoxes.filter((b) => b.checked).map((b) => b.value);
     const deploy = deployRadios.find((r) => r.checked).value;
-    bundleValue.textContent = picked.length ? moduleList(picked) : 'Bo‘lim tanlanmagan';
-    bundleDeploy.textContent = `→ ${deployNames[deploy]}`;
+    bundleValue.textContent = picked.length ? picked.map(code => t(moduleNames[code])).join(' + ') : t('Bo‘lim tanlanmagan');
+    bundleDeploy.textContent = `→ ${t(deployNames[deploy])}`;
     bundleValue.classList.remove('bump');
     void bundleValue.offsetWidth;
     bundleValue.classList.add('bump');
@@ -472,7 +474,7 @@
     bundleField.value = summary;
     formBundle.textContent = summary ? `Tanlangan to‘plam: ${summary}` : '';
     bundleButton.setAttribute('aria-disabled', String(!picked.length));
-    setLabel(bundleButton, picked.length ? 'Narx taklifini olish' : 'Avval bo‘lim tanlang');
+    setLabel(bundleButton, picked.length ? 'Tanlov bilan demo so‘rash' : 'Avval bo‘lim tanlang');
     // A changed selection invalidates an already prepared contact draft.
     if (!$('#leadDraft').hidden) {
       $('#formMsg').textContent = 'To‘plam o‘zgardi. Yangi tanlov bilan so‘rovni qayta tayyorlang.';
@@ -575,7 +577,7 @@
   /* ---------- Floating CTA ---------- */
   const floatCta = $('#floatCta');
   const floatText = $('#floatText');
-  const heroEl = $('.hero');
+  const heroEl = $('[data-assembly-intro]');
   const contactEl = $('#aloqa');
   let pastHero = false;
   let nearContact = false;
@@ -590,7 +592,7 @@
   navToggle.addEventListener('click', syncFloat);
   const syncFloatText = () => {
     const v = bundleField.value;
-    floatText.textContent = v ? `Bog‘lanish · ${v.split(' · ')[0]}` : 'Bepul tanishish';
+    floatText.textContent = v ? `${t('Aloqa')} · ${v.split(' · ')[0]}` : t('Demo so‘rash');
   };
   [...modBoxes, ...deployRadios].forEach((el) => el.addEventListener('change', syncFloatText));
   $('#quizApply').addEventListener('click', syncFloatText);
@@ -698,13 +700,13 @@
   const draftText = $('#leadText');
   const sendLink = $('#leadSend');
   const submitButton = $('#leadSubmit');
-  const setMsg = (text, type = '') => { msg.textContent = text; msg.className = `form-msg ${type}`; };
+  const setMsg = (text, type = '') => { msg.textContent = t(text); msg.className = `form-msg ${type}`; };
   let sending = false;
   let requestId = '';
   let lastPayload = '';
   if (CONTACT.endpoint) {
     setLabel(submitButton, 'So‘rov yuborish');
-    $('#deliveryHint').textContent = 'Ism va telefoningizni yuboring. Siz bilan bog‘lanamiz.';
+    $('#deliveryHint').textContent = t('Ism va telefoningizni yuboring. Siz bilan bog‘lanamiz.');
   }
   const prepareDraft = (text) => {
     draftText.value = text;
@@ -746,8 +748,7 @@
     if (!nameOk) { setMsg('Ismingizni kamida 2 ta belgi bilan kiriting.', 'err'); name.focus(); return; }
     if (!phoneOk) { setMsg('Telefon raqamni to‘liq kiriting, masalan +998 90 123 45 67.', 'err'); phone.focus(); return; }
     if (!consent.checked) { setMsg('So‘rov yuborish uchun aloqa ma’lumotlaringizdan foydalanishga rozilik bering.', 'err'); consent.focus(); return; }
-    if (!bundle.value) { setMsg('Narxlar bo‘limida kamida bitta bo‘limni tanlang.', 'err'); focusConfig(); return; }
-    const fields = { name: name.value.trim(), phone: phone.value.trim(), company: company.value.trim(), bundle: bundle.value };
+    const fields = { name: name.value.trim(), phone: phone.value.trim(), company: company.value.trim(), bundle: bundle.value || 'Demo suhbatida aniqlanadi' };
     const payload = JSON.stringify(fields);
     if (payload !== lastPayload) {
       requestId = crypto.randomUUID().replace(/-/g, '');
@@ -830,6 +831,7 @@
   const sticky=intro.querySelector('.assembly-sticky'),stage=intro.querySelector('.connected-stage');
   const host=intro.querySelector('[data-connected-scene]'),labels=intro.querySelector('.connected-nodes');
   const buttons=[...intro.querySelectorAll('[data-flow-module]')];
+  const finale=intro.querySelector('.assembly-finale');
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
   const clamp=value=>Math.max(0,Math.min(1,value));
   const smooth=value=>{const t=clamp(value);return t*t*(3-2*t);};
@@ -844,13 +846,10 @@
     intro.dataset.assemblyProgress=String(progress);
     intro.dataset.assemblyState=progress>.87?'assembled':progress>.1?'gathering':'scattered';
     intro.style.setProperty('--assembly-reveal',String(smooth((progress-.64)/.23)));
-    const brand=intro.querySelector('.connected-core-label');
-    if(brand){brand.style.visibility=progress>.64?'visible':'hidden';brand.setAttribute('aria-hidden',String(progress<=.64));}
+    finale.style.visibility=progress>.64?'visible':'hidden';
+    finale.inert=progress<.87;
     intro.style.setProperty('--assembly-labels',String(1-smooth((progress-.22)/.22)));
     intro.style.setProperty('--assembly-focus',String(smooth((progress-.12)/.58)));
-    intro.style.setProperty('--assembly-details',String(smooth((progress-.76)/.15)));
-    const result=intro.querySelector('.assembly-result');
-    if(result){result.style.visibility=progress>.76?'visible':'hidden';result.inert=progress<.82;}
     labels.inert=progress>.4;
     if(!host.classList.contains('is-connected')){
       buttons.forEach((button,i)=>{
@@ -898,6 +897,7 @@
 (() => {
   const host = document.querySelector('[data-scene-src]');
   if (!host || navigator.connection?.saveData) return;
+  const assembly = document.body.classList.contains('marketing-page') && document.querySelector('[data-assembly-intro]');
   const observer = new IntersectionObserver(entries => {
     if (!entries.some(entry => entry.isIntersecting)) return;
     observer.disconnect();
@@ -906,7 +906,14 @@
         // Avoid a WebGL download on unsupported devices; keep the static CSS background.
         if (!document.createElement('canvas').getContext('webgl2')) return;
         const scene = await import(new URL(host.dataset.sceneSrc, document.baseURI).href);
-        scene.mountFlowScene(host);
+        if (!assembly) {
+          scene.mountFlowScene(host);
+          return;
+        }
+        const cleanup = scene.mountConnectedScene();
+        if (cleanup) window.addEventListener('pagehide', event => {
+          if (!event.persisted) cleanup();
+        });
       } catch { /* Optional enhancement: all content and links stay available. */ }
     };
     // The WebGL scene is decorative and costs a long main-thread task to compile, so
@@ -917,9 +924,10 @@
       if ('requestIdleCallback' in window) requestIdleCallback(load, {timeout:1000});
       else setTimeout(load, 50);
     };
-    events.forEach(type => addEventListener(type, start, {capture:true, passive:true, once:true}));
-  }, {rootMargin:'100px'});
-  observer.observe(host);
+    if (assembly) start();
+    else events.forEach(type => addEventListener(type, start, {capture:true, passive:true, once:true}));
+  }, {rootMargin:'350px'});
+  observer.observe(assembly || host);
 })();
 
 /* Each comparison has its own independently mounted 3D factory. */
