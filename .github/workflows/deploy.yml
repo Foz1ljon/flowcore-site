@@ -82,3 +82,8 @@ jobs:
       - name: Remove SSH key
         if: always()
         run: rm -f ~/.ssh/id_deploy
+
+      # Ask Yandex/Bing (IndexNow) to recrawl the sitemap URLs. A failure here never fails the deploy.
+      - name: Notify search engines (IndexNow)
+        continue-on-error: true
+        run: node tools/indexnow.mjs "$SITE_URL"

@@ -4,69 +4,69 @@
     "output": "assets/dist/style.05997b2a779c.css",
     "before": 211511,
     "after": 179852,
-    "gzip": 35046
+    "gzip": 34994
   },
   "product": {
     "source": "assets/css/product.css",
     "output": "assets/dist/product.f4f8f13008c2.css",
     "before": 9240,
     "after": 7998,
-    "gzip": 2068
+    "gzip": 2067
   },
   "main": {
     "source": "assets/js/main.js",
     "output": "assets/dist/main.49f5edb5e2c2.js",
     "before": 48324,
     "after": 29247,
-    "gzip": 11263
+    "gzip": 11193
   },
   "tour": {
     "source": "assets/js/tour.js",
     "output": "assets/dist/tour.1aa1212f34db.js",
     "before": 44172,
     "after": 70778,
-    "gzip": 22435
+    "gzip": 22373
   },
   "site": {
     "source": "assets/js/site.js",
     "output": "assets/dist/site.719eef3a15a6.js",
     "before": 939,
     "after": 615,
-    "gzip": 346
+    "gzip": 344
   },
   "stack": {
     "source": "assets/js/stack-scroll.js",
     "output": "assets/dist/stack.f3c8b7cf7cc2.js",
     "before": 5844,
     "after": 2665,
-    "gzip": 1361
+    "gzip": 1370
   },
   "scene": {
     "source": "assets/js/flow-scene.js",
     "output": "assets/dist/scene.5d8abd05e682.js",
     "before": 10452,
     "after": 41734,
-    "gzip": 16184
+    "gzip": 16070
   },
   "factory": {
     "source": "assets/js/factory-scene.js",
     "output": "assets/dist/factory.ceff083efc19.js",
     "before": 27535,
     "after": 16740,
-    "gzip": 7318
+    "gzip": 7293
   },
   "threeShared0": {
     "source": "Shared Three.js engine and addons",
     "output": "assets/dist/three-chunk-3aiu7zbs.b4943dfc4d56.js",
     "before": 594112,
     "after": 594112,
-    "gzip": 150802
+    "gzip": 149807
   },
   "experience": {
     "source": "assets/js/experience.js",
     "output": "assets/dist/experience.8170109b2058.js",
     "before": 7723,
     "after": 187620,
-    "gzip": 72092
+    "gzip": 71792
   }
 }

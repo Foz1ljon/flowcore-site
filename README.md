@@ -558,3 +558,17 @@ Requested direction: close to iotics.uz in structure, built only from FlowCore's
   preloaded with 520/760/1400 widths, and sections from the third one skip rendering
   (`.has-js main > section:nth-child(n+3)`) so the demo font (Inter, 350 KB) is not fetched at load.
 - A fixed bottom section-progress bar was tried and removed at the user's request.
+
+## Brand search and IndexNow (2026-11-20)
+
+- Homepage footer product links carry the brand: "FlowCore WMS — ombor", "FlowCore ERP — …",
+  "FlowCore CRM — …" (en/ru footers were left in Uzbek before; now translated in
+  `tools/home-translations.mjs`). Product pages already cross-link as "FlowCore <code> · …".
+- IndexNow: the key file `4e6cac9c7844895fa8aebe8efaf1da2b.txt` in the site root and
+  `tools/indexnow.mjs` (sends every sitemap URL to api.indexnow.org → Yandex, Bing, Seznam,
+  Naver). `deploy.yml` runs it after each deploy; its failure does not fail the deploy.
+  Manual run: `node tools/indexnow.mjs https://flowcore.uz`. Keep the key file deployed.
+- Google is verified by DNS TXT, Yandex by the `yandex-verification` meta tag. Ranking for
+  "FlowCore …" still depends on off-site signals: Search Console / Yandex Webmaster sitemap
+  submission and indexing requests, Google Business Profile, links from Telegram/Instagram,
+  catalogues and partner sites.
