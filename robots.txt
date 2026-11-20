@@ -3,6 +3,7 @@ Allow: /
 Disallow: /tools/
 Disallow: /deploy/
 Disallow: /node_modules/
+Disallow: /cdn-cgi/
 
 # AI assistants and AI search may read and cite the public pages.
 User-agent: GPTBot
@@ -18,5 +19,6 @@ Allow: /
 Disallow: /tools/
 Disallow: /deploy/
 Disallow: /node_modules/
+Disallow: /cdn-cgi/
 
 Sitemap: https://flowcore.uz/sitemap.xml
