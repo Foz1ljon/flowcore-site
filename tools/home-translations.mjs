@@ -2,7 +2,7 @@
 // translation cannot alter elements, selectors or interactive control values.
 export const homeTranslations = new Map([
   ['Bevosita bog‘lanish', ['Contact us directly', 'Прямая связь']],
-  ['Dasturni sinab ko‘ring', ['Try the interactive example', 'Попробовать интерактивный пример']],
+  ['Zavod misolini ko‘ring', ['See the factory example', 'Посмотреть пример завода']],
   ['Interaktiv namuna uchun ro‘yxatdan o‘tish shart emas.', ['No signup required for the interactive example.', 'Интерактивный пример доступен без регистрации.']],
   ['Bo‘limlarni ko‘rish', ['Explore modules', 'Посмотреть модули']],
   ['Bo‘limlarni ko‘rib chiqish', ['Browse modules', 'Посмотреть модули']],
@@ -171,14 +171,7 @@ export const homeTranslations = new Map([
 ]);
 
 export const homeFaq = [
-  ['What is FlowCore and who is it for?', 'FlowCore brings inventory, manufacturing, customers, payroll, education, checkout and finance into one system. Businesses can start with the modules they need.', 'Что такое FlowCore и для кого он предназначен?', 'FlowCore объединяет склад, производство, клиентов, зарплату, обучение, кассу и финансы. Можно начать с нужных модулей.'],
-  ['How does Face ID attendance work?', 'A compatible Android tablet records arrivals and departures using face recognition. The HR module shows attendance, hours worked and payroll.', 'Как работает учёт посещаемости с Face ID?', 'Совместимый Android-планшет с распознаванием лиц отмечает приход и уход. В модуле HR видны посещаемость, рабочее время и зарплата.'],
   ['Can I choose only the modules I need?', 'Yes. Start with the modules you use and add others later. Manufacturing works together with inventory.', 'Можно ли выбрать только нужные модули?', 'Да. Начните с нужных модулей и подключайте другие позже. Производство работает вместе со складом.'],
-  ['What is the difference between browser and desktop use?', 'The browser version lets your team share records from different locations. The desktop version keeps records on your computer. Activation and Telegram or Instagram messaging require internet access.', 'Чем отличается браузерная версия от настольной?', 'В браузерной версии команда работает с общими данными из разных мест. В настольной версии данные хранятся на компьютере. Для активации и переписки в Telegram или Instagram нужен интернет.'],
-  ['Can staff see only the modules they need?', 'The owner or administrator sets what each employee can view or edit.', 'Можно ли ограничить доступ сотрудников к модулям?', 'Владелец или администратор определяет, какие разделы сотрудник может просматривать и редактировать.'],
-  ['How is my company’s data kept separate?', 'Access is checked against the company and the user’s permissions. With the desktop version, records stay on your computer.', 'Как разделяются данные компаний?', 'Доступ проверяется по компании и правам пользователя. В настольной версии данные остаются на вашем компьютере.'],
   ['Can we start with our existing Excel records?', 'During the demo, we can review your spreadsheets and opening balances. The way to bring them in depends on their structure and size.', 'Можно ли начать с имеющихся таблиц Excel?', 'На демонстрации мы можем обсудить таблицы и начальные остатки. Способ переноса зависит от структуры и объёма данных.'],
   ['How do I connect Telegram and Instagram?', 'Connect each channel separately with the required account permissions. Telegram uses a bot token. Instagram requires a compatible professional account.', 'Как подключить Telegram и Instagram?', 'Каналы подключаются отдельно с нужными правами доступа. Для Telegram нужен токен бота, для Instagram — совместимый профессиональный аккаунт.'],
-  ['How do I request a demo?', 'Leave your name and phone number in the contact form. We’ll get in touch and show the modules that fit your workflow.', 'Как записаться на демонстрацию?', 'Оставьте имя и номер телефона в форме. Мы свяжемся с вами и покажем подходящие модули.'],
-  ['Is the name FlowCore, Flow Core or CoreFlow?', 'The official name is FlowCore and the official website is flowcore.uz.', 'Какое название правильное: FlowCore, Flow Core или CoreFlow?', 'Официальное название — FlowCore, а адрес сайта — flowcore.uz.'],
 ];

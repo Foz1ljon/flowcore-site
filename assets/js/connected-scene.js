@@ -40,20 +40,21 @@ export function mountConnectedScene() {
   const governor = createGovernor(quality, ratio=>{renderer.setPixelRatio(ratio);renderer.setSize(width,height,false);});
   renderer.setPixelRatio(governor.ratio);
   renderer.toneMapping = ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = .91;
   renderer.shadowMap.enabled = quality.shadows;
   renderer.shadowMap.type = PCFSoftShadowMap;
   renderer.domElement.setAttribute('aria-hidden','true');
   const scene = new Scene(), root = new Group();
-  scene.add(root, new AmbientLight(0xffffff, .65));
+  scene.add(root, new AmbientLight(0xe8ebef, .42));
   const environment = new RoomEnvironment();
   const pmrem = new PMREMGenerator(renderer);
   const environmentMap = pmrem.fromScene(environment, .04);
   scene.environment = environmentMap.texture;
+  scene.environmentIntensity = .63;
   environment.dispose(); pmrem.dispose();
-  const fill = new DirectionalLight(0xc6ddff, 1.6);
+  const fill = new DirectionalLight(0xd2dfeb, 1.1);
   fill.position.set(4, 2, -3); scene.add(fill);
-  const light = new DirectionalLight(0xd5fff1, 4);
+  const light = new DirectionalLight(0xffedd7, 3.1);
   light.position.set(-3,5,6); light.castShadow=quality.shadows;
   light.shadow.mapSize.set(1024,1024);
   Object.assign(light.shadow.camera,{left:-5,right:5,top:4,bottom:-4,near:.1,far:20});
@@ -116,15 +117,37 @@ export function mountConnectedScene() {
   const particleMaterial=new PointsMaterial({size:.15,map:glowTexture,vertexColors:true,transparent:true,opacity:.5,depthWrite:false,sizeAttenuation:true});
   const particles=new Points(particleGeometry,particleMaterial); root.add(particles);
   // Each department is a miniature product model, lit by the same studio environment.
-  const material=(color,metalness=.05,roughness=.36)=>quality.physical?new MeshPhysicalMaterial({color,metalness,roughness,clearcoat:roughness<.6?.55:0,envMapIntensity:.7}):new MeshStandardMaterial({color,metalness,roughness,envMapIntensity:.8});
-  const ivory=material(0xf5f5ed),ink=material(0x203c3b,.4),metal=material(0x9cb8b6,.75,.26),wood=material(0xc39b65);
+  const material=(color,metalness=.05,roughness=.58)=>quality.physical?new MeshPhysicalMaterial({color,metalness,roughness,clearcoat:roughness<.32?.18:0,envMapIntensity:.7}):new MeshStandardMaterial({color,metalness,roughness,envMapIntensity:.8});
+  const ivory=material(0xf5f5ed),ink=material(0x203c3b,.4),metal=material(0xa1a7a8,.86,.33),wood=material(0xc09a69,0,.84);
+  const kraft = material(0xa98055, 0, .94);
+  const tape = material(0xc4a673, .03, .42);
+  const brass = material(0xc5a45a, .84, .36);
+  const grain = document.createElement('canvas');
+  grain.width = 128;
+  grain.height = 64;
+  const fibers = grain.getContext('2d');
+  fibers.fillStyle = '#eee2c8';
+  fibers.fillRect(0, 0, 128, 64);
+  for (let i = 0; i < 180; i++) {
+    fibers.fillStyle = i % 3 ? '#bb957540' : '#fff9df70';
+    fibers.fillRect(random() * 128, random() * 64, 4 + random() * 42, .7);
+  }
+  wood.map = new CanvasTexture(grain);
+  wood.map.colorSpace = SRGBColorSpace;
   function miniature(id,accent) {
     const model=new Group(); model.rotation.set(.32,-.48,.03);
     const add=(geometry,mat,x=0,y=0,z=0,parent=model)=>{const part=new Mesh(geometry,mat);part.position.set(x,y,z);part.castShadow=true;part.receiveShadow=true;parent.add(part);return part;};
     const box=(w,h,d,mat,x=0,y=0,z=0,parent=model)=>add(new RoundedBoxGeometry(w,h,d,2,Math.min(w,h,d)*.16),mat,x,y,z,parent);
-    const base=add(new CylinderGeometry(.59,.63,.09,48),ivory,0,-.44);base.scale.z=.8;
-    add(new CylinderGeometry(.61,.61,.025,48),metal,0,-.495).scale.z=.8;
-    const parcel=(x,y,z,size=.3)=>{box(size,size,size,accent,x,y,z);box(size*.16,size+.004,size+.004,ivory,x,y,z);box(size*.5,.065,.008,ivory,x,y-.035,z+size/2+.004);};
+    const base=add(new CylinderGeometry(.66,.61,.085,64),ink,0,-.44);base.scale.z=.82;
+    add(new CylinderGeometry(.61,.58,.022,64),accent,0,-.495).scale.z=.8;
+    function parcel(x, y, z, size) {
+      box(size, size, size, kraft, x, y, z);
+      box(size * .18, size + .004, size + .004, tape, x, y, z);
+      box(size * .38, size * .22, .008, ivory, x + size * .2, y, z + size / 2);
+      for (let i = 0; i < 5; i++) {
+        box(.004, size * .12, .01, ink, x + size * (.08 + i * .052), y, z + size / 2);
+      }
+    }
     if(id==='wms') {
       for(let i=0;i<3;i++)box(.92,.045,.13,wood,0,-.36,-.25+i*.25);
       for(const x of [-.32,.32])box(.1,.08,.7,wood,x,-.4);
@@ -142,12 +165,17 @@ export function mountConnectedScene() {
       team.position.y = .04;
       model.add(team);
     } else if(id==='crm') {
-      const bubble=(x,y,z,mat)=>{
-        box(.64,.4,.13,mat,x,y,z);
-        const tail=box(.13,.15,.1,mat,x-.18,y-.19,z);tail.rotation.z=-.5;
-        for(let i=0;i<3;i++)add(new SphereGeometry(.032,16,12),ivory,x-.14+i*.14,y,z+.08);
-      };
-      bubble(-.15,.17,-.06,accent);bubble(.17,-.17,.15,ink);
+      // A customer conversation displayed on a handset seated in a desktop dock.
+      box(.52,.13,.34,ink,0,-.31,.05);
+      const phone = new Group();
+      phone.rotation.x = -.15;
+      model.add(phone);
+      box(.43,.73,.055,metal,0,.07,0,phone);
+      box(.39,.68,.018,ink,0,.07,.032,phone);
+      box(.12,.013,.012,metal,0,.38,.043,phone);
+      for (let i = 0; i < 3; i++) {
+        box(.23,.072,.012,i % 2 ? accent : ivory,i % 2 ? .045 : -.045,.22-i*.13,.048,phone);
+      }
     } else if(id==='lms') {
       const book=new Group();model.add(book);book.rotation.set(.1,0,.03);book.position.y=-.08;
       for(const side of [-1,1]){
@@ -163,7 +191,7 @@ export function mountConnectedScene() {
       box(.38,.52,.012,ivory,-.16,.02,-.035);
       for(let i=0;i<3;i++)box(.06,.12+i*.07,.018,accent,-.28+i*.11,-.09+i*.035,-.02);
       for(const [x,z,count] of [[.2,.14,4],[.4,-.03,6]]){
-        for(let i=0;i<count;i++)add(new CylinderGeometry(.13,.13,.055,32),accent,x,-.34+i*.058,z);
+        for(let i=0;i<count;i++)add(new CylinderGeometry(.13,.13,.055,32),brass,x,-.34+i*.058,z);
       }
     } else if(id==='pos') {
       box(.67,.12,.52,ink,0,-.29,.07);
@@ -203,55 +231,13 @@ export function mountConnectedScene() {
     merged.rotation.copy(rotation);
     return merged;
   }
-  // A small assistant works beside each miniature, leaving the centre for assembly.
-  const agentHead = new SphereGeometry(1,24,16);
-  const agentBody = new RoundedBoxGeometry(.18,.19,.13,3,.045);
-  const agentJoint = new SphereGeometry(.027,12,8);
-  const agentArm = new CylinderGeometry(.022,.025,.13,12);
-  const agentEye = new SphereGeometry(.018,12,8);
-  const agentVisor = new RoundedBoxGeometry(.19,.085,.035,3,.025);
-  const agentPalm = new RoundedBoxGeometry(.065,.065,.04,2,.012);
-  const agentFinger = new RoundedBoxGeometry(.014,.052,.023,2,.006);
-  function moduleAgent(side, accent) {
-    const group=new Group();
-    group.position.set(side*.78,.08,.3);
-    group.scale.setScalar(.68);
-    group.rotation.y=-.25;
-    const add=(geometry,mat,x,y,z,parent=group)=>{
-      const mesh=new Mesh(geometry,mat);mesh.position.set(x,y,z);parent.add(mesh);return mesh;
-    };
-    add(agentHead,ivory,0,.23,0).scale.set(.132,.112,.102);
-    add(agentVisor,ink,0,.228,.083);
-    for(const x of [-.043,.043])add(agentEye,accent,x,.23,.109);
-    add(agentJoint,metal,0,.112,0);
-    add(agentBody,ivory,0,0,0);
-    add(agentVisor,ink,0,.01,.068).scale.set(.45,.5,.8);
-    add(agentEye,accent,0,.01,.087).scale.set(.6,.6,.6);
-    const arms=[-1,1].map(direction=>{
-      const shoulder=new Group();shoulder.position.set(direction*.125,.035,0);group.add(shoulder);
-      shoulder.rotation.z=direction*.6;
-      add(agentJoint,ink,0,0,0,shoulder);
-      add(agentArm,ivory,0,-.065,0,shoulder);
-      const elbow=new Group();elbow.position.y=-.135;shoulder.add(elbow);
-      add(agentJoint,accent,0,0,0,elbow);
-      add(agentArm,ivory,0,-.065,0,elbow);
-      const hand=new Group();hand.position.set(0,-.16,.01);elbow.add(hand);
-      add(agentPalm,accent,0,0,0,hand);
-      for(const x of [-.024,0,.024])add(agentFinger,ivory,x,-.05,.005,hand);
-      add(agentFinger,ivory,direction*.045,-.005,.005,hand).rotation.z=-direction*.8;
-      return {shoulder,elbow,hand,direction};
-    });
-    const scan=new Mesh(new TorusGeometry(.13,.006,6,32),accent);
-    scan.rotation.x=Math.PI/2;scan.position.set(-side*.19,-.3,0);group.add(scan);
-    return {group,arms,scan,side};
-  }
+  const desktopPositions=[[-2.58,1.02,-.16],[0,1.55,.06],[2.58,1.02,-.16],[2.64,-1.05,.02],[.97,-1.5,.04],[-1.07,-1.5,.05],[-2.68,-.83,-.14]];
+  const portraitPositions=[[-1.12,2.46,0],[1.12,2.46,0],[-1.12,.94,0],[1.12,.94,0],[-1.12,-.62,0],[1.12,-.62,0],[0,-2.18,0]];
   const nodes = buttons.map((button,i)=>{
-    const scattered=[[-2.55,1.2,-.25],[-.55,1.65,.15],[2.25,1.2,-.25],[2.65,-.8,.15],[.75,-1.55,-.1],[-1.25,-1.45,.25],[-2.65,-.4,-.15]];
-    const position = new Vector3(...scattered[i]);
+    const position = new Vector3(...desktopPositions[i]);
     const group = new Group(); group.position.copy(position); root.add(group);
-    const material = quality.physical?new MeshPhysicalMaterial({color:colors[i],metalness:.3,roughness:.25,clearcoat:1,emissive:colors[i],emissiveIntensity:.1}):new MeshStandardMaterial({color:colors[i],metalness:.3,roughness:.25,emissive:colors[i],emissiveIntensity:.1});
+    const material = quality.physical?new MeshPhysicalMaterial({color:colors[i],metalness:.16,roughness:.48,clearcoat:.16,emissive:colors[i],emissiveIntensity:.1}):new MeshStandardMaterial({color:colors[i],metalness:.16,roughness:.48,emissive:colors[i],emissiveIntensity:.1});
     const cube = miniature(button.dataset.flowModule,material); group.add(cube);
-    const agent=moduleAgent(position.x>0?-1:1,material);group.add(agent.group);
     const halo = new Mesh(new TorusGeometry(.67,.009,8,64),new MeshBasicMaterial({color:colors[i],transparent:true,opacity:.45}));
     halo.rotation.x=Math.PI/2; halo.position.y=-.5; group.add(halo);
     const curve = new CatmullRomCurve3([new Vector3(),new Vector3(position.x*.3,position.y*.18,.8),new Vector3(position.x*.72,position.y*.8,.45),position]);
@@ -261,7 +247,7 @@ export function mountConnectedScene() {
     packets.frustumCulled=false; root.add(packets);
     const trail = quality.trails ? new InstancedMesh(trailGeometry,new MeshBasicMaterial({color:colors[i],transparent:true,opacity:.55,depthWrite:false}),7) : null;
     if(trail){trail.frustumCulled=false;root.add(trail);}
-    return {button,position,group,cube,agent,halo,curve,routeMaterial,material,packets,trail};
+    return {button,position,group,cube,halo,curve,route,routeMaterial,material,packets,trail};
   });
   let fitDistance=10;
   let width=1,height=1,visible=false,dead=false,available=true,elapsed=0,last=0,selected=5,dark=false,velocity=0,lastProgress=null;
@@ -283,7 +269,7 @@ export function mountConnectedScene() {
     // The final mark is the original inline SVG, untouched by lighting or perspective.
     root.position.y=smooth((progress-.64)/.23)*.2*Math.tan(Math.PI/10)*camera.position.z;
     const modelOpacity=1-smooth((progress-.59)/.23);
-    for(const mat of [ivory,ink,metal,wood]){mat.transparent=true;mat.opacity=modelOpacity;mat.depthWrite=modelOpacity>.95;}
+    for(const mat of [ivory,ink,metal,wood,kraft,tape,brass]){mat.transparent=true;mat.opacity=modelOpacity;mat.depthWrite=modelOpacity>.95;}
     core.visible=(merge>.02||flash>.01)&&reveal<.995;
     core.scale.setScalar(.55+merge*.7+flash*.18);
     coreGlow.scale.setScalar(1.2+merge*1.6+flash*1.6);
@@ -307,7 +293,7 @@ export function mountConnectedScene() {
     });
     // Dust is pulled into a vortex, then released outward as the brand mark appears.
     const pull=smooth((progress-.1)/.52);
-    particleMaterial.opacity=(dark?.85:.75)*(.6+pull*.4)*(1-burst);
+    particleMaterial.opacity=(dark?.36:.22)*(.6+pull*.4)*(1-burst);
     particles.visible=particleMaterial.opacity>.01;
     if(particles.visible)particleSeeds.forEach((p,i)=>{
       const angle=p.angle+elapsed*.03*p.speed+pull*2.6*p.speed;
@@ -318,7 +304,7 @@ export function mountConnectedScene() {
       particlePositions[i*3+2]=p.z*(1-pull*.85);
     });
     if(particles.visible)particleGeometry.attributes.position.needsUpdate=true;
-    particleMaterial.size=.15+bell*.06;
+    particleMaterial.size=.065+bell*.025;
     const trailStrength=Math.min(1,velocity*55);
     const packetScale=1-smooth((progress-.16)/.38);
     const labelsShown=progress<.46;
@@ -328,23 +314,11 @@ export function mountConnectedScene() {
       node.group.position.fromArray(pose.position);
       node.cube.rotation.y=-.48+Math.sin(elapsed*.4+i)*.07*(1-pose.travel)+Math.sin(pose.travel*Math.PI)*.3*(i%2?1:-1);
       node.cube.rotation.z=Math.sin(pose.travel*Math.PI)*.1*(i%2?1:-1);
-      node.cube.position.y=Math.sin(elapsed*.7+i)*.025*(1-pose.travel);
-      node.group.scale.setScalar((active?1.06:1)*1.4*pose.scale);
+      node.cube.position.y=Math.sin(elapsed*.55+i)*.009*(1-pose.travel);
+      node.group.scale.setScalar((active?1.05:1)*(width<600?1.12:1.24)*pose.scale);
       node.group.visible=pose.opacity>.005;
-      const agentMotion=motion.matches?0:Math.sin(elapsed*1.8+i*.9);
-      node.agent.group.visible=progress<.58;
-      node.agent.group.position.y=.08+agentMotion*.022;
-      node.agent.group.rotation.z=agentMotion*.045;
-      node.agent.arms.forEach(({shoulder,elbow,hand,direction})=>{
-        const working=direction===-node.agent.side;
-        shoulder.rotation.z=direction*(working?.95+agentMotion*.22:.45-agentMotion*.08);
-        elbow.rotation.x=working?-.7-agentMotion*.3:-.18;
-        hand.rotation.z=agentMotion*(working?.2:.08);
-      });
-      node.agent.scan.scale.setScalar(.85+agentMotion*.12);
-      node.agent.scan.position.y=-.3+agentMotion*.025;
       node.material.transparent=true;node.material.opacity=pose.opacity;node.material.depthWrite=pose.opacity>.95;
-      node.halo.material.opacity=.32*(1-pose.travel);
+      node.halo.material.opacity=.12*(1-pose.travel);
       node.halo.rotation.z=elapsed*.3;
       node.material.emissiveIntensity=active?.08:.015;
       node.routeMaterial.opacity=(active?.32:.12)*(1-smooth((progress-.1)/.35));
@@ -376,9 +350,10 @@ export function mountConnectedScene() {
       }
       // Labels fade out early in the scroll; skip their style writes once hidden.
       if(labelsShown){
-        node.group.getWorldPosition(projected);projected.project(camera);
+        projected.set(0,-.62,0);
+        node.group.localToWorld(projected);projected.project(camera);
         node.button.style.setProperty('--node-x',`${(projected.x*.5+.5)*width}px`);
-        node.button.style.setProperty('--node-y',`${(-projected.y*.5+.5)*height+(node.position.y>0?-102:74)}px`);
+        node.button.style.setProperty('--node-y',`${(-projected.y*.5+.5)*height}px`);
       }
     });
     renderer.render(scene,camera);
@@ -414,7 +389,18 @@ export function mountConnectedScene() {
     if(!width || !height)return;
     renderer.setSize(width,height,false);camera.aspect=width/height;
     // Fit the complete circuit, leaving enough room for the HTML labels.
-    fitDistance=Math.max(8.8,3.8/(Math.tan(Math.PI/10)*camera.aspect));camera.position.z=fitDistance;
+    const portrait = width < 600;
+    nodes.forEach((node,i)=>{
+      const coords=(portrait?portraitPositions:desktopPositions)[i];
+      if(node.position.x===coords[0] && node.position.y===coords[1])return;
+      node.position.fromArray(coords);
+      node.curve.points[1].set(coords[0]*.3,coords[1]*.18,.8);
+      node.curve.points[2].set(coords[0]*.72,coords[1]*.8,.45);
+      node.curve.updateArcLengths();
+      node.route.geometry.dispose();
+      node.route.geometry=new TubeGeometry(node.curve,40,.007,5,false);
+    });
+    fitDistance=Math.max(portrait?10.6:8.8,(portrait?1.98:3.8)/(Math.tan(Math.PI/10)*camera.aspect));camera.position.z=fitDistance;
     camera.updateProjectionMatrix();camera.updateMatrixWorld();render();
   };
   const select = event => {
@@ -452,6 +438,6 @@ export function mountConnectedScene() {
     renderer.domElement.removeEventListener('webglcontextlost',lost);renderer.domElement.removeEventListener('webglcontextrestored',restored);
     const geometries=new Set(),materials=new Set();
     scene.traverse(object=>{if(object.geometry)geometries.add(object.geometry);if(object.material)materials.add(object.material);});
-    geometries.forEach(item=>item.dispose());materials.forEach(item=>item.dispose());environmentMap.dispose();glowTexture.dispose();light.shadow.dispose();renderer.dispose();renderer.domElement.remove();host.classList.remove('is-connected');buttons.forEach(button=>button.disabled=true);
+    geometries.forEach(item=>item.dispose());materials.forEach(item=>item.dispose());wood.map.dispose();environmentMap.dispose();glowTexture.dispose();light.shadow.dispose();renderer.dispose();renderer.domElement.remove();host.classList.remove('is-connected');buttons.forEach(button=>button.disabled=true);
   };
 }

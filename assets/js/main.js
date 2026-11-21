@@ -57,18 +57,13 @@
 
   /* ---------- Header, progress, active nav ---------- */
   const header = $('.site-header');
-  const moduleStoryNav = $('.story-index');
-  const moduleNavList = $('.story-index ol');
   const syncHeaderGeometry = () => {
     const clearance = Math.ceil(header.getBoundingClientRect().bottom) + 12;
     root.style.setProperty('--header-clearance', `${clearance}px`);
-    const horizontal = getComputedStyle(moduleNavList).display === 'flex';
-    root.style.setProperty('--module-nav-clearance', horizontal ? `${Math.ceil(moduleStoryNav.getBoundingClientRect().height) + 12}px` : '0px');
   };
   syncHeaderGeometry();
   const headerGeometryObserver = new ResizeObserver(syncHeaderGeometry);
   headerGeometryObserver.observe($('.header-inner'));
-  headerGeometryObserver.observe(moduleStoryNav);
   addEventListener('resize', syncHeaderGeometry, { passive: true });
 
   const progress = $('.scroll-progress');
@@ -336,93 +331,6 @@
       heroBoard.set(heroInitial(), true);
     });
   });
-
-  /* ---------- §01 Before / after ---------- */
-  const ba = $('#ba');
-  const baRange = $('#baRange');
-  const setPos = (v) => { ba.style.setProperty('--pos', `${v}%`); };
-  baRange.addEventListener('input', () => setPos(baRange.value));
-  let baTouched = false;
-  baRange.addEventListener('pointerdown', () => { baTouched = true; });
-  baRange.addEventListener('keydown', () => { baTouched = true; });
-  if (!reduceMotion) {
-    new IntersectionObserver(([entry], obs) => {
-      if (!entry.isIntersecting) return;
-      obs.disconnect();
-      // One hint sweep so visitors see the slider is interactive.
-      const keys = [[0, 50], [900, 78], [1900, 24], [2800, 50]];
-      const start = performance.now();
-      const step = (now) => {
-        if (baTouched) return;
-        const t = now - start;
-        let k = 0;
-        while (k < keys.length - 2 && t > keys[k + 1][0]) k++;
-        const [t0, v0] = keys[k];
-        const [t1, v1] = keys[k + 1];
-        const p = Math.min(Math.max((t - t0) / (t1 - t0), 0), 1);
-        const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
-        const v = v0 + (v1 - v0) * e;
-        setPos(v);
-        baRange.value = String(Math.round(v));
-        if (t < keys[keys.length - 1][0]) requestAnimationFrame(step);
-      };
-      setTimeout(() => requestAnimationFrame(step), 500);
-    }, { threshold: 0.6 }).observe(ba);
-  }
-
-  /* ---------- §02 Module story ---------- */
-  const heat = $('#heat');
-  if (heat) {
-    // October 2026 starts on a Thursday; weeks start on Monday.
-    ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh', 'Ya'].forEach((d) => {
-      const s = document.createElement('span');
-      s.className = 'wd';
-      s.textContent = d;
-      heat.append(s);
-    });
-    for (let i = 0; i < 3; i++) { const b = document.createElement('span'); b.className = 'd blank'; heat.append(b); }
-    const today = Number(new Date().toLocaleDateString('en-GB', { day: 'numeric', timeZone: 'Asia/Tashkent' }));
-    const isOct2026 = new Date().toLocaleDateString('en-GB', { month: 'numeric', year: 'numeric', timeZone: 'Asia/Tashkent' }) === '10/2026';
-    const cutoff = isOct2026 ? today : 31;
-    for (let day = 1; day <= 31; day++) {
-      const s = document.createElement('span');
-      const weekday = (day + 2) % 7; // 0 = Monday
-      let cls = 'ok';
-      if (weekday === 6 || day === 9) cls = 'off';
-      else if (day === 3 || day === 14) cls = 'half';
-      if (day > cutoff) cls = 'future';
-      s.className = `d ${cls}${day === cutoff && isOct2026 ? ' today' : ''}`;
-      s.style.setProperty('--i', day);
-      s.textContent = day;
-      heat.append(s);
-    }
-  }
-  $$('.tt .blk').forEach((b, k) => b.style.setProperty('--k', k));
-
-  const storyLinks = $$('.story-index a');
-  const storyList = $('.story-index ol');
-  const mods = $$('.mod');
-  const setActiveMod = (id) => {
-    const idx = mods.findIndex((m) => m.id === id);
-    storyLinks.forEach((a) => a.classList.toggle('active', a.hash === `#${id}`));
-    storyList.style.setProperty('--ip', ((idx + 1) / mods.length).toFixed(3));
-    const active = storyLinks[idx];
-    if (active && getComputedStyle(storyList).display === 'flex') {
-      storyList.scrollTo({ left: active.offsetLeft - 16, behavior: reduceMotion ? 'auto' : 'smooth' });
-    }
-  };
-  const activeObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => { if (entry.isIntersecting) setActiveMod(entry.target.id); });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  const inObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-in');
-      inObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.3 });
-  mods.forEach((m) => { activeObserver.observe(m); inObserver.observe(m); });
-  setActiveMod(mods[0].id);
 
   /* ---------- §07 Steps progress (scroll-linked) ---------- */
   const steps = $('#steps');

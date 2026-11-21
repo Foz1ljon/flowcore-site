@@ -18,19 +18,19 @@ export function mountFactory(host) {
   // The building never moves: render its shadow map once, not on every animation frame.
   renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
   renderer.shadowMap.enabled=true;renderer.shadowMap.type=PCFSoftShadowMap;
-  renderer.toneMapping=ACESFilmicToneMapping;renderer.toneMappingExposure=.98;
+  renderer.toneMapping=ACESFilmicToneMapping;renderer.toneMappingExposure=.84;
   renderer.outputColorSpace=SRGBColorSpace;
   renderer.domElement.setAttribute('aria-hidden','true');
   host.prepend(renderer.domElement);
   const scene=new Scene();scene.background=new Color('#d7dddf');
   const camera=new PerspectiveCamera(37,1,.1,150);
   const environment=new PMREMGenerator(renderer),room=new RoomEnvironment();
-  const env=environment.fromScene(room,.04,.1,100,{size:compact?64:128});scene.environment=env.texture;room.dispose();environment.dispose();
-  scene.add(new AmbientLight(0xe4edf4,.4),new HemisphereLight(0xe4eff9,0x677265,1.5));
-  const sun=new DirectionalLight(0xfff2df,3.1);sun.position.set(-7,17,8);sun.castShadow=true;
+  const env=environment.fromScene(room,.04,.1,100,{size:compact?64:128});scene.environment=env.texture;scene.environmentIntensity=.38;room.dispose();environment.dispose();
+  scene.add(new AmbientLight(0xe4edf4,.15),new HemisphereLight(0xe4eff9,0x665746,.72));
+  const sun=new DirectionalLight(0xffe0ae,2.5);sun.position.set(-11,9,6);sun.castShadow=true;
   sun.shadow.mapSize.set(compact?512:1024,compact?512:1024);Object.assign(sun.shadow.camera,{left:-17,right:17,top:14,bottom:-14,near:1,far:50});
   sun.shadow.bias=-.0003;sun.shadow.normalBias=.035;scene.add(sun);
-  const fill=new DirectionalLight(0xc4d9eb,.9);fill.position.set(10,7,-8);scene.add(fill);
+  const fill=new DirectionalLight(0xc4d9eb,.38);fill.position.set(10,7,-8);scene.add(fill);
   const root=new Group();scene.add(root);
   const textures=[];
   function texture(kind) {
@@ -42,18 +42,36 @@ export function mountFactory(host) {
       c.fillStyle=kind==='wood'?`rgba(80,47,19,${random()*.14})`:`rgba(25,42,40,${random()*.14})`;
       const x=random()*256,y=random()*256;c.fillRect(x,y,kind==='wood'?random()*100+10:random()*3+1,random()*2+.3);
     }
-    if(kind!=='wood'){c.strokeStyle='#758582';c.lineWidth=.7;c.strokeRect(0,0,256,256);}
+    if (kind === 'floor') {
+      for (let i = 0; i < 100; i++) {
+        const x = random()*256, y = random()*256, radius = 6 + random()*36;
+        const stain = c.createRadialGradient(x,y,0,x,y,radius);
+        stain.addColorStop(0,'rgba(65,51,39,.19)');
+        stain.addColorStop(1,'rgba(65,51,39,0)');
+        c.fillStyle=stain;
+        c.fillRect(x-radius,y-radius,radius*2,radius*2);
+      }
+      c.strokeStyle='#6c6a60';c.lineWidth=.8;c.strokeRect(0,0,256,256);
+    } else {
+      for (let i=0;i<90;i++) {
+        const y=random()*256, bend=random()*12;
+        c.beginPath();c.moveTo(0,y);
+        c.bezierCurveTo(80,y+bend,150,y-bend,256,y);
+        c.strokeStyle='rgba(83,45,17,.24)';c.lineWidth=.3+random();c.stroke();
+      }
+    }
     const tex=new CanvasTexture(canvas);tex.colorSpace=SRGBColorSpace;tex.wrapS=tex.wrapT=RepeatWrapping;
     if(kind!=='wood')tex.repeat.set(8,6);textures.push(tex);return tex;
   }
   const mat=(color,metalness=0,roughness=.65)=>new MeshStandardMaterial({color,metalness,roughness});
-  const concrete=new MeshStandardMaterial({map:texture('floor'),roughness:.88});
+  const floorMap = texture('floor');
+  const concrete=new MeshStandardMaterial({color:'#928a7c',map:floorMap,bumpMap:floorMap,bumpScale:.015,roughness:.91});
   const wood=new MeshStandardMaterial({map:texture('wood'),roughness:.48});
   const steel=mat('#6b777b',.65,.42),dark=mat('#303a3d',.4,.6),white=mat('#d2d5cc',.22,.48);
-  const blue=mat('#526b72',.35,.45),orange=mat('#b98548',.3,.48),rubber=mat('#252a2b',.05,.95);
+  const blue=mat('#265366',.35,.45),orange=mat('#bd742f',.3,.48),rubber=mat('#252a2b',.05,.95);
   const yellow=mat('#dbb85a',.1,.7),glass=mat('#8bafbc',.55,.18),paper=mat('#eeece3');
   const red=mat('#b96847'),green=mat('#51877c'),skin=mat('#bc947a');
-  const wall=mat('#c7cbc5',.05,.9),duct=mat('#9aabae',.6,.5),cardboard=mat('#af9370',0,.95);
+  const wall=mat('#b7b5a9',.05,.9),duct=mat('#9aabae',.6,.5),cardboard=mat('#af9370',0,.95);
   const lampMaterial=mat('#eee9d9',0,.4);lampMaterial.emissive=new Color('#fff0cc');lampMaterial.emissiveIntensity=.55;
   const screen=mat('#283e42',.1,.4),screenLine=mat('#8dbbb1',.1,.6);
   const dynamic=new Set();
@@ -152,7 +170,22 @@ export function mountFactory(host) {
   box(saw,2.6,.07,1.4,0,1.13,0,wood);
   for(let x of [-2,2]){box(saw,.2,1.25,.26,x,1.65,0,blue);box(saw,.25,.1,2.6,x,1.1,0,steel);}
   box(saw,4.25,.35,.45,0,2.22,0,blue);
-  const tool=box(saw,.48,.65,.52,-.7,1.81,0,white);dynamic.add(tool);tool.castShadow=false;
+  const tool = new Group();
+  tool.position.set(-.7,1.81,0);saw.add(tool);
+  box(tool,.52,.48,.55,0,.07,0,orange);
+  cylinder(tool,.145,.22,0,-.23,0,steel);
+  cylinder(tool,.075,.18,0,-.4,0,dark);
+  cylinder(tool,.022,.14,0,-.55,0,steel);
+  for(let i=0;i<6;i++)box(tool,.27,.014,.012,0,-.025+i*.04,.281,dark);
+  tool.traverse(part=>{if(part.isMesh){dynamic.add(part);part.castShadow=false;}});
+  // Removable inspection panels and lower plinth along the operator side.
+  box(saw,4.48,.22,.08,0,.18,1.33,blue);
+  for(let i=0;i<3;i++){
+    const x=(i-1)*1.44;
+    box(saw,1.38,.47,.045,x,.55,1.325,blue);
+    box(saw,.23,.037,.058,x+.36,.69,1.362,dark);
+    for(let slot=0;slot<6;slot++)box(saw,.29,.015,.012,x-.38,.42+slot*.041,1.356,dark);
+  }
   for(let x=-1.8;x<2;x+=.22)box(saw,.06,.08,.46,x,2.05,0,dark);
   for(let x of [-1.75,1.75])for(let y of [.32,.7]){
     const bolt=cylinder(saw,.035,.015,x,y,1.31,steel,8);bolt.rotation.x=Math.PI/2;
@@ -165,7 +198,7 @@ export function mountFactory(host) {
   for(let i=0;i<4;i++)box(saw,.33-i*.04,.014,.01,2.46,1.77-i*.065,.994,screenLine);
   for(let i=0;i<4;i++)cylinder(saw,.045,.03,2.3+i*.13,1.19,1, i===0?red:green).rotation.x=Math.PI/2;
   // Roller transfer table and stacks between cutting and assembly.
-  box(root,3.6,.12,1.7,-1.6,.87,1.3,steel);
+  for(const edge of [.44,2.16])box(root,3.6,.15,.07,-1.6,.91,edge,blue);
   for(let x=-3.3;x<.2;x+=.25){const roller=cylinder(root,.065,1.65,x,.98,1.3,steel);roller.rotation.x=Math.PI/2;}
   for(let x of [-3.2,0])for(let z of [.65,1.95])box(root,.1,.85,.1,x,.43,z,steel);
   pallet(root,1.6,-3,5);
@@ -226,25 +259,58 @@ export function mountFactory(host) {
     const tyre=cylinder(truck,.36,.22,x,.38,z,rubber);tyre.rotation.z=Math.PI/2;
     const hub=cylinder(truck,.17,.24,x,.38,z,steel);hub.rotation.z=Math.PI/2;
   }
+  // These panels enclose the hall at eye level and lift away in the overview.
+  const ceiling = new Group();
+  root.add(ceiling);
+  const skylight = mat('#e5eced', .08, .48);
+  skylight.emissive = new Color('#dbe9ed');
+  skylight.emissiveIntensity = .65;
+  for (const side of [-1, 1]) {
+    const slope = new Group();
+    slope.position.set(0, 5.54, 0);
+    slope.rotation.x = side * .14;
+    ceiling.add(slope);
+    for (let bay = 0; bay < 12; bay++) {
+      box(slope, 1.94, .08, 7.2, -10.9 + bay * 1.96, 0, side * 3.5, bay % 4 === 2 ? skylight : wall);
+    }
+  }
+  ceiling.traverse(part => { if (part.isMesh) { part.castShadow = false; dynamic.add(part); } });
+  const workingArms = [];
+  const denim=mat('#283a48',0,.95), jacket=mat('#505f50',0,.92);
+  const vest=mat('#bf8b30',0,.86), stripe=mat('#bfc2ad',.1,.63);
+
   // Workers: human proportions, work clothes, arms and safety helmets.
   const limbGeometry=new CapsuleGeometry(1,3,3,7);
   const headGeometry=new SphereGeometry(1,10,8);
   function limb(parent,material,x,y,z,sx,sy,sz,angle=0){
     const mesh=new Mesh(limbGeometry,material);mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);mesh.rotation.z=angle;mesh.castShadow=true;parent.add(mesh);return mesh;
   }
-  function worker(x,z,turn=0) {
+  function worker(x,z,turn=0, assembling=false) {
     const person=new Group();person.position.set(x,0,z);person.rotation.y=turn;root.add(person);
     for(let side of [-1,1]){
-      limb(person,dark,side*.115,.44,0,.075,.14,.085);box(person,.17,.12,.3,side*.115,.07,.06,rubber);
-      beam(person,[side*.27,1.4,0],[side*.33,1.04,.12],.065,blue);
-      beam(person,[side*.33,1.04,.12],[side*.2,.9,.28],.055,skin);
+      limb(person,denim,side*.106,.52,0,.098,.174,.105);box(person,.17,.12,.3,side*.115,.07,.06,rubber);
+      const shoulder = new Group();
+      shoulder.position.set(side * .26, 1.37, 0);
+      person.add(shoulder);
+      const sleeve = beam(shoulder,[0,0,0],[side*.06,-.28,.14],.084,jacket);
+      const arm = beam(shoulder,[side*.06,-.28,.14],[side*.02,-.33,.39],.055,skin);
+      const hand=limb(shoulder,skin,side*.02,-.335,.395,.047,.026,.055);
+      if (assembling && state === 'after') {
+        dynamic.add(hand);
+        workingArms.push({ shoulder, side });
+        dynamic.add(sleeve);
+        dynamic.add(arm);
+      }
     }
-    limb(person,blue,0,1.18,0,.21,.105,.135);box(person,.41,.045,.275,0,1.12,0,yellow);
+    limb(person,denim,0,.88,0,.19,.075,.13);
+    limb(person,jacket,0,1.18,0,.222,.129,.15);
+    limb(person,vest,0,1.2,0,.224,.098,.153);
+    box(person,.405,.035,.267,0,1.11,0,stripe);
     cylinder(person,.065,.12,0,1.5,0,skin);
     const head=new Mesh(headGeometry,skin);head.scale.set(.13,.16,.13);head.position.set(0,1.68,0);head.castShadow=true;person.add(head);
-    cylinder(person,.17,.07,0,1.82,0,yellow);cylinder(person,.2,.025,0,1.8,0,yellow);
+    limb(person,yellow,0,1.82,0,.153,.034,.153);cylinder(person,.2,.025,0,1.8,0,yellow);
   }
-  worker(-4.4,-2,.8);worker(2,-4.4,1.5);worker(3.3,.2,Math.PI);worker(9.6,1.4,Math.PI);
+  worker(-4.4,-2,.8);worker(2,-4.4,1.5);worker(3.3,-.39,Math.PI,true);worker(9.6,1.4,Math.PI);
   // Separate physical scenarios: a blocked idle line versus staged material and work in progress.
   for(let i=0;i<12;i++){
     const scrap=box(before,1.1,.07,.65,-4.8+(i%3)*.5,.08+Math.floor(i/3)*.09,2.6+Math.floor(i/3)*.5,wood);
@@ -303,25 +369,11 @@ export function mountFactory(host) {
   }
   if(state==='after'){
     // Suspended from the roof truss and turned towards the visitor, like a shop-floor andon board.
-    const display=new Group();display.position.set(1.2,2.8,1.4);display.rotation.y=.6;after.add(display);
+    const display=new Group();display.position.set(1.2,2.8,-6.65);display.rotation.y=0;after.add(display);
     box(display,3.3,1.75,.1,0,0,0,dark);
     const board=box(display,3.12,1.56,.02,0,0,.06,boardMaterial);board.castShadow=false;
     for(let x of [-1.3,1.3])beam(display,[x,.87,0],[x,2.65,0],.02,steel);
   }
-  // Order route: floor line, a ring per stage, and the order card travelling between them.
-  const routeMat=mat('#438c81',.25,.4);routeMat.emissive=new Color('#245e56');routeMat.emissiveIntensity=.3;
-  const stops=[-7,-1.6,3.4,8.4],routeZ=3.3;
-  for(let i=0;i<stops.length-1;i++)beam(after,[stops[i],.045,routeZ],[stops[i+1],.045,routeZ],.035,routeMat);
-  const ringGeometry=new TorusGeometry(.3,.04,8,28),rings=[];
-  for(let x of stops){
-    const ring=new Mesh(ringGeometry,routeMat);ring.rotation.x=Math.PI/2;ring.position.set(x,.06,routeZ);after.add(ring);dynamic.add(ring);rings.push(ring);
-  }
-  const tokenMat=mat('#5fd0b5',.1,.35);tokenMat.emissive=new Color('#3ec2a2');tokenMat.emissiveIntensity=.9;
-  const token=box(after,.62,.1,.42,stops[0],.16,routeZ,tokenMat);dynamic.add(token);token.castShadow=false;
-  // A soft floor halo marks the station that is working on the order right now.
-  const halos=[[-8,-.6,1.3],[-1.6,-.9,1.5],[3.4,.2,1.3],[10.6,1.2,1.1]];
-  const glowMat=new MeshStandardMaterial({color:'#3fae95',emissive:'#2c9c83',emissiveIntensity:.55,roughness:.5,transparent:true,opacity:.72,depthWrite:false});
-  const glow=cylinder(after,1,.02,halos[0][0],.03,halos[0][1],glowMat,40);glow.castShadow=glow.receiveShadow=false;dynamic.add(glow);
   // A packed box rolls out to the truck during dispatch.
   const outgoing=box(after,1.1,.5,.8,10.4,.26,1.2,cardboard);outgoing.castShadow=false;dynamic.add(outgoing);
   // Several hundred repeated bolts, panels and beams become a few GPU draw calls.
@@ -354,26 +406,24 @@ export function mountFactory(host) {
     if(next===stage||state!=='after')return;stage=next;
     labels.forEach((label,i)=>{label.classList.toggle('is-active',i===stage);label.classList.toggle('is-done',i<stage);});
     beaconMaterials.forEach((m,i)=>{m.emissiveIntensity=i<stage?.35:i===stage?1.4:.05;m.color.set(i>stage?'#5d7470':'#3f8f80');});
-    const [hx,hz,hr]=halos[stage];glow.position.set(hx,.03,hz);glow.scale.set(hr,.02,hr);drawBoard(stage);
+    drawBoard(stage);
   }
   function animateAfter(t) {
     const cycle=t%(STAGE_SECONDS*4),current=Math.floor(cycle/STAGE_SECONDS),local=cycle/STAGE_SECONDS-current;
     setStage(current);
-    // The card waits at its stage, then travels to the next stop in the last third.
-    const move=Math.max(0,(local-.66)/.34),ease=move*move*(3-2*move);
-    const from=stops[current],to=current<3?stops[current+1]:stops[0];
-    token.position.x=from+(to-from)*ease;token.position.y=.16+Math.sin(ease*Math.PI)*.25*(current<3?1:0);
-    token.visible=current<3||local<.66;
-    rings.forEach((ring,i)=>{const s=i===current?1+.18*Math.sin(t*5):i<current?1:.85;ring.scale.set(s,s,s);});
-    glowMat.opacity=.62+.12*Math.sin(t*3);
-    tool.position.x=current===1?Math.sin(local*Math.PI*2)*1.3:-.7;
+    for (const { shoulder, side } of workingArms) {
+      shoulder.rotation.x = -.2 + .24 * Math.sin(t * 2.6 + side);
+      shoulder.rotation.z = side * .08 * Math.cos(t * 2.6);
+    }
+    tool.position.x=-.7 + (current===1 ? 1.9*Math.sin(local*Math.PI)**2 : 0);
     movingPanel.position.x=current===1?-3.2+local*1.6:current===2?-1.6+local*1.6:-3.2;
     outgoing.position.x=current===3?10.4+Math.min(1,local*1.4)*1.5:10.4;
   }
-  let view='overview',visible=false,dead=false,frame=0,paused=false,last=0,time=0,lastRender=0,labelsDirty=true;
+  let view='floor',visible=false,dead=false,frame=0,paused=false,last=0,time=0,lastRender=0,labelsDirty=true;
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
-  const views={overview:{position:new Vector3(17,15,22),target:new Vector3(0,.6,-.3)},floor:{position:new Vector3(13,7.5,18),target:new Vector3(-1,1.3,-1.5)}};
-  camera.position.copy(views.overview.position);const target=views.overview.target.clone();
+  const views={overview:{position:new Vector3(17,15,22),target:new Vector3(0,.6,-.3)},floor:{position:new Vector3(-3.95,1.64,4.95),target:new Vector3(.35,1.45,-3.8)}};
+  host.dataset.camera = view;
+  camera.position.copy(views.floor.position);const target=views.floor.target.clone();
   function projectLabels() {
     markerPositions.forEach((p,i)=>{
       const v=p.clone().project(camera);labels[i].style.left=`${(v.x*.5+.5)*100}%`;labels[i].style.top=`${(-v.y*.5+.5)*100}%`;
@@ -411,12 +461,12 @@ export function mountFactory(host) {
     const {width,height}=host.getBoundingClientRect();if(!width||!height)return;
     renderer.setPixelRatio(Math.min(devicePixelRatio,width<600?1:1.25));
     renderer.setSize(width,height,false);camera.aspect=width/height;labelsDirty=true;
-    camera.fov=2*Math.atan(Math.tan(37*Math.PI/360)*Math.max(1,1.65/camera.aspect))*180/Math.PI;camera.updateProjectionMatrix();drawOnce();schedule();
+    camera.fov=view==='floor' ? (width<600?68:55) : 2*Math.atan(Math.tan(37*Math.PI/360)*Math.max(1,1.65/camera.aspect))*180/Math.PI;camera.updateProjectionMatrix();drawOnce();schedule();
   }
   const onClick=event=>{
     const viewButton=event.target.closest('[data-factory-camera]');
     if(viewButton)labelsDirty=true;
-    if(viewButton){view=viewButton.dataset.factoryCamera;host.querySelectorAll('[data-factory-camera]').forEach(b=>b.setAttribute('aria-pressed',String(b===viewButton)));if(motion.matches){camera.position.copy(views[view].position);target.copy(views[view].target);}schedule();drawOnce();}
+    if(viewButton){view=viewButton.dataset.factoryCamera;host.dataset.camera=view;ceiling.visible=view==='floor';renderer.shadowMap.needsUpdate=true;resize();host.querySelectorAll('[data-factory-camera]').forEach(b=>b.setAttribute('aria-pressed',String(b===viewButton)));if(motion.matches){camera.position.copy(views[view].position);target.copy(views[view].target);}schedule();drawOnce();}
     if(event.target.closest('.factory-pause')){paused=!paused;pauseButton.setAttribute('aria-pressed',String(paused));pauseButton.textContent=paused?'Harakatni davom ettirish':'Harakatni to‘xtatish';schedule();}
   };
   const visibility=()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else schedule();};
@@ -429,7 +479,7 @@ export function mountFactory(host) {
   window.addEventListener('pagehide',function dispose(event){
     if(event.persisted)return;dead=true;cancelAnimationFrame(frame);observer.disconnect();sizing.disconnect();
     story.removeEventListener('click',onClick);document.removeEventListener('visibilitychange',visibility);motion.removeEventListener('change',changeMotion);
-    const geometries=new Set([unitBox,...cylinders.values(),limbGeometry,headGeometry,ringGeometry]),materials=new Set();scene.traverse(o=>{if(o.isInstancedMesh)o.dispose();if(o.geometry)geometries.add(o.geometry);if(o.material)materials.add(o.material);});
+    const geometries=new Set([unitBox,...cylinders.values(),limbGeometry,headGeometry]),materials=new Set();scene.traverse(o=>{if(o.isInstancedMesh)o.dispose();if(o.geometry)geometries.add(o.geometry);if(o.material)materials.add(o.material);});
     geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());env.dispose();renderer.dispose();
     window.removeEventListener('pagehide',dispose);
   });

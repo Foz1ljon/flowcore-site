@@ -88,7 +88,7 @@ visible_faq = [(plain(re.sub(r'<span>.*?</span>', '', q)), plain(a))
     for q, a in re.findall(r'<summary>(.*?)</summary>\s*<p>(.*?)</p>', faq_source, re.S)]
 home_graph = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', home_source, re.S)[1])
 search_faq = next(node for node in home_graph['@graph'] if node['@type'] == 'FAQPage')['mainEntity']
-assert len(visible_faq) >= 10, 'Homepage FAQ extraction is incomplete'
+assert len(visible_faq) == faq_source.count('<summary>') > 0, 'Homepage FAQ extraction is incomplete'
 assert visible_faq == [(q['name'], q['acceptedAnswer']['text']) for q in search_faq], 'Search FAQ differs from visible answers'
 
 # Protect brand identity and page/schema parity across future content builds.
