@@ -386,7 +386,7 @@ export function mountConnectedScene() {
   };
   const resize = () => {
     ({width,height}=stage.getBoundingClientRect());
-    if(!width || !height)return;
+    if(!width || !height)return false;
     renderer.setSize(width,height,false);camera.aspect=width/height;
     // Fit the complete circuit, leaving enough room for the HTML labels.
     const portrait = width < 600;
@@ -402,6 +402,7 @@ export function mountConnectedScene() {
     });
     fitDistance=Math.max(portrait?10.6:8.8,(portrait?1.98:3.8)/(Math.tan(Math.PI/10)*camera.aspect));camera.position.z=fitDistance;
     camera.updateProjectionMatrix();camera.updateMatrixWorld();render();
+    return true;
   };
   const select = event => {
     const button=event.target.closest('[data-flow-module]');
@@ -418,19 +419,38 @@ export function mountConnectedScene() {
     targetX=(event.clientX-bounds.left)/width-.5;targetY=(event.clientY-bounds.top)/height-.5;
   };
   const leave = () => {targetX=targetY=0;};
-  const theme = () => {dark=document.documentElement.dataset.theme==='dark';light.intensity=dark?3.6:3.1;render();};
-  const lost = event => {event.preventDefault();available=false;host.classList.remove('is-connected');buttons.forEach(button=>button.disabled=true);sync();};
-  const restored = () => {available=true;host.classList.add('is-connected');buttons.forEach(button=>button.disabled=false);resize();sync();};
+  const applyTheme = () => {dark=document.documentElement.dataset.theme==='dark';light.intensity=dark?3.6:3.1;};
+  const layout = () => {
+    if (!available) return;
+    if (host.classList.contains('is-connected')) { resize(); return; }
+    // Keep the visible HTML labels in place until a correctly sized frame is drawn.
+    const previous = !motion.matches && progress < .44 ? buttons.map(button=>button.getBoundingClientRect()) : [];
+    if (!resize()) return;
+    stage.prepend(renderer.domElement);
+    host.classList.add('is-connected');
+    buttons.forEach(button=>{button.style.removeProperty('scale');button.disabled=false;});
+    const current = previous.map((_,i)=>buttons[i].getBoundingClientRect());
+    current.forEach((rect,i)=>{
+      const x=previous[i].left+previous[i].width/2-rect.left-rect.width/2;
+      const y=previous[i].top+previous[i].height/2-rect.top-rect.height/2;
+      buttons[i].animate([{translate:`${x}px ${y}px`},{translate:'0px 0px'}],{duration:250,easing:'ease-out'});
+    });
+    window.dispatchEvent(new Event('flowcore:layout'));
+  };
+  const lost = event => {
+    event.preventDefault();available=false;renderer.domElement.remove();host.classList.remove('is-connected');
+    buttons.forEach(button=>button.disabled=true);
+    host.dispatchEvent(new Event('flowcore:scene-lost'));sync();
+  };
+  const restored = () => {available=true;layout();sync();};
   const observer = new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();});observer.observe(host);
-  const sizeObserver = new ResizeObserver(resize);sizeObserver.observe(stage);
-  const themeObserver = new MutationObserver(theme);themeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  stage.prepend(renderer.domElement);host.classList.add('is-connected');buttons.forEach(button=>button.style.removeProperty('scale'));resize();theme();
+  const sizeObserver = new ResizeObserver(layout);sizeObserver.observe(stage);
+  const themeObserver = new MutationObserver(()=>{applyTheme();render();});themeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   intro?.addEventListener('flowcore:assembly',onAssembly);
-  window.dispatchEvent(new Event('flowcore:layout'));
-  buttons.forEach(button=>button.disabled=false);
   host.addEventListener('click',select);stage.addEventListener('pointermove',pointer);stage.addEventListener('pointerleave',leave);
   document.addEventListener('visibilitychange',sync);motion.addEventListener('change',sync);
   renderer.domElement.addEventListener('webglcontextlost',lost);renderer.domElement.addEventListener('webglcontextrestored',restored);
+  applyTheme();layout();
   return () => {
     dead=true;intro?.removeEventListener('flowcore:assembly',onAssembly);renderer.setAnimationLoop(null);observer.disconnect();sizeObserver.disconnect();themeObserver.disconnect();
     host.removeEventListener('click',select);stage.removeEventListener('pointermove',pointer);stage.removeEventListener('pointerleave',leave);

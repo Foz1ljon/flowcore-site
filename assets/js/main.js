@@ -743,7 +743,7 @@
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
   const clamp=value=>Math.max(0,Math.min(1,value));
   const smooth=value=>{const t=clamp(value);return t*t*(3-2*t);};
-  let top=0,range=1,frame=0,dead=false,lastProgress=-1,lastConnected=false;
+  let top=0,range=1,frame=0,dead=false,lastProgress=-1,lastConnected=false,fallbackPositions=[];
   const update=()=>{
     frame=0;if(dead)return;
     const scroll=document.scrollingElement?.scrollTop??window.scrollY;
@@ -759,11 +759,10 @@
     intro.style.setProperty('--assembly-labels',String(1-smooth((progress-.22)/.22)));
     intro.style.setProperty('--assembly-focus',String(smooth((progress-.12)/.58)));
     labels.inert=progress>.4;
-    if(!host.classList.contains('is-connected')){
+    if(!connected){
       buttons.forEach((button,i)=>{
         const gather=smooth((progress-.08-i*.009)/.64);
-        const x=parseFloat(button.style.getPropertyValue('--fallback-x'));
-        const y=parseFloat(button.style.getPropertyValue('--fallback-y'));
+        const [x,y]=fallbackPositions[i];
         button.style.setProperty('--node-x',`${x+(50-x)*gather-Math.sin(gather*Math.PI)*(i%2?6:-6)}%`);
         button.style.setProperty('--node-y',`${y+(50-y)*gather-Math.sin(gather*Math.PI)*5}%`);
         button.style.scale=String(1-gather*.9);
@@ -779,14 +778,18 @@
     measureFrame=0;if(dead)return;
     const scroll=document.scrollingElement?.scrollTop??window.scrollY;
     top=window.flowcoreStack?window.flowcoreStack.naturalTop(intro):intro.getBoundingClientRect().top+scroll;
+    if(!host.classList.contains('is-connected'))fallbackPositions=buttons.map(button=>{
+      const style=getComputedStyle(button);
+      return ['x','y'].map(axis=>parseFloat(style.getPropertyValue(`--opening-${axis}`).trim() || style.getPropertyValue(`--fallback-${axis}`)));
+    });
     range=Math.max(1,intro.offsetHeight-sticky.offsetHeight);lastProgress=-1;update();
   };
   const measure=()=>{if(!measureFrame)measureFrame=requestAnimationFrame(measureNow);};
   const configure=()=>{
-    intro.classList.toggle('is-assembling',!motion.matches);
     measure();window.dispatchEvent(new Event('flowcore:layout'));
   };
   configure();
+  host.addEventListener('flowcore:scene-lost',measure);
   window.addEventListener('scroll',schedule,{passive:true});
   window.addEventListener('resize',measure);
   window.addEventListener('pageshow',measure);
@@ -795,7 +798,8 @@
   document.fonts?.ready.then(measure);
   window.addEventListener('pagehide',event=>{
     if(event.persisted)return;
-    dead=true;cancelAnimationFrame(frame);observer.disconnect();
+    dead=true;cancelAnimationFrame(frame);cancelAnimationFrame(measureFrame);observer.disconnect();
+    host.removeEventListener('flowcore:scene-lost',measure);
     window.removeEventListener('scroll',schedule);window.removeEventListener('resize',measure);
     window.removeEventListener('pageshow',measure);motion.removeEventListener('change',configure);
   });
@@ -811,8 +815,8 @@
     observer.disconnect();
     const load = async () => {
       try {
-        // Avoid a WebGL download on unsupported devices; keep the static CSS background.
-        if (!document.createElement('canvas').getContext('webgl2')) return;
+        // Avoid a WebGL download on unsupported devices; keep the HTML fallback.
+        if (!window.WebGL2RenderingContext) return;
         const scene = await import(new URL(host.dataset.sceneSrc, document.baseURI).href);
         if (!assembly) {
           scene.mountFlowScene(host);
@@ -824,16 +828,15 @@
         });
       } catch { /* Optional enhancement: all content and links stay available. */ }
     };
-    // The WebGL scene is decorative and costs a long main-thread task to compile, so
-    // it starts on the visitor's first interaction instead of competing with page load.
+    // Start fetching the opening as soon as it is in view. The background can wait.
+    if (assembly) { void load(); return; }
     const events = ['pointermove','pointerdown','touchstart','wheel','keydown'];
     const start = () => {
       events.forEach(type => removeEventListener(type, start, {capture:true}));
       if ('requestIdleCallback' in window) requestIdleCallback(load, {timeout:1000});
       else setTimeout(load, 50);
     };
-    if (assembly) start();
-    else events.forEach(type => addEventListener(type, start, {capture:true, passive:true, once:true}));
+    events.forEach(type => addEventListener(type, start, {capture:true, passive:true, once:true}));
   }, {rootMargin:'350px'});
   observer.observe(assembly || host);
 })();

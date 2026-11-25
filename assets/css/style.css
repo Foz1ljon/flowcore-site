@@ -2253,7 +2253,13 @@ html:has(.landing-header) { --header-clearance: 102px; --module-nav-clearance: 0
 .connected-nodes button:hover,.connected-nodes button[aria-pressed="true"] { color: var(--ink); border-color: var(--node-color); box-shadow: 0 0 24px color-mix(in srgb,var(--node-color) 14%,transparent); }
 .connected-nodes button:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 4px; }
 .connected-example { margin-left: auto; flex: none; font-size: 9px; color: var(--ink-3); }
-.connected-flow:not(.is-connected) .connected-stage::before { content: ""; position: absolute; inset: 21% 16%; border: 1px dashed var(--line-2); border-radius: 50%; }
+.connected-stage::before { content: ""; position: absolute; inset: 21% 16%; border: 1px dashed var(--line-2); border-radius: 50%; pointer-events: none; }
+.connected-flow.is-connected .connected-stage::before { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .connected-stage::before { transition: opacity .25s ease-out; }
+  .connected-flow.is-connected .connected-stage > canvas { animation: connected-scene-enter .25s ease-out; }
+}
+@keyframes connected-scene-enter { from { opacity: 0; } }
 @media (max-width: 640px) {
   .connected-flow { padding: 24px 12px 0; border-radius: 20px; margin-bottom: 48px; }
   .connected-hint { display: none; }
@@ -2326,54 +2332,37 @@ html:has(.landing-header) { --header-clearance: 102px; --module-nav-clearance: 0
 
 /* Scroll-driven opening: native sticky positioning, with no wheel/touch interception. */
 .assembly-intro { position: relative; }
-.assembly-intro.is-assembling { height: 250svh; }
 .assembly-sticky { min-height: 100svh; padding-top: max(116px,var(--header-clearance,116px)); padding-bottom: 18px; display: flex; }
-.is-assembling .assembly-sticky { position: sticky; top: 0; height: 100svh; }
 .assembly-intro .connected-flow { width: 100%; min-width: 0; display: flex; flex-direction: column; margin: 0; padding: 10px 0 0; border: 0; border-radius: 0; overflow: visible; background: transparent; }
 .assembly-intro .connected-stage { width: 100%; max-width: 1050px; height: clamp(350px,56svh,650px); margin: 10px auto 0; }
-.is-assembling .connected-stage { flex: 1; height: auto; min-height: 0; }
 .assembly-intro .connected-core-label { top: calc(50% + 90px); padding: 0; border: 0; background: transparent; box-shadow: none; transform: translate(-50%,-50%) scale(var(--brand-scale,1)); }
-.assembly-intro.is-assembling .connected-core-label { opacity: 0; }
 .assembly-intro .connected-core-label b { font-size: clamp(34px,5vw,64px); }
 .assembly-intro .connected-core-label > span { font-size: 12px; margin-top: 6px; }
-.assembly-intro:not(.is-assembling) .connected-core-label { opacity: 1!important; }
 @media (max-width:640px) {
-  .assembly-intro.is-assembling { height: 220svh; }
   .assembly-sticky { padding-top: 105px; padding-bottom: 14px; }
   .assembly-intro .connected-stage { height: 410px; }
-  .assembly-intro.is-assembling .connected-stage { height: auto; }
   .assembly-intro .connected-core-label { top: calc(50% + 64px); }
   .assembly-intro .connected-core-label b { font-size: 36px; }
   .assembly-intro .connected-core-label > span { font-size: 10px; }
   .assembly-intro .connected-nodes button { padding: 5px 7px; }
 }
-@media (prefers-reduced-motion:reduce) {
-  .assembly-intro.is-assembling { height: auto; }
-  .is-assembling .assembly-sticky { position: static; height: auto; }
-}
-
 /* The page owns assembly progress, independently of optional WebGL decoration. */
-.assembly-intro.is-assembling .connected-core-label { opacity: var(--assembly-reveal,0); }
 .assembly-intro .connected-core-label { --brand-scale: calc(.88 + var(--assembly-reveal,1) * .12); }
 .assembly-intro .connected-nodes { opacity: var(--assembly-labels,1); }
-.assembly-intro.is-assembling .connected-nodes button { left: var(--node-x,var(--fallback-x)); top: var(--node-y,var(--fallback-y)); }
+.assembly-intro .connected-flow:not(.is-connected) .connected-nodes button {
+  left: var(--node-x,var(--opening-x,var(--fallback-x)));
+  top: var(--node-y,var(--opening-y,var(--fallback-y)));
+}
 
 /* Refined assembly: a calm build-up, clear phases and a settled brand finish. */
-.assembly-intro.is-assembling { height: 280svh; }
 .assembly-intro .connected-stage { perspective: 900px; }
 .assembly-aura { position: absolute; width: min(62vw,520px); aspect-ratio: 1; left: 50%; top: 50%; transform: translate(-50%,-50%) scale(calc(.65 + var(--assembly-focus,0) * .35)); border-radius: 50%; pointer-events: none; background: radial-gradient(circle,color-mix(in srgb,var(--accent) 13%,transparent),transparent 65%); opacity: var(--assembly-focus,0); z-index: -1; }
 .assembly-intro .connected-core-label { transform: translate(-50%,-50%) translateY(calc((1 - var(--assembly-reveal,1)) * 18px)) scale(var(--brand-scale,1)); white-space: nowrap; }
 .assembly-intro .connected-core-label b { letter-spacing: -.055em; line-height: 1.12; }
 .assembly-intro .connected-core-label > span { letter-spacing: .035em; margin-top: 12px; }
 .assembly-intro .connected-nodes button { box-shadow: 0 4px 15px #00000005; backdrop-filter: blur(12px); }
-@media (max-width:800px) {
-}
 @media (max-width:640px) {
-  .assembly-intro.is-assembling { height: 250svh; }
   .assembly-intro .connected-core-label > span { margin-top: 8px; }
-}
-@media (prefers-reduced-motion:reduce) {
-  .assembly-intro.is-assembling { height: auto; }
 }
 
 /* Use the exact header SVG as the final mark; no material, bevel or recreated F. */
@@ -2385,7 +2374,7 @@ html:has(.landing-header) { --header-clearance: 102px; --module-nav-clearance: 0
 .assembly-result article { border-top: 1px solid var(--line-2); padding-top: 14px; }
 .assembly-result h3 { font: 600 14px/1.4 var(--f-body); letter-spacing: -.01em; }
 .assembly-result p { margin-top: 6px; font-size: 12px; line-height: 1.6; color: var(--ink-2); }
-.assembly-intro:not(.is-assembling) .connected-core-label:has(.assembly-brand-mark) { top: 40%; }
+.assembly-intro .connected-core-label:has(.assembly-brand-mark) { top: 40%; }
 @media (max-width:640px) {
   .assembly-intro .connected-core-label { --assembly-mark-size: 96px; }
   .assembly-result { gap: 12px; }
@@ -2882,7 +2871,6 @@ html:not(.js) .assembly-result { position: static; margin-top: 270px; opacity: 1
 }
 
 /* Opening scene: the module assembly occupies the first screen. */
-.marketing-page main > .assembly-intro:first-child.is-assembling { height: 200svh; }
 .marketing-page main > .assembly-intro:first-child {
   background: radial-gradient(ellipse at 50% 46%, var(--glow), transparent 68%);
 }
@@ -2930,25 +2918,45 @@ html:not(.js) .assembly-result { position: static; margin-top: 270px; opacity: 1
   min-height: 44px;
   padding: 10px clamp(13px, 2vw, 22px);
 }
-.marketing-page .assembly-intro.is-assembling .assembly-finale {
-  position: absolute;
-  inset: 0;
-  opacity: var(--assembly-reveal, 0);
-  transform: translateY(calc((1 - var(--assembly-reveal, 1)) * 18px));
-}
-.marketing-page .assembly-intro:not(.is-assembling) .connected-stage {
+.marketing-page .assembly-intro .connected-stage {
   height: auto;
   margin-block: auto;
 }
-.marketing-page .assembly-intro:not(.is-assembling) .connected-nodes { display: none; }
+.marketing-page .assembly-intro .connected-nodes { display: none; }
+.marketing-page .assembly-intro .connected-stage::before { content: none; }
+/* The head sets has-js before paint, so the scroll layout is stable while scripts load. */
+@media (prefers-reduced-motion: no-preference) {
+  .has-js .marketing-page .assembly-intro { height: 200svh; }
+  .has-js .marketing-page .assembly-sticky { position: sticky; top: 0; height: 100svh; }
+  .has-js .marketing-page .assembly-intro .connected-stage { flex: 1; min-height: 0; margin-block: 10px 0; }
+  .has-js .marketing-page .assembly-intro .connected-stage::before { content: ""; }
+  .has-js .marketing-page .assembly-intro .connected-nodes { display: block; }
+  .has-js .marketing-page .assembly-finale {
+    position: absolute;
+    inset: 0;
+    visibility: hidden;
+    opacity: var(--assembly-reveal, 0);
+    transform: translateY(calc((1 - var(--assembly-reveal, 1)) * 18px));
+  }
+}
+.assembly-intro .connected-stage { container-type: inline-size; }
+@container (width < 600px) {
+  .assembly-intro [data-flow-module] { --opening-x: 23%; --opening-y: 28%; }
+  .assembly-intro :is([data-flow-module="erp"], [data-flow-module="wms"], [data-flow-module="pos"]) { --opening-x: 77%; }
+  .assembly-intro :is([data-flow-module="hr"], [data-flow-module="wms"]) { --opening-y: 47%; }
+  .assembly-intro :is([data-flow-module="lms"], [data-flow-module="pos"]) { --opening-y: 67%; }
+  .assembly-intro [data-flow-module="finance"] { --opening-x: 50%; --opening-y: 86%; }
+}
 @media (max-width: 420px) {
   .marketing-page .assembly-finale .btn-lg { font-size: 13px; }
 }
-@media (max-height: 520px) {
-  .marketing-page .assembly-intro.is-assembling .assembly-sticky {
+@media (max-height: 520px) and (prefers-reduced-motion: no-preference) {
+  .has-js .marketing-page .assembly-sticky {
     min-height: 420px;
     padding-top: var(--header-clearance, 90px);
   }
+}
+@media (max-height: 520px) {
   .marketing-page .assembly-finale .hero-title { font-size: clamp(25px, 7svh, 38px); }
   .marketing-page .assembly-finale { gap: 7px; }
 }

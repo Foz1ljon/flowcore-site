@@ -1,10 +1,10 @@
 {
   "style": {
     "source": "assets/css/style.css",
-    "output": "assets/dist/style.5b50980814f6.css",
-    "before": 211238,
-    "after": 179611,
-    "gzip": 34966
+    "output": "assets/dist/style.aa15f5efe70f.css",
+    "before": 211824,
+    "after": 180051,
+    "gzip": 35091
   },
   "product": {
     "source": "assets/css/product.css",
@@ -15,10 +15,10 @@
   },
   "main": {
     "source": "assets/js/main.js",
-    "output": "assets/dist/main.fa49467e76be.js",
-    "before": 44122,
-    "after": 26851,
-    "gzip": 10400
+    "output": "assets/dist/main.b78e58aa745e.js",
+    "before": 44271,
+    "after": 26987,
+    "gzip": 10480
   },
   "tour": {
     "source": "assets/js/tour.js",
@@ -43,10 +43,10 @@
   },
   "scene": {
     "source": "assets/js/flow-scene.js",
-    "output": "assets/dist/scene.053cf49f4f1a.js",
+    "output": "assets/dist/scene.0ab5d506b854.js",
     "before": 10452,
-    "after": 41061,
-    "gzip": 15812
+    "after": 41486,
+    "gzip": 15991
   },
   "factory": {
     "source": "assets/js/factory-scene.js",
