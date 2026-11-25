@@ -1,8 +1,8 @@
 import {
   Scene, PerspectiveCamera, WebGLRenderer, Group, Mesh, BoxGeometry, CylinderGeometry,
-  SphereGeometry, MeshStandardMaterial, CanvasTexture, SRGBColorSpace, RepeatWrapping,
+  MeshStandardMaterial, CanvasTexture, SRGBColorSpace, RepeatWrapping,
   AmbientLight, DirectionalLight, ACESFilmicToneMapping, PCFSoftShadowMap, Vector3,
-  PMREMGenerator, Color, TorusGeometry, InstancedMesh, CapsuleGeometry, HemisphereLight,
+  PMREMGenerator, Color, TorusGeometry, InstancedMesh, HemisphereLight,
 } from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
@@ -22,12 +22,12 @@ export function mountFactory(host) {
   renderer.outputColorSpace=SRGBColorSpace;
   renderer.domElement.setAttribute('aria-hidden','true');
   host.prepend(renderer.domElement);
-  const scene=new Scene();scene.background=new Color('#d7dddf');
+  const scene=new Scene();scene.background=new Color('#bcc5c8');
   const camera=new PerspectiveCamera(37,1,.1,150);
   const environment=new PMREMGenerator(renderer),room=new RoomEnvironment();
   const env=environment.fromScene(room,.04,.1,100,{size:compact?64:128});scene.environment=env.texture;scene.environmentIntensity=.38;room.dispose();environment.dispose();
   scene.add(new AmbientLight(0xe4edf4,.15),new HemisphereLight(0xe4eff9,0x665746,.72));
-  const sun=new DirectionalLight(0xffe0ae,2.5);sun.position.set(-11,9,6);sun.castShadow=true;
+  const sun=new DirectionalLight(0xffedce,3.1);sun.position.set(4,12,7);sun.castShadow=true;
   sun.shadow.mapSize.set(compact?512:1024,compact?512:1024);Object.assign(sun.shadow.camera,{left:-17,right:17,top:14,bottom:-14,near:1,far:50});
   sun.shadow.bias=-.0003;sun.shadow.normalBias=.035;scene.add(sun);
   const fill=new DirectionalLight(0xc4d9eb,.38);fill.position.set(10,7,-8);scene.add(fill);
@@ -37,7 +37,7 @@ export function mountFactory(host) {
     const canvas=document.createElement('canvas');canvas.width=canvas.height=256;
     const c=canvas.getContext('2d');let seed=17;
     const random=()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646;};
-    c.fillStyle=kind==='wood'?'#bd996c':'#9caaa9';c.fillRect(0,0,256,256);
+    c.fillStyle=kind==='wood'?'#bd996c':'#a4a5a0';c.fillRect(0,0,256,256);
     for(let i=0;i<2500;i++) {
       c.fillStyle=kind==='wood'?`rgba(80,47,19,${random()*.14})`:`rgba(25,42,40,${random()*.14})`;
       const x=random()*256,y=random()*256;c.fillRect(x,y,kind==='wood'?random()*100+10:random()*3+1,random()*2+.3);
@@ -65,12 +65,12 @@ export function mountFactory(host) {
   }
   const mat=(color,metalness=0,roughness=.65)=>new MeshStandardMaterial({color,metalness,roughness});
   const floorMap = texture('floor');
-  const concrete=new MeshStandardMaterial({color:'#928a7c',map:floorMap,bumpMap:floorMap,bumpScale:.015,roughness:.91});
+  const concrete=new MeshStandardMaterial({color:'#c2c2bb',map:floorMap,bumpMap:floorMap,bumpScale:.015,roughness:.91});
   const wood=new MeshStandardMaterial({map:texture('wood'),roughness:.48});
   const steel=mat('#6b777b',.65,.42),dark=mat('#303a3d',.4,.6),white=mat('#d2d5cc',.22,.48);
-  const blue=mat('#265366',.35,.45),orange=mat('#bd742f',.3,.48),rubber=mat('#252a2b',.05,.95);
-  const yellow=mat('#dbb85a',.1,.7),glass=mat('#8bafbc',.55,.18),paper=mat('#eeece3');
-  const red=mat('#b96847'),green=mat('#51877c'),skin=mat('#bc947a');
+  const blue=mat('#465c62',.38,.42),orange=mat('#ac794b',.28,.52),rubber=mat('#252a2b',.05,.95);
+  const yellow=mat('#dbb85a',.1,.7),glass=mat('#aebec0',.34,.23),paper=mat('#eeece3');
+  const red=mat('#b96847'),green=mat('#51877c');
   const wall=mat('#b7b5a9',.05,.9),duct=mat('#9aabae',.6,.5),cardboard=mat('#af9370',0,.95);
   const lampMaterial=mat('#eee9d9',0,.4);lampMaterial.emissive=new Color('#fff0cc');lampMaterial.emissiveIntensity=.55;
   const screen=mat('#283e42',.1,.4),screenLine=mat('#8dbbb1',.1,.6);
@@ -109,6 +109,18 @@ export function mountFactory(host) {
     box(root,3.8,.13,.25,x+1.8,4.4,-6.7,steel);
   }
   for(let z=-6;z<7;z+=4)box(root,.2,4.6,.2,-11.25,2.1,z,steel);
+  // Translucent clerestory glazing, deep sills and a ribbed loading shutter.
+  glass.emissive.set('#b1c5cc');
+  glass.emissiveIntensity = .48;
+  for (let x = -10; x < 10; x += 4) {
+    box(root, 3.62, .08, .24, x + 1.75, 2.56, -6.65, steel);
+    box(root, 3.5, .034, .1, x + 1.75, 3.25, -6.7, steel);
+  }
+  box(root, 3.7, 2.7, .09, 7.65, 1.35, -6.7, duct);
+  for (let y = .14; y < 2.7; y += .105) {
+    box(root, 3.6, .023, .055, 7.65, y, -6.63, steel);
+  }
+  for (const x of [5.77, 9.53]) box(root, .09, 2.85, .22, x, 1.42, -6.58, dark);
   // Overhead services and suspended luminaires, with the roof removed for visibility.
   for(let x=-8;x<10;x+=6){
     box(root,.16,.2,13,x,4.45,0,steel);
@@ -271,46 +283,27 @@ export function mountFactory(host) {
     slope.rotation.x = side * .14;
     ceiling.add(slope);
     for (let bay = 0; bay < 12; bay++) {
-      box(slope, 1.94, .08, 7.2, -10.9 + bay * 1.96, 0, side * 3.5, bay % 4 === 2 ? skylight : wall);
-    }
-  }
-  ceiling.traverse(part => { if (part.isMesh) { part.castShadow = false; dynamic.add(part); } });
-  const workingArms = [];
-  const denim=mat('#283a48',0,.95), jacket=mat('#505f50',0,.92);
-  const vest=mat('#bf8b30',0,.86), stripe=mat('#bfc2ad',.1,.63);
-
-  // Workers: human proportions, work clothes, arms and safety helmets.
-  const limbGeometry=new CapsuleGeometry(1,3,3,7);
-  const headGeometry=new SphereGeometry(1,10,8);
-  function limb(parent,material,x,y,z,sx,sy,sz,angle=0){
-    const mesh=new Mesh(limbGeometry,material);mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);mesh.rotation.z=angle;mesh.castShadow=true;parent.add(mesh);return mesh;
-  }
-  function worker(x,z,turn=0, assembling=false) {
-    const person=new Group();person.position.set(x,0,z);person.rotation.y=turn;root.add(person);
-    for(let side of [-1,1]){
-      limb(person,denim,side*.106,.52,0,.098,.174,.105);box(person,.17,.12,.3,side*.115,.07,.06,rubber);
-      const shoulder = new Group();
-      shoulder.position.set(side * .26, 1.37, 0);
-      person.add(shoulder);
-      const sleeve = beam(shoulder,[0,0,0],[side*.06,-.28,.14],.084,jacket);
-      const arm = beam(shoulder,[side*.06,-.28,.14],[side*.02,-.33,.39],.055,skin);
-      const hand=limb(shoulder,skin,side*.02,-.335,.395,.047,.026,.055);
-      if (assembling && state === 'after') {
-        dynamic.add(hand);
-        workingArms.push({ shoulder, side });
-        dynamic.add(sleeve);
-        dynamic.add(arm);
+      const isGlazed = bay % 4 === 2;
+      const x = -10.9 + bay * 1.96;
+      const sheet = box(slope, 1.94, .08, 7.2, x, 0, side * 3.5, isGlazed ? skylight : wall);
+      sheet.castShadow = !isGlazed;
+      for (let rib = 0; rib < 5; rib++) {
+        box(slope, .045, .07, 7.14, x - .78 + rib * .39, -.05, side * 3.5, isGlazed ? white : duct);
       }
     }
-    limb(person,denim,0,.88,0,.19,.075,.13);
-    limb(person,jacket,0,1.18,0,.222,.129,.15);
-    limb(person,vest,0,1.2,0,.224,.098,.153);
-    box(person,.405,.035,.267,0,1.11,0,stripe);
-    cylinder(person,.065,.12,0,1.5,0,skin);
-    const head=new Mesh(headGeometry,skin);head.scale.set(.13,.16,.13);head.position.set(0,1.68,0);head.castShadow=true;person.add(head);
-    limb(person,yellow,0,1.82,0,.153,.034,.153);cylinder(person,.2,.025,0,1.8,0,yellow);
   }
-  worker(-4.4,-2,.8);worker(2,-4.4,1.5);worker(3.3,-.39,Math.PI,true);worker(9.6,1.4,Math.PI);
+  const roofParts = new Set();
+  ceiling.traverse(part => { if (part.isMesh) roofParts.add(part); });
+  // Assembly fixtures hold the panels square against steel fences.
+  for (const z of [-4.5, -1.4]) {
+    box(root, 1.95, .075, .045, 3.4, 1.18, z - .38, steel);
+    for (const x of [2.75, 4.05]) {
+      box(root, .085, .055, .45, x, 1.06, z + .49, dark);
+      cylinder(root, .028, .22, x, 1.16, z + .43, steel);
+      beam(root, [x, 1.22, z + .43], [x, 1.22, z + .28], .026, steel);
+      cylinder(root, .044, .045, x, 1.19, z + .28, rubber);
+    }
+  }
   // Separate physical scenarios: a blocked idle line versus staged material and work in progress.
   for(let i=0;i<12;i++){
     const scrap=box(before,1.1,.07,.65,-4.8+(i%3)*.5,.08+Math.floor(i/3)*.09,2.6+Math.floor(i/3)*.5,wood);
@@ -385,7 +378,7 @@ export function mountFactory(host) {
     if(!object.isMesh)return;
     sourceMeshCount++;
     if(dynamic.has(object))return;
-    const key=`${object.geometry.uuid}:${object.material.uuid}:${object.castShadow}`;
+    const key=`${object.geometry.uuid}:${object.material.uuid}:${object.castShadow}:${roofParts.has(object)}`;
     if(!batches.has(key))batches.set(key,[]);
     batches.get(key).push(object);staticMeshes.push(object);
   });
@@ -393,7 +386,7 @@ export function mountFactory(host) {
     const first=meshes[0],batch=new InstancedMesh(first.geometry,first.material,meshes.length);
     batch.castShadow=first.castShadow;batch.receiveShadow=true;
     meshes.forEach((mesh,i)=>batch.setMatrixAt(i,mesh.matrixWorld));
-    batch.instanceMatrix.needsUpdate=true;batch.computeBoundingSphere();scene.add(batch);
+    batch.instanceMatrix.needsUpdate=true;batch.computeBoundingSphere();(roofParts.has(first) ? ceiling : scene).add(batch);
   }
   staticMeshes.forEach(mesh=>mesh.removeFromParent());
   // Small internal metrics support performance QA without adding UI controls.
@@ -411,17 +404,13 @@ export function mountFactory(host) {
   function animateAfter(t) {
     const cycle=t%(STAGE_SECONDS*4),current=Math.floor(cycle/STAGE_SECONDS),local=cycle/STAGE_SECONDS-current;
     setStage(current);
-    for (const { shoulder, side } of workingArms) {
-      shoulder.rotation.x = -.2 + .24 * Math.sin(t * 2.6 + side);
-      shoulder.rotation.z = side * .08 * Math.cos(t * 2.6);
-    }
     tool.position.x=-.7 + (current===1 ? 1.9*Math.sin(local*Math.PI)**2 : 0);
     movingPanel.position.x=current===1?-3.2+local*1.6:current===2?-1.6+local*1.6:-3.2;
     outgoing.position.x=current===3?10.4+Math.min(1,local*1.4)*1.5:10.4;
   }
   let view='floor',visible=false,dead=false,frame=0,paused=false,last=0,time=0,lastRender=0,labelsDirty=true;
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
-  const views={overview:{position:new Vector3(17,15,22),target:new Vector3(0,.6,-.3)},floor:{position:new Vector3(-3.95,1.64,4.95),target:new Vector3(.35,1.45,-3.8)}};
+  const views={overview:{position:new Vector3(17,15,22),target:new Vector3(0,.6,-.3)},floor:{position:new Vector3(-4.45,1.72,4.45),target:new Vector3(-.55,1.45,-3.35)}};
   host.dataset.camera = view;
   camera.position.copy(views.floor.position);const target=views.floor.target.clone();
   function projectLabels() {
@@ -479,7 +468,7 @@ export function mountFactory(host) {
   window.addEventListener('pagehide',function dispose(event){
     if(event.persisted)return;dead=true;cancelAnimationFrame(frame);observer.disconnect();sizing.disconnect();
     story.removeEventListener('click',onClick);document.removeEventListener('visibilitychange',visibility);motion.removeEventListener('change',changeMotion);
-    const geometries=new Set([unitBox,...cylinders.values(),limbGeometry,headGeometry]),materials=new Set();scene.traverse(o=>{if(o.isInstancedMesh)o.dispose();if(o.geometry)geometries.add(o.geometry);if(o.material)materials.add(o.material);});
+    const geometries=new Set([unitBox,...cylinders.values()]),materials=new Set();scene.traverse(o=>{if(o.isInstancedMesh)o.dispose();if(o.geometry)geometries.add(o.geometry);if(o.material)materials.add(o.material);});
     geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());env.dispose();renderer.dispose();
     window.removeEventListener('pagehide',dispose);
   });

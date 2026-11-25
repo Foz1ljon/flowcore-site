@@ -31,7 +31,7 @@
   const themeBtn = $('#themeToggle');
   const currentTheme = () => root.dataset.theme || 'dark';
   const syncThemeLabel = () => {
-    $('#themeColor').content = currentTheme() === 'dark' ? '#050a0e' : '#fafafa';
+    $('#themeColor').content = currentTheme() === 'dark' ? '#050a0e' : '#f5f8f7';
     themeBtn.setAttribute('aria-label', t(currentTheme() === 'dark' ? 'Kunduzgi rejimga o‘tish' : 'Tungi rejimga o‘tish'));
   };
   const applyTheme = (theme) => {
@@ -861,7 +861,11 @@
       }
     }
   },{rootMargin:'300px'});
-  hosts.forEach(host=>observer.observe(host));
+  for (const host of hosts) {
+    const model = host.closest('details');
+    if (!model || model.open) observer.observe(host);
+    else model.addEventListener('toggle', () => observer.observe(host), {once:true});
+  }
 })();
 
 /* Module grid: hovering or focusing a module card shows it in the large panel. */

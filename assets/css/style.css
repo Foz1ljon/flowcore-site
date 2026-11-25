@@ -2541,6 +2541,25 @@ html:not(.js) .assembly-result { position: static; margin-top: 270px; opacity: 1
   .factory-comparison .factory-narrative { padding: 16px 0; }
 }
 
+/* Both photographs keep the same crop so the stock difference reads immediately. */
+.workshop-frame { position: relative; isolation: isolate; overflow: hidden; border-radius: 12px; background: #2b302f; }
+.workshop-photo { position: relative; margin: 0; }
+.workshop-photo img { display: block; width: 100%; height: auto; }
+.workshop-photo figcaption { position: absolute; inset: auto 0 0; padding: 42px 20px 16px; display: grid; color: white; background: linear-gradient(transparent, rgb(12 19 20 / 77%)); }
+.workshop-photo figcaption span { font-size: 12px; }
+.workshop-photo strong { font: 500 clamp(28px,3vw,42px)/1.15 var(--f-body); letter-spacing: -.045em; }
+.workshop-photo small { font-size: .54em; letter-spacing: 0; }
+.workshop-model > summary { position: absolute; z-index: 2; top: 12px; right: 12px; display: grid; place-items: center; min-height: 44px; padding: 0 16px; cursor: pointer; list-style: none; border: 1px solid #ffffff55; border-radius: 24px; background: #192323ed; color: white; font-size: 12px; }
+.workshop-model > summary::-webkit-details-marker { display: none; }
+.workshop-model > summary:focus-visible { outline: 3px solid white; outline-offset: 2px; }
+.workshop-model:not([open]) summary span:last-child, .workshop-model[open] summary span:first-child,
+.workshop-frame:has(.workshop-model[open]) .workshop-photo { display: none; }
+.workshop-frame .factory-view { height: auto; aspect-ratio: 1182 / 664; }
+@media (max-width: 560px) {
+  .workshop-photo img { aspect-ratio: 4 / 3; object-fit: cover; }
+  .workshop-frame .factory-view { aspect-ratio: 4 / 3; }
+}
+
 /* Sections below the first screen skip rendering until they approach the viewport.
    stack-scroll.js adds .stack-render-all on the first interaction, after which every
    section is laid out normally. */
@@ -2960,3 +2979,38 @@ html:not(.js) .assembly-result { position: static; margin-top: 270px; opacity: 1
   .marketing-page .assembly-finale .hero-title { font-size: clamp(25px, 7svh, 38px); }
   .marketing-page .assembly-finale { gap: 7px; }
 }
+
+/* =====================================================================
+   Light marketing theme (2026-11-25): mirrors the dark platform look —
+   mint-tinted paper, emerald/sky glows, cards lifted off the page.
+   ===================================================================== */
+:root:not([data-theme="dark"]) {
+  --bg: #f5f8f7;
+  --bg-2: #ecf2ef;
+  --surface: #ffffff;
+  --ink: #0f1a17;
+  --ink-2: #44544e;
+  --ink-3: #5e6e68;
+  --line: #dbe5e0;
+  --line-2: #c4d3cc;
+  --glow: rgba(16, 185, 129, .16);
+  --shadow: 0 1px 2px rgba(15, 42, 34, .05), 0 22px 44px -28px rgba(15, 42, 34, .28);
+}
+:root:not([data-theme="dark"]) body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(1200px 600px at 78% -10%, rgba(16, 185, 129, .10), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgba(56, 189, 248, .08), transparent 60%);
+  background-repeat: no-repeat;
+}
+/* Cards: white on tinted paper, separated by a soft shadow instead of a grey border. */
+:root:not([data-theme="dark"]) .marketing-page :is(.platform-card, .platform-feature, .control-card, .delivery-card, .app-card, .lead-form, .industry-choice, .cell, .quiz, .cfg-mods, .cfg-deploy) {
+  box-shadow: var(--shadow);
+}
+@media (hover: hover) and (pointer: fine) {
+  :root:not([data-theme="dark"]) .marketing-page .platform-card:hover { box-shadow: 0 1px 2px rgba(15, 42, 34, .06), 0 28px 50px -26px rgba(15, 42, 34, .36); }
+}
+:root:not([data-theme="dark"]) .stack-scroll main > .stack-card { box-shadow: 0 -1px 0 var(--line), 0 -28px 60px -36px rgba(15, 42, 34, .22); }
+:root:not([data-theme="dark"]) .stack-scroll main > .stack-card:first-child { box-shadow: none; }
+:root:not([data-theme="dark"]) .hero-node { background: rgba(255, 255, 255, .94); box-shadow: 0 10px 24px -14px rgba(15, 42, 34, .35), inset 3px 0 0 var(--node); }
+:root:not([data-theme="dark"]) .hero-art::after { background: radial-gradient(closest-side, rgba(15, 42, 34, .22), transparent); }

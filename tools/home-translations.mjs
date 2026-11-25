@@ -1,8 +1,14 @@
 // Shared home markup lives in index.html. Translate complete text nodes so that
 // translation cannot alter elements, selectors or interactive control values.
 export const homeTranslations = new Map([
+  ['Sexni 3D ko‘rish', ['Explore in 3D', 'Посмотреть цех в 3D']],
+  ['Kadrga qaytish', ['Back to photo', 'Вернуться к кадру']],
+  ['Ombordagi panellar', ['Panels in stock', 'Панели на складе']],
+  ['CNC stanogining bo‘sh uzatish stoli.', ['Empty infeed table at the CNC machine.', 'Пустой подающий стол станка с ЧПУ.']],
+  ['O‘sha stanok yonida taxlangan panellar va kesishga uzatilgan list.', ['Panels stacked beside the same machine, with one sheet ready for cutting.', 'Панели сложены у того же станка, один лист подан на раскрой.']],
+  ['Tasvirlar bitta mebel buyurtmasi misolida yaratilgan. Xarid, kirim, bajarilgan ish va jo‘natish xodimlar tomonidan qayd etiladi. Bu real mijoz natijasi emas.', ['The images illustrate a sample furniture order. Staff record purchases, receipts, completed work and dispatch. This is an illustrative scenario.', 'Кадры иллюстрируют пример мебельного заказа. Сотрудники фиксируют закупки, поступления, выполненные работы и отгрузку. Это демонстрационный сценарий.']],
   ['Bevosita bog‘lanish', ['Contact us directly', 'Прямая связь']],
-  ['Zavod misolini ko‘ring', ['See the factory example', 'Посмотреть пример завода']],
+  ['Bo‘limlarni ko‘ring', ['Explore the modules', 'Посмотреть модули']],
   ['Interaktiv namuna uchun ro‘yxatdan o‘tish shart emas.', ['No signup required for the interactive example.', 'Интерактивный пример доступен без регистрации.']],
   ['Bo‘limlarni ko‘rish', ['Explore modules', 'Посмотреть модули']],
   ['Bo‘limlarni ko‘rib chiqish', ['Browse modules', 'Посмотреть модули']],
